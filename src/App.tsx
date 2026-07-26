@@ -137,12 +137,6 @@ export default function App() {
       <main>
         {activeTab === 'beranda' && (
           <>
-            <ProgramCardsSection
-              programs={state.programs}
-              openDonationForProgram={handleOpenDonationForProgram}
-              onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
-            />
-
             <HeroSection
               totalCollected={totalCollected}
               activeDonors={activeDonors}
@@ -152,6 +146,12 @@ export default function App() {
               openCalculator={() => setCalculatorModalOpen(true)}
               openDigitalIbadah={handleOpenDigitalIbadah}
               openCatalogPdf={() => setCatalogPdfOpen(true)}
+            />
+
+            <ProgramCardsSection
+              programs={state.programs}
+              openDonationForProgram={handleOpenDonationForProgram}
+              onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
             />
 
             <FridayAgendaSection

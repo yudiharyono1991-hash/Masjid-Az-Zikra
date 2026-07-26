@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AzzikraBrandLogo } from './AzzikraBrandLogo';
 import {
   TrendingUp,
@@ -26,6 +26,12 @@ interface HeroSectionProps {
   openCatalogPdf?: () => void;
 }
 
+const HERO_BACKGROUNDS = [
+  '/masjid-azzikra-hero.jpg',
+  'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1920&q=80'
+];
+
 export const HeroSection: React.FC<HeroSectionProps> = ({
   totalCollected,
   activeDonors,
@@ -36,13 +42,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   openDigitalIbadah,
   openCatalogPdf
 }) => {
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBgIndex((prev) => (prev + 1) % HERO_BACKGROUNDS.length);
+    }, 6000); // Change image every 6 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-[#022C22] text-white py-12 md:py-20 border-b border-emerald-900">
-      {/* Background Image of Masjid Az-Zikra Sentul */}
-      <div className="absolute inset-0 z-0 opacity-80 bg-cover bg-center scale-105 pointer-events-none transition-transform duration-1000"
-           style={{ backgroundImage: `url('/masjid-azzikra-hero.jpg')` }}>
-      </div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/30 via-[#043927]/50 to-[#022C22] pointer-events-none" />
+    <section className="relative overflow-hidden bg-[#022C22] text-white py-12 md:py-20 border-b border-emerald-900 min-h-[90vh] flex flex-col justify-center">
+      {/* Background Image Carousel */}
+      {HERO_BACKGROUNDS.map((bg, index) => (
+        <div
+          key={bg}
+          className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
+            index === currentBgIndex ? 'opacity-80 scale-100' : 'opacity-0 scale-105 pointer-events-none'
+          }`}
+          style={{ backgroundImage: `url('${bg}')` }}
+        />
+      ))}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/40 via-[#043927]/60 to-[#022C22] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}
