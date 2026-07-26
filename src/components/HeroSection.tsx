@@ -39,10 +39,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section className="relative overflow-hidden bg-[#022C22] text-white py-12 md:py-20 border-b border-emerald-900">
       {/* Background Image of Masjid Az-Zikra Sentul */}
-      <div className="absolute inset-0 z-0 opacity-50 bg-cover bg-center scale-105 pointer-events-none transition-transform duration-1000"
+      <div className="absolute inset-0 z-0 opacity-80 bg-cover bg-center scale-105 pointer-events-none transition-transform duration-1000"
            style={{ backgroundImage: `url('/masjid-azzikra-hero.jpg')` }}>
       </div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/60 via-[#043927]/70 to-[#022C22] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/30 via-[#043927]/50 to-[#022C22] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}
