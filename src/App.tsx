@@ -137,6 +137,12 @@ export default function App() {
       <main>
         {activeTab === 'beranda' && (
           <>
+            <ProgramCardsSection
+              programs={state.programs}
+              openDonationForProgram={handleOpenDonationForProgram}
+              onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
+            />
+
             <HeroSection
               totalCollected={totalCollected}
               activeDonors={activeDonors}
@@ -151,12 +157,6 @@ export default function App() {
             <FridayAgendaSection
               petugasList={state.petugas}
               isDark={isDark}
-            />
-
-            <ProgramCardsSection
-              programs={state.programs}
-              openDonationForProgram={handleOpenDonationForProgram}
-              onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
             />
 
             <PatunganQurbanSection

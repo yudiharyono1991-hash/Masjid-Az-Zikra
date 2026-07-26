@@ -75,57 +75,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </button>
         </div>
 
-        {/* Hero Title & Headline */}
-        <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-6">
-          <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
-            Ekosistem Digital Masjid Az-Zikra Sentul
-          </div>
-
-          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-serif text-white leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg">
-            Pusat Peradaban Islam &amp; <br className="hidden sm:inline" /> Kesejahteraan Umat
-            <span className="block font-serif italic font-semibold text-amber-300 mt-2 text-xl sm:text-4xl lg:text-5xl">
-              Melalui Optimalisasi ZISWAF, Dakwah &amp; Zikir
-            </span>
-          </h1>
-
-          <p className="text-emerald-100 text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2">
-            Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Az-Zikra Sentul untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
-            <span className="block mt-1.5 font-bold text-amber-300 font-mono text-[10px] sm:text-xs tracking-wider">
-              #ZISWAFMasjidAzZikraSentul
-            </span>
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 pt-2">
-            <button
-              onClick={() => openDonationModal()}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer border border-emerald-400/40 w-full sm:w-auto"
-            >
-              <HeartHandshake className="w-4 h-4 text-amber-300 shrink-0" />
-              <span>Daftar Program / Donasi</span>
-              <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
-            </button>
-
-            <button
-              onClick={openCalculator}
-              className="bg-emerald-950/90 hover:bg-emerald-900 text-amber-300 border border-amber-500/40 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md w-full sm:w-auto"
-            >
-              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Hitung Zakat</span>
-            </button>
-
-            {openCatalogPdf && (
-              <button
-                onClick={openCatalogPdf}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md backdrop-blur-sm w-full sm:w-auto"
-              >
-                <FileText className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>Katalog PDF</span>
-              </button>
-            )}
-          </div>
-        </div>
-
         {/* KPI Metrics Dashboard Bar */}
         <div className="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
           {/* Metric 1 */}
@@ -225,7 +174,58 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      \n\n        {/* Hero Title & Headline */}
+        <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-6">
+          <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
+            Ekosistem Digital Masjid Az-Zikra Sentul
+          </div>
+
+          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-serif text-white leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg">
+            Pusat Peradaban Islam &amp; <br className="hidden sm:inline" /> Kesejahteraan Umat
+            <span className="block font-serif italic font-semibold text-amber-300 mt-2 text-xl sm:text-4xl lg:text-5xl">
+              Melalui Optimalisasi ZISWAF, Dakwah &amp; Zikir
+            </span>
+          </h1>
+
+          <p className="text-emerald-100 text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2">
+            Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Az-Zikra Sentul untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
+            <span className="block mt-1.5 font-bold text-amber-300 font-mono text-[10px] sm:text-xs tracking-wider">
+              #ZISWAFMasjidAzZikraSentul
+            </span>
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 pt-2">
+            <button
+              onClick={() => openDonationModal()}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer border border-emerald-400/40 w-full sm:w-auto"
+            >
+              <HeartHandshake className="w-4 h-4 text-amber-300 shrink-0" />
+              <span>Daftar Program / Donasi</span>
+              <ArrowRight className="w-4 h-4 ml-1 shrink-0" />
+            </button>
+
+            <button
+              onClick={openCalculator}
+              className="bg-emerald-950/90 hover:bg-emerald-900 text-amber-300 border border-amber-500/40 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md w-full sm:w-auto"
+            >
+              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Hitung Zakat</span>
+            </button>
+
+            {openCatalogPdf && (
+              <button
+                onClick={openCatalogPdf}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md backdrop-blur-sm w-full sm:w-auto"
+              >
+                <FileText className="w-4 h-4 text-emerald-300 shrink-0" />
+                <span>Katalog PDF</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+</div>
     </section>
   );
 };
