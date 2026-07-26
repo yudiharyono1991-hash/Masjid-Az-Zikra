@@ -62,6 +62,10 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
   const [doaSearch, setDoaSearch] = useState<string>('');
   const [doaCategory, setDoaCategory] = useState<string>('Semua');
 
+  // Quran Ayah State
+  const [currentAyahs, setCurrentAyahs] = useState<any[]>([]);
+  const [isLoadingAyahs, setIsLoadingAyahs] = useState<boolean>(true);
+
   // Audio HTML5 Ref
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const ayahRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
@@ -73,13 +77,40 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
   // Handle Surah change or audio end
   const currentSurah = SURAHS_LIST.find(s => s.number === selectedSurahNumber) || SURAHS_LIST[0];
   
-  // Sample ayahs for selected surah (Al-Fatihah or generated for demo)
-  const currentAyahs = selectedSurahNumber === 1 ? SAMPLE_AYAHS_ALFATIHAH : Array.from({ length: currentSurah.ayahsCount }, (_, i) => ({
-    numberInSurah: i + 1,
-    text: i === 0 ? "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" : `وَالَّذِينَ يُؤْمِنُونَ بِمَا أُنْزِلَ إِلَيْكَ وَمَا أُنْزِلَ مِنْ قَبْلِكَ (${i + 1})`,
-    translation: i === 0 ? "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang." : `Dan mereka yang beriman kepada Al-Qur'an yang diturunkan kepadamu dan yang diturunkan sebelummu. (Ayat ${i + 1})`,
-    latin: i === 0 ? "Bismillaahir-rahmaanir-rahiim" : `Wa-l-ladzina yu'minuna bima unzila ilaika wa ma unzila min qablik (${i + 1})`
-  }));
+  // Fetch real ayahs for selected surah
+  useEffect(() => {
+    let isMounted = true;
+    const fetchAyahs = async () => {
+      setIsLoadingAyahs(true);
+      try {
+        const response = await fetch(`https://api.alquran.cloud/v1/surah/${selectedSurahNumber}/editions/quran-uthmani,id.indonesian,en.transliteration`);
+        const result = await response.json();
+        
+        if (result.code === 200 && isMounted) {
+          const ar = result.data[0].ayahs;
+          const id = result.data[1].ayahs;
+          const lat = result.data[2].ayahs;
+          
+          const formattedAyahs = ar.map((ayah: any, index: number) => ({
+            numberInSurah: ayah.numberInSurah,
+            text: ayah.text,
+            translation: id[index].text,
+            latin: lat[index].text
+          }));
+          
+          setCurrentAyahs(formattedAyahs);
+        }
+      } catch (error) {
+        console.error("Failed to fetch surah data", error);
+      } finally {
+        if (isMounted) setIsLoadingAyahs(false);
+      }
+    };
+    
+    fetchAyahs();
+    
+    return () => { isMounted = false; };
+  }, [selectedSurahNumber]);
 
   // Auto Scroll active ayah into view
   useEffect(() => {
@@ -398,7 +429,12 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
 
                 {/* Ayahs Stream */}
                 <div className="space-y-4 max-h-[420px] overflow-y-auto pr-1">
-                  {currentAyahs.map((a, idx) => {
+                  {isLoadingAyahs ? (
+                    <div className="p-8 text-center text-emerald-400 space-y-4">
+                      <div className="w-8 h-8 mx-auto border-4 border-emerald-400/30 border-t-amber-400 rounded-full animate-spin"></div>
+                      <p className="text-xs font-mono animate-pulse">Memuat ayat...</p>
+                    </div>
+                  ) : currentAyahs.map((a, idx) => {
                     const isActive = isPlayingAudio && activeAyahIndex === idx;
                     return (
                       <div
