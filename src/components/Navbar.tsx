@@ -242,7 +242,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               Galeri & Kajian
             </button>
-            {session.role === 'pengurus_dkm' && (
+            {session && ['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(session.role) && (
               <button
                 onClick={() => setActiveTab('dkm_portal')}
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
@@ -292,18 +292,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-mono text-[10px] uppercase tracking-wider">Hitung Zakat</span>
             </button>
 
-            {/* Supabase & Settings */}
-            <button
-              onClick={openSupabaseModal}
-              className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
-                isDark
-                  ? 'bg-emerald-900 hover:bg-emerald-800 text-white border-emerald-700'
-                  : 'bg-white hover:bg-emerald-50 text-emerald-900 border-emerald-200'
-              }`}
-              title="Pengaturan Database Supabase / Local"
-            >
-              <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </button>
+            {/* Supabase & Settings (Only for Admin/Ketua DKM) */}
+            {session && ['admin_masjid', 'ketua_dkm'].includes(session.role) && (
+              <button
+                onClick={openSupabaseModal}
+                className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
+                  isDark
+                    ? 'bg-emerald-900 hover:bg-emerald-800 text-white border-emerald-700'
+                    : 'bg-white hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+                }`}
+                title="Pengaturan Database Supabase / Local"
+              >
+                <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </button>
+            )}
 
             {/* User Login Portal Button */}
             <button
@@ -434,7 +436,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-[10px] font-mono font-normal text-amber-300">Video & Foto</span>
               </button>
 
-              {session.role === 'pengurus_dkm' && (
+              {session && ['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(session.role) && (
                 <button
                   onClick={() => { setActiveTab('dkm_portal'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="w-full text-left px-3.5 py-2.5 rounded-xl text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 font-bold uppercase tracking-wider flex items-center justify-between border border-amber-500/40 col-span-1 sm:col-span-2"

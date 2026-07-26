@@ -78,8 +78,8 @@ export const AzzikraBrandLogo: React.FC<AzzikraBrandLogoProps> = ({
             SENTUL
           </span>
         </div>
-        <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] opacity-70 font-mono font-bold text-amber-600 dark:text-amber-400 line-clamp-1">
-          MASJID &amp; KAMPUNG SUNNAH
+        <p className="text-[7.5px] sm:text-[9px] uppercase tracking-wider sm:tracking-[0.15em] opacity-80 font-mono font-bold text-amber-600 dark:text-amber-400 whitespace-nowrap">
+          Masjid &amp; Kampung Sunnah
         </p>
       </div>
     </div>

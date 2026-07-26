@@ -39,8 +39,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section className="relative overflow-hidden bg-[#022C22] text-white py-12 md:py-20 border-b border-emerald-900">
       {/* Background Image of Masjid Az-Zikra Sentul */}
-      <div className="absolute inset-0 z-0 opacity-20 bg-cover bg-center mix-blend-luminosity scale-105 pointer-events-none transition-transform duration-1000"
-           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1920&q=80')` }}>
+      <div className="absolute inset-0 z-0 opacity-25 bg-cover bg-center mix-blend-luminosity scale-105 pointer-events-none transition-transform duration-1000"
+           style={{ backgroundImage: `url('/masjid-azzikra-hero.jpg')` }}>
       </div>
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#064E3B]/95 via-[#043927]/95 to-[#022C22] pointer-events-none" />
 
@@ -81,10 +81,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             Ekosistem Digital Masjid Az-Zikra Sentul
           </div>
 
-          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-serif text-white leading-snug sm:leading-[1.15] tracking-tight">
-            Wujudkan Kesejahteraan Berkelanjutan <br className="hidden sm:inline" />
-            <span className="font-serif italic font-semibold text-amber-300">
-              Melalui Optimalisasi ZISWAF & Zikir
+          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-serif text-white leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg">
+            Pusat Peradaban Islam &amp; <br className="hidden sm:inline" /> Kesejahteraan Umat
+            <span className="block font-serif italic font-semibold text-amber-300 mt-2 text-xl sm:text-4xl lg:text-5xl">
+              Melalui Optimalisasi ZISWAF, Dakwah &amp; Zikir
             </span>
           </h1>
 
