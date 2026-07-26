@@ -16,7 +16,6 @@ import {
 import { formatRupiah } from '../lib/islamicUtils';
 
 interface HeroSectionProps {
-interface HeroSectionProps {
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
 }
 
