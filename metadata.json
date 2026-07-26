@@ -1,0 +1,6 @@
+{
+  "name": "Masjid Az-Zikra Sentul - Platform Digital Masjid Modern & ZISWAF",
+  "description": "Aplikasi Manajemen Masjid Modern Az-Zikra Sentul, Portal Keanggotaan, ZISWAF, Kalkulator Zakat, Al-Qur'an Digital Audio Murottal, Sejarah Masjid, Jadwal Salat, Laporan Keuangan, dan Mode Display TV Masjid.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
