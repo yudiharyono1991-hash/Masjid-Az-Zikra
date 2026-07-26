@@ -20,6 +20,7 @@ import { EdukasiZiswafSection } from './components/EdukasiZiswafSection';
 import { FridayAgendaSection } from './components/FridayAgendaSection';
 import { PatunganQurbanSection } from './components/PatunganQurbanSection';
 import { SejarahAzzikraSection } from './components/SejarahAzzikraSection';
+import { SocialMediaSection } from './components/SocialMediaSection';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
 
@@ -273,6 +274,9 @@ export default function App() {
           />
         )}
       </main>
+
+      {/* Social Media Section */}
+      <SocialMediaSection />
 
       {/* 3. Footer */}
       <Footer
