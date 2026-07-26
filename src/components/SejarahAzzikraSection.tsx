@@ -9,7 +9,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
   const [activeTab, setActiveTab] = useState<'sejarah' | 'arsitektur' | 'kegiatan' | 'pendiri'>('sejarah');
 
   return (
-    <section className={`py-12 md:py-20 ${isDark ? 'bg-slate-950 text-white' : 'bg-stone-50 text-slate-900'} border-b border-slate-200 dark:border-slate-800 transition-colors`}>
+    <section className={`py-12 md:py-20 ${isDark ? 'bg-emerald-950 text-white' : 'bg-stone-50 text-emerald-900'} border-b border-emerald-200 dark:border-emerald-800 transition-colors`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -18,45 +18,45 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
             <span>Wisata Religi & Warisan Ulama</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-emerald-900 dark:text-white leading-tight">
             Menelusuri Sejarah & Keagungan <br />
             <span className="italic text-emerald-700 dark:text-emerald-400">Masjid Az-Zikra Sentul</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+          <p className="text-sm sm:text-base text-emerald-600 dark:text-emerald-300 leading-relaxed font-sans">
             Pusat Zikir Akbar, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kampung Sunnah Az-Zikra, Bukit Sentul, Kabupaten Bogor.
           </p>
         </div>
 
         {/* Feature Banner Photo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 group min-h-[320px]">
+          <div className="md:col-span-2 relative rounded-3xl overflow-hidden shadow-2xl border border-emerald-200 dark:border-emerald-800 group min-h-[320px]">
             <img
               src="https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80"
               alt="Masjid Az-Zikra Sentul Megah"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/40 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/40 w-fit mb-2">
                 Kampung Sunnah Sentul
               </span>
               <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
                 Kubah Putih Megah & Menara Menjulang 50 Meter
               </h3>
-              <p className="text-xs sm:text-sm text-slate-200 mt-2 line-clamp-2">
+              <p className="text-xs sm:text-sm text-emerald-200 mt-2 line-clamp-2">
                 Didirikan di atas lahan seluas 5 hektar di Bukit Sentul, Babakan Madang, Bogor. Mampu menampung hingga 22.000 jamaah Zikir Akbar.
               </p>
             </div>
           </div>
 
           <div className="space-y-6 flex flex-col justify-between">
-            <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-3">
+            <div className="p-6 rounded-3xl bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-800 shadow-md space-y-3">
               <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
                 📍
               </div>
               <div>
-                <h4 className="font-serif font-bold text-slate-900 dark:text-white text-base">Lokasi Strategis</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                <h4 className="font-serif font-bold text-emerald-900 dark:text-white text-base">Lokasi Strategis</h4>
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 leading-relaxed">
                   Kampung Sunnah Az-Zikra, Perumahan Bukit Sentul, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
                 </p>
               </div>
@@ -80,7 +80,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
         </div>
 
         {/* Tab Navigation for History details */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 gap-2 overflow-x-auto pb-1">
+        <div className="flex border-b border-emerald-200 dark:border-emerald-800 gap-2 overflow-x-auto pb-1">
           {[
             { id: 'sejarah', label: '1. Sejarah Pendirian', icon: History },
             { id: 'pendiri', label: '2. KH. Muhammad Arifin Ilham', icon: Award },
@@ -95,7 +95,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                 className={`py-3 px-5 rounded-2xl text-xs font-mono font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                   activeTab === tab.id
                     ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-700/20'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800'
+                    : 'bg-white dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400 hover:text-emerald-900 border border-emerald-200 dark:border-emerald-800'
                 }`}
               >
                 <IconComp className="w-4 h-4" />
@@ -106,7 +106,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
         </div>
 
         {/* Tab Content Box */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl space-y-6">
+        <div className="bg-white dark:bg-emerald-900 rounded-3xl border border-emerald-200 dark:border-emerald-800 p-6 sm:p-10 shadow-xl space-y-6">
           {activeTab === 'sejarah' && (
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -114,14 +114,14 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   <History className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-serif font-bold text-emerald-900 dark:text-white">
                     Awal Mula Pendirian Masjid Az-Zikra Sentul
                   </h3>
-                  <p className="text-xs text-slate-500 font-mono">Pusat Dakwah & Zikir Akbar Sejak Tahun 2009</p>
+                  <p className="text-xs text-emerald-500 font-mono">Pusat Dakwah & Zikir Akbar Sejak Tahun 2009</p>
                 </div>
               </div>
 
-              <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3 font-sans">
+              <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed space-y-3 font-sans">
                 <p>
                   Masjid Az-Zikra Sentul dibangun atas prakarsa almarhum KH. Muhammad Arifin Ilham bersama Yayasan Majelis Az-Zikra. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah zikir yang selalu memadati kegiatan Zikir Akbar bulanan.
                 </p>
@@ -130,21 +130,21 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-emerald-100 dark:border-emerald-800">
+                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
                   <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase">Luas Lahan</p>
-                  <p className="text-lg font-bold font-serif text-slate-900 dark:text-white mt-1">± 5 Hektar</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Termasuk kompleks pesantren & sekolah</p>
+                  <p className="text-lg font-bold font-serif text-emerald-900 dark:text-white mt-1">± 5 Hektar</p>
+                  <p className="text-[11px] text-emerald-500 mt-0.5">Termasuk kompleks pesantren & sekolah</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
                   <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase">Kawasan</p>
-                  <p className="text-lg font-bold font-serif text-slate-900 dark:text-white mt-1">Kampung Sunnah</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Pemukiman bernuansa islami</p>
+                  <p className="text-lg font-bold font-serif text-emerald-900 dark:text-white mt-1">Kampung Sunnah</p>
+                  <p className="text-[11px] text-emerald-500 mt-0.5">Pemukiman bernuansa islami</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
                   <p className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase">Layanan Mualaf</p>
-                  <p className="text-lg font-bold font-serif text-slate-900 dark:text-white mt-1">Muallaf Center</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Pembinaan & advokasi ribuan mualaf</p>
+                  <p className="text-lg font-bold font-serif text-emerald-900 dark:text-white mt-1">Muallaf Center</p>
+                  <p className="text-[11px] text-emerald-500 mt-0.5">Pembinaan & advokasi ribuan mualaf</p>
                 </div>
               </div>
             </div>
@@ -157,14 +157,14 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   <Award className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-serif font-bold text-emerald-900 dark:text-white">
                     Almarhum KH. Muhammad Arifin Ilham (Pendiri)
                   </h3>
-                  <p className="text-xs text-slate-500 font-mono">Tokoh Pemersatu & Dai Zikir Akbar Indonesia</p>
+                  <p className="text-xs text-emerald-500 font-mono">Tokoh Pemersatu & Dai Zikir Akbar Indonesia</p>
                 </div>
               </div>
 
-              <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3 font-sans">
+              <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed space-y-3 font-sans">
                 <p>
                   KH. Muhammad Arifin Ilham dikenal dengan kelembutan tutur kata dan seruan zikirnya yang menggetarkan hati jutaan umat Islam di Indonesia. Beliau mempopulerkan gerakan Zikir Bersama yang dihadiri oleh berbagai lapisan masyarakat, pejabat, ulama, hingga rakyat biasa tanpa sekat.
                 </p>
@@ -189,14 +189,14 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   <Compass className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-serif font-bold text-emerald-900 dark:text-white">
                     Arsitektur Berbalut Warna Putih Suci
                   </h3>
-                  <p className="text-xs text-slate-500 font-mono">Desain Klasik Islami & Pencahayaan Alami</p>
+                  <p className="text-xs text-emerald-500 font-mono">Desain Klasik Islami & Pencahayaan Alami</p>
                 </div>
               </div>
 
-              <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3 font-sans">
+              <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed space-y-3 font-sans">
                 <p>
                   Warna dominan **putih bersih** menjadi ciri khas visual Masjid Az-Zikra Sentul. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam zikir.
                 </p>
@@ -214,23 +214,23 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   <Users className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-serif font-bold text-emerald-900 dark:text-white">
                     Pusat Kegiatan Keumatan & Zikrukah Bulanan
                   </h3>
-                  <p className="text-xs text-slate-500 font-mono">Dzikir Akbar, Pesantren, dan ZISWAF</p>
+                  <p className="text-xs text-emerald-500 font-mono">Dzikir Akbar, Pesantren, dan ZISWAF</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-stone-50 dark:bg-slate-950 space-y-1.5">
-                  <h4 className="font-bold text-slate-900 dark:text-white font-serif text-sm">Zikir Akbar Ahad Pertama</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <div className="p-4 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-stone-50 dark:bg-emerald-950 space-y-1.5">
+                  <h4 className="font-bold text-emerald-900 dark:text-white font-serif text-sm">Zikir Akbar Ahad Pertama</h4>
+                  <p className="text-emerald-600 dark:text-emerald-400 leading-relaxed">
                     Setiap hari Ahad minggu pertama setiap bulan, puluhan ribu jamaah dari seluruh Indonesia berkumpul untuk menghadiri Dzikir Akbar & Tausiyah Subuh.
                   </p>
                 </div>
-                <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-stone-50 dark:bg-slate-950 space-y-1.5">
-                  <h4 className="font-bold text-slate-900 dark:text-white font-serif text-sm">Pondok Pesantren Az-Zikra</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <div className="p-4 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-stone-50 dark:bg-emerald-950 space-y-1.5">
+                  <h4 className="font-bold text-emerald-900 dark:text-white font-serif text-sm">Pondok Pesantren Az-Zikra</h4>
+                  <p className="text-emerald-600 dark:text-emerald-400 leading-relaxed">
                     Mendidik ratusan santri penghafal Al-Qur'an (Tahfidz) dan kader ustadz yang dibekali akhlakul karimah serta jiwa kewirausahaan syariah.
                   </p>
                 </div>

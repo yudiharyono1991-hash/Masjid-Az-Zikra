@@ -97,7 +97,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
   return (
     <section className={`py-12 sm:py-16 transition-colors duration-300 ${
-      isDark ? 'bg-[#080E1A] text-slate-100' : 'bg-slate-50 text-slate-900'
+      isDark ? 'bg-[#080E1A] text-emerald-100' : 'bg-emerald-50 text-emerald-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
@@ -129,7 +129,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
         {/* Filter Controls Bar */}
         <div className={`p-4 sm:p-6 rounded-2xl border backdrop-blur-md shadow-lg space-y-5 ${
-          isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-white border-slate-200'
+          isDark ? 'bg-emerald-900/90 border-emerald-800' : 'bg-white border-emerald-200'
         }`}>
           {/* Top Row: Type Pills & Search Box */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -141,7 +141,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeType === 'all'
                     ? 'bg-emerald-600 text-white shadow-md'
-                    : isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : isDark ? 'bg-emerald-800 text-emerald-300 hover:bg-emerald-700' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                 }`}
               >
                 Semua Media
@@ -151,7 +151,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeType === 'video'
                     ? 'bg-emerald-600 text-white shadow-md'
-                    : isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : isDark ? 'bg-emerald-800 text-emerald-300 hover:bg-emerald-700' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                 }`}
               >
                 <Video className="w-3.5 h-3.5 text-amber-400" />
@@ -162,7 +162,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeType === 'photo'
                     ? 'bg-emerald-600 text-white shadow-md'
-                    : isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : isDark ? 'bg-emerald-800 text-emerald-300 hover:bg-emerald-700' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                 }`}
               >
                 <ImageIcon className="w-3.5 h-3.5 text-emerald-300" />
@@ -173,7 +173,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeType === 'artikel'
                     ? 'bg-emerald-600 text-white shadow-md'
-                    : isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : isDark ? 'bg-emerald-800 text-emerald-300 hover:bg-emerald-700' : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5 text-emerald-400" />
@@ -183,7 +183,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
             {/* Search Input */}
             <div className="relative w-full md:w-80">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-400" />
               <input
                 type="text"
                 placeholder="Cari judul, ustadz, atau kata kunci..."
@@ -191,8 +191,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 onChange={e => setSearchQuery(e.target.value)}
                 className={`w-full pl-10 pr-4 py-2.5 rounded-xl text-xs outline-none transition-colors border ${
                   isDark
-                    ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-emerald-400'
-                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-emerald-600'
+                    ? 'bg-emerald-950 border-emerald-700 text-white placeholder-slate-500 focus:border-emerald-400'
+                    : 'bg-emerald-50 border-emerald-300 text-emerald-900 placeholder-slate-400 focus:border-emerald-600'
                 }`}
               />
             </div>
@@ -209,8 +209,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1 rounded-full whitespace-nowrap transition-all font-medium cursor-pointer text-xs ${
                   selectedCategory === cat
-                    ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
-                    : isDark ? 'bg-slate-800/80 text-slate-300 hover:bg-slate-700' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'
+                    ? 'bg-amber-500 text-emerald-950 font-bold shadow-sm'
+                    : isDark ? 'bg-emerald-800/80 text-emerald-300 hover:bg-emerald-700' : 'bg-emerald-200/80 text-emerald-700 hover:bg-emerald-300'
                 }`}
               >
                 {cat === 'all' ? 'Semua Kategori' : cat}
@@ -222,11 +222,11 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
         {/* Gallery Cards Grid */}
         {filteredItems.length === 0 ? (
           <div className={`text-center py-16 rounded-2xl border ${
-            isDark ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'
+            isDark ? 'bg-emerald-900/50 border-emerald-800' : 'bg-white border-emerald-200'
           }`}>
-            <ImageIcon className="w-12 h-12 mx-auto text-slate-400 mb-3 opacity-60" />
+            <ImageIcon className="w-12 h-12 mx-auto text-emerald-400 mb-3 opacity-60" />
             <h3 className="text-lg font-serif font-bold">Tidak Ada Dokumentasi Ditemukan</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+            <p className="text-xs text-emerald-400 mt-1 max-w-sm mx-auto">
               Coba sesuaikan kata kunci pencarian atau ubah filter kategori media yang Anda pilih.
             </p>
           </div>
@@ -240,19 +240,19 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   onClick={() => openItemModal(item)}
                   className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col cursor-pointer shadow-md hover:-translate-y-1 hover:shadow-xl ${
                     isDark
-                      ? 'bg-slate-900/90 border-slate-800 hover:border-emerald-400/60'
-                      : 'bg-white border-slate-200 hover:border-emerald-600'
+                      ? 'bg-emerald-900/90 border-emerald-800 hover:border-emerald-400/60'
+                      : 'bg-white border-emerald-200 hover:border-emerald-600'
                   }`}
                 >
                   {/* Media Thumbnail Container */}
-                  <div className="relative h-52 overflow-hidden bg-slate-950">
+                  <div className="relative h-52 overflow-hidden bg-emerald-950">
                     <img
                       src={item.mediaUrl}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/20 to-transparent" />
 
                     {/* Top Badges */}
                     <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
@@ -265,7 +265,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                         item.mediaType === 'video'
                           ? 'bg-rose-600 text-white'
                           : item.mediaType === 'photo'
-                          ? 'bg-amber-500 text-slate-950'
+                          ? 'bg-amber-500 text-emerald-950'
                           : 'bg-emerald-600 text-white'
                       }`}>
                         {item.mediaType === 'video' && <Video className="w-3 h-3" />}
@@ -312,13 +312,13 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                       }`}>
                         {item.title}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed font-sans">
+                      <p className="text-xs text-emerald-400 mt-2 line-clamp-3 leading-relaxed font-sans">
                         {item.summary}
                       </p>
                     </div>
 
                     {/* Tags & Action Bar */}
-                    <div className="space-y-3 pt-3 border-t border-slate-800/60">
+                    <div className="space-y-3 pt-3 border-t border-emerald-800/60">
                       {item.tags && item.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1">
                           {item.tags.map(t => (
@@ -329,7 +329,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                         </div>
                       )}
 
-                      <div className="flex items-center justify-between text-xs text-slate-400 pt-1 font-mono">
+                      <div className="flex items-center justify-between text-xs text-emerald-400 pt-1 font-mono">
                         <div className="flex items-center gap-3">
                           <span className="flex items-center gap-1">
                             <Eye className="w-3.5 h-3.5 text-emerald-300" />
@@ -367,12 +367,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
       {activeModalItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
           <div className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border shadow-2xl space-y-6 p-6 sm:p-8 ${
-            isDark ? 'bg-[#022C22] border-emerald-900 text-white' : 'bg-white border-slate-200 text-slate-900'
+            isDark ? 'bg-[#022C22] border-emerald-900 text-white' : 'bg-white border-emerald-200 text-emerald-900'
           }`}>
             {/* Close Button */}
             <button
               onClick={() => setActiveModalItem(null)}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:bg-rose-600 hover:text-white flex items-center justify-center transition-all cursor-pointer z-10"
+              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-emerald-800 text-emerald-300 hover:bg-rose-600 hover:text-white flex items-center justify-center transition-all cursor-pointer z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -386,7 +386,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 <span className="bg-amber-500/20 text-amber-300 font-mono font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-amber-500/30">
                   {activeModalItem.mediaType}
                 </span>
-                <span className="text-xs font-mono text-slate-400 flex items-center gap-1 ml-auto">
+                <span className="text-xs font-mono text-emerald-400 flex items-center gap-1 ml-auto">
                   <Calendar className="w-3.5 h-3.5 text-amber-400" />
                   {activeModalItem.date}
                 </span>
@@ -406,7 +406,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
             {/* Video Player or Image Display */}
             {activeModalItem.mediaType === 'video' && activeModalItem.videoEmbedUrl ? (
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-lg border border-slate-800">
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-lg border border-emerald-800">
                 <iframe
                   src={activeModalItem.videoEmbedUrl}
                   title={activeModalItem.title}
@@ -416,7 +416,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 />
               </div>
             ) : (
-              <div className="relative w-full max-h-[400px] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+              <div className="relative w-full max-h-[400px] rounded-xl overflow-hidden bg-emerald-950 border border-emerald-800">
                 <img
                   src={activeModalItem.mediaUrl}
                   alt={activeModalItem.title}
@@ -428,28 +428,28 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
             {/* Summary Highlight Box */}
             <div className={`p-4 rounded-xl border font-sans text-sm leading-relaxed italic ${
-              isDark ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-slate-100 border-slate-200 text-slate-800'
+              isDark ? 'bg-emerald-900 border-emerald-800 text-emerald-200' : 'bg-emerald-100 border-emerald-200 text-emerald-800'
             }`}>
               "{activeModalItem.summary}"
             </div>
 
             {/* Unlimited Article Content Body */}
             <div className="space-y-4 text-sm sm:text-base leading-relaxed font-sans opacity-95">
-              <h3 className="text-lg font-serif font-bold text-amber-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <h3 className="text-lg font-serif font-bold text-amber-400 flex items-center gap-2 border-b border-emerald-800 pb-2">
                 <FileText className="w-5 h-5 text-emerald-300" />
                 Ulasan & Rangkuman Artikel Lengkap
               </h3>
               
               {activeModalItem.articleContent.split('\n\n').map((paragraph, idx) => (
-                <p key={idx} className="whitespace-pre-line text-slate-300">
+                <p key={idx} className="whitespace-pre-line text-emerald-300">
                   {paragraph}
                 </p>
               ))}
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-4 text-xs font-mono text-slate-400">
+            <div className="pt-6 border-t border-emerald-800 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-4 text-xs font-mono text-emerald-400">
                 <span className="flex items-center gap-1">
                   <Eye className="w-4 h-4 text-emerald-300" />
                   {activeModalItem.viewsCount} x Dibaca / Dilihat

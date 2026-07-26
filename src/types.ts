@@ -188,7 +188,7 @@ export type ColorPalette = 'emerald_green' | 'emerald_gold' | 'deep_blue' | 'sky
 
 export type ThemeMode = 'light' | 'dark';
 
-export type UserRole = 'jamaah' | 'pengurus_dkm';
+export type UserRole = 'jamaah' | 'pengurus_dkm' | 'admin_masjid' | 'ketua_dkm';
 
 export interface UserSession {
   isLoggedIn: boolean;

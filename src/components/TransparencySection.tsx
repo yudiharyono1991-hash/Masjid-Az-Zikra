@@ -141,7 +141,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
 
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400" />
                 <input
                   type="text"
                   placeholder="Cari transaksi..."

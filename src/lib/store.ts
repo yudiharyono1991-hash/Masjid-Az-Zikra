@@ -266,7 +266,7 @@ export function useMasjidStore() {
     setState(prev => ({ ...prev, themeMode: prev.themeMode === 'light' ? 'dark' : 'light' }));
   };
 
-  const login = (email: string, name: string, role: 'jamaah' | 'pengurus_dkm', phone?: string) => {
+  const login = (email: string, name: string, role: UserRole, phone?: string) => {
     setState(prev => ({
       ...prev,
       session: {

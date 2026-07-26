@@ -108,7 +108,7 @@ export default function App() {
   const isDark = state.themeMode === 'dark';
   const themeContainerBg = isDark
     ? 'bg-[#022C22] text-emerald-100 dark'
-    : 'bg-[#F4FBF7] text-slate-900';
+    : 'bg-[#F4FBF7] text-emerald-900';
 
   return (
     <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-emerald-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>
@@ -164,6 +164,7 @@ export default function App() {
               onAddParticipant={addQurbanParticipant}
               onUpdateGroupImage={updateQurbanGroup}
               isDark={isDark}
+              session={state.session}
             />
 
             <SejarahAzzikraSection isDark={isDark} />
@@ -216,6 +217,7 @@ export default function App() {
             onAddParticipant={addQurbanParticipant}
             onUpdateGroupImage={updateQurbanGroup}
             isDark={isDark}
+            session={state.session}
           />
         )}
 
@@ -240,7 +242,7 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'dkm_portal' && state.session.role === 'pengurus_dkm' && (
+        {activeTab === 'dkm_portal' && ['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(state.session.role) && (
           <PengurusDkmDashboard
             financials={state.financials}
             inventories={state.inventories}

@@ -41,7 +41,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-[#070c1b] text-white flex flex-col justify-between p-6 font-sans overflow-hidden select-none">
       {/* Top Header Bar */}
-      <div className="flex items-center justify-between border-b border-amber-500/30 pb-4 bg-slate-900/60 p-4 rounded-2xl">
+      <div className="flex items-center justify-between border-b border-amber-500/30 pb-4 bg-emerald-900/60 p-4 rounded-2xl">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center text-3xl shadow-lg">
             🕌
@@ -63,14 +63,14 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
             <div className="text-3xl sm:text-5xl font-mono font-extrabold text-amber-400 tracking-wider">
               {timeStr}
             </div>
-            <p className="text-xs text-slate-300 mt-1 font-medium">
+            <p className="text-xs text-emerald-300 mt-1 font-medium">
               {dateStr} • <span className="text-amber-300 font-serif">{getHijriDate()}</span>
             </p>
           </div>
 
           <button
             onClick={onExit}
-            className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-2xl border border-slate-700 cursor-pointer"
+            className="p-3 bg-emerald-800 hover:bg-emerald-700 text-emerald-300 rounded-2xl border border-emerald-700 cursor-pointer"
             title="Keluar Mode TV"
           >
             <X className="w-6 h-6" />
@@ -81,13 +81,13 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
       {/* Center Dynamic Rotating Banner Slides */}
       <div className="my-auto py-8">
         {currentSlideIndex === 0 && (
-          <div className="bg-gradient-to-r from-slate-900 via-[#0f1d3a] to-slate-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+          <div className="bg-gradient-to-r from-emerald-900 via-[#0f1d3a] to-emerald-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
             <div className="flex items-center justify-center gap-2">
-              <span className="bg-amber-500 text-slate-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
+              <span className="bg-amber-500 text-emerald-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
                 INFORMASI KHUTBAH JUMAT
               </span>
               {adminSettings?.jumatTimeInfo && (
-                <span className="bg-slate-800 text-amber-300 font-mono text-xs px-3 py-1 rounded-full border border-amber-500/30">
+                <span className="bg-emerald-800 text-amber-300 font-mono text-xs px-3 py-1 rounded-full border border-amber-500/30">
                   {adminSettings.jumatTimeInfo}
                 </span>
               )}
@@ -95,7 +95,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-amber-300 leading-snug">
               "{adminSettings?.jumatTopicTitle || nextFriday?.topikJumat || 'Optimalisasi ZISWAF untuk Kesejahteraan Umat'}"
             </h2>
-            <div className="flex flex-wrap justify-center gap-6 text-base sm:text-lg pt-2 text-slate-200 font-sans">
+            <div className="flex flex-wrap justify-center gap-6 text-base sm:text-lg pt-2 text-emerald-200 font-sans">
               <p>Khatib: <strong className="text-white font-serif">{adminSettings?.jumatKhatibName || nextFriday?.khatibJumat || 'Prof. Dr. KH. Nasaruddin Umar, MA'}</strong></p>
               <p>Imam: <strong className="text-white font-serif">{adminSettings?.jumatImamName || nextFriday?.imamJumat || 'Ustadz H. M. Zainuddin, Sq'}</strong></p>
               {adminSettings?.jumatMuadzinName && (
@@ -106,14 +106,14 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
         )}
 
         {currentSlideIndex === 1 && (
-          <div className="bg-gradient-to-r from-slate-900 via-[#0f1d3a] to-slate-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
-            <span className="bg-emerald-500 text-slate-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
+          <div className="bg-gradient-to-r from-emerald-900 via-[#0f1d3a] to-emerald-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+            <span className="bg-emerald-500 text-emerald-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
               HADIS SHAHIH HARI INI
             </span>
             <p className="text-3xl sm:text-4xl font-serif text-amber-300 leading-relaxed">
               "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ"
             </p>
-            <p className="text-xl text-slate-200 max-w-3xl mx-auto font-serif italic">
+            <p className="text-xl text-emerald-200 max-w-3xl mx-auto font-serif italic">
               "Sedekah itu tidak akan pernah mengurangi harta sedikit pun, melainkan Allah akan menambah kemuliaan."
             </p>
             <p className="text-xs text-amber-400 font-mono">(HR. Muslim no. 2588)</p>
@@ -121,14 +121,14 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
         )}
 
         {currentSlideIndex === 2 && (
-          <div className="bg-gradient-to-r from-slate-900 via-[#0f1d3a] to-slate-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
-            <span className="bg-amber-500 text-slate-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
+          <div className="bg-gradient-to-r from-emerald-900 via-[#0f1d3a] to-emerald-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+            <span className="bg-amber-500 text-emerald-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
               PROGRAM WAKAF UTAMA
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
               Wakaf Tunai Sound System & Akustik Ruang Shalat Utama
             </h2>
-            <p className="text-slate-300 text-base max-w-2xl mx-auto">
+            <p className="text-emerald-300 text-base max-w-2xl mx-auto">
               Dukung pengadaan tata suara jernih kristal untuk kekhusyu'an ibadah jamaah Masjid Az-Zikra.
             </p>
             <p className="text-amber-400 font-mono font-bold text-xl">
@@ -153,14 +153,14 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
               key={idx}
               className={`p-4 rounded-2xl border text-center transition-all ${
                 item.active
-                  ? 'bg-amber-500 text-slate-950 border-amber-300 shadow-2xl scale-105'
-                  : 'bg-slate-900/90 border-slate-800 text-slate-200'
+                  ? 'bg-amber-500 text-emerald-950 border-amber-300 shadow-2xl scale-105'
+                  : 'bg-emerald-900/90 border-emerald-800 text-emerald-200'
               }`}
             >
-              <p className={`text-xs font-bold font-mono ${item.active ? 'text-slate-950' : 'text-slate-400'}`}>
+              <p className={`text-xs font-bold font-mono ${item.active ? 'text-emerald-950' : 'text-emerald-400'}`}>
                 {item.name}
               </p>
-              <p className={`text-2xl sm:text-3xl font-extrabold font-mono mt-1 ${item.active ? 'text-slate-950' : 'text-amber-400'}`}>
+              <p className={`text-2xl sm:text-3xl font-extrabold font-mono mt-1 ${item.active ? 'text-emerald-950' : 'text-amber-400'}`}>
                 {item.time}
               </p>
             </div>

@@ -101,12 +101,14 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
     }
 
     // Alafasy Audio URL generator
-    // Global verse calculation for Al-Fatihah (1 to 7)
+    // Global verse calculation for Alafasy Audio (1 to 6236)
     let globalVerse = activeAyahIndex + 1;
-    if (selectedSurahNumber === 1) {
-      globalVerse = activeAyahIndex + 1;
-    } else {
-      globalVerse = 1 + activeAyahIndex;
+    if (selectedSurahNumber > 1) {
+      let previousAyahsTotal = 0;
+      for (let i = 0; i < selectedSurahNumber - 1; i++) {
+        previousAyahsTotal += SURAHS_LIST[i].ayahsCount;
+      }
+      globalVerse = previousAyahsTotal + activeAyahIndex + 1;
     }
 
     const primaryAudioUrl = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${globalVerse}.mp3`;
@@ -211,10 +213,10 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative text-slate-100 my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-950/85 backdrop-blur-md overflow-y-auto">
+      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative text-emerald-100 my-6">
         {/* Header Bar */}
-        <div className="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="bg-emerald-900 px-6 py-4 border-b border-emerald-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
               <BookOpen className="w-5 h-5" />
@@ -223,7 +225,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
               <h3 className="text-base font-bold font-serif text-white">
                 Fasilitas Ibadah Digital Masjid Az-Zikra Sentul
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-emerald-400">
                 Al-Qur'an Digital Audio Murottal, Auto-Scroll Verse, Jadwal Salat, Kiblat &amp; Doa
               </p>
             </div>
@@ -234,14 +236,14 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
               setIsPlayingAudio(false);
               onClose();
             }}
-            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-2 text-emerald-400 hover:text-white rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Sub Tabs Navigation */}
-        <div className="flex border-b border-slate-800 bg-slate-950 p-2 gap-2 overflow-x-auto">
+        <div className="flex border-b border-emerald-800 bg-emerald-950 p-2 gap-2 overflow-x-auto">
           {[
             { id: 'quran', label: "Al-Qur'an Digital & Audio", icon: BookOpen },
             { id: 'salat', label: 'Jadwal Salat & Adzan', icon: Calendar },
@@ -255,8 +257,8 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                 onClick={() => setActiveSubTab(tab.id as any)}
                 className={`flex-1 min-w-[140px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                   activeSubTab === tab.id
-                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-amber-500 text-emerald-950 shadow-md shadow-amber-500/20'
+                    : 'text-emerald-400 hover:text-emerald-200 hover:bg-emerald-900'
                 }`}
               >
                 <IconComp className="w-4 h-4" />
@@ -272,15 +274,15 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
           {activeSubTab === 'quran' && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Surahs List Sidebar */}
-              <div className="space-y-3 md:border-r border-slate-800 md:pr-4">
+              <div className="space-y-3 md:border-r border-emerald-800 md:pr-4">
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400" />
                   <input
                     type="text"
                     placeholder="Cari nama/nomor surah..."
                     value={quranSearch}
                     onChange={(e) => setQuranSearch(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none"
+                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none"
                   />
                 </div>
 
@@ -296,16 +298,16 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                       className={`w-full p-3 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between ${
                         selectedSurahNumber === s.number
                           ? 'border-amber-400 bg-amber-500/10'
-                          : 'border-slate-800 bg-slate-900 hover:border-slate-700'
+                          : 'border-emerald-800 bg-emerald-900 hover:border-emerald-700'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-slate-950 border border-slate-700 font-mono text-amber-400 text-xs font-bold flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-700 font-mono text-amber-400 text-xs font-bold flex items-center justify-center">
                           {s.number}
                         </div>
                         <div>
                           <p className="text-xs font-bold text-white">{s.englishName}</p>
-                          <p className="text-[10px] text-slate-400">{s.translation} ({s.ayahsCount} Ayat)</p>
+                          <p className="text-[10px] text-emerald-400">{s.translation} ({s.ayahsCount} Ayat)</p>
                         </div>
                       </div>
                       <span className="text-lg font-serif text-amber-400">{s.name}</span>
@@ -317,7 +319,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
               {/* Ayah Reader & Audio Controls View */}
               <div className="md:col-span-2 space-y-4">
                 {/* Surah Audio Controller Header */}
-                <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-amber-950 border border-amber-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+                <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-amber-950 border border-amber-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
                   <div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-950 px-2.5 py-0.5 rounded border border-emerald-500/30">
                       Surah #{currentSurah.number} &bull; {currentSurah.type}
@@ -335,7 +337,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                       onClick={toggleAudioPlayer}
                       className={`px-4 py-2.5 rounded-xl text-xs font-bold font-mono flex items-center gap-2 cursor-pointer shadow-lg transition-all ${
                         isPlayingAudio
-                          ? 'bg-amber-400 text-slate-950 animate-pulse'
+                          ? 'bg-amber-400 text-emerald-950 animate-pulse'
                           : 'bg-emerald-600 hover:bg-emerald-500 text-white'
                       }`}
                     >
@@ -348,7 +350,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                       className={`p-2.5 rounded-xl text-xs font-bold cursor-pointer border transition-colors ${
                         autoScrollEnabled
                           ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                          : 'bg-slate-900 text-slate-400 border-slate-800'
+                          : 'bg-emerald-900 text-emerald-400 border-emerald-800'
                       }`}
                       title="Auto-scroll ke Ayat yang sedang dibaca"
                     >
@@ -358,14 +360,14 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                 </div>
 
                 {/* Bismillah Header with Mandatory Recitation Banner */}
-                <div className="text-center py-4 bg-slate-900/80 rounded-2xl border border-amber-500/20 shadow-md relative overflow-hidden">
+                <div className="text-center py-4 bg-emerald-900/80 rounded-2xl border border-amber-500/20 shadow-md relative overflow-hidden">
                   <div className="absolute top-2 left-3 text-[9px] font-mono text-emerald-400 uppercase tracking-widest">
                     Lafadz Bismillah &bull; Awal Surah
                   </div>
                   <p className="text-2xl sm:text-3xl font-serif text-amber-300 tracking-widest pt-2">
                     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                   </p>
-                  <p className="text-[11px] text-slate-400 italic font-mono mt-1">
+                  <p className="text-[11px] text-emerald-400 italic font-mono mt-1">
                     "Bismillaahir-rahmaanir-rahiim"
                   </p>
                 </div>
@@ -405,22 +407,22 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                         className={`p-4 rounded-2xl space-y-3 transition-all border ${
                           isActive
                             ? 'bg-amber-950/40 border-amber-400 shadow-xl ring-2 ring-amber-400/30'
-                            : 'bg-slate-900 border-slate-800 hover:border-slate-700'
+                            : 'bg-emerald-900 border-emerald-800 hover:border-emerald-700'
                         }`}
                       >
-                        <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+                        <div className="flex items-center justify-between border-b border-emerald-800/80 pb-2">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => handlePlaySpecificAyah(idx)}
                               className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all cursor-pointer ${
                                 isActive
-                                  ? 'bg-amber-400 text-slate-950'
+                                  ? 'bg-amber-400 text-emerald-950'
                                   : 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/40'
                               }`}
                             >
                               {isActive ? <Pause className="w-3.5 h-3.5 fill-slate-950" /> : a.numberInSurah}
                             </button>
-                            <span className="text-[10px] font-mono text-slate-400">
+                            <span className="text-[10px] font-mono text-emerald-400">
                               Ayat {a.numberInSurah}
                             </span>
                           </div>
@@ -436,7 +438,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                           <p className="text-xs text-amber-200/90 italic font-mono">
                             {a.latin}
                           </p>
-                          <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                          <p className="text-xs text-emerald-300 mt-1 leading-relaxed">
                             "{a.translation}"
                           </p>
                         </div>
@@ -451,7 +453,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
           {/* 2. JADWAL SALAT & ADZAN */}
           {activeSubTab === 'salat' && (
             <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-emerald-900 p-4 rounded-2xl border border-emerald-800">
                 <div>
                   <div className="flex items-center gap-2 text-amber-400 text-xs font-bold">
                     <MapPin className="w-4 h-4" />
@@ -463,7 +465,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                       const found = CITIES_DATA.find(c => c.name === e.target.value);
                       if (found) setSelectedCity(found);
                     }}
-                    className="bg-slate-950 text-white font-bold text-sm border border-slate-800 rounded-xl px-3 py-1.5 mt-1 outline-none cursor-pointer"
+                    className="bg-emerald-950 text-white font-bold text-sm border border-emerald-800 rounded-xl px-3 py-1.5 mt-1 outline-none cursor-pointer"
                   >
                     {CITIES_DATA.map(c => (
                       <option key={c.name} value={c.name}>{c.name}</option>
@@ -491,10 +493,10 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-2 hover:border-amber-400/40 transition-colors"
+                    className="p-4 rounded-2xl bg-emerald-900 border border-emerald-800 text-center space-y-2 hover:border-amber-400/40 transition-colors"
                   >
                     <span className="text-2xl">{item.icon}</span>
-                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.name}</p>
+                    <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider">{item.name}</p>
                     <p className="text-lg font-mono font-bold text-amber-400">{item.time}</p>
                   </div>
                 ))}
@@ -507,24 +509,24 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
             <div className="text-center space-y-6 py-6 max-w-md mx-auto">
               <div>
                 <h4 className="text-lg font-serif font-bold text-white">Penunjuk Arah Kiblat Digital</h4>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-emerald-400 mt-1">
                   Derajat sudut Kiblat dari lokasi {selectedCity.name}: <strong className="text-amber-400">{qiblaAngle.toFixed(1)}° SE</strong>
                 </p>
               </div>
 
-              <div className="relative w-56 h-56 mx-auto rounded-full border-4 border-amber-500/30 bg-slate-900 flex items-center justify-center shadow-2xl">
+              <div className="relative w-56 h-56 mx-auto rounded-full border-4 border-amber-500/30 bg-emerald-900 flex items-center justify-center shadow-2xl">
                 <div
                   className="w-full h-full rounded-full border-2 border-emerald-500/40 absolute transition-transform duration-500 flex items-center justify-center"
                   style={{ transform: `rotate(${qiblaAngle}deg)` }}
                 >
                   <div className="w-3 h-16 bg-gradient-to-t from-emerald-500 to-amber-400 rounded-full mb-20 shadow-lg"></div>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xl font-mono shadow-md z-10">
+                <div className="w-12 h-12 rounded-full bg-amber-500 text-emerald-950 flex items-center justify-center font-bold text-xl font-mono shadow-md z-10">
                   🕋
                 </div>
               </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+              <p className="text-xs text-emerald-300 leading-relaxed bg-emerald-900/80 p-3 rounded-xl border border-emerald-800">
                 Posisikan smartphone Anda mendatar di atas meja agar sensor kompas menentukan koordinat Kiblat dengan presisi.
               </p>
             </div>
@@ -535,13 +537,13 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-3 justify-between">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400" />
                   <input
                     type="text"
                     placeholder="Cari doa harian..."
                     value={doaSearch}
                     onChange={(e) => setDoaSearch(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none"
+                    className="w-full bg-emerald-900 border border-emerald-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none"
                   />
                 </div>
 
@@ -552,8 +554,8 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                       onClick={() => setDoaCategory(cat)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-colors ${
                         doaCategory === cat
-                          ? 'bg-amber-500 text-slate-950'
-                          : 'bg-slate-900 text-slate-400 hover:text-white'
+                          ? 'bg-amber-500 text-emerald-950'
+                          : 'bg-emerald-900 text-emerald-400 hover:text-white'
                       }`}
                     >
                       {cat}
@@ -564,14 +566,14 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
 
               <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
                 {filteredDoa.map(d => (
-                  <div key={d.id} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                  <div key={d.id} className="p-4 rounded-2xl bg-emerald-900 border border-emerald-800 space-y-2">
+                    <div className="flex items-center justify-between border-b border-emerald-800 pb-2">
                       <span className="text-xs font-bold text-amber-400">{d.title}</span>
                       <span className="text-[9px] bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded-full font-mono">{d.category}</span>
                     </div>
                     <p className="text-xl font-serif text-right text-amber-200 leading-relaxed pt-1">{d.arabic}</p>
-                    <p className="text-xs text-slate-300 italic font-mono">{d.latin}</p>
-                    <p className="text-xs text-slate-400 leading-relaxed">"{d.translation}"</p>
+                    <p className="text-xs text-emerald-300 italic font-mono">{d.latin}</p>
+                    <p className="text-xs text-emerald-400 leading-relaxed">"{d.translation}"</p>
                   </div>
                 ))}
               </div>

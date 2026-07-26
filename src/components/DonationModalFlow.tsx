@@ -192,11 +192,11 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   const waLink = `https://wa.me/6281298765432?text=${waReceiptText}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative text-slate-100 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-md overflow-y-auto">
+      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative text-emerald-100 my-8">
         
         {/* Header Modal */}
-        <div className="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="bg-emerald-900 px-6 py-4 border-b border-emerald-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
               <HeartHandshake className="w-5 h-5" />
@@ -206,7 +206,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 <span>Layanan Donasi & Infaq Az-Zikra</span>
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-emerald-400">
                 Langkah {step} dari 4: {step === 1 ? 'Pilih Peruntukan Infaq' : step === 2 ? 'Pilih Campaign Program' : step === 3 ? 'Formulir & Cara Infaq' : 'Bukti Tanda Terima Digital'}
               </p>
             </div>
@@ -214,7 +214,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-2 text-emerald-400 hover:text-white rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -230,7 +230,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 <h4 className="text-xl font-bold font-serif text-amber-400">
                   Pilih Peruntukan Infaq & ZISWAF
                 </h4>
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-emerald-300">
                   Tentukan niat dan bidang peruntukan dana ibadah yang ingin Anda distribusikan
                 </p>
               </div>
@@ -261,7 +261,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         className={`p-4 rounded-2xl border text-left transition-all hover:scale-[1.01] cursor-pointer shadow-lg space-y-2 ${
                           infaqPurpose === p.title
                             ? 'border-amber-400 bg-amber-500/15'
-                            : 'border-slate-800 bg-slate-900/80 hover:border-slate-700'
+                            : 'border-emerald-800 bg-emerald-900/80 hover:border-emerald-700'
                         }`}
                       >
                         <div className="flex items-center justify-between">
@@ -273,7 +273,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         <h5 className="font-serif font-bold text-white text-sm leading-snug">
                           {p.title}
                         </h5>
-                        <p className="text-[11px] text-slate-300 leading-relaxed">
+                        <p className="text-[11px] text-emerald-300 leading-relaxed">
                           {p.desc}
                         </p>
                       </button>
@@ -283,8 +283,8 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
               </div>
 
               {/* Main Categories Quick Buttons */}
-              <div className="pt-2 border-t border-slate-800">
-                <span className="text-[11px] text-slate-400 block mb-2">Akses Cepat Kategori Utama:</span>
+              <div className="pt-2 border-t border-emerald-800">
+                <span className="text-[11px] text-emerald-400 block mb-2">Akses Cepat Kategori Utama:</span>
                 <div className="grid grid-cols-4 gap-2">
                   {[
                     { id: 'infaq', name: 'Infaq' },
@@ -298,7 +298,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         setSelectedCategory(c.id as ProgramCategory);
                         setStep(2);
                       }}
-                      className="py-2 px-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs text-slate-200 font-bold text-center cursor-pointer"
+                      className="py-2 px-3 bg-emerald-900 hover:bg-emerald-800 border border-emerald-800 rounded-xl text-xs text-emerald-200 font-bold text-center cursor-pointer"
                     >
                       {c.name}
                     </button>
@@ -311,10 +311,10 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
           {/* STEP 2: Pilih Program Campaign Spesifik */}
           {step === 2 && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center justify-between border-b border-emerald-800 pb-3">
                 <button
                   onClick={() => setStep(1)}
-                  className="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-emerald-400 hover:text-white flex items-center gap-1 cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" /> Kembali Ke Peruntukan
                 </button>
@@ -344,12 +344,12 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       <h5 className="text-sm font-bold text-white font-serif">
                         Donasi Bebas / Kas Umum ({infaqPurpose})
                       </h5>
-                      <p className="text-xs text-slate-300">
+                      <p className="text-xs text-emerald-300">
                         Penyaluran fleksibel ke kebutuhan paling mendesak di masjid
                       </p>
                     </div>
                   </div>
-                  <button className="bg-emerald-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1 shrink-0">
+                  <button className="bg-emerald-500 text-emerald-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1 shrink-0">
                     Pilih Ini <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -364,14 +364,14 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
                       selectedProgram?.id === prog.id
                         ? 'border-amber-400 bg-amber-500/10'
-                        : 'border-slate-800 bg-slate-900 hover:border-slate-700'
+                        : 'border-emerald-800 bg-emerald-900 hover:border-emerald-700'
                     }`}
                   >
                     <div className="flex items-center gap-4">
                       <img
                         src={prog.imageUrl}
                         alt={prog.title}
-                        className="w-16 h-16 rounded-xl object-cover border border-slate-800 shrink-0"
+                        className="w-16 h-16 rounded-xl object-cover border border-emerald-800 shrink-0"
                       />
                       <div>
                         <h5 className="text-sm font-bold text-white font-serif">
@@ -383,7 +383,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       </div>
                     </div>
 
-                    <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1 shrink-0">
+                    <button className="bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1 shrink-0">
                       Pilih <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -395,10 +395,10 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
           {/* STEP 3: Formulir & CARA INFAQ (Metode Pembayaran & Scan QRIS & Real Pict Proof) */}
           {step === 3 && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center justify-between border-b border-emerald-800 pb-3">
                 <button
                   onClick={() => setStep(2)}
-                  className="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-emerald-400 hover:text-white flex items-center gap-1 cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" /> Kembali
                 </button>
@@ -411,7 +411,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
               {/* Nominal Quick Chips */}
               <div className="space-y-3">
-                <label className="text-xs font-semibold text-slate-300 block">
+                <label className="text-xs font-semibold text-emerald-300 block">
                   Pilih atau Masukkan Nominal Infaq (Rp):
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -422,8 +422,8 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       onClick={() => handleAmountChipClick(val)}
                       className={`py-2 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
                         amount === val
-                          ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md shadow-amber-500/20'
-                          : 'bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700'
+                          ? 'bg-amber-500 text-emerald-950 border-amber-400 shadow-md shadow-amber-500/20'
+                          : 'bg-emerald-900 text-emerald-300 border-emerald-800 hover:border-emerald-700'
                       }`}
                     >
                       {formatRupiahFull(val).replace(',00', '')}
@@ -440,7 +440,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     value={customAmountText}
                     onChange={handleCustomAmountChange}
                     placeholder="Masukkan nominal custom..."
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-2xl pl-12 pr-4 py-3 text-sm font-bold font-mono text-white outline-none"
+                    className="w-full bg-emerald-900 border border-emerald-700 focus:border-amber-400 rounded-2xl pl-12 pr-4 py-3 text-sm font-bold font-mono text-white outline-none"
                   />
                 </div>
               </div>
@@ -467,7 +467,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         className={`p-3 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1.5 ${
                           paymentMethod === method.id
                             ? 'border-amber-400 bg-amber-500/20 text-white shadow-lg'
-                            : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
+                            : 'border-emerald-800 bg-emerald-900 text-emerald-400 hover:border-emerald-700'
                         }`}
                       >
                         <IconComp className="w-5 h-5 text-amber-400" />
@@ -480,8 +480,8 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 {/* DISPLAY CARA INFAQ TERPILIH */}
                 {/* 1. QRIS CODE SCAN DISPLAY */}
                 {paymentMethod === 'QRIS Nasional' && (
-                  <div className="bg-slate-950 p-4 rounded-2xl border border-amber-500/30 text-center space-y-3">
-                    <div className="flex items-center justify-between text-xs text-amber-300 font-bold border-b border-slate-800 pb-2">
+                  <div className="bg-emerald-950 p-4 rounded-2xl border border-amber-500/30 text-center space-y-3">
+                    <div className="flex items-center justify-between text-xs text-amber-300 font-bold border-b border-emerald-800 pb-2">
                       <span className="flex items-center gap-1">
                         <QrCode className="w-4 h-4 text-emerald-400" />
                         Scan QRIS Bebas Biaya Admin (BCA/GoPay/OVO/DANA/All Bank)
@@ -489,7 +489,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       <button
                         type="button"
                         onClick={() => setZoomQrisModal(true)}
-                        className="text-[10px] bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 cursor-pointer"
+                        className="text-[10px] bg-emerald-900 hover:bg-emerald-800 border border-emerald-700 text-emerald-300 px-2 py-1 rounded-lg flex items-center gap-1 cursor-pointer"
                       >
                         <Maximize2 className="w-3 h-3 text-emerald-400" />
                         Perbesar QRIS
@@ -511,7 +511,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       </div>
                     </div>
 
-                    <p className="text-[11px] text-slate-300 font-mono">
+                    <p className="text-[11px] text-emerald-300 font-mono">
                       Merchant: MASJID AZ-ZIKRA SENTUL QRIS NASIONAL (NMID: ID10200394819)
                     </p>
                   </div>
@@ -519,7 +519,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
                 {/* 2. TRANSFER BANK BSI */}
                 {paymentMethod === 'Transfer Bank BSI' && (
-                  <div className="bg-slate-950 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
+                  <div className="bg-emerald-950 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-white flex items-center gap-2">
                         <Building className="w-4 h-4 text-emerald-400" /> Bank Syariah Indonesia (BSI)
@@ -533,7 +533,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         <span>{copiedAccount === 'BSI' ? 'Tersalin!' : 'Salin Rekening'}</span>
                       </button>
                     </div>
-                    <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono text-sm text-emerald-400 font-bold flex justify-between items-center">
+                    <div className="bg-emerald-900 p-3 rounded-xl border border-emerald-800 font-mono text-sm text-emerald-400 font-bold flex justify-between items-center">
                       <span>{bsiAccount}</span>
                     </div>
                   </div>
@@ -563,7 +563,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
                 {/* 4. E-WALLET */}
                 {paymentMethod === 'E-Wallet Direct' && (
-                  <div className="bg-slate-950 p-4 rounded-2xl border border-amber-500/30 space-y-2">
+                  <div className="bg-emerald-950 p-4 rounded-2xl border border-amber-500/30 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-white flex items-center gap-2">
                         <Smartphone className="w-4 h-4 text-amber-400" /> GoPay / DANA / OVO / ShopeePay
@@ -577,7 +577,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         <span>{copiedAccount === 'EWALLET' ? 'Tersalin!' : 'Salin Nomor'}</span>
                       </button>
                     </div>
-                    <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono text-sm text-amber-400 font-bold">
+                    <div className="bg-emerald-900 p-3 rounded-xl border border-emerald-800 font-mono text-sm text-amber-400 font-bold">
                       0812-9876-5432 (a.n. Bendahara DKM Az-Zikra)
                     </div>
                   </div>
@@ -585,9 +585,9 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
               </div>
 
               {/* UPLOAD FOTO STRUK / BUKTI TRANSFER REAL PICT */}
-              <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
+              <div className="bg-emerald-950 p-4 rounded-2xl border border-emerald-800 space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                  <label className="text-xs font-semibold text-emerald-300 flex items-center gap-2">
                     <Camera className="w-4 h-4 text-emerald-400" />
                     <span>Upload Foto Struk Bukti Transfer (Real Pict Optional)</span>
                   </label>
@@ -608,11 +608,11 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                   placeholder="Atau masukkan URL Foto Struk Pembayaran..."
                   value={proofUrl}
                   onChange={(e) => setProofUrl(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 font-mono outline-none"
+                  className="w-full bg-emerald-900 border border-emerald-800 text-emerald-200 text-xs rounded-xl px-3 py-2 font-mono outline-none"
                 />
 
                 {proofUrl && (
-                  <div className="flex items-center gap-3 bg-slate-900 p-2 rounded-xl border border-slate-800">
+                  <div className="flex items-center gap-3 bg-emerald-900 p-2 rounded-xl border border-emerald-800">
                     <img
                       src={proofUrl}
                       alt="Struk Pembayaran"
@@ -623,7 +623,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       <span className="text-[11px] font-bold text-emerald-400 block">
                         Foto Struk Real Pict Siap Dihubungkan
                       </span>
-                      <span className="text-[10px] text-slate-400 font-mono">
+                      <span className="text-[10px] text-emerald-400 font-mono">
                         Akan langsung tercatat di Laporan Keuangan Masjid
                       </span>
                     </div>
@@ -635,7 +635,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-semibold text-slate-300">
+                    <label className="text-xs font-semibold text-emerald-300">
                       Nama Lengkap Donatur:
                     </label>
                     <label className="flex items-center gap-1.5 text-xs text-amber-400 cursor-pointer">
@@ -643,7 +643,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                         type="checkbox"
                         checked={isAnonymous}
                         onChange={(e) => setIsAnonymous(e.target.checked)}
-                        className="rounded border-slate-700 bg-slate-900 text-amber-500 focus:ring-0"
+                        className="rounded border-emerald-700 bg-emerald-900 text-amber-500 focus:ring-0"
                       />
                       <span>Hamba Allah</span>
                     </label>
@@ -654,12 +654,12 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     placeholder={isAnonymous ? 'Hamba Allah (Nama Disembunyikan)' : 'Masukkan Nama Anda...'}
                     value={isAnonymous ? '' : donorName}
                     onChange={(e) => setDonorName(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-2 text-xs text-slate-100 outline-none disabled:opacity-50"
+                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2 text-xs text-emerald-100 outline-none disabled:opacity-50"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
                     No. WhatsApp Donatur (Untuk Tanda Terima Digital):
                   </label>
                   <input
@@ -667,7 +667,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     placeholder="081234567890..."
                     value={donorPhone}
                     onChange={(e) => setDonorPhone(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 rounded-xl px-4 py-2 text-xs text-slate-100 font-mono outline-none"
+                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2 text-xs text-emerald-100 font-mono outline-none"
                   />
                 </div>
               </div>
@@ -683,7 +683,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
                 <button
                   onClick={handleSubmitDonation}
-                  className="bg-gold-gradient hover:bg-gold-gradient-hover text-slate-950 font-bold px-6 py-3 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
+                  className="bg-gold-gradient hover:bg-gold-gradient-hover text-emerald-950 font-bold px-6 py-3 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
                 >
                   <span>Konfirmasi & Selesaikan Infaq</span>
                   <ArrowRight className="w-4 h-4" />
@@ -703,45 +703,45 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 <h4 className="text-2xl font-bold font-serif text-white">
                   Jazakallahu Khairan Katsiran!
                 </h4>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-emerald-300 mt-1">
                   Infaq & Donasi Anda telah tercatat secara sah di database resmi DKM Masjid Az-Zikra Sentul.
                 </p>
               </div>
 
               {/* Receipt Summary Card */}
-              <div className="bg-slate-900 border border-amber-500/30 rounded-2xl p-6 text-left space-y-4 relative">
-                <div className="text-center pb-4 border-b border-slate-800 space-y-1">
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wider font-mono block">
+              <div className="bg-emerald-900 border border-amber-500/30 rounded-2xl p-6 text-left space-y-4 relative">
+                <div className="text-center pb-4 border-b border-emerald-800 space-y-1">
+                  <span className="text-[10px] text-emerald-400 uppercase tracking-wider font-mono block">
                     JUMLAH DONASI WAKAF / ZISWAF
                   </span>
                   <p className="text-3xl font-extrabold font-mono text-amber-400">
                     {formatRupiahFull(createdRecord.totalAmount)}
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-emerald-400">
                     (Infaq Peruntukan: {createdRecord.programTitle})
                   </p>
                 </div>
 
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">No. Referensi Kuitansi:</span>
-                    <span className="font-mono font-bold text-slate-200 flex items-center gap-1">
+                  <div className="flex justify-between py-1 border-b border-emerald-800">
+                    <span className="text-emerald-400">No. Referensi Kuitansi:</span>
+                    <span className="font-mono font-bold text-emerald-200 flex items-center gap-1">
                       {createdRecord.transactionRef}
                       <button onClick={handleCopyCode} className="text-amber-400 hover:text-amber-300 cursor-pointer">
                         {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       </button>
                     </span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">Cara Infaq:</span>
+                  <div className="flex justify-between py-1 border-b border-emerald-800">
+                    <span className="text-emerald-400">Cara Infaq:</span>
                     <span className="font-semibold text-emerald-400">{createdRecord.paymentMethod}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">Atas Nama Donatur:</span>
-                    <span className="font-semibold text-slate-200">{createdRecord.donorName}</span>
+                  <div className="flex justify-between py-1 border-b border-emerald-800">
+                    <span className="text-emerald-400">Atas Nama Donatur:</span>
+                    <span className="font-semibold text-emerald-200">{createdRecord.donorName}</span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-slate-400">Status Database:</span>
+                    <span className="text-emerald-400">Status Database:</span>
                     <span className="bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded text-[11px]">
                       Terverifikasi Masuk Kas Masjid
                     </span>
@@ -749,8 +749,8 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 </div>
 
                 {proofUrl && (
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-                    <span className="text-xs text-slate-400 font-mono">Foto Struk Real Pict:</span>
+                  <div className="pt-2 border-t border-emerald-800 flex items-center justify-between">
+                    <span className="text-xs text-emerald-400 font-mono">Foto Struk Real Pict:</span>
                     <img
                       src={proofUrl}
                       alt="Bukti Struk"
@@ -775,7 +775,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
                 <button
                   onClick={onClose}
-                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Selesai & Tutup</span>
                 </button>
@@ -788,10 +788,10 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
       {/* FULLSCREEN ZOOM MODAL FOR QRIS / PROOF PHOTO */}
       {zoomQrisModal && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 relative space-y-4 text-center shadow-2xl">
+          <div className="bg-emerald-900 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 relative space-y-4 text-center shadow-2xl">
             <button
               onClick={() => setZoomQrisModal(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 rounded-xl bg-emerald-800 text-emerald-300 hover:text-white cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -809,7 +809,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
               />
             </div>
 
-            <p className="text-xs text-slate-300 font-mono">
+            <p className="text-xs text-emerald-300 font-mono">
               Buka aplikasi M-Banking (BCA, BSI, Mandiri, BRI) atau E-Wallet (GoPay, OVO, DANA, ShopeePay) lalu arahkan kamera ke barcode ini.
             </p>
 
@@ -819,14 +819,14 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                 download="QRIS_Masjid_Az_Zikra.jpg"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-4 h-4" />
                 <span>Unduh Gambar QRIS</span>
               </a>
               <button
                 onClick={() => setZoomQrisModal(false)}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-xl text-xs cursor-pointer"
+                className="w-full bg-emerald-800 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs cursor-pointer"
               >
                 Tutup
               </button>

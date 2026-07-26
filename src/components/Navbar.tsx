@@ -64,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className={`sticky top-0 z-40 backdrop-blur-md transition-colors duration-300 ${
       isDark
         ? 'bg-[#022C22]/95 text-white border-b border-emerald-900/60'
-        : 'bg-white/95 text-slate-900 border-b border-slate-200'
+        : 'bg-white/95 text-emerald-900 border-b border-emerald-200'
     }`}>
       {/* Top Quick Announcement Bar */}
       <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-xs flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none ${
@@ -97,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <span className="opacity-30">|</span>
           <button
             onClick={openTvMode}
-            className="text-amber-400 hover:bg-amber-500 hover:text-slate-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
+            className="text-amber-400 hover:bg-amber-500 hover:text-emerald-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
             title="Tampilan Layar TV Masjid"
           >
             <Tv className="w-3 h-3" />
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-bold text-[9px] sm:text-[10px] tracking-wider transition-all cursor-pointer border ${
               isDark
                 ? 'bg-amber-500/15 text-amber-300 border-amber-500/30 hover:bg-amber-500/25'
-                : 'bg-slate-900 text-amber-400 border-slate-700 hover:bg-slate-800'
+                : 'bg-emerald-900 text-amber-400 border-emerald-700 hover:bg-emerald-800'
             }`}
             title={isDark ? "Beralih ke Mode Terang (Light Mode)" : "Beralih ke Mode Gelap (Dark Mode)"}
           >
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className={`hidden xl:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest ${isDark ? 'text-emerald-100' : 'text-slate-700'}`}>
+          <nav className={`hidden xl:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest ${isDark ? 'text-emerald-100' : 'text-emerald-700'}`}>
             <button
               onClick={() => setActiveTab('beranda')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
@@ -247,7 +247,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab('dkm_portal')}
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeTab === 'dkm_portal'
-                    ? 'bg-amber-500 text-slate-950 font-black shadow-md'
+                    ? 'bg-amber-500 text-emerald-950 font-black shadow-md'
                     : 'text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30'
                 }`}
               >
@@ -284,8 +284,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={openCalculator}
               className={`border px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all cursor-pointer hidden lg:flex shadow-sm ${
                 isDark
-                  ? 'bg-slate-900 hover:bg-slate-800 text-white border-slate-700'
-                  : 'bg-white hover:bg-slate-50 text-slate-900 border-slate-200'
+                  ? 'bg-emerald-900 hover:bg-emerald-800 text-white border-emerald-700'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-900 border-emerald-200'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
@@ -297,8 +297,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={openSupabaseModal}
               className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
                 isDark
-                  ? 'bg-slate-900 hover:bg-slate-800 text-white border-slate-700'
-                  : 'bg-white hover:bg-slate-50 text-slate-900 border-slate-200'
+                  ? 'bg-emerald-900 hover:bg-emerald-800 text-white border-emerald-700'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-900 border-emerald-200'
               }`}
               title="Pengaturan Database Supabase / Local"
             >
@@ -340,7 +340,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Menu (Menu Susun Tiga) */}
       {mobileMenuOpen && (
         <div className={`xl:hidden border-t px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto ${
-          isDark ? 'border-emerald-900 bg-[#022C22] text-white' : 'border-slate-200 bg-white text-slate-900'
+          isDark ? 'border-emerald-900 bg-[#022C22] text-white' : 'border-emerald-200 bg-white text-emerald-900'
         }`}>
           
           {/* Section 1: Halaman Utama Navigasi */}
@@ -443,7 +443,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <UserCheck className="w-4 h-4 text-amber-400" />
                     <span>9. Portal Pengurus DKM</span>
                   </span>
-                  <span className="text-[10px] font-mono bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
+                  <span className="text-[10px] font-mono bg-amber-500 text-emerald-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
                 </button>
               )}
             </div>

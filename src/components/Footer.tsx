@@ -36,11 +36,11 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="space-y-4">
             <AzzikraBrandLogo variant="navbar" isDark={true} />
 
-            <p className="text-xs text-slate-300 leading-relaxed font-sans">
+            <p className="text-xs text-emerald-300 leading-relaxed font-sans">
               Pusat Zikir Akbar, Pendidikan Pesantren, Muallaf Center, dan Transaksi ZISWAF yang transparan serta amanah.
             </p>
 
-            <div className="pt-2 text-xs text-slate-300 space-y-1.5 font-mono">
+            <div className="pt-2 text-xs text-emerald-300 space-y-1.5 font-mono">
               <p className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                 <span className="leading-snug">Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Bogor 16810</span>
@@ -58,10 +58,10 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Col 2: Navigasi Layanan */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-slate-800 pb-2">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-emerald-800 pb-2">
               Layanan Jamaah
             </h4>
-            <ul className="space-y-2 text-xs font-medium text-slate-300">
+            <ul className="space-y-2 text-xs font-medium text-emerald-300">
               <li>
                 <button onClick={openDonationModal} className="hover:text-emerald-400 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <HeartHandshake className="w-3.5 h-3.5 text-amber-400" />
@@ -99,10 +99,10 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Col 3: Program Keumatan */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-slate-800 pb-2">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-emerald-800 pb-2">
               Program Unggulan
             </h4>
-            <ul className="space-y-2 text-xs text-slate-300 font-medium">
+            <ul className="space-y-2 text-xs text-emerald-300 font-medium">
               <li>&bull; Majelis Zikir Akbar Bulanan</li>
               <li>&bull; Muallaf Center Az-Zikra</li>
               <li>&bull; Pesantren Tahfidz Al-Qur'an</li>
@@ -113,10 +113,10 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Col 4: Akuntabilitas & Display TV */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-slate-800 pb-2">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-emerald-800 pb-2">
               Layar TV Signage
             </h4>
-            <p className="text-xs text-slate-300 leading-relaxed font-sans">
+            <p className="text-xs text-emerald-300 leading-relaxed font-sans">
               Buka tampilan khusus Digital Signage TV Masjid Az-Zikra Sentul untuk diproyeksikan pada TV utama masjid.
             </p>
 
@@ -130,16 +130,16 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Copyright - Precision Mobile Design */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4 text-center sm:text-left">
+        <div className="pt-8 border-t border-emerald-800 flex flex-col sm:flex-row items-center justify-between text-xs text-emerald-400 gap-4 text-center sm:text-left">
           <div className="space-y-1">
-            <p className="font-semibold text-slate-200 tracking-wide text-xs sm:text-sm">
+            <p className="font-semibold text-emerald-200 tracking-wide text-xs sm:text-sm">
               &copy; 2026 Masjid Az-Zikra. All Rights Reserved.
             </p>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-emerald-400">
               Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Kabupaten Bogor, Jawa Barat.
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider bg-emerald-900/80 px-4 py-2 rounded-xl border border-emerald-800">
             <span>Dzikir &amp; ZISWAF</span>
             <span className="opacity-40">&bull;</span>
             <span>Al-Qur'an Audio</span>

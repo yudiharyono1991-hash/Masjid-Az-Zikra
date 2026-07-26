@@ -270,7 +270,7 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
         </div>
 
         {/* Comparison Summary Grid */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div className="bg-emerald-900 border border-emerald-800 rounded-2xl p-6">
           <h4 className="text-sm font-bold font-serif text-white mb-4 flex items-center gap-2">
             <HelpCircle className="w-4 h-4 text-emerald-300" />
             <span>Ringkasan Perbedaan ZISWAF at a Glance:</span>
@@ -278,14 +278,14 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-sans">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 font-mono">
+                <tr className="border-b border-emerald-800 text-emerald-400 font-mono">
                   <th className="py-2 px-3">Instrumen</th>
                   <th className="py-2 px-3">Hukum</th>
                   <th className="py-2 px-3">Nisab / Syarat</th>
                   <th className="py-2 px-3">Penerima</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 text-slate-300">
+              <tbody className="divide-y divide-emerald-800 text-emerald-300">
                 <tr>
                   <td className="py-2.5 px-3 font-bold text-amber-300">Zakat Maal</td>
                   <td className="py-2.5 px-3 font-mono text-emerald-400">Wajib (Fardhu 'Ain)</td>

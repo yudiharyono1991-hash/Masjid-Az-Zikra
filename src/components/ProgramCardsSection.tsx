@@ -35,10 +35,10 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
   });
 
   return (
-    <section className="py-16 bg-slate-900/50 text-slate-100 border-b border-slate-800">
+    <section className="py-16 bg-emerald-900/50 text-emerald-100 border-b border-emerald-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-emerald-800 pb-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-[0.2em] mb-3">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -47,20 +47,20 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             <h2 className="text-2xl sm:text-4xl font-serif text-white">
               Program Unggulan <span className="font-serif italic font-semibold text-amber-400">Masjid Az-Zikra</span>
             </h2>
-            <p className="text-slate-300 text-sm mt-2 max-w-2xl font-sans">
+            <p className="text-emerald-300 text-sm mt-2 max-w-2xl font-sans">
               Pilih program dakwah, pendidikan, sosial, atau wakaf produktif yang ingin Anda dukung secara amanah dan transparan.
             </p>
           </div>
 
           {/* Search Box */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-400" />
             <input
               type="text"
               placeholder="Cari program donasi..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 outline-none transition-colors shadow-sm"
+              className="w-full bg-emerald-900 border border-emerald-700 focus:border-emerald-400 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 outline-none transition-colors shadow-sm"
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
         {/* Feature Cards Showcase matching PDF Page 2 (Muallaf Center, TPA Anak, Sewa Gedung) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Muallaf Center */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group hover:border-amber-500/50 transition-all shadow-md">
+          <div className="bg-emerald-900/90 border border-emerald-800 rounded-2xl p-6 relative overflow-hidden group hover:border-amber-500/50 transition-all shadow-md">
             <div className="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6" />
             </div>
@@ -78,7 +78,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             <p className="text-xs text-amber-400 font-mono font-bold uppercase tracking-wider mt-1 mb-3">
               Pembinaan & Dukungan Iman Baru
             </p>
-            <p className="text-slate-300 text-xs leading-relaxed">
+            <p className="text-emerald-300 text-xs leading-relaxed">
               Layanan pendampingan belajar Al-Qur'an, Fiqh dasar, penataan keimanan, serta bantuan sosial kemandirian bagi saudara muallaf.
             </p>
             <button
@@ -91,7 +91,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
           </div>
 
           {/* Card 2: TPA Anak */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group hover:border-emerald-400/50 transition-all shadow-md">
+          <div className="bg-emerald-900/90 border border-emerald-800 rounded-2xl p-6 relative overflow-hidden group hover:border-emerald-400/50 transition-all shadow-md">
             <div className="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 flex items-center justify-center mb-4">
               <GraduationCap className="w-6 h-6" />
             </div>
@@ -101,7 +101,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             <p className="text-xs text-emerald-300 font-mono font-bold uppercase tracking-wider mt-1 mb-3">
               Pendidikan Al-Qur'an & Akhlak
             </p>
-            <p className="text-slate-300 text-xs leading-relaxed">
+            <p className="text-emerald-300 text-xs leading-relaxed">
               Pendidikan karakter, hafalan juz amma, serta beasiswa santri dhuafa agar terbebas dari buta aksara Al-Qur'an.
             </p>
             <button
@@ -124,7 +124,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             <p className="text-xs text-amber-300 font-mono font-bold uppercase tracking-wider mt-1 mb-3">
               Hall Serbaguna Acara Syariah
             </p>
-            <p className="text-slate-200 text-xs leading-relaxed">
+            <p className="text-emerald-200 text-xs leading-relaxed">
               Aula syariah lengkap dengan AC standing, stage, sound system kristal, dan area parkir luas untuk walimah & acara keutamaan.
             </p>
             <button
@@ -152,7 +152,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
               className={`px-4 py-2 rounded-xl font-bold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-emerald-600 text-white shadow-md border border-emerald-400/50'
-                  : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                  : 'bg-emerald-900 text-emerald-300 hover:bg-emerald-800 border border-emerald-800'
               }`}
             >
               {cat.label}
@@ -168,12 +168,12 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             return (
               <div
                 key={prog.id}
-                className="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden hover:border-emerald-400/60 transition-all flex flex-col group shadow-md"
+                className="bg-emerald-900/90 border border-emerald-800 rounded-2xl overflow-hidden hover:border-emerald-400/60 transition-all flex flex-col group shadow-md"
               >
                 {/* Image Banner */}
                 <div 
                   onClick={() => onSelectProgramDetail && onSelectProgramDetail(prog)}
-                  className="relative h-48 overflow-hidden bg-slate-950 cursor-pointer"
+                  className="relative h-48 overflow-hidden bg-emerald-950 cursor-pointer"
                 >
                   <img
                     src={prog.imageUrl}
@@ -181,7 +181,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent" />
 
                   {/* Badge Category */}
                   <div className="absolute top-3 left-3 flex items-center gap-2">
@@ -208,7 +208,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                     >
                       {prog.title}
                     </h3>
-                    <p className="text-slate-300 text-xs mt-2 line-clamp-3 leading-relaxed">
+                    <p className="text-emerald-300 text-xs mt-2 line-clamp-3 leading-relaxed">
                       {prog.description}
                     </p>
                     <button
@@ -222,15 +222,15 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                   </div>
 
                   {/* Progress Bar & Amount */}
-                  <div className="space-y-3 pt-3 border-t border-slate-800">
+                  <div className="space-y-3 pt-3 border-t border-emerald-800">
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-center text-xs font-mono font-bold">
-                        <span className="text-slate-400">Terkumpul</span>
+                        <span className="text-emerald-400">Terkumpul</span>
                         <span className="text-amber-400">
                           {percentage}%
                         </span>
                       </div>
-                      <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                      <div className="w-full bg-emerald-950 rounded-full h-2 overflow-hidden border border-emerald-800">
                         <div
                           className="bg-emerald-500 h-full rounded-full transition-all duration-700"
                           style={{ width: `${percentage}%` }}
@@ -240,21 +240,21 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
 
                     <div className="flex items-center justify-between text-xs">
                       <div>
-                        <p className="text-[9px] font-mono uppercase tracking-wider text-slate-400 font-bold">Terkumpul:</p>
+                        <p className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Terkumpul:</p>
                         <p className="text-white font-bold font-mono text-sm">
                           {formatRupiah(prog.collectedAmount)}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[9px] font-mono uppercase tracking-wider text-slate-400 font-bold">Target:</p>
-                        <p className="text-slate-300 font-mono text-xs font-bold">
+                        <p className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Target:</p>
+                        <p className="text-emerald-300 font-mono text-xs font-bold">
                           {formatRupiah(prog.targetAmount)}
                         </p>
                       </div>
                     </div>
 
                     {/* Donors Count */}
-                    <div className="flex items-center justify-between text-xs text-slate-300 pt-1">
+                    <div className="flex items-center justify-between text-xs text-emerald-300 pt-1">
                       <div className="flex items-center gap-1.5 font-mono text-[11px]">
                         <Users className="w-3.5 h-3.5 text-amber-400" />
                         <span>{prog.donorsCount.toLocaleString('id-ID')} Donatur</span>
