@@ -47,18 +47,18 @@ export const AzzikraBrandLogo: React.FC<AzzikraBrandLogoProps> = ({
         <img src="/logo.png" alt="Logo Masjid Az-Zikra" className="w-6 h-6 sm:w-8 sm:h-8 object-contain drop-shadow-md relative z-10" />
       </div>
 
-      <div>
+      <div className="flex flex-col justify-center">
+        <p className="text-[8px] sm:text-[10px] uppercase tracking-[0.25em] opacity-90 font-mono font-bold text-amber-600 dark:text-amber-400 whitespace-nowrap mb-0.5">
+          Masjid
+        </p>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className={`whitespace-nowrap text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white hover:text-amber-300' : 'text-emerald-900 hover:text-emerald-600'} drop-shadow-sm transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 cursor-default`}>
+          <span className={`whitespace-nowrap leading-none text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white hover:text-amber-300' : 'text-emerald-900 hover:text-emerald-600'} drop-shadow-sm transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 cursor-default`}>
             AZ-ZIKRA
           </span>
           <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-widest bg-emerald-800/20 text-emerald-600 dark:text-emerald-300 px-1.5 sm:px-2 py-0.5 rounded border border-emerald-500/30">
             SENTUL
           </span>
         </div>
-        <p className="text-[7.5px] sm:text-[9px] uppercase tracking-wider sm:tracking-[0.15em] opacity-80 font-mono font-bold text-amber-600 dark:text-amber-400 whitespace-nowrap">
-          Masjid &amp; Kampung Sunnah
-        </p>
       </div>
     </div>
   );
