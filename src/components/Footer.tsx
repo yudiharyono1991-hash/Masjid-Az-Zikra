@@ -27,7 +27,8 @@ export const Footer: React.FC<FooterProps> = ({
   openCalculator,
   openDigitalIbadah,
   openTvMode,
-  openCatalogPdf
+  openCatalogPdf,
+  isDark = false
 }) => {
   return (
     <footer className={`pt-16 pb-12 border-t transition-colors ${isDark ? "bg-[#022C22] text-white border-emerald-900" : "bg-stone-50 text-emerald-900 border-emerald-200"}`}>
