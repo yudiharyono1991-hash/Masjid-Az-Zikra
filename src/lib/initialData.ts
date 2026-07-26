@@ -14,7 +14,7 @@ import {
 export const INITIAL_PROGRAMS: Program[] = [
   {
     id: 'prg-1',
-    title: 'Operasional Masjid Az-Zikra',
+    title: 'Operasional Masjid (Az-Zikra)',
     subtitle: 'Kenyamanan Ibadah Jamaah',
     category: 'infaq',
     targetAmount: 500000000,
@@ -53,7 +53,7 @@ export const INITIAL_PROGRAMS: Program[] = [
   },
   {
     id: 'prg-4',
-    title: 'Santunan Dhuafa & Fakir Miskin',
+    title: 'Santunan Dhuafa (& Fakir Miskin)',
     subtitle: 'Meringankan Beban Saudara Kita',
     category: 'zakat',
     targetAmount: 750000000,

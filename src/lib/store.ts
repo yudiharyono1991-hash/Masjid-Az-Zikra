@@ -33,7 +33,7 @@ import {
   INITIAL_QURBAN_GROUPS
 } from './initialData';
 
-const LOCAL_STORAGE_KEY = 'masjid_azzikra_app_state_v1';
+const LOCAL_STORAGE_KEY = 'masjid_azzikra_app_state_v2';
 
 export interface AppState {
   programs: Program[];
