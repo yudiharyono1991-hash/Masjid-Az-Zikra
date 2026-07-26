@@ -139,20 +139,20 @@ export default function App() {
         {activeTab === 'beranda' && (
           <>
             <HeroSection
-              totalCollected={totalCollected}
-              activeDonors={activeDonors}
-              totalDisbursed={totalDisbursed}
-              efficiencyRate={efficiencyRate}
-              openDonationModal={handleOpenDonationModal}
-              openCalculator={() => setCalculatorModalOpen(true)}
               openDigitalIbadah={handleOpenDigitalIbadah}
-              openCatalogPdf={() => setCatalogPdfOpen(true)}
             />
 
             <ProgramCardsSection
               programs={state.programs}
               openDonationForProgram={handleOpenDonationForProgram}
               onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
+              totalCollected={totalCollected}
+              activeDonors={activeDonors}
+              totalDisbursed={totalDisbursed}
+              efficiencyRate={efficiencyRate}
+              openDonationModal={handleOpenDonationModal}
+              openCalculator={() => setCalculatorModalOpen(true)}
+              openCatalogPdf={() => setCatalogPdfOpen(true)}
             />
 
             <FridayAgendaSection

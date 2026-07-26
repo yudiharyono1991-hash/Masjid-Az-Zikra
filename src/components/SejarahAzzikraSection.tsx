@@ -10,9 +10,9 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const SEJARAH_IMAGES = [
-    '/masjid-azzikra-hero.jpg',
-    'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80'
+    '/hero-4.jpg',
+    '/hero-5.jpg',
+    '/hero-6.jpg'
   ];
 
   useEffect(() => {
