@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Award, Compass, Heart, MapPin, Sparkles, History, Users, ShieldCheck } from 'lucide-react';
 
 interface SejarahAzzikraSectionProps {
@@ -7,6 +7,20 @@ interface SejarahAzzikraSectionProps {
 
 export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ isDark = false }) => {
   const [activeTab, setActiveTab] = useState<'sejarah' | 'arsitektur' | 'kegiatan' | 'pendiri'>('sejarah');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const SEJARAH_IMAGES = [
+    '/masjid-azzikra-hero.jpg',
+    'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % SEJARAH_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className={`py-12 md:py-20 ${isDark ? 'bg-emerald-950 text-white' : 'bg-stone-50 text-emerald-900'} border-b border-emerald-200 dark:border-emerald-800 transition-colors`}>
@@ -31,11 +45,15 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
         {/* Feature Banner Photo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 relative rounded-3xl overflow-hidden shadow-2xl border border-emerald-200 dark:border-emerald-800 group min-h-[320px]">
-            <img
-              src="https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80"
-              alt="Masjid Az-Zikra Sentul Megah"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
+            {SEJARAH_IMAGES.map((imgUrl, idx) => (
+              <div
+                key={idx}
+                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out group-hover:scale-105 ${
+                  idx === currentImageIndex ? 'opacity-100 z-0' : 'opacity-0 -z-10'
+                }`}
+                style={{ backgroundImage: `url('${imgUrl}')` }}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/40 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/40 w-fit mb-2">
                 Kampung Sunnah Sentul
