@@ -342,8 +342,16 @@ export default function App() {
         isOpen={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         session={state.session}
-        onLogin={login}
-        onLogout={logout}
+        onLogin={(email, name, role) => {
+          login(email, name, role);
+          if (['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(role)) {
+            setActiveTab('dkm_portal');
+          }
+        }}
+        onLogout={() => {
+          logout();
+          setActiveTab('beranda');
+        }}
       />
 
       {/* Fullscreen TV Mode */}

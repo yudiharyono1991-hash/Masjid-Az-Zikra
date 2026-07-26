@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex flex-wrap items-center justify-between py-3 gap-2">
           {/* Brand Logo */}
           <div
             className="cursor-pointer group py-1"
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className={`hidden xl:flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest ${isDark ? 'text-emerald-100' : 'text-emerald-700'}`}>
+          <nav className={`hidden xl:flex flex-wrap justify-center items-center gap-2 text-[11px] font-bold uppercase tracking-widest ${isDark ? 'text-emerald-100' : 'text-emerald-700'}`}>
             <button
               onClick={() => setActiveTab('beranda')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
