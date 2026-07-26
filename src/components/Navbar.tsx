@@ -359,7 +359,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('beranda'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'beranda' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'beranda' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>1. Beranda Utama</span>
@@ -369,7 +369,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('program'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'program' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'program' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>2. Program ZISWAF</span>
@@ -379,7 +379,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('jadwal_khatib'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'jadwal_khatib' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'jadwal_khatib' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>3. Agenda Salat Jumat</span>
@@ -389,7 +389,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('qurban'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'qurban' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'qurban' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>4. Patungan Qurban</span>
@@ -399,7 +399,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('transparansi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'transparansi' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'transparansi' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>5. Laporan Transparansi</span>
@@ -409,7 +409,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('sejarah'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'sejarah' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'sejarah' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>6. Sejarah Az-Zikra</span>
@@ -419,7 +419,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('edukasi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'edukasi' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'edukasi' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>7. Edukasi ZISWAF</span>
@@ -429,7 +429,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('galeri'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'galeri' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100'
+                  activeTab === 'galeri' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
                 <span>8. Galeri & Kajian Umat</span>
@@ -469,7 +469,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={() => { openDigitalIbadah('quran'); setMobileMenuOpen(false); }}
-                className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 flex items-center gap-2"
+                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-emerald-950/80 border-emerald-700 text-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-900'}`}
               >
                 <BookOpen className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">Al-Qur'an Digital</span>
@@ -477,7 +477,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={() => { openAiAssistant(); setMobileMenuOpen(false); }}
-                className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 flex items-center gap-2"
+                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-emerald-950/80 border-emerald-700 text-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-900'}`}
               >
                 <Bot className="w-4 h-4 text-amber-400 shrink-0" />
                 <span className="truncate">AI Syariah</span>
@@ -485,7 +485,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={() => { openCalculator(); setMobileMenuOpen(false); }}
-                className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 flex items-center gap-2"
+                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-emerald-950/80 border-emerald-700 text-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-900'}`}
               >
                 <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                 <span className="truncate">Kalkulator Zakat</span>
@@ -493,7 +493,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={() => { openCatalogPdf(); setMobileMenuOpen(false); }}
-                className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 flex items-center gap-2"
+                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-emerald-950/80 border-emerald-700 text-emerald-200' : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-900'}`}
               >
                 <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">Katalog PDF</span>
