@@ -69,6 +69,7 @@ interface PengurusDkmDashboardProps {
   onDeletePetugasJadwal?: (id: string) => void;
   onAddAnnouncement: (anc: Omit<Announcement, 'id' | 'date'>) => void;
   onAddProgram: (prog: Omit<Program, 'id' | 'collectedAmount' | 'donorsCount'>) => void;
+  onDeleteProgram?: (id: string) => void;
   onAddJournalEntry?: (entry: Omit<JournalEntry, 'id'>) => void;
   onAddPettyCashEntry?: (entry: Omit<PettyCashEntry, 'id' | 'remainingBalance'>) => void;
   onUpdateAdminSettings?: (settings: Partial<AppAdminSettings>) => void;
@@ -98,6 +99,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeletePetugasJadwal,
   onAddAnnouncement,
   onAddProgram,
+  onDeleteProgram,
   onAddJournalEntry,
   onAddPettyCashEntry,
   onUpdateAdminSettings,
@@ -2343,6 +2345,21 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     <p className="text-xs font-mono text-emerald-400 mt-1">
                       Target: {formatRupiahFull(p.targetAmount)}
                     </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {onDeleteProgram && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm('Apakah Anda yakin ingin menghapus program ini?')) {
+                            onDeleteProgram(p.id);
+                          }
+                        }}
+                        className="bg-red-500/20 hover:bg-red-500/30 text-red-400 p-2 rounded-lg transition-colors border border-red-500/30 cursor-pointer"
+                        title="Hapus Program"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

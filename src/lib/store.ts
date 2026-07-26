@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { getSupabaseClient } from './supabase';
 import {
   Program,
   DonationRecord,
@@ -123,6 +124,118 @@ export function useMasjidStore() {
   useEffect(() => {
     saveStoredState(state);
   }, [state]);
+
+  const fetchPrograms = useCallback(async () => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return;
+
+    try {
+      const { data, error } = await supabase.from('programs').select('*').order('created_at', { ascending: false });
+      if (error) {
+        console.error('Error fetching programs from Supabase:', error);
+        return;
+      }
+      
+      if (data && data.length > 0) {
+        // Map Supabase snake_case to camelCase
+        const mappedPrograms = data.map(p => ({
+          id: p.id,
+          title: p.title,
+          subtitle: p.subtitle,
+          category: p.category,
+          targetAmount: Number(p.target_amount),
+          collectedAmount: Number(p.collected_amount),
+          donorsCount: Number(p.donors_count),
+          imageUrl: p.image_url,
+          description: p.description,
+          isUrgent: p.is_urgent,
+          featured: p.featured
+        }));
+        setState(prev => ({ ...prev, programs: mappedPrograms as Program[] }));
+      }
+    } catch (err) {
+      console.error('Failed to load programs from Supabase', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPrograms();
+  }, [fetchPrograms]);
+
+  const addProgram = async (program: Omit<Program, 'id'>) => {
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      const { data, error } = await supabase.from('programs').insert([{
+        title: program.title,
+        subtitle: program.subtitle,
+        category: program.category,
+        target_amount: program.targetAmount,
+        collected_amount: program.collectedAmount,
+        donors_count: program.donorsCount,
+        image_url: program.imageUrl,
+        description: program.description,
+        is_urgent: program.isUrgent,
+        featured: program.featured
+      }]).select();
+      if (!error && data && data.length > 0) {
+        fetchPrograms();
+        return;
+      }
+    }
+    
+    // Fallback if no supabase or error
+    const newProgram: Program = {
+      ...program,
+      id: `prg-${Math.floor(100 + Math.random() * 900)}`
+    };
+    setState(prev => ({ ...prev, programs: [newProgram, ...prev.programs] }));
+  };
+
+  const updateProgram = async (id: string, updated: Partial<Program>) => {
+    const supabase = getSupabaseClient();
+    if (supabase && id.length > 10) { // Supabase UUID is > 10 chars
+      const updateData: any = {};
+      if (updated.title !== undefined) updateData.title = updated.title;
+      if (updated.subtitle !== undefined) updateData.subtitle = updated.subtitle;
+      if (updated.category !== undefined) updateData.category = updated.category;
+      if (updated.targetAmount !== undefined) updateData.target_amount = updated.targetAmount;
+      if (updated.collectedAmount !== undefined) updateData.collected_amount = updated.collectedAmount;
+      if (updated.donorsCount !== undefined) updateData.donors_count = updated.donorsCount;
+      if (updated.imageUrl !== undefined) updateData.image_url = updated.imageUrl;
+      if (updated.description !== undefined) updateData.description = updated.description;
+      if (updated.isUrgent !== undefined) updateData.is_urgent = updated.isUrgent;
+      if (updated.featured !== undefined) updateData.featured = updated.featured;
+
+      const { error } = await supabase.from('programs').update(updateData).eq('id', id);
+      if (!error) {
+        fetchPrograms();
+        return;
+      }
+    }
+
+    // Fallback
+    setState(prev => ({
+      ...prev,
+      programs: prev.programs.map(p => p.id === id ? { ...p, ...updated } : p)
+    }));
+  };
+
+  const deleteProgram = async (id: string) => {
+    const supabase = getSupabaseClient();
+    if (supabase && id.length > 10) {
+      const { error } = await supabase.from('programs').delete().eq('id', id);
+      if (!error) {
+        fetchPrograms();
+        return;
+      }
+    }
+
+    // Fallback
+    setState(prev => ({
+      ...prev,
+      programs: prev.programs.filter(p => p.id !== id)
+    }));
+  };
 
   const addDonation = (newDonation: Omit<DonationRecord, 'id' | 'createdAt' | 'status'>) => {
     const id = `DON-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -467,7 +580,10 @@ export function useMasjidStore() {
     updatePetugasJadwal,
     addPetugasJadwal,
     deletePetugasJadwal,
+    fetchPrograms,
     addProgram,
+    updateProgram,
+    deleteProgram,
     setPalette,
     setThemeMode,
     toggleThemeMode,

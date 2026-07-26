@@ -264,6 +264,7 @@ export default function App() {
             onDeletePetugasJadwal={deletePetugasJadwal}
             onAddAnnouncement={addAnnouncement}
             onAddProgram={addProgram}
+            onDeleteProgram={deleteProgram}
             onAddJournalEntry={addJournalEntry}
             onAddPettyCashEntry={addPettyCashEntry}
             onUpdateAdminSettings={updateAdminSettings}

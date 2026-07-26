@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AzzikraBrandLogo } from './AzzikraBrandLogo';
+import { getSupabaseClient } from '../lib/supabase';
 import {
   TrendingUp,
   Users,
@@ -19,7 +20,7 @@ interface HeroSectionProps {
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
 }
 
-const HERO_BACKGROUNDS = [
+const DEFAULT_HERO_BACKGROUNDS = [
   '/masjid-azzikra-hero.jpg',
   '/hero-2.jpg',
   '/hero-3.jpg'
@@ -29,27 +30,60 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   openDigitalIbadah
 }) => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [backgrounds, setBackgrounds] = useState<string[]>(DEFAULT_HERO_BACKGROUNDS);
+
+  useEffect(() => {
+    const fetchHeroImages = async () => {
+      const supabase = getSupabaseClient();
+      if (!supabase) return;
+      
+      try {
+        const { data, error } = await supabase.storage.from('hero-images').list();
+        if (error) {
+          console.error('Error fetching hero images from Supabase:', error);
+          return;
+        }
+        
+        if (data && data.length > 0) {
+          // Filter out .emptyFolderPlaceholder or non-image files if needed
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
+          
+          if (imageFiles.length > 0) {
+            const urls = imageFiles.map(file => {
+              const { data: { publicUrl } } = supabase.storage.from('hero-images').getPublicUrl(file.name);
+              return publicUrl;
+            });
+            setBackgrounds(urls);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load dynamic hero images', err);
+      }
+    };
+
+    fetchHeroImages();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentBgIndex((prev) => (prev + 1) % HERO_BACKGROUNDS.length);
+      setCurrentBgIndex((prev) => (prev + 1) % backgrounds.length);
     }, 6000); // Change image every 6 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [backgrounds]);
 
   return (
-    <section className="relative overflow-hidden bg-[#022C22] text-white py-8 md:py-12 border-b border-emerald-900 h-[60vh] md:h-[70vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden bg-[#022C22] text-white py-8 md:py-12 border-b border-emerald-900 h-[45vh] md:h-[55vh] flex flex-col justify-center">
       {/* Background Image Carousel */}
-      {HERO_BACKGROUNDS.map((bg, index) => (
+      {backgrounds.map((bg, index) => (
         <div
           key={bg}
-          className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
-            index === currentBgIndex ? 'opacity-80 scale-100' : 'opacity-0 scale-105 pointer-events-none'
+          className={`absolute inset-0 z-0 bg-cover bg-[center_30%] transition-all duration-1000 ease-in-out ${
+            index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
           }`}
           style={{ backgroundImage: `url('${bg}')` }}
         />
       ))}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/40 via-[#043927]/60 to-[#022C22] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/10 via-transparent to-[#022C22]/90 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}
