@@ -103,11 +103,11 @@ export const Footer: React.FC<FooterProps> = ({
               Program Unggulan
             </h4>
             <ul className="space-y-2 text-xs text-emerald-300 font-medium">
-              <li>&bull; Majelis Zikir Akbar Bulanan</li>
-              <li>&bull; Muallaf Center Az-Zikra</li>
-              <li>&bull; Pesantren Tahfidz Al-Qur'an</li>
+              <li>&bull; Operasional Masjid (Az-Zikra)</li>
+              <li>&bull; Santunan Yatim Piatu</li>
+              <li>&bull; Wakaf Masjid (Pemeliharaan & Pengembangan)</li>
+              <li>&bull; Santunan Dhuafa (& Fakir Miskin)</li>
               <li>&bull; Patungan Qurban Idul Adha</li>
-              <li>&bull; Perawatan Kubah Putih & Selasar</li>
             </ul>
           </div>
 

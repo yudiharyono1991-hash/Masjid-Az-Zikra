@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className={`hidden 2xl:flex flex-wrap justify-center items-center gap-2 text-[11px] font-bold uppercase tracking-widest ${isDark ? 'text-emerald-100' : 'text-emerald-700'}`}>
+          <nav className="hidden">
             <button
               onClick={() => setActiveTab('beranda')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
@@ -319,7 +319,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Hamburger Toggle (Menu Susun Tiga) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`2xl:hidden px-2.5 py-1.5 rounded-xl cursor-pointer flex items-center gap-1 font-bold font-mono text-[10px] uppercase tracking-wider shadow-sm transition-all ${
+              className={`px-2.5 py-1.5 rounded-xl cursor-pointer flex items-center gap-1 font-bold font-mono text-[10px] uppercase tracking-wider shadow-sm transition-all ${
                 isDark 
                   ? 'bg-emerald-800/60 text-amber-300 border border-amber-400/40 hover:bg-emerald-800' 
                   : 'bg-emerald-50 text-emerald-900 border border-emerald-300 hover:bg-emerald-100'
@@ -341,7 +341,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu (Menu Susun Tiga) */}
       {mobileMenuOpen && (
-        <div className={`2xl:hidden border-t px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto ${
+        <div className={`border-t px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto ${
           isDark ? 'border-emerald-900 bg-[#022C22] text-white' : 'border-emerald-200 bg-white text-emerald-900'
         }`}>
           
