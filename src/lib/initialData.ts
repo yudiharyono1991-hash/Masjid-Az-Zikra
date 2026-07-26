@@ -64,32 +64,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     isUrgent: false,
     featured: true
   },
-  {
-    id: 'prg-5',
-    title: 'Pesantren Tahfidz & TPA Az-Zikra Anak Dhuafa',
-    subtitle: 'Mencetak Generasi Qur\'ani',
-    category: 'zakat',
-    targetAmount: 10000000000,
-    collectedAmount: 8900000000,
-    donorsCount: 4120,
-    imageUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80',
-    description: 'Pemberian beasiswa penuh, seragam, insentif ustadz/ustadzah, dan kitab suci bagi santri TPA dari keluarga dhuafa.',
-    isUrgent: false,
-    featured: false
-  },
-  {
-    id: 'prg-6',
-    title: 'Operasional Wisma Jamaah & Hall Resepsi Syariah Az-Zikra',
-    subtitle: 'Kemitraan Usaha Syariah Masjid',
-    category: 'infaq',
-    targetAmount: 2000000000,
-    collectedAmount: 1650000000,
-    donorsCount: 940,
-    imageUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
-    description: 'Pemeliharaan fasilitas pendingin udara, lighting, serta wisma transit jamaah yang digunakan untuk kegiatan syiar islami.',
-    isUrgent: false,
-    featured: false
-  }
+
 ];
 
 export const INITIAL_DONATIONS: DonationRecord[] = [
