@@ -71,7 +71,7 @@ export const AzzikraBrandLogo: React.FC<AzzikraBrandLogoProps> = ({
 
       <div>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className={`text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white' : 'text-emerald-900'} drop-shadow-sm`}>
+          <span className={`whitespace-nowrap text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white' : 'text-emerald-900'} drop-shadow-sm`}>
             AZ-ZIKRA
           </span>
           <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-widest bg-emerald-800/20 text-emerald-600 dark:text-emerald-300 px-1.5 sm:px-2 py-0.5 rounded border border-emerald-500/30">
