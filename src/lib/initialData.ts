@@ -318,6 +318,42 @@ export const INITIAL_DOA: DoaItem[] = [
     latin: 'Allahummaf-tah lii abwaaba rahmatika',
     translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
     source: 'HR. Muslim'
+  },
+  {
+    id: 'doa-5',
+    title: 'Al-Ma\'tsurat Pagi: Sayyidul Istighfar',
+    category: 'Al-Ma\'tsurat Pagi',
+    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+    latin: 'Allahumma anta rabbi la ilaha illa anta, khalaqtani wa ana \'abduka, wa ana \'ala \'ahdika wa wa\'dika mastatha\'tu, a\'udzu bika min syarri ma shana\'tu, abu\'u laka bini\'matika \'alayya, wa abu\'u laka bidzanbi faghfir lii, fa innahu la yaghfirudz-dzunuba illa anta.',
+    translation: 'Ya Allah, Engkau adalah Tuhanku, tidak ada Tuhan yang berhak disembah kecuali Engkau. Engkaulah yang menciptakanku, dan aku adalah hamba-Mu. Aku akan setia pada perjanjianku dengan-Mu semampuku. Aku berlindung kepada-Mu dari keburukan yang kuperbuat. Aku mengakui nikmat-Mu kepadaku dan aku mengakui dosaku, ampunilah aku.',
+    source: 'HR. Bukhari no. 6306'
+  },
+  {
+    id: 'doa-6',
+    title: 'Al-Ma\'tsurat Pagi: Doa Memohon Keselamatan',
+    category: 'Al-Ma\'tsurat Pagi',
+    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي',
+    latin: 'Allahumma inni as-alukal \'afiyata fid-dunya wal akhirah, allahumma inni as-alukal \'afwa wal \'afiyata fi diini wa dunyaaya wa ahli wa maali.',
+    translation: 'Ya Allah, sesungguhnya aku memohon keselamatan di dunia dan akhirat. Ya Allah, sesungguhnya aku memohon ampunan dan keselamatan dalam agamaku, duniaku, keluargaku, dan hartaku.',
+    source: 'HR. Abu Dawud no. 5074'
+  },
+  {
+    id: 'doa-7',
+    title: 'Al-Ma\'tsurat Petang: Pujian Petang Hari',
+    category: 'Al-Ma\'tsurat Petang',
+    arabic: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    latin: 'Amsayna wa amsal mulku lillah, walhamdu lillah la ilaha illallah, wahdahu la syarika lah, lahul mulku wa lahul hamdu wa huwa \'ala kulli syai-in qadiir.',
+    translation: 'Kami telah memasuki waktu sore dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah yang berhak disembah kecuali Allah semata, tiada sekutu bagi-Nya. Milik-Nya kerajaan dan bagi-Nya pujian. Dia Maha Kuasa atas segala sesuatu.',
+    source: 'HR. Muslim no. 2723'
+  },
+  {
+    id: 'doa-8',
+    title: 'Al-Ma\'tsurat Petang: Doa Perlindungan Malam',
+    category: 'Al-Ma\'tsurat Petang',
+    arabic: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    latin: 'Bismillahilladzi la yadhurru ma\'asmihi syai-un fil ardhi wa la fis-sama\'i wa huwas-sami\'ul \'alim. (Dibaca 3x)',
+    translation: 'Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya, Dia-lah Yang Maha Mendengar lagi Maha Mengetahui.',
+    source: 'HR. Abu Dawud no. 5088'
   }
 ];
 
