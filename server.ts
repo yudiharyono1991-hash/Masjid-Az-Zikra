@@ -90,7 +90,9 @@ Tugas Anda:
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Masjid Az-Zikra] Server berjalan di http://0.0.0.0:${PORT}`);
+    console.log(`\n  🚀 Masjid Az-Zikra Platform ready!`);
+    console.log(`  ➜  Local:   http://localhost:${PORT}/`);
+    console.log(`  ➜  Network: http://0.0.0.0:${PORT}/\n`);
   });
 }
 
