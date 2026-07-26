@@ -195,7 +195,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
         </div>
-      \n\n        {/* Hero Title & Headline */}
+        {/* Hero Title & Headline */}
         <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-6">
           <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
             Ekosistem Digital Masjid Az-Zikra Sentul
