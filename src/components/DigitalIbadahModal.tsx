@@ -91,12 +91,18 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
           const id = result.data[1].ayahs;
           const lat = result.data[2].ayahs;
           
-          const formattedAyahs = ar.map((ayah: any, index: number) => ({
-            numberInSurah: ayah.numberInSurah,
-            text: ayah.text,
-            translation: id[index].text,
-            latin: lat[index].text
-          }));
+          const formattedAyahs = ar.map((ayah: any, index: number) => {
+            let text = ayah.text;
+            if (selectedSurahNumber !== 1 && selectedSurahNumber !== 9 && ayah.numberInSurah === 1) {
+              text = text.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ', '');
+            }
+            return {
+              numberInSurah: ayah.numberInSurah,
+              text: text,
+              translation: id[index].text,
+              latin: lat[index].text
+            };
+          });
           
           setCurrentAyahs(formattedAyahs);
         }

@@ -95,8 +95,8 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
           desc: 'Wakaf dalam bentuk nominal uang yang dikelola DKM secara produktif untuk fasilitas masjid & usaha syariah.'
         },
         {
-          name: 'Wakaf Sarana & Fasilitas',
-          desc: 'Wakaf sound system, karpet shalat, Al-Qur\'an hafalan, pendingin ruangan (AC), dan aula Al-Hambra.'
+          name: 'Wakaf Produktif & Infrastruktur',
+          desc: 'Wakaf pembebasan lahan, karpet shalat, Al-Qur\'an hafalan, pendingin ruangan (AC), dan fasilitas operasional masjid lainnya.'
         },
         {
           name: 'Wakaf Tanah / Bangunan',

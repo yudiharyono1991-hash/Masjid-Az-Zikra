@@ -43,7 +43,7 @@ export const AzzikraBrandLogo: React.FC<AzzikraBrandLogoProps> = ({
           <div className="inline-block px-3 py-0.5 bg-amber-500/20 border border-amber-400/40 rounded-full font-mono text-[10px] font-bold text-amber-300 uppercase tracking-[0.25em]">
             MASJID OFFICIAL BRANDING
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-emerald-300 drop-shadow-[0_2px_10px_rgba(217,119,6,0.3)]">
+          <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-emerald-300 drop-shadow-[0_2px_10px_rgba(217,119,6,0.3)] transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_15px_rgba(251,191,36,0.6)] cursor-default">
             AZ-ZIKRA
           </h1>
           <p className="font-mono text-xs font-bold text-emerald-400 uppercase tracking-[0.3em]">
@@ -71,7 +71,7 @@ export const AzzikraBrandLogo: React.FC<AzzikraBrandLogoProps> = ({
 
       <div>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className={`whitespace-nowrap text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white' : 'text-emerald-900'} drop-shadow-sm`}>
+          <span className={`whitespace-nowrap text-base sm:text-xl font-serif font-extrabold tracking-wider ${isDark ? 'text-white hover:text-amber-300' : 'text-emerald-900 hover:text-emerald-600'} drop-shadow-sm transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 cursor-default`}>
             AZ-ZIKRA
           </span>
           <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-widest bg-emerald-800/20 text-emerald-600 dark:text-emerald-300 px-1.5 sm:px-2 py-0.5 rounded border border-emerald-500/30">

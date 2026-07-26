@@ -113,25 +113,25 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             </button>
           </div>
 
-          {/* Card 3: Sewa Gedung Hall */}
+          {/* Card 3: Baitul Maal */}
           <div className="bg-gradient-to-br from-[#064E3B] to-[#022C22] text-white border-2 border-amber-500/40 rounded-2xl p-6 relative overflow-hidden group shadow-lg">
             <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center justify-center mb-4">
               <Building2 className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-serif font-bold text-white">
-              Sewa Gedung Al-Hambra Hall
+              Baitul Maal Az-Zikra
             </h3>
             <p className="text-xs text-amber-300 font-mono font-bold uppercase tracking-wider mt-1 mb-3">
-              Hall Serbaguna Acara Syariah
+              Pemberdayaan Ekonomi Umat
             </p>
             <p className="text-emerald-200 text-xs leading-relaxed">
-              Aula syariah lengkap dengan AC standing, stage, sound system kristal, dan area parkir luas untuk walimah & acara keutamaan.
+              Program pemberdayaan ekonomi syariah, bantuan modal usaha tanpa riba, dan pembinaan UMKM jamaah untuk kemandirian finansial.
             </p>
             <button
               onClick={() => setSelectedCategory('infaq')}
               className="mt-5 text-xs font-mono font-bold uppercase tracking-wider text-amber-300 hover:underline flex items-center gap-1.5 cursor-pointer"
             >
-              <span>Info Reservasi Hall</span>
+              <span>Info Baitul Maal</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
