@@ -141,6 +141,7 @@ export default function App() {
           <>
             <HeroSection
               openDigitalIbadah={handleOpenDigitalIbadah}
+              isDark={isDark}
             />
 
             <ProgramCardsSection
@@ -190,6 +191,13 @@ export default function App() {
               programs={state.programs}
               openDonationForProgram={handleOpenDonationForProgram}
               onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
+              totalCollected={totalCollected}
+              activeDonors={activeDonors}
+              totalDisbursed={totalDisbursed}
+              efficiencyRate={efficiencyRate}
+              openDonationModal={handleOpenDonationModal}
+              openCalculator={() => setCalculatorModalOpen(true)}
+              isDark={isDark}
             />
             <EdukasiZiswafSection
               isDark={isDark}
@@ -287,6 +295,7 @@ export default function App() {
         openDigitalIbadah={handleOpenDigitalIbadah}
         openTvMode={() => setTvModeOpen(true)}
         openCatalogPdf={() => setCatalogPdfOpen(true)}
+        isDark={isDark}
       />
 
       {/* 4. Modals & Overlays */}

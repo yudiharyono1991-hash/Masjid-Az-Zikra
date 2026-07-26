@@ -18,6 +18,7 @@ import { formatRupiah } from '../lib/islamicUtils';
 
 interface HeroSectionProps {
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
+  isDark?: boolean;
 }
 
 const DEFAULT_HERO_BACKGROUNDS = [
@@ -27,7 +28,8 @@ const DEFAULT_HERO_BACKGROUNDS = [
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  openDigitalIbadah
+  openDigitalIbadah,
+  isDark = false
 }) => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [backgrounds, setBackgrounds] = useState<string[]>(DEFAULT_HERO_BACKGROUNDS);
@@ -95,21 +97,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-2 mb-6 font-mono text-[9px] sm:text-[10px] uppercase tracking-widest font-bold">
           <button
             onClick={() => openDigitalIbadah('quran')}
-            className="bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border border-emerald-500/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
+              isDark 
+                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+            }`}
           >
             <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
             <span>Al-Qur'an Digital</span>
           </button>
           <button
             onClick={() => openDigitalIbadah('salat')}
-            className="bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border border-emerald-500/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
+              isDark 
+                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+            }`}
           >
             <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
             <span>Jadwal Shalat & Adzan</span>
           </button>
           <button
             onClick={() => openDigitalIbadah('kiblat')}
-            className="bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border border-emerald-500/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
+              isDark 
+                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+            }`}
           >
             <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-300" />
             <span>Arah Kiblat</span>

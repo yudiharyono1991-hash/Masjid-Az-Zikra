@@ -19,6 +19,7 @@ interface FooterProps {
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
   openTvMode: () => void;
   openCatalogPdf?: () => void;
+  isDark?: boolean;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -29,18 +30,18 @@ export const Footer: React.FC<FooterProps> = ({
   openCatalogPdf
 }) => {
   return (
-    <footer className="bg-[#022C22] text-white border-t border-emerald-900 pt-16 pb-12">
+    <footer className={`pt-16 pb-12 border-t transition-colors ${isDark ? "bg-[#022C22] text-white border-emerald-900" : "bg-stone-50 text-emerald-900 border-emerald-200"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
-            <AzzikraBrandLogo variant="navbar" isDark={true} />
+            <AzzikraBrandLogo variant="navbar" isDark={isDark} />
 
-            <p className="text-xs text-emerald-300 leading-relaxed font-sans">
+            <p className={`text-xs leading-relaxed font-sans transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               Pusat Zikir Akbar, Pendidikan Pesantren, Muallaf Center, dan Transaksi ZISWAF yang transparan serta amanah.
             </p>
 
-            <div className="pt-2 text-xs text-emerald-300 space-y-1.5 font-mono">
+            <div className={`pt-2 text-xs space-y-1.5 font-mono transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               <p className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                 <span className="leading-snug">Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Bogor 16810</span>
@@ -102,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-emerald-800 pb-2">
               Program Unggulan
             </h4>
-            <ul className="space-y-2 text-xs text-emerald-300 font-medium">
+            <ul className={`space-y-2 text-xs font-medium transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               <li>&bull; Operasional Masjid (Az-Zikra)</li>
               <li>&bull; Santunan Yatim Piatu</li>
               <li>&bull; Wakaf Masjid (Pemeliharaan & Pengembangan)</li>
@@ -116,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-emerald-800 pb-2">
               Layar TV Signage
             </h4>
-            <p className="text-xs text-emerald-300 leading-relaxed font-sans">
+            <p className={`text-xs leading-relaxed font-sans transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               Buka tampilan khusus Digital Signage TV Masjid Az-Zikra Sentul untuk diproyeksikan pada TV utama masjid.
             </p>
 
