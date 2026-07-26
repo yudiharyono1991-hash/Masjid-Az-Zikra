@@ -355,18 +355,6 @@ export function useMasjidStore() {
     }));
   };
 
-  const addProgram = (prog: Omit<Program, 'id' | 'collectedAmount' | 'donorsCount'>) => {
-    const newProg: Program = {
-      ...prog,
-      id: `prg-${Math.floor(10 + Math.random() * 90)}`,
-      collectedAmount: 0,
-      donorsCount: 0
-    };
-    setState(prev => ({
-      ...prev,
-      programs: [newProg, ...prev.programs]
-    }));
-  };
 
   const setPalette = (colorPalette: ColorPalette) => {
     setState(prev => ({ ...prev, colorPalette }));

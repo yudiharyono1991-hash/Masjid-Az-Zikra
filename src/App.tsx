@@ -36,6 +36,7 @@ export default function App() {
     deletePetugasJadwal,
     addAnnouncement,
     addProgram,
+    deleteProgram,
     addJournalEntry,
     addPettyCashEntry,
     updateAdminSettings,
