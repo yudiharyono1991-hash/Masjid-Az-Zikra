@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="hover:text-emerald-600 transition-colors flex items-center gap-1 cursor-pointer font-bold"
           >
             <Calendar className="w-3 h-3 text-amber-500" />
-            <span className="hidden xs:inline">Jadwal</span> Salat
+            <span className="hidden xs:inline">Jadwal</span> Shalat
           </button>
           <span className="opacity-30">|</span>
           <button
@@ -382,7 +382,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   activeTab === 'jadwal_khatib' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
-                <span>3. Agenda Salat Jumat</span>
+                <span>3. Agenda Shalat Jumat</span>
                 <span className="text-[10px] font-mono font-normal opacity-70">Khatib & Imam</span>
               </button>
 

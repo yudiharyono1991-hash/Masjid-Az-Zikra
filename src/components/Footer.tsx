@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button onClick={() => openDigitalIbadah('salat')} className="hover:text-emerald-400 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Jadwal Salat & Adzan Sentul</span>
+                  <span>Jadwal Shalat & Adzan Sentul</span>
                 </button>
               </li>
               {openCatalogPdf && (

@@ -142,7 +142,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
   {
     id: 'FIN-103',
     type: 'masuk',
-    title: 'Infaq Keliling Salat Jumat Az-Zikra',
+    title: 'Infaq Keliling Shalat Jumat Az-Zikra',
     category: 'Infaq Jumat',
     amount: 18450000,
     date: '2026-07-24',
@@ -313,7 +313,7 @@ export const INITIAL_DOA: DoaItem[] = [
   {
     id: 'doa-4',
     title: 'Doa Masuk Masjid',
-    category: 'Salat',
+    category: 'Shalat',
     arabic: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
     latin: 'Allahummaf-tah lii abwaaba rahmatika',
     translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
@@ -437,7 +437,7 @@ export const INITIAL_JOURNAL_ENTRIES = [
     accountName: 'Beban Operasional Kebersihan & AC',
     debit: 750000,
     credit: 0,
-    description: 'Servis Berkala AC Ruang Salat Utama & Pengadaan Sabun',
+    description: 'Servis Berkala AC Ruang Shalat Utama & Pengadaan Sabun',
     category: 'Operasional' as const
   },
   {
@@ -448,7 +448,7 @@ export const INITIAL_JOURNAL_ENTRIES = [
     accountName: 'Kas Kecil Operasional Harian',
     debit: 0,
     credit: 750000,
-    description: 'Servis Berkala AC Ruang Salat Utama & Pengadaan Sabun',
+    description: 'Servis Berkala AC Ruang Shalat Utama & Pengadaan Sabun',
     category: 'Operasional' as const
   }
 ];
@@ -556,7 +556,7 @@ export const INITIAL_ADMIN_SETTINGS = {
   showLiveMutations: true,
   showTargetDonationBar: true,
   allowAnonymousDonation: true,
-  runningTextTv: 'Selamat Datang di Masjid Az-Zikra Sentul (Kampung Sunnah Sentul) - Mohon menonaktifkan nada dering HP selama pelaksanaan Ibadah Salat Jamaah & Dzikir Akbar.',
+  runningTextTv: 'Selamat Datang di Masjid Az-Zikra Sentul (Kampung Sunnah Sentul) - Mohon menonaktifkan nada dering HP selama pelaksanaan Ibadah Shalat Jamaah & Dzikir Akbar.',
   goldNisabPrice: 1350000,
   bankAccountBsi: '7130-2498-17 (a.n. DKM Masjid Az-Zikra ZISWAF)',
   bankAccountBca: '8820-1192-33 (a.n. Yayasan Az-Zikra Sentul)',
@@ -572,7 +572,7 @@ export const INITIAL_ADMIN_SETTINGS = {
   jumatTimeInfo: 'Jumat Ini, 11:55 WIB - Selesai',
   masjidAddressInfo: 'Kampung Sunnah Az-Zikra, Perumahan Bukit Sentul, Cipambuan, Babakan Madang, Bogor',
   masjidPhoneContact: '+62 812-9876-5432 (Sekertariat DKM Az-Zikra)',
-  featureInfoAnnouncement: 'Ekosistem Digital Masjid Az-Zikra Sentul melayani ZISWAF, Al-Qur\'an MP3, Jadwal Salat & Adzan, Penunjuk Arah Kiblat, Sejarah Masjid, serta TV Signage Display.'
+  featureInfoAnnouncement: 'Ekosistem Digital Masjid Az-Zikra Sentul melayani ZISWAF, Al-Qur\'an MP3, Jadwal Shalat & Adzan, Penunjuk Arah Kiblat, Sejarah Masjid, serta TV Signage Display.'
 };
 
 export const INITIAL_GALLERY: GalleryItem[] = [

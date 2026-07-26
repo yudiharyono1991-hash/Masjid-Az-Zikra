@@ -26,7 +26,7 @@ export const FridayAgendaSection: React.FC<FridayAgendaSectionProps> = ({
   };
 
   const handleShare = () => {
-    const text = `Agenda Salat Jumat Masjid Az-Zikra Sentul:\n📅 ${currentFriday.date}\n🎙️ Khatib: ${currentFriday.khatibJumat}\n📖 Imam: ${currentFriday.imamJumat}\n📢 Topik: "${currentFriday.topikJumat}"`;
+    const text = `Agenda Shalat Jumat Masjid Az-Zikra Sentul:\n📅 ${currentFriday.date}\n🎙️ Khatib: ${currentFriday.khatibJumat}\n📖 Imam: ${currentFriday.imamJumat}\n📢 Topik: "${currentFriday.topikJumat}"`;
     if (navigator.share) {
       navigator.share({ title: 'Agenda Jumat Masjid Az-Zikra Sentul', text, url: window.location.href }).catch(() => {});
     } else {
@@ -47,7 +47,7 @@ export const FridayAgendaSection: React.FC<FridayAgendaSectionProps> = ({
               <span>Jadwal Ibadah & Khutbah Jumat</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-white mt-2">
-              Agenda Salat Jumat Masjid Az-Zikra
+              Agenda Shalat Jumat Masjid Az-Zikra
             </h2>
             <p className="text-xs sm:text-sm text-emerald-100/80 mt-1">
               Informasi lengkap Khatib, Imam, Muadzin, Bilal, serta Tema Khutbah Jumat pekan ini.

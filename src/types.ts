@@ -156,7 +156,7 @@ export interface Ayah {
 export interface DoaItem {
   id: string;
   title: string;
-  category: 'Harian' | 'Salat' | 'Ramadhan' | 'Rezeki' | 'Perlindungan';
+  category: 'Harian' | 'Shalat' | 'Ramadhan' | 'Rezeki' | 'Perlindungan' | 'Al-Ma\'tsurat Pagi' | 'Al-Ma\'tsurat Petang';
   arabic: string;
   latin: string;
   translation: string;

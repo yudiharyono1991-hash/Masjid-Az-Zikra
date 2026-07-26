@@ -263,7 +263,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                 Fasilitas Ibadah Digital Masjid Az-Zikra Sentul
               </h3>
               <p className="text-xs text-emerald-400">
-                Al-Qur'an Digital Audio Murottal, Auto-Scroll Verse, Jadwal Salat, Kiblat &amp; Doa
+                Al-Qur'an Digital Audio Murottal, Auto-Scroll Verse, Jadwal Shalat, Kiblat &amp; Doa
               </p>
             </div>
           </div>
@@ -283,7 +283,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
         <div className="flex border-b border-emerald-800 bg-emerald-950 p-2 gap-2 overflow-x-auto">
           {[
             { id: 'quran', label: "Al-Qur'an Digital & Audio", icon: BookOpen },
-            { id: 'salat', label: 'Jadwal Salat & Adzan', icon: Calendar },
+            { id: 'salat', label: 'Jadwal Shalat & Adzan', icon: Calendar },
             { id: 'kiblat', label: 'Penunjuk Arah Kiblat', icon: Compass },
             { id: 'doa', label: 'Doa & Hadis Pilihan', icon: Sparkles }
           ].map(tab => {
@@ -492,14 +492,14 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
             </div>
           )}
 
-          {/* 2. JADWAL SALAT & ADZAN */}
+          {/* 2. JADWAL SHALAT & ADZAN */}
           {activeSubTab === 'salat' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-emerald-900 p-4 rounded-2xl border border-emerald-800">
                 <div>
                   <div className="flex items-center gap-2 text-amber-400 text-xs font-bold">
                     <MapPin className="w-4 h-4" />
-                    <span>Lokasi Wilayah Salat:</span>
+                    <span>Lokasi Wilayah Shalat:</span>
                   </div>
                   <select
                     value={selectedCity.name}

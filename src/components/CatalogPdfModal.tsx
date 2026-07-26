@@ -335,7 +335,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                     desc: 'Teks Madinah, latin, terjemahan Indonesia, pemutar audio Murottal Sheikh Alafasy, pembacaan wajib Bismillah, dan auto-scroll highlight ayat.'
                   },
                   {
-                    title: 'D. Jadwal Salat, Adzan & Alarm Iqamah Sentul',
+                    title: 'D. Jadwal Shalat, Adzan & Alarm Iqamah Sentul',
                     desc: 'Jadwal shalat presisi wilayah Sentul / Bogor, kompas Arah Kiblat GPS (295.2° WNW), alarm adzan, dan hitung mundur iqamah.'
                   },
                   {
