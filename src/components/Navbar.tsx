@@ -355,7 +355,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-[9px] font-mono opacity-60">Menu Susun Tiga</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-bold uppercase tracking-wider">
+            <div className="grid grid-cols-1 gap-1.5 text-xs font-bold uppercase tracking-wider">
               <button
                 onClick={() => { setActiveTab('beranda'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
@@ -458,7 +458,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Layanan & Fitur Digital Cepat</span>
             </span>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-bold">
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <button
                 onClick={() => { openDonationModal(); setMobileMenuOpen(false); }}
                 className="p-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-2 shadow-sm"
