@@ -1054,3 +1054,41 @@ export const SURAHS_LIST = [
     "type": "Makkiyah"
   }
 ];
+
+export const SAMPLE_AYAHS_ALFATIHAH = [
+  {
+    "numberInSurah": 1,
+    "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+    "translation": "Dengan menyebut nama Allah Yang Maha Pemurah lagi Maha Penyayang."
+  },
+  {
+    "numberInSurah": 2,
+    "text": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+    "translation": "Segala puji bagi Allah, Tuhan semesta alam."
+  },
+  {
+    "numberInSurah": 3,
+    "text": "ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+    "translation": "Maha Pemurah lagi Maha Penyayang."
+  },
+  {
+    "numberInSurah": 4,
+    "text": "مَٰلِكِ يَوْمِ ٱلدِّينِ",
+    "translation": "Yang menguasai di Hari Pembalasan."
+  },
+  {
+    "numberInSurah": 5,
+    "text": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+    "translation": "Hanya Engkaulah yang kami sembah, dan hanya kepada Engkaulah kami meminta pertolongan."
+  },
+  {
+    "numberInSurah": 6,
+    "text": "ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
+    "translation": "Tunjukilah kami jalan yang lurus,"
+  },
+  {
+    "numberInSurah": 7,
+    "text": "صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ",
+    "translation": "(yaitu) jalan orang-orang yang telah Engkau beri nikmat kepada mereka; bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) mereka yang sesat."
+  }
+];

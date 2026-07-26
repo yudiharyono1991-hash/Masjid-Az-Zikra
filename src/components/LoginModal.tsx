@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserSession } from '../types';
+import { UserSession, UserRole } from '../types';
 import {
   UserCheck,
   X,

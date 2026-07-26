@@ -15,7 +15,8 @@ import {
   ThemeMode,
   GalleryItem,
   QurbanGroup,
-  QurbanParticipant
+  QurbanParticipant,
+  UserRole
 } from '../types';
 import {
   INITIAL_PROGRAMS,
