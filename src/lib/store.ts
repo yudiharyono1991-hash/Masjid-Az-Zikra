@@ -34,7 +34,7 @@ import {
   INITIAL_QURBAN_GROUPS
 } from './initialData';
 
-const LOCAL_STORAGE_KEY = 'masjid_azzikra_app_state_v2';
+const LOCAL_STORAGE_KEY = 'masjid_azzikra_app_state_v3';
 
 export interface AppState {
   programs: Program[];
@@ -58,14 +58,14 @@ export interface AppState {
 
 const defaultState: AppState = {
   programs: INITIAL_PROGRAMS,
-  donations: INITIAL_DONATIONS,
-  financials: INITIAL_FINANCIAL,
+  donations: [],
+  financials: [],
   petugas: INITIAL_PETUGAS,
   inventories: INITIAL_INVENTORY,
   announcements: INITIAL_ANNOUNCEMENTS,
-  journalEntries: INITIAL_JOURNAL_ENTRIES,
+  journalEntries: [],
   glAccounts: INITIAL_GL_ACCOUNTS,
-  pettyCash: INITIAL_PETTY_CASH,
+  pettyCash: [],
   adminSettings: INITIAL_ADMIN_SETTINGS,
   galleryItems: INITIAL_GALLERY,
   qurbanGroups: INITIAL_QURBAN_GROUPS,
@@ -91,14 +91,14 @@ export function getStoredState(): AppState {
         ...parsed,
         // Ensure initial fallback lists if empty
         programs: parsed.programs?.length ? parsed.programs : INITIAL_PROGRAMS,
-        donations: parsed.donations?.length ? parsed.donations : INITIAL_DONATIONS,
-        financials: parsed.financials?.length ? parsed.financials : INITIAL_FINANCIAL,
+        donations: parsed.donations || [],
+        financials: parsed.financials || [],
         petugas: parsed.petugas?.length ? parsed.petugas : INITIAL_PETUGAS,
         inventories: parsed.inventories?.length ? parsed.inventories : INITIAL_INVENTORY,
         announcements: parsed.announcements?.length ? parsed.announcements : INITIAL_ANNOUNCEMENTS,
-        journalEntries: parsed.journalEntries?.length ? parsed.journalEntries : INITIAL_JOURNAL_ENTRIES,
+        journalEntries: parsed.journalEntries || [],
         glAccounts: parsed.glAccounts?.length ? parsed.glAccounts : INITIAL_GL_ACCOUNTS,
-        pettyCash: parsed.pettyCash?.length ? parsed.pettyCash : INITIAL_PETTY_CASH,
+        pettyCash: parsed.pettyCash || [],
         adminSettings: parsed.adminSettings ? { ...INITIAL_ADMIN_SETTINGS, ...parsed.adminSettings } : INITIAL_ADMIN_SETTINGS
       };
     }
