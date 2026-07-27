@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'beranda'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+                  : 'text-blue-100 hover:text-amber-400 hover:bg-blue-800/50'
               }`}
             >
               Home
@@ -147,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['program', 'qurban', 'transparansi', 'edukasi'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+                    : 'text-blue-100 hover:text-amber-400 hover:bg-blue-800/50'
                 }`}
               >
                 ZISWAF <ChevronDown className="w-4 h-4" />
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'jadwal_khatib'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+                  : 'text-blue-100 hover:text-amber-400 hover:bg-blue-800/50'
               }`}
             >
               Kalender Kegiatan
@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['sejarah', 'galeri'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+                    : 'text-blue-100 hover:text-amber-400 hover:bg-blue-800/50'
                 }`}
               >
                 Tentang Kami <ChevronDown className="w-4 h-4" />
@@ -197,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'booking'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+                  : 'text-blue-100 hover:text-amber-400 hover:bg-blue-800/50'
               }`}
             >
               Booking Gedung
@@ -207,7 +207,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
               }}
-              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-blue-100 hover:text-white hover:bg-blue-800/50"
+              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-blue-100 hover:text-amber-400 hover:bg-blue-800/50"
             >
               Kontak Kami
             </button>
@@ -229,19 +229,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-
-            {/* Ziswaf Calculator Button */}
-            <button
-              onClick={openCalculator}
-              className={`border px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all cursor-pointer hidden lg:flex shadow-sm ${
-                isDark
-                  ? 'bg-blue-900 hover:bg-blue-800 text-white border-blue-700'
-                  : 'bg-white hover:bg-blue-50 text-blue-900 border-blue-200'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span className="font-mono text-[10px] uppercase tracking-wider">Hitung Zakat</span>
-            </button>
 
             {/* Supabase & Settings (Only for Admin/Ketua DKM) */}
             {session && ['admin_masjid', 'ketua_dkm'].includes(session.role) && (
