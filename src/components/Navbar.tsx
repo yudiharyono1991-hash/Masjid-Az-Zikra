@@ -217,8 +217,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab('dkm_portal')}
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-sm ${
                   activeTab === 'dkm_portal'
-                    ? 'bg-amber-500 text-blue-950 shadow-md'
-                    : 'text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30'
+                    ? 'bg-amber-400 text-blue-950 shadow-md'
+                    : 'text-amber-300 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30'
                 }`}
               >
                 <UserCheck className="w-4 h-4" />
@@ -391,7 +391,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <UserCheck className="w-4 h-4 text-amber-300" />
                     <span>9. Portal Pengurus DKM</span>
                   </span>
-                  <span className="text-[10px] font-mono bg-amber-500 text-blue-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
+                  <span className="text-[10px] font-mono bg-amber-400 text-blue-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
                 </button>
               )}
             </div>
