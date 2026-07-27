@@ -123,7 +123,7 @@ export default function App() {
   // Theme Mode & Palette styling
   const isDark = state.themeMode === 'dark';
   const themeContainerBg = isDark
-    ? 'bg-[#040814] text-blue-100 dark'
+    ? 'bg-[#0a1128] text-blue-100 dark'
     : 'bg-[#F9F8F4] text-blue-900';
 
   return (

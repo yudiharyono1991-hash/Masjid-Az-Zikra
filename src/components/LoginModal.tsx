@@ -9,7 +9,9 @@ import {
   Sparkles,
   History,
   ShieldCheck,
-  ArrowRight
+  ArrowRight,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 interface LoginModalProps {
@@ -27,8 +29,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   onLogin,
   onLogout
 }) => {
-  const [email, setEmail] = useState(session.email || 'jamaah@tazkia.ac.id');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState(session.email || '');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<UserRole>('jamaah');
   const [name, setName] = useState('Jamaah Tazkia');
 
@@ -175,12 +178,25 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <div className="relative">
                   <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-500" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-blue-900 outline-none"
+                    className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl pl-10 pr-10 py-2.5 text-xs text-blue-900 outline-none"
                   />
+                  <button 
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-700 cursor-pointer"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
+              </div>
+
+              <div className="flex items-center justify-end">
+                <a href="https://wa.me/6281234567890?text=Assalamu'alaikum,%20saya%20lupa%20password%20akun%20Portal%20Masjid%20Tazkia%20saya" target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                  Lupa Password? Hubungi Admin
+                </a>
               </div>
 
               <button
@@ -190,6 +206,17 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <span>Masuk Portal Keanggotaan</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              {role === 'jamaah' && (
+                <div className="text-center pt-2">
+                  <p className="text-[11px] text-blue-800 font-medium">
+                    Belum punya akun Jamaah?{' '}
+                    <a href="#" className="font-bold text-amber-600 hover:text-amber-700 hover:underline">
+                      Daftar Sekarang
+                    </a>
+                  </p>
+                </div>
+              )}
             </form>
           )}
 

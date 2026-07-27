@@ -12,7 +12,8 @@ import {
   Settings,
   FileText,
   Moon,
-  Sun
+  Sun,
+  ChevronDown
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
 
@@ -143,111 +144,100 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden">
+          <nav className="hidden lg:flex items-center gap-2">
             <button
               onClick={() => setActiveTab('beranda')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
                 activeTab === 'beranda'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
+                  ? 'bg-blue-700 text-white shadow-md'
                   : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
               }`}
             >
-              Beranda
+              Home
             </button>
-            <button
-              onClick={() => setActiveTab('program')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'program'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              Program ZISWAF
-            </button>
-            <button
-              onClick={() => openDonationModal()}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              <HeartHandshake className="w-4 h-4 text-amber-500" />
-              Infaq & Shadaqah
-            </button>
-            <button
-              onClick={() => setActiveTab('transparansi')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'transparansi'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              Laporan Realtime
-            </button>
-            <button
-              onClick={() => openDigitalIbadah('quran')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
-                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              <BookOpen className="w-4 h-4 text-blue-600" />
-              Al-Qur'an
-            </button>
+
+            {/* ZISWAF Dropdown */}
+            <div className="relative group">
+              <button
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold flex items-center gap-1 ${
+                  ['program', 'qurban', 'transparansi', 'edukasi'].includes(activeTab)
+                    ? 'bg-blue-700 text-white shadow-md'
+                    : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                }`}
+              >
+                ZISWAF <ChevronDown className="w-4 h-4" />
+              </button>
+              <div className={`absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 ${
+                isDark ? 'bg-[#1e3a8a] border-blue-800' : 'bg-white border-blue-100'
+              }`}>
+                <div className="py-2 flex flex-col">
+                  <button onClick={() => setActiveTab('program')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Program ZISWAF</button>
+                  <button onClick={() => setActiveTab('qurban')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Patungan Qurban</button>
+                  <button onClick={() => setActiveTab('transparansi')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Laporan Transparansi</button>
+                  <button onClick={() => setActiveTab('edukasi')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Edukasi ZISWAF</button>
+                </div>
+              </div>
+            </div>
+
             <button
               onClick={() => setActiveTab('jadwal_khatib')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
                 activeTab === 'jadwal_khatib'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
+                  ? 'bg-blue-700 text-white shadow-md'
                   : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
               }`}
             >
-              Agenda Jumat
+              Kalender Kegiatan
             </button>
+
+            {/* Tentang Kami Dropdown */}
+            <div className="relative group">
+              <button
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold flex items-center gap-1 ${
+                  ['sejarah', 'galeri'].includes(activeTab)
+                    ? 'bg-blue-700 text-white shadow-md'
+                    : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                }`}
+              >
+                Tentang Kami <ChevronDown className="w-4 h-4" />
+              </button>
+              <div className={`absolute top-full left-0 mt-2 w-48 rounded-2xl shadow-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 ${
+                isDark ? 'bg-[#1e3a8a] border-blue-800' : 'bg-white border-blue-100'
+              }`}>
+                <div className="py-2 flex flex-col">
+                  <button onClick={() => setActiveTab('sejarah')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Sejarah Tazkia</button>
+                  <button onClick={() => setActiveTab('galeri')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Galeri & Kajian</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Booking Gedung Placeholder */}
             <button
-              onClick={() => setActiveTab('qurban')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'qurban'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+              onClick={() => alert('Fitur Booking Gedung sedang dalam pengembangan. Silakan hubungi admin untuk informasi lebih lanjut.')}
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
+                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
               }`}
             >
-              Patungan Qurban
+              Booking Gedung
             </button>
+
             <button
-              onClick={() => setActiveTab('sejarah')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'sejarah'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+              onClick={() => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+              }}
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
+                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
               }`}
             >
-              Sejarah
+              Kontak Kami
             </button>
-            <button
-              onClick={() => setActiveTab('edukasi')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'edukasi'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              Edukasi ZISWAF
-            </button>
-            <button
-              onClick={() => setActiveTab('galeri')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer ${
-                activeTab === 'galeri'
-                  ? 'bg-blue-700 text-white shadow-md font-extrabold'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
-            >
-              Galeri & Kajian
-            </button>
+
             {session && hasDkmPortalAccess(session.role) && (
               <button
                 onClick={() => setActiveTab('dkm_portal')}
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold ${
                   activeTab === 'dkm_portal'
-                    ? 'bg-amber-500 text-blue-950 font-black shadow-md'
+                    ? 'bg-amber-500 text-blue-950 shadow-md'
                     : 'text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30'
                 }`}
               >

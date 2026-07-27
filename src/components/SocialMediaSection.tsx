@@ -14,7 +14,7 @@ export const SocialMediaSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Instagram */}
           <a 
-            href="https://www.instagram.com/Tazkiamediaofficial/" 
+            href="https://www.instagram.com/masjidtazkia/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex flex-col items-center p-6 bg-gradient-to-br from-pink-600/10 to-[#172554] border border-pink-500/30 rounded-2xl hover:border-pink-500 hover:-translate-y-1 transition-all group shadow-md"
@@ -23,7 +23,7 @@ export const SocialMediaSection: React.FC = () => {
               <Instagram className="w-7 h-7" />
             </div>
             <h3 className="text-xl font-serif font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">Instagram</h3>
-            <p className="text-blue-300 text-xs mb-5 text-center">@Tazkiamediaofficial</p>
+            <p className="text-blue-300 text-xs mb-5 text-center">@masjidtazkia</p>
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-pink-400 flex items-center gap-1.5 bg-pink-500/10 px-4 py-2 rounded-full">
               Kunjungi Profil <ExternalLink className="w-3.5 h-3.5" />
             </span>
@@ -31,7 +31,7 @@ export const SocialMediaSection: React.FC = () => {
 
           {/* Facebook */}
           <a 
-            href="https://www.facebook.com/masjidTazkiasentul/" 
+            href="https://www.facebook.com/MasjidAndalusia/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex flex-col items-center p-6 bg-gradient-to-br from-blue-600/10 to-[#172554] border border-blue-500/30 rounded-2xl hover:border-blue-500 hover:-translate-y-1 transition-all group shadow-md"
@@ -48,7 +48,7 @@ export const SocialMediaSection: React.FC = () => {
 
           {/* YouTube */}
           <a 
-            href="https://www.youtube.com/@Tazkiamedia" 
+            href="https://www.youtube.com/@masjidtazkia" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex flex-col items-center p-6 bg-gradient-to-br from-red-600/10 to-[#172554] border border-red-500/30 rounded-2xl hover:border-red-500 hover:-translate-y-1 transition-all group shadow-md"
@@ -57,7 +57,7 @@ export const SocialMediaSection: React.FC = () => {
               <Youtube className="w-7 h-7" />
             </div>
             <h3 className="text-xl font-serif font-bold text-white mb-1 group-hover:text-red-500 transition-colors">YouTube</h3>
-            <p className="text-blue-300 text-xs mb-5 text-center">Tazkiamedia</p>
+            <p className="text-blue-300 text-xs mb-5 text-center">@masjidtazkia</p>
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-400 flex items-center gap-1.5 bg-red-500/10 px-4 py-2 rounded-full">
               Tonton Video <ExternalLink className="w-3.5 h-3.5" />
             </span>

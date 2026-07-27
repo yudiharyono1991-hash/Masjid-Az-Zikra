@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { BookOpen, Award, Compass, Heart, MapPin, Sparkles, History, Users, ShieldCheck } from 'lucide-react';
 
 interface SejarahTazkiaSectionProps {
@@ -38,7 +38,7 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
           </h2>
 
           <p className="text-sm sm:text-base text-blue-600 dark:text-blue-300 leading-relaxed font-sans">
-            Pusat Zikir Akbar, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kampung Sunnah Tazkia, Bukit Sentul, Kabupaten Bogor.
+            Pusat Ekonomi Syariah, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kawasan Andalusia Tazkia, Bukit Sentul City, Kabupaten Bogor.
           </p>
         </div>
 
@@ -56,13 +56,13 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-400 bg-blue-950/80 px-3 py-1 rounded-full border border-blue-500/40 w-fit mb-2">
-                Kampung Sunnah Sentul
+                Kawasan Andalusia Sentul City
               </span>
               <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
                 Kubah Putih Megah & Menara Menjulang 50 Meter
               </h3>
               <p className="text-xs sm:text-sm text-blue-200 mt-2 line-clamp-2">
-                Didirikan di atas lahan seluas 5 hektar di Bukit Sentul, Babakan Madang, Bogor. Mampu menampung hingga 22.000 jamaah Zikir Akbar.
+                Didirikan di atas lahan seluas 5 hektar di Bukit Sentul City, Babakan Madang, Bogor. Mampu menampung hingga 22.000 jamaah Ekonomi Syariah.
               </p>
             </div>
           </div>
@@ -75,7 +75,7 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
               <div>
                 <h4 className="font-serif font-bold text-blue-900 dark:text-white text-base">Lokasi Strategis</h4>
                 <p className="text-xs text-blue-600 dark:text-blue-400 mt-1 leading-relaxed">
-                  Kampung Sunnah Tazkia, Perumahan Bukit Sentul, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
+                  Kawasan Andalusia Tazkia, Perumahan Bukit Sentul City, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
                 </p>
               </div>
             </div>
@@ -91,7 +91,7 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
                 22.000+ Jamaah
               </h4>
               <p className="text-xs text-blue-100">
-                Ruang shalat utama marmer putih bersuasana khusyuk dan sejuk di kaki pegunungan Sentul.
+                Ruang shalat utama marmer putih bersuasana khusyuk dan sejuk di kaki pegunungan Sentul City.
               </p>
             </div>
           </div>
@@ -101,9 +101,9 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
         <div className="flex border-b border-blue-200 dark:border-blue-800 gap-2 overflow-x-auto pb-1">
           {[
             { id: 'sejarah', label: '1. Sejarah Pendirian', icon: History },
-            { id: 'pendiri', label: '2. KH. Muhammad Arifin Ilham', icon: Award },
+            { id: 'pendiri', label: '2. Prof. Dr. Syafii Antonio', icon: Award },
             { id: 'arsitektur', label: '3. Arsitektur Putih Suci', icon: Compass },
-            { id: 'kegiatan', label: '4. Pusat Majelis Zikir Akbar', icon: Users }
+            { id: 'kegiatan', label: '4. Pusat Majelis Ekonomi Syariah', icon: Users }
           ].map(tab => {
             const IconComp = tab.icon;
             return (
@@ -135,28 +135,28 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
                   <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
                     Awal Mula Pendirian Masjid Tazkia
                   </h3>
-                  <p className="text-xs text-blue-500 font-mono">Pusat Dakwah & Zikir Akbar Sejak Tahun 2009</p>
+                  <p className="text-xs text-blue-500 font-mono">Pusat Dakwah & Ekonomi Syariah Sejak Tahun 2009</p>
                 </div>
               </div>
 
               <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
                 <p>
-                  Masjid Tazkia dibangun atas prakarsa almarhum KH. Muhammad Arifin Ilham bersama Yayasan Majelis Tazkia. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah zikir yang selalu memadati kegiatan Zikir Akbar bulanan.
+                  Masjid Tazkia dibangun atas prakarsa almarhum Prof. Dr. Syafii Antonio bersama Yayasan Yayasan Tazkia. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah Kajian yang selalu memadati kegiatan Ekonomi Syariah bulanan.
                 </p>
                 <p>
-                  Dengan dukungan dari para donatur internasional, pemerintah, serta jamaah Majelis Tazkia, kompleks masjid ini diresmikan di kawasan Bukit Sentul, Cipambuan, Babakan Madang, Kabupaten Bogor. Kawasan ini kemudian berkembang menjadi **Kampung Sunnah Tazkia**, sebuah pemukiman islami yang dikembangkan dengan mengedepankan nilai-nilai kedamaian, persaudaraan, dan pengamalan sunnah Rasulullah SAW.
+                  Dengan dukungan dari para donatur internasional, pemerintah, serta jamaah Yayasan Tazkia, kompleks masjid ini diresmikan di kawasan Bukit Sentul City, Cipambuan, Babakan Madang, Kabupaten Bogor. Kawasan ini kemudian berkembang menjadi **Kawasan Andalusia Tazkia**, sebuah pemukiman islami yang dikembangkan dengan mengedepankan nilai-nilai kedamaian, persaudaraan, dan pengamalan sunnah Rasulullah SAW.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-blue-100 dark:border-blue-800">
                 <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
                   <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Luas Lahan</p>
-                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">± 5 Hektar</p>
+                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Â± 5 Hektar</p>
                   <p className="text-[11px] text-blue-500 mt-0.5">Termasuk kompleks pesantren & sekolah</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
                   <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Kawasan</p>
-                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Kampung Sunnah</p>
+                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Kawasan Andalusia</p>
                   <p className="text-[11px] text-blue-500 mt-0.5">Pemukiman bernuansa islami</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
@@ -176,25 +176,25 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
-                    Almarhum KH. Muhammad Arifin Ilham (Pendiri)
+                    Almarhum Prof. Dr. Syafii Antonio (Pendiri)
                   </h3>
-                  <p className="text-xs text-blue-500 font-mono">Tokoh Pemersatu & Dai Zikir Akbar Indonesia</p>
+                  <p className="text-xs text-blue-500 font-mono">Tokoh Pemersatu & Dai Ekonomi Syariah Indonesia</p>
                 </div>
               </div>
 
               <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
                 <p>
-                  KH. Muhammad Arifin Ilham dikenal dengan kelembutan tutur kata dan seruan zikirnya yang menggetarkan hati jutaan umat Islam di Indonesia. Beliau mempopulerkan gerakan Zikir Bersama yang dihadiri oleh berbagai lapisan masyarakat, pejabat, ulama, hingga rakyat biasa tanpa sekat.
+                  Prof. Dr. Syafii Antonio dikenal dengan kelembutan tutur kata dan seruan Kajiannya yang menggetarkan hati jutaan umat Islam di Indonesia. Beliau mempopulerkan gerakan Kajian Bersama yang dihadiri oleh berbagai lapisan masyarakat, pejabat, ulama, hingga rakyat biasa tanpa sekat.
                 </p>
                 <p>
-                  Pesan mendalam beliau yang selalu diwariskan kepada jamaah Tazkia adalah menjaga 7 Sunnah Harian Rasulullah SAW: Shalat Tahajjud, Membaca Al-Qur'an, Shalat Berjamaah di Masjid, Shalat Dhuha, Bersedekah, Menjaga Wudhu, dan Selalu Berzikir.
+                  Pesan mendalam beliau yang selalu diwariskan kepada jamaah Tazkia adalah menjaga 7 Sunnah Harian Rasulullah SAW: Shalat Tahajjud, Membaca Al-Qur'an, Shalat Berjamaah di Masjid, Shalat Dhuha, Bersedekah, Menjaga Wudhu, dan Selalu BerKajian.
                 </p>
               </div>
 
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-900 dark:text-amber-200 space-y-1">
-                <p className="font-bold font-serif text-sm">7 Sunnah Harian Istiqamah Majelis Tazkia:</p>
+                <p className="font-bold font-serif text-sm">7 Sunnah Harian Istiqamah Yayasan Tazkia:</p>
                 <p className="text-[11px] leading-relaxed">
-                  1. Shalat Tahajjud &bull; 2. Membaca & Merenungkan Al-Qur'an &bull; 3. Shalat Berjamaah Awal Waktu di Masjid &bull; 4. Shalat Dhuha &bull; 5. Sedekah Harian &bull; 6. Menjaga Wudhu &bull; 7. Istighfar & Zikir Setiap Saat.
+                  1. Shalat Tahajjud &bull; 2. Membaca & Merenungkan Al-Qur'an &bull; 3. Shalat Berjamaah Awal Waktu di Masjid &bull; 4. Shalat Dhuha &bull; 5. Sedekah Harian &bull; 6. Menjaga Wudhu &bull; 7. Istighfar & Kajian Setiap Saat.
                 </p>
               </div>
             </div>
@@ -216,10 +216,10 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
 
               <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
                 <p>
-                  Warna dominan **putih bersih** menjadi ciri khas visual Masjid Tazkia. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam zikir.
+                  Warna dominan **putih bersih** menjadi ciri khas visual Masjid Tazkia. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam Kajian.
                 </p>
                 <p>
-                  Bangunan utama memiliki kubah raksasa berwarna putih bersih, dikelilingi ornamen kaligrafi Arab yang indah. Menara azan setinggi 50 meter berdiri menjulang di samping masjid, menjadi landmark megah di wilayah Sentul Bogor. Interior ruang shalat dilapisi lantai marmer putih dingin dengan sirkulasi udara alami yang segar.
+                  Bangunan utama memiliki kubah raksasa berwarna putih bersih, dikelilingi ornamen kaligrafi Arab yang indah. Menara azan setinggi 50 meter berdiri menjulang di samping masjid, menjadi landmark megah di wilayah Sentul City Bogor. Interior ruang shalat dilapisi lantai marmer putih dingin dengan sirkulasi udara alami yang segar.
                 </p>
               </div>
             </div>
@@ -235,15 +235,15 @@ export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDa
                   <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
                     Pusat Kegiatan Keumatan & Zikrukah Bulanan
                   </h3>
-                  <p className="text-xs text-blue-500 font-mono">Dzikir Akbar, Pesantren, dan ZISWAF</p>
+                  <p className="text-xs text-blue-500 font-mono">DEkonomi Syariah, Pesantren, dan ZISWAF</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div className="p-4 rounded-2xl border border-blue-200 dark:border-blue-800 bg-stone-50 dark:bg-blue-950 space-y-1.5">
-                  <h4 className="font-bold text-blue-900 dark:text-white font-serif text-sm">Zikir Akbar Ahad Pertama</h4>
+                  <h4 className="font-bold text-blue-900 dark:text-white font-serif text-sm">Ekonomi Syariah Ahad Pertama</h4>
                   <p className="text-blue-600 dark:text-blue-400 leading-relaxed">
-                    Setiap hari Ahad minggu pertama setiap bulan, puluhan ribu jamaah dari seluruh Indonesia berkumpul untuk menghadiri Dzikir Akbar & Tausiyah Subuh.
+                    Setiap hari Ahad minggu pertama setiap bulan, puluhan ribu jamaah dari seluruh Indonesia berkumpul untuk menghadiri DEkonomi Syariah & Tausiyah Subuh.
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl border border-blue-200 dark:border-blue-800 bg-stone-50 dark:bg-blue-950 space-y-1.5">

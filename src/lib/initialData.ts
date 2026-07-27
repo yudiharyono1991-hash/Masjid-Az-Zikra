@@ -1,4 +1,4 @@
-import {
+﻿import {
   Program,
   DonationRecord,
   FinancialTransaction,
@@ -46,7 +46,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 10000000000,
     collectedAmount: 6500000000,
     donorsCount: 3200,
-    imageUrl: '<https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
     description: 'Pekerjaan perbaikan infrastruktur masjid, perluasan area ibadah, dan pengadaan sarana prasana dakwah yang berkelanjutan.',
     isUrgent: false,
     featured: true
@@ -59,7 +59,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 750000000,
     collectedAmount: 450000000,
     donorsCount: 1120,
-    imageUrl: '<https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80',
     description: 'Penyaluran zakat dan infaq bagi fakir miskin, keluarga prasejahtera, dan bantuan modal usaha kecil berbasis syariah (Baitul Maal).',
     isUrgent: false,
     featured: true
@@ -127,7 +127,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 125000000,
     date: '2026-07-25',
     description: 'Penerimaan dana zakat mal via transfer bank & QRIS resmi Masjid Tazkia.',
-    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-102',
@@ -137,7 +137,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 45000000,
     date: '2026-07-24',
     description: 'Pendistribusian bahan pokok kepada keluarga dhuafa terdaftar di 5 kelurahan sekitar.',
-    proofUrl: '<https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-103',
@@ -147,7 +147,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 18450000,
     date: '2026-07-24',
     description: 'Perhitungan kotam infaq Jumat jamaah masjid.',
-    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-104',
@@ -157,7 +157,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 12800000,
     date: '2026-07-22',
     description: 'Pembayaran tagihan utilitas PLN, PDAM, dan servis berkala 12 unit AC Sentral.',
-    proofUrl: '<https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -287,7 +287,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-1',
     title: 'Doa Memohon Kelapangan Rezeki & Keberkahan',
     category: 'Rezeki',
-    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا',
+    arabic: 'Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø¥ÙÙ†ÙÙ‘ÙŠ Ø£ÙŽØ³Ù’Ø£ÙŽÙ„ÙÙƒÙŽ Ø¹ÙÙ„Ù’Ù…Ù‹Ø§ Ù†ÙŽØ§ÙÙØ¹Ù‹Ø§ ÙˆÙŽØ±ÙØ²Ù’Ù‚Ù‹Ø§ Ø·ÙŽÙŠÙÙ‘Ø¨Ù‹Ø§ ÙˆÙŽØ¹ÙŽÙ…ÙŽÙ„Ù‹Ø§ Ù…ÙØªÙŽÙ‚ÙŽØ¨ÙŽÙ‘Ù„Ù‹Ø§',
     latin: 'Allahumma inni as-aluka \'ilman nafi\'an wa rizqan thayyiban wa \'amalan mutaqabbalan',
     translation: 'Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang baik, dan amal yang diterima. (HR. Ibn Majah)',
     source: 'HR. Ibn Majah no. 925'
@@ -296,7 +296,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-2',
     title: 'Doa Setelah Bersedekah / Menunaikan Zakat',
     category: 'Rezeki',
-    arabic: 'رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ',
+    arabic: 'Ø±ÙŽØ¨ÙŽÙ‘Ù†ÙŽØ§ ØªÙŽÙ‚ÙŽØ¨ÙŽÙ‘Ù„Ù’ Ù…ÙÙ†ÙŽÙ‘Ø§ Ø¥ÙÙ†ÙŽÙ‘ÙƒÙŽ Ø£ÙŽÙ†Ù’ØªÙŽ Ø§Ù„Ø³ÙŽÙ‘Ù…ÙÙŠØ¹Ù Ø§Ù„Ù’Ø¹ÙŽÙ„ÙÙŠÙ…Ù',
     latin: 'Rabbana taqabbal minna innaka antas-sami\'ul-\'alim',
     translation: 'Ya Tuhan kami, terimalah amalan dari kami, sesungguhnya Engkaulah Yang Maha Mendengar lagi Maha Mengetahui. (QS. Al-Baqarah: 127)',
     source: 'QS. Al-Baqarah: 127'
@@ -305,7 +305,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-3',
     title: 'Doa Memohon Perlindungan dari Kesusahan & Utang',
     category: 'Perlindungan',
-    arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْجُبْنِ وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ',
+    arabic: 'Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø¥ÙÙ†ÙÙ‘ÙŠ Ø£ÙŽØ¹ÙÙˆØ°Ù Ø¨ÙÙƒÙŽ Ù…ÙÙ†ÙŽ Ø§Ù„Ù’Ù‡ÙŽÙ…ÙÙ‘ ÙˆÙŽØ§Ù„Ù’Ø­ÙŽØ²ÙŽÙ†Ù ÙˆÙŽØ§Ù„Ù’Ø¹ÙŽØ¬Ù’Ø²Ù ÙˆÙŽØ§Ù„Ù’ÙƒÙŽØ³ÙŽÙ„Ù ÙˆÙŽØ§Ù„Ù’Ø¨ÙØ®Ù’Ù„Ù ÙˆÙŽØ§Ù„Ù’Ø¬ÙØ¨Ù’Ù†Ù ÙˆÙŽØ¶ÙŽÙ„ÙŽØ¹Ù Ø§Ù„Ø¯ÙŽÙ‘ÙŠÙ’Ù†Ù ÙˆÙŽØºÙŽÙ„ÙŽØ¨ÙŽØ©Ù Ø§Ù„Ø±ÙÙ‘Ø¬ÙŽØ§Ù„Ù',
     latin: 'Allahumma inni a\'udzu bika minal-hammi wal-hazani wal-\'agzi wal-kasali wal-bukhli wal-jubni wa dhala\'id-daini wa ghalabatir-rijal',
     translation: 'Ya Allah, aku berlindung kepada-Mu dari rasa sedih dan gelisah, kecemasan, kelemahan dan kemalasan, sifat kikir dan penakut, beban utang dan tekanan orang lain. (HR. Bukhari)',
     source: 'HR. Bukhari no. 2893'
@@ -314,7 +314,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-4',
     title: 'Doa Masuk Masjid',
     category: 'Shalat',
-    arabic: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
+    arabic: 'Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø§ÙÙ’ØªÙŽØ­Ù’ Ù„ÙÙŠ Ø£ÙŽØ¨Ù’ÙˆÙŽØ§Ø¨ÙŽ Ø±ÙŽØ­Ù’Ù…ÙŽØªÙÙƒÙŽ',
     latin: 'Allahummaf-tah lii abwaaba rahmatika',
     translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
     source: 'HR. Muslim'
@@ -323,7 +323,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-5',
     title: 'Al-Ma\'tsurat Pagi: Sayyidul Istighfar',
     category: 'Al-Ma\'tsurat Pagi',
-    arabic: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+    arabic: 'Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø£ÙŽÙ†Ù’ØªÙŽ Ø±ÙŽØ¨ÙÙ‘ÙŠ Ù„ÙŽØ§ Ø¥ÙÙ„ÙŽÙ‡ÙŽ Ø¥ÙÙ„ÙŽÙ‘Ø§ Ø£ÙŽÙ†Ù’ØªÙŽ Ø®ÙŽÙ„ÙŽÙ‚Ù’ØªÙŽÙ†ÙÙŠ ÙˆÙŽØ£ÙŽÙ†ÙŽØ§ Ø¹ÙŽØ¨Ù’Ø¯ÙÙƒÙŽ ÙˆÙŽØ£ÙŽÙ†ÙŽØ§ Ø¹ÙŽÙ„ÙŽÙ‰ Ø¹ÙŽÙ‡Ù’Ø¯ÙÙƒÙŽ ÙˆÙŽÙˆÙŽØ¹Ù’Ø¯ÙÙƒÙŽ Ù…ÙŽØ§ Ø§Ø³Ù’ØªÙŽØ·ÙŽØ¹Ù’ØªÙ Ø£ÙŽØ¹ÙÙˆØ°Ù Ø¨ÙÙƒÙŽ Ù…ÙÙ†Ù’ Ø´ÙŽØ±ÙÙ‘ Ù…ÙŽØ§ ØµÙŽÙ†ÙŽØ¹Ù’ØªÙ Ø£ÙŽØ¨ÙÙˆØ¡Ù Ù„ÙŽÙƒÙŽ Ø¨ÙÙ†ÙØ¹Ù’Ù…ÙŽØªÙÙƒÙŽ Ø¹ÙŽÙ„ÙŽÙŠÙŽÙ‘ ÙˆÙŽØ£ÙŽØ¨ÙÙˆØ¡Ù Ù„ÙŽÙƒÙŽ Ø¨ÙØ°ÙŽÙ†Ù’Ø¨ÙÙŠ ÙÙŽØ§ØºÙ’ÙÙØ±Ù’ Ù„ÙÙŠ ÙÙŽØ¥ÙÙ†ÙŽÙ‘Ù‡Ù Ù„ÙŽØ§ ÙŠÙŽØºÙ’ÙÙØ±Ù Ø§Ù„Ø°ÙÙ‘Ù†ÙÙˆØ¨ÙŽ Ø¥ÙÙ„ÙŽÙ‘Ø§ Ø£ÙŽÙ†Ù’ØªÙŽ',
     latin: 'Allahumma anta rabbi la ilaha illa anta, khalaqtani wa ana \'abduka, wa ana \'ala \'ahdika wa wa\'dika mastatha\'tu, a\'udzu bika min syarri ma shana\'tu, abu\'u laka bini\'matika \'alayya, wa abu\'u laka bidzanbi faghfir lii, fa innahu la yaghfirudz-dzunuba illa anta.',
     translation: 'Ya Allah, Engkau adalah Tuhanku, tidak ada Tuhan yang berhak disembah kecuali Engkau. Engkaulah yang menciptakanku, dan aku adalah hamba-Mu. Aku akan setia pada perjanjianku dengan-Mu semampuku. Aku berlindung kepada-Mu dari keburukan yang kuperbuat. Aku mengakui nikmat-Mu kepadaku dan aku mengakui dosaku, ampunilah aku.',
     source: 'HR. Bukhari no. 6306'
@@ -332,7 +332,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-6',
     title: 'Al-Ma\'tsurat Pagi: Doa Memohon Keselamatan',
     category: 'Al-Ma\'tsurat Pagi',
-    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي',
+    arabic: 'Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø¥ÙÙ†ÙÙ‘ÙŠ Ø£ÙŽØ³Ù’Ø£ÙŽÙ„ÙÙƒÙŽ Ø§Ù„Ù’Ø¹ÙŽØ§ÙÙÙŠÙŽØ©ÙŽ ÙÙÙŠ Ø§Ù„Ø¯ÙÙ‘Ù†Ù’ÙŠÙŽØ§ ÙˆÙŽØ§Ù„Ù’Ø¢Ø®ÙØ±ÙŽØ©ÙØŒ Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙÙ…ÙŽÙ‘ Ø¥ÙÙ†ÙÙ‘ÙŠ Ø£ÙŽØ³Ù’Ø£ÙŽÙ„ÙÙƒÙŽ Ø§Ù„Ù’Ø¹ÙŽÙÙ’ÙˆÙŽ ÙˆÙŽØ§Ù„Ù’Ø¹ÙŽØ§ÙÙÙŠÙŽØ©ÙŽ ÙÙÙŠ Ø¯ÙÙŠÙ†ÙÙŠ ÙˆÙŽØ¯ÙÙ†Ù’ÙŠÙŽØ§ÙŠÙŽ ÙˆÙŽØ£ÙŽÙ‡Ù’Ù„ÙÙŠ ÙˆÙŽÙ…ÙŽØ§Ù„ÙÙŠ',
     latin: 'Allahumma inni as-alukal \'afiyata fid-dunya wal akhirah, allahumma inni as-alukal \'afwa wal \'afiyata fi diini wa dunyaaya wa ahli wa maali.',
     translation: 'Ya Allah, sesungguhnya aku memohon keselamatan di dunia dan akhirat. Ya Allah, sesungguhnya aku memohon ampunan dan keselamatan dalam agamaku, duniaku, keluargaku, dan hartaku.',
     source: 'HR. Abu Dawud no. 5074'
@@ -341,7 +341,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-7',
     title: 'Al-Ma\'tsurat Petang: Pujian Petang Hari',
     category: 'Al-Ma\'tsurat Petang',
-    arabic: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    arabic: 'Ø£ÙŽÙ…Ù’Ø³ÙŽÙŠÙ’Ù†ÙŽØ§ ÙˆÙŽØ£ÙŽÙ…Ù’Ø³ÙŽÙ‰ Ø§Ù„Ù’Ù…ÙÙ„Ù’ÙƒÙ Ù„ÙÙ„ÙŽÙ‘Ù‡ÙØŒ ÙˆÙŽØ§Ù„Ù’Ø­ÙŽÙ…Ù’Ø¯Ù Ù„ÙÙ„ÙŽÙ‘Ù‡Ù Ù„ÙŽØ§ Ø¥ÙÙ„ÙŽÙ‡ÙŽ Ø¥ÙÙ„ÙŽÙ‘Ø§ Ø§Ù„Ù„ÙŽÙ‘Ù‡ÙØŒ ÙˆÙŽØ­Ù’Ø¯ÙŽÙ‡Ù Ù„ÙŽØ§ Ø´ÙŽØ±ÙÙŠÙƒÙŽ Ù„ÙŽÙ‡ÙØŒ Ù„ÙŽÙ‡Ù Ø§Ù„Ù’Ù…ÙÙ„Ù’ÙƒÙ ÙˆÙŽÙ„ÙŽÙ‡Ù Ø§Ù„Ù’Ø­ÙŽÙ…Ù’Ø¯Ù ÙˆÙŽÙ‡ÙÙˆÙŽ Ø¹ÙŽÙ„ÙŽÙ‰ ÙƒÙÙ„ÙÙ‘ Ø´ÙŽÙŠÙ’Ø¡Ù Ù‚ÙŽØ¯ÙÙŠØ±ÙŒ',
     latin: 'Amsayna wa amsal mulku lillah, walhamdu lillah la ilaha illallah, wahdahu la syarika lah, lahul mulku wa lahul hamdu wa huwa \'ala kulli syai-in qadiir.',
     translation: 'Kami telah memasuki waktu sore dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah yang berhak disembah kecuali Allah semata, tiada sekutu bagi-Nya. Milik-Nya kerajaan dan bagi-Nya pujian. Dia Maha Kuasa atas segala sesuatu.',
     source: 'HR. Muslim no. 2723'
@@ -350,7 +350,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-8',
     title: 'Al-Ma\'tsurat Petang: Doa Perlindungan Malam',
     category: 'Al-Ma\'tsurat Petang',
-    arabic: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    arabic: 'Ø¨ÙØ³Ù’Ù…Ù Ø§Ù„Ù„ÙŽÙ‘Ù‡Ù Ø§Ù„ÙŽÙ‘Ø°ÙÙŠ Ù„ÙŽØ§ ÙŠÙŽØ¶ÙØ±ÙÙ‘ Ù…ÙŽØ¹ÙŽ Ø§Ø³Ù’Ù…ÙÙ‡Ù Ø´ÙŽÙŠÙ’Ø¡ÙŒ ÙÙÙŠ Ø§Ù„Ù’Ø£ÙŽØ±Ù’Ø¶Ù ÙˆÙŽÙ„ÙŽØ§ ÙÙÙŠ Ø§Ù„Ø³ÙŽÙ‘Ù…ÙŽØ§Ø¡Ù ÙˆÙŽÙ‡ÙÙˆÙŽ Ø§Ù„Ø³ÙŽÙ‘Ù…ÙÙŠØ¹Ù Ø§Ù„Ù’Ø¹ÙŽÙ„ÙÙŠÙ…Ù',
     latin: 'Bismillahilladzi la yadhurru ma\'asmihi syai-un fil ardhi wa la fis-sama\'i wa huwas-sami\'ul \'alim. (Dibaca 3x)',
     translation: 'Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya, Dia-lah Yang Maha Mendengar lagi Maha Mengetahui.',
     source: 'HR. Abu Dawud no. 5088'
@@ -361,7 +361,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-1',
     title: 'Sedekah Tidak Mengurangi Harta',
-    arabic: 'مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ',
+    arabic: 'Ù…ÙŽØ§ Ù†ÙŽÙ‚ÙŽØµÙŽØªÙ’ ØµÙŽØ¯ÙŽÙ‚ÙŽØ©ÙŒ Ù…ÙÙ†Ù’ Ù…ÙŽØ§Ù„Ù',
     translation: 'Sedekah itu tidak akan mengurangi harta sedikit pun, melainkan Allah akan menambah kemuliaan bagi orang yang bersedekah.',
     narrator: 'Abu Hurairah radhiyallahu \'anhu',
     source: 'HR. Muslim no. 2588'
@@ -369,7 +369,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-2',
     title: 'Amal Jariah Yang Terus Mengalir',
-    arabic: 'إِذَا مَاتَ الْإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلَّا مِنْ ثَلَاثٍ: صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ',
+    arabic: 'Ø¥ÙØ°ÙŽØ§ Ù…ÙŽØ§ØªÙŽ Ø§Ù„Ù’Ø¥ÙÙ†Ù’Ø³ÙŽØ§Ù†Ù Ø§Ù†Ù’Ù‚ÙŽØ·ÙŽØ¹ÙŽ Ø¹ÙŽÙ†Ù’Ù‡Ù Ø¹ÙŽÙ…ÙŽÙ„ÙÙ‡Ù Ø¥ÙÙ„ÙŽÙ‘Ø§ Ù…ÙÙ†Ù’ Ø«ÙŽÙ„ÙŽØ§Ø«Ù: ØµÙŽØ¯ÙŽÙ‚ÙŽØ©Ù Ø¬ÙŽØ§Ø±ÙÙŠÙŽØ©ÙØŒ Ø£ÙŽÙˆÙ’ Ø¹ÙÙ„Ù’Ù…Ù ÙŠÙÙ†Ù’ØªÙŽÙÙŽØ¹Ù Ø¨ÙÙ‡ÙØŒ Ø£ÙŽÙˆÙ’ ÙˆÙŽÙ„ÙŽØ¯Ù ØµÙŽØ§Ù„ÙØ­Ù ÙŠÙŽØ¯Ù’Ø¹ÙÙˆ Ù„ÙŽÙ‡Ù',
     translation: 'Apabila manusia meninggal dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah (wakaf), ilmu yang bermanfaat, atau anak saleh yang mendoakannya.',
     narrator: 'Abu Hurairah radhiyallahu \'anhu',
     source: 'HR. Muslim no. 1631'
@@ -377,7 +377,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-3',
     title: 'Pahala Membangun Masjid',
-    arabic: 'مَنْ بَنَى مَسْجِدًا لِلَّهِ بَنَى اللَّهُ لَهُ مِثْلَهُ فِي الْجَنَّةِ',
+    arabic: 'Ù…ÙŽÙ†Ù’ Ø¨ÙŽÙ†ÙŽÙ‰ Ù…ÙŽØ³Ù’Ø¬ÙØ¯Ù‹Ø§ Ù„ÙÙ„ÙŽÙ‘Ù‡Ù Ø¨ÙŽÙ†ÙŽÙ‰ Ø§Ù„Ù„ÙŽÙ‘Ù‡Ù Ù„ÙŽÙ‡Ù Ù…ÙØ«Ù’Ù„ÙŽÙ‡Ù ÙÙÙŠ Ø§Ù„Ù’Ø¬ÙŽÙ†ÙŽÙ‘Ø©Ù',
     translation: 'Barangsiapa membangun masjid karena Allah, maka Allah akan membangunkan baginya rumah yang serupa di dalam surga.',
     narrator: 'Utsman bin Affan radhiyallahu \'anhu',
     source: 'HR. Bukhari & Muslim'
@@ -521,7 +521,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 350000,
     remainingBalance: 5550000,
     receiptProof: 'Nota Toko Berkah Jaya',
-    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'KC-002',
@@ -533,7 +533,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 250000,
     remainingBalance: 5900000,
     receiptProof: 'Kuitansi Petugas',
-    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'KC-003',
@@ -545,7 +545,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 3000000,
     remainingBalance: 6150000,
     receiptProof: 'Slip Penarikan BSI',
-    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
+    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -562,9 +562,9 @@ export const INITIAL_ADMIN_SETTINGS = {
   bankAccountBca: '8820-1192-33 (a.n. Yayasan Tazkia Sentul)',
   qrisMerchantName: 'Masjid Tazkia QRIS NASIONAL',
   iqamahCountdownMinutes: 10,
-  masjidLogoUrl: '<https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31>',
-  masjidHeroPhotoUrl: '<https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80>',
-  qrisCodeImageUrl: '<https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80>',
+  masjidLogoUrl: '<https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31',
+  masjidHeroPhotoUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
+  qrisCodeImageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
   jumatKhatibName: 'Prof. Dr. KH. Nasaruddin Umar, MA',
   jumatImamName: 'Ustadz H. M. Zainuddin, Sq',
   jumatMuadzinName: 'Ustadz Bilal Al-Hafiz',
@@ -582,13 +582,13 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     subtitle: 'Kajian Utama Masjid Tazkia',
     category: 'Tabligh Akbar',
     mediaType: 'video',
-    mediaUrl: '<https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80>',
-    videoEmbedUrl: '<https://www.youtube.com/embed/dQw4w9WgXcQ>',
+    mediaUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
+    videoEmbedUrl: '<https://www.youtube.com/embed/dQw4w9WgXcQ',
     date: '2026-07-20',
     ustadzName: 'Dr. KH. M. Hidayatullah, M.A.',
     location: 'Ruang Utama Masjid Tazkia',
     summary: 'Dokumentasi video dan artikel lengkap Tabligh Akbar yang dihadiri lebih dari 3.000 jamaah di Masjid Tazkia City.',
-    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern — tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Tazkia. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
+    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern â€” tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Tazkia. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
     likesCount: 342,
     viewsCount: 2150,
     tags: ['TablighAkbar', 'KajianSentul', 'PeradabanIslam'],
@@ -657,7 +657,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 7,
     filledShares: 5,
     weightEstimate: '320 - 350 kg (Sapi Limosin / Simental)',
-    imageUrl: '<https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80',
     description: 'Patungan Qurban Sapi 1/7 Saham Sesuai Syariat Islam. Bebas Biaya Operasional & Pemotongan di Masjid Tazkia. Daging disalurkan ke 350+ KK Mustahik & Fakir Miskin Sentul.',
     isCompleted: false,
     participants: [
@@ -708,7 +708,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 7,
     filledShares: 2,
     weightEstimate: '330 - 360 kg (Sapi PO Super)',
-    imageUrl: '<https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80',
     description: 'Sapi Patungan Kloter B. Kesempatan meraih pahala Qurban bersama 7 shohibul qurban di Masjid Tazkia.',
     isCompleted: false,
     participants: [
@@ -735,7 +735,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '28 - 32 kg (Kambing Etawa / Garut)',
-    imageUrl: '<https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80',
     description: 'Qurban 1 Ekor Kambing / Domba Individual Atas Nama Pribadi. Hewan sehat, cukup umur (musinnah), certified oleh dokter hewan & DKM Masjid Tazkia.',
     isCompleted: false,
     participants: []
@@ -749,7 +749,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '35 - 40 kg (Domba Garut Super)',
-    imageUrl: '<https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80>',
+    imageUrl: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80',
     description: 'Domba Garut Pilihan dengan bobot ekstra besar. Bebas PMK, sehat & cukup umur sesuai syariat ibadah Qurban.',
     isCompleted: false,
     participants: []
