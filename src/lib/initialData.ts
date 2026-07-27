@@ -20,7 +20,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 500000000,
     collectedAmount: 180000000,
     donorsCount: 890,
-    imageUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80',
     description: 'Bantuan operasional untuk perawatan masjid, kebersihan, listrik, serta penyelenggaraan ibadah rutin jamaah.',
     isUrgent: false,
     featured: true
@@ -33,7 +33,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 250000000,
     collectedAmount: 150000000,
     donorsCount: 1200,
-    imageUrl: 'https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=800&q=80',
     description: 'Program santunan pendidikan dan kebutuhan pokok bagi anak-anak yatim piatu di sekitar lingkungan Masjid Tazkia.',
     isUrgent: true,
     featured: true
@@ -46,7 +46,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 10000000000,
     collectedAmount: 6500000000,
     donorsCount: 3200,
-    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80',
     description: 'Pekerjaan perbaikan infrastruktur masjid, perluasan area ibadah, dan pengadaan sarana prasana dakwah yang berkelanjutan.',
     isUrgent: false,
     featured: true
@@ -59,7 +59,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 750000000,
     collectedAmount: 450000000,
     donorsCount: 1120,
-    imageUrl: 'https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80',
     description: 'Penyaluran zakat dan infaq bagi fakir miskin, keluarga prasejahtera, dan bantuan modal usaha kecil berbasis syariah (Baitul Maal).',
     isUrgent: false,
     featured: true
@@ -127,7 +127,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 125000000,
     date: '2026-07-25',
     description: 'Penerimaan dana zakat mal via transfer bank & QRIS resmi Masjid Tazkia.',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-102',
@@ -137,7 +137,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 45000000,
     date: '2026-07-24',
     description: 'Pendistribusian bahan pokok kepada keluarga dhuafa terdaftar di 5 kelurahan sekitar.',
-    proofUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-103',
@@ -147,7 +147,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 18450000,
     date: '2026-07-24',
     description: 'Perhitungan kotam infaq Jumat jamaah masjid.',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'FIN-104',
@@ -157,7 +157,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 12800000,
     date: '2026-07-22',
     description: 'Pembayaran tagihan utilitas PLN, PDAM, dan servis berkala 12 unit AC Sentral.',
-    proofUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -209,7 +209,7 @@ export const INITIAL_INVENTORY: InventoryItem[] = [
     condition: 'Baik',
     location: 'Ruang Shalat Utama Lt 1',
     lastMaintenance: '2026-07-10',
-    imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'INV-002',
@@ -221,7 +221,7 @@ export const INITIAL_INVENTORY: InventoryItem[] = [
     condition: 'Baik',
     location: 'Ruang Shalat Utama & Hall',
     lastMaintenance: '2026-07-22',
-    imageUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'INV-003',
@@ -233,7 +233,7 @@ export const INITIAL_INVENTORY: InventoryItem[] = [
     condition: 'Baik',
     location: 'Ruang Shalat Utama',
     lastMaintenance: '2026-06-15',
-    imageUrl: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'INV-004',
@@ -245,7 +245,7 @@ export const INITIAL_INVENTORY: InventoryItem[] = [
     condition: 'Perlu Perbaikan',
     location: 'Mimbar Utama',
     lastMaintenance: '2026-07-18',
-    imageUrl: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -258,7 +258,7 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     date: '2026-07-25',
     isPinned: true,
     author: 'Pengurus DKM Tazkia',
-    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'ANC-2',
@@ -268,7 +268,7 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     date: '2026-07-20',
     isPinned: true,
     author: 'Bendahara DKM Tazkia',
-    imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'ANC-3',
@@ -278,7 +278,7 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     date: '2026-07-18',
     isPinned: false,
     author: 'Divisi Pendidikan DKM',
-    imageUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -521,7 +521,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 350000,
     remainingBalance: 5550000,
     receiptProof: 'Nota Toko Berkah Jaya',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'KC-002',
@@ -533,7 +533,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 250000,
     remainingBalance: 5900000,
     receiptProof: 'Kuitansi Petugas',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'KC-003',
@@ -545,7 +545,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 3000000,
     remainingBalance: 6150000,
     receiptProof: 'Slip Penarikan BSI',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
@@ -563,8 +563,8 @@ export const INITIAL_ADMIN_SETTINGS = {
   qrisMerchantName: 'Masjid Tazkia QRIS NASIONAL',
   iqamahCountdownMinutes: 10,
   masjidLogoUrl: '<https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31',
-  masjidHeroPhotoUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
-  qrisCodeImageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+  masjidHeroPhotoUrl: 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=1200&q=80',
+  qrisCodeImageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
   jumatKhatibName: 'Prof. Dr. KH. Nasaruddin Umar, MA',
   jumatImamName: 'Ustadz H. M. Zainuddin, Sq',
   jumatMuadzinName: 'Ustadz Bilal Al-Hafiz',
@@ -582,7 +582,7 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     subtitle: 'Kajian Utama Masjid Tazkia',
     category: 'Tabligh Akbar',
     mediaType: 'video',
-    mediaUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
+    mediaUrl: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1200&q=80',
     videoEmbedUrl: '<https://www.youtube.com/embed/dQw4w9WgXcQ',
     date: '2026-07-20',
     ustadzName: 'Dr. KH. M. Hidayatullah, M.A.',
@@ -600,7 +600,7 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     subtitle: 'Aksi Nyata Kepedulian Sosial Umat',
     category: 'Bakti Sosial',
     mediaType: 'photo',
-    mediaUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80',
+    mediaUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
     date: '2026-07-15',
     ustadzName: 'Tim UPZ DKM Tazkia',
     location: 'Plaza & Sekretariat ZISWAF Tazkia',
@@ -634,7 +634,7 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     subtitle: 'Mencetak Generasi Rabbani Penghafal Al-Qur\'an',
     category: 'Pendidikan & TPA',
     mediaType: 'photo',
-    mediaUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
+    mediaUrl: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=1200&q=80',
     date: '2026-06-28',
     ustadzName: 'Ustadz H. M. Zainuddin, Sq & Pengasuh TPA',
     location: 'Ruang Utama Masjid Tazkia',
@@ -657,7 +657,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 7,
     filledShares: 5,
     weightEstimate: '320 - 350 kg (Sapi Limosin / Simental)',
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80',
     description: 'Patungan Qurban Sapi 1/7 Saham Sesuai Syariat Islam. Bebas Biaya Operasional & Pemotongan di Masjid Tazkia. Daging disalurkan ke 350+ KK Mustahik & Fakir Miskin Sentul.',
     isCompleted: false,
     participants: [
@@ -708,7 +708,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 7,
     filledShares: 2,
     weightEstimate: '330 - 360 kg (Sapi PO Super)',
-    imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1200&q=80',
     description: 'Sapi Patungan Kloter B. Kesempatan meraih pahala Qurban bersama 7 shohibul qurban di Masjid Tazkia.',
     isCompleted: false,
     participants: [
@@ -735,7 +735,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '28 - 32 kg (Kambing Etawa / Garut)',
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=1200&q=80',
     description: 'Qurban 1 Ekor Kambing / Domba Individual Atas Nama Pribadi. Hewan sehat, cukup umur (musinnah), certified oleh dokter hewan & DKM Masjid Tazkia.',
     isCompleted: false,
     participants: []
@@ -749,7 +749,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '35 - 40 kg (Domba Garut Super)',
-    imageUrl: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1200&q=80',
     description: 'Domba Garut Pilihan dengan bobot ekstra besar. Bebas PMK, sehat & cukup umur sesuai syariat ibadah Qurban.',
     isCompleted: false,
     participants: []

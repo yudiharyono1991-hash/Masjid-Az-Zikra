@@ -63,7 +63,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   const [recurringPeriod, setRecurringPeriod] = useState<'none' | 'daily' | 'weekly' | 'monthly'>('none');
 
   // Upload Bukti Real Pict
-  const [proofUrl, setProofUrl] = useState<string>('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80');
+  const [proofUrl, setProofUrl] = useState<string>('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
   const [zoomQrisModal, setZoomQrisModal] = useState<boolean>(false);
 
   // Completed State
@@ -72,7 +72,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
 
   // Default fallback images from admin settings
-  const qrisImage = adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+  const qrisImage = adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80';
   const bsiAccount = adminSettings?.bankAccountBsi || '707-567-8899 (a.n. MASJID TAZKIA)';
   const bcaAccount = adminSettings?.bankAccountBca || '7303-600-501 (BSI Wakaf a.n. Yayasan Amanah Utama Tazkia)';
 

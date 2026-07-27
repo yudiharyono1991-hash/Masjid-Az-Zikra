@@ -17,7 +17,7 @@ import { CatalogPdfModal } from './components/CatalogPdfModal';
 import { GallerySection } from './components/GallerySection';
 import { ProgramDetailModal } from './components/ProgramDetailModal';
 import { EdukasiZiswafSection } from './components/EdukasiZiswafSection';
-import { FridayAgendaSection } from './components/FridayAgendaSection';
+import { KalenderKegiatanSection } from './components/KalenderKegiatanSection';
 import { PatunganQurbanSection } from './components/PatunganQurbanSection';
 import { SejarahTazkiaSection } from './components/SejarahTazkiaSection';
 import { SocialMediaSection } from './components/SocialMediaSection';
@@ -204,7 +204,7 @@ export default function App() {
         )}
 
         {activeTab === 'jadwal_khatib' && (
-          <FridayAgendaSection
+          <KalenderKegiatanSection
             petugasList={state.petugas}
             isDark={isDark}
           />

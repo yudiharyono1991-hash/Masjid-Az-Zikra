@@ -23,8 +23,8 @@ interface HeroSectionProps {
 
 const DEFAULT_HERO_BACKGROUNDS = [
   '/hero-1.jpg',
-  'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1920&q=80',
-  'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1920&q=80'
+  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1920&q=80'
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({

@@ -32,27 +32,27 @@ const VERIFIED_ANIMAL_PRESETS = [
   {
     label: 'Domba Garut Super Tanduk (Real Pict)',
     type: 'domba',
-    url: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1200&q=80'
   },
   {
     label: 'Kambing Etawa Super / Garut (Real Pict)',
     type: 'kambing',
-    url: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=80'
   },
   {
     label: 'Kambing Gunung / Qurban (Real Pict)',
     type: 'kambing',
-    url: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=80'
   },
   {
     label: 'Sapi Limosin Super Jantan (Real Pict)',
     type: 'sapi',
-    url: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=1200&q=80'
   },
   {
     label: 'Sapi Simental / PO (Real Pict)',
     type: 'sapi',
-    url: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1200&q=80'
   }
 ];
 
@@ -208,9 +208,9 @@ export const PatunganQurbanSection: React.FC<PatunganQurbanSectionProps> = ({
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         if (group.animalType.toLowerCase().includes('sapi')) {
-                          target.src = 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80';
+                          target.src = 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1200&q=80';
                         } else {
-                          target.src = 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80';
+                          target.src = 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=1200&q=80';
                         }
                       }}
                     />

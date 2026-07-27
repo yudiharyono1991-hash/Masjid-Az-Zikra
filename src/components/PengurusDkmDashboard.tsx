@@ -53,6 +53,7 @@ import { ChartOfAccounts } from './accounting/ChartOfAccounts';
 import { JurnalUmum } from './accounting/JurnalUmum';
 import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
+import { SewaGedungAdmin } from './SewaGedungAdmin';
 
 interface PengurusDkmDashboardProps {
   financials: FinancialTransaction[];
@@ -113,7 +114,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddQurbanGroup,
   onDeleteQurbanGroup
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'pengaturan' | 'supabase'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
 
@@ -126,7 +127,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [galSubtitle, setGalSubtitle] = useState('');
   const [galCategory, setGalCategory] = useState<'Kajian Rutin' | 'Tabligh Akbar' | 'Bakti Sosial' | 'Program Ramadhan' | 'Pendidikan & TPA' | 'Lainnya'>('Kajian Rutin');
   const [galMediaType, setGalMediaType] = useState<'photo' | 'video' | 'artikel'>('video');
-  const [galMediaUrl, setGalMediaUrl] = useState('https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80');
+  const [galMediaUrl, setGalMediaUrl] = useState('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
   const [galVideoEmbedUrl, setGalVideoEmbedUrl] = useState('https://www.youtube.com/embed/dQw4w9WgXcQ');
   const [galUstadz, setGalUstadz] = useState('');
   const [galSummary, setGalSummary] = useState('');
@@ -166,7 +167,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [newTrxCategory, setNewTrxCategory] = useState('Infaq');
   const [newTrxAmount, setNewTrxAmount] = useState(100000);
   const [newTrxDesc, setNewTrxDesc] = useState('');
-  const [newTrxProofUrl, setNewTrxProofUrl] = useState('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80');
+  const [newTrxProofUrl, setNewTrxProofUrl] = useState('https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=800&q=80');
 
   // Jurnal Umum Form Inputs
   const [showAddJrn, setShowAddJrn] = useState(false);
@@ -185,7 +186,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [kcType, setKcType] = useState<'Pencairan' | 'Pengeluaran'>('Pengeluaran');
   const [kcAmount, setKcAmount] = useState(250000);
   const [kcProof, setKcProof] = useState('Kuitansi / Nota Resmi');
-  const [kcProofUrl, setKcProofUrl] = useState('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80');
+  const [kcProofUrl, setKcProofUrl] = useState('https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80');
 
   // Inventory Modal Inputs
   const [showAddInv, setShowAddInv] = useState(false);
@@ -195,7 +196,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [invUnit, setInvUnit] = useState('Unit');
   const [invCondition, setInvCondition] = useState<'Baik' | 'Perlu Perbaikan' | 'Rusak'>('Baik');
   const [invLocation, setInvLocation] = useState('Ruang Utama');
-  const [invImageUrl, setInvImageUrl] = useState('https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80');
+  const [invImageUrl, setInvImageUrl] = useState('https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80');
 
   // Broadcast WA Input
   const [broadcastTitle, setBroadcastTitle] = useState('');
@@ -208,7 +209,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [progCategory, setProgCategory] = useState<'zakat' | 'infaq' | 'shadaqah' | 'wakaf'>('wakaf');
   const [progTarget, setProgTarget] = useState(1000000000);
   const [progDesc, setProgDesc] = useState('');
-  const [progImageUrl, setProgImageUrl] = useState('https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80');
+  const [progImageUrl, setProgImageUrl] = useState('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
 
   // Pengumuman Input
   const [showAddAnc, setShowAddAnc] = useState(false);
@@ -216,12 +217,12 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [ancContent, setAncContent] = useState('');
   const [ancCategory, setAncCategory] = useState<'Penting' | 'Kajian' | 'Kegiatan' | 'Keuangan'>('Kajian');
   const [ancAuthor, setAncAuthor] = useState('Pengurus DKM Tazkia');
-  const [ancImageUrl, setAncImageUrl] = useState('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80');
+  const [ancImageUrl, setAncImageUrl] = useState('https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80');
 
   // Admin Settings Image States
   const [logoUrlInput, setLogoUrlInput] = useState(adminSettings?.masjidLogoUrl || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
-  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroPhotoUrl || 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80');
-  const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80');
+  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroPhotoUrl || 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80');
+  const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80');
 
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
@@ -324,7 +325,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
       subtitle: progSubtitle || 'Program Kebaikan DKM Tazkia',
       category: progCategory,
       targetAmount: progTarget,
-      imageUrl: progImageUrl || 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80',
+      imageUrl: progImageUrl || 'https://images.unsplash.com/photo-1609599006352-d35d9472e1c3?auto=format&fit=crop&w=800&q=80',
       description: progDesc || 'Deskripsi program sosial dan ZISWAF.'
     });
     setProgTitle('');
@@ -425,6 +426,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'keuangan', label: 'Keuangan (Lama)', icon: DollarSign },
             { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
             { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
+            { id: 'sewa', label: 'Sewa & Booking', icon: Building },
             { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
             { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
             { id: 'program', label: 'Program & Campaign', icon: Sparkles },
@@ -746,6 +748,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               </div>
             </div>
           </div>
+        )}
+
+        {dkmTab === 'sewa' && (
+          <SewaGedungAdmin />
         )}
 
         {dkmTab === 'akuntansi' && (
@@ -1232,7 +1238,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   <div className="flex gap-2 text-xs font-mono">
                     <div className="bg-blue-950/80 px-3 py-2 rounded-xl border border-blue-800">
                       <span className="text-blue-400 block text-[9px]">Status Plafond</span>
-                      <span className="text-blue-400 font-bold">Aman (â‰¥50%)</span>
+                      <span className="text-blue-400 font-bold">Aman (≥50%)</span>
                     </div>
                     <div className="bg-blue-950/80 px-3 py-2 rounded-xl border border-blue-800">
                       <span className="text-blue-400 block text-[9px]">Pengeluaran Bulan Ini</span>
