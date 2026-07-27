@@ -61,20 +61,20 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
         
         {/* Hero Title & Headline */}
         <div className={`text-center max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-8 border-b transition-colors ${isDark ? "border-blue-800/50" : "border-blue-200"}`}>
-          <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
+          <div className={`inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm ${isDark ? "text-amber-300" : "text-amber-600"}`}>
             Ekosistem Digital Masjid Tazkia
           </div>
 
           <h1 className={`text-2xl sm:text-5xl lg:text-6xl font-serif leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg transition-colors ${isDark ? "text-white" : "text-blue-950"}`}>
             Pusat Peradaban Islam &amp; <br className="hidden sm:inline" /> Kesejahteraan Umat
-            <span className="block font-serif italic font-semibold text-amber-300 mt-2 text-xl sm:text-4xl lg:text-5xl">
+            <span className={`block font-serif italic font-semibold mt-2 text-xl sm:text-4xl lg:text-5xl ${isDark ? "text-amber-300" : "text-amber-500"}`}>
               Melalui Optimalisasi ZISWAF, Dakwah &amp; Zikir
             </span>
           </h1>
 
           <p className={`text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2 transition-colors ${isDark ? "text-blue-100" : "text-blue-700"}`}>
             Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Tazkia untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
-            <span className="block mt-1.5 font-bold text-amber-300 font-mono text-[10px] sm:text-xs tracking-wider">
+            <span className={`block mt-1.5 font-bold font-mono text-[10px] sm:text-xs tracking-wider ${isDark ? "text-amber-300" : "text-amber-600"}`}>
               #ZISWAFMasjidTazkiaSentul
             </span>
           </p>
@@ -97,21 +97,8 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
               <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
               <span>Hitung Zakat</span>
             </button>
-
-            {openCatalogPdf && (
-              <button
-                onClick={openCatalogPdf}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md backdrop-blur-sm w-full sm:w-auto"
-              >
-                <FileText className="w-4 h-4 text-blue-300 shrink-0" />
-                <span>Katalog PDF</span>
-              </button>
-            )}
           </div>
         </div>
-
-
-        {/* Benchmark Inspired Header */}
         <div className="text-center pt-8 pb-4">
           <h2 className={`text-2xl sm:text-3xl font-serif transition-colors ${isDark ? "text-white" : "text-blue-950"}`}>
             Daftar Program

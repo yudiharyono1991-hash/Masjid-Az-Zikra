@@ -21,6 +21,7 @@ import { FridayAgendaSection } from './components/FridayAgendaSection';
 import { PatunganQurbanSection } from './components/PatunganQurbanSection';
 import { SejarahTazkiaSection } from './components/SejarahTazkiaSection';
 import { SocialMediaSection } from './components/SocialMediaSection';
+import { BookingGedung } from './components/BookingGedung';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
 
@@ -217,6 +218,10 @@ export default function App() {
             isDark={isDark}
             session={state.session}
           />
+        )}
+
+        {activeTab === 'booking' && (
+          <BookingGedung isDark={isDark} />
         )}
 
         {activeTab === 'sejarah' && (

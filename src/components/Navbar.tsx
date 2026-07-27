@@ -205,8 +205,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <button
-              onClick={() => alert('Fitur Booking Gedung sedang dalam pengembangan. Silakan hubungi admin untuk informasi lebih lanjut.')}
-              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-blue-100 hover:text-white hover:bg-blue-800/50"
+              onClick={() => setActiveTab('booking')}
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
+                activeTab === 'booking'
+                  ? 'bg-blue-700 text-white shadow-md'
+                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
+              }`}
             >
               Booking Gedung
             </button>
@@ -391,6 +395,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <span>8. Galeri & Kajian Umat</span>
                 <span className="text-[10px] font-mono font-normal text-amber-300">Video & Foto</span>
+              </button>
+
+              <button
+                onClick={() => { setActiveTab('booking'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
+                  activeTab === 'booking' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
+                }`}
+              >
+                <span>9. Booking Gedung</span>
+                <span className="text-[10px] font-mono font-normal opacity-70">Sewa Fasilitas</span>
               </button>
 
               {session && hasDkmPortalAccess(session.role) && (
