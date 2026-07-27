@@ -158,6 +158,38 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
 
     audioRef.current.playbackRate = audioSpeed;
 
+    // Adzan Audio Setup
+    const adzanAudioUrl = 'https://media.blubrry.com/muslim_central_adhan/content.blubrry.com/muslim_central_adhan/Adhan_Makkah.mp3';
+    let adzanAudio: HTMLAudioElement;
+    if (typeof window !== 'undefined') {
+      adzanAudio = new Audio(adzanAudioUrl);
+    }
+
+    const checkAdzan = () => {
+      if (!alarmEnabled || !isOpen) return;
+      const now = new Date();
+      const currentHours = now.getHours().toString().padStart(2, '0');
+      const currentMinutes = now.getMinutes().toString().padStart(2, '0');
+      const currentTimeString = `${currentHours}:${currentMinutes}`;
+      
+      const prayerTimes = [
+        selectedCity.fajr,
+        selectedCity.dhuhr,
+        selectedCity.asr,
+        selectedCity.maghrib,
+        selectedCity.isha
+      ];
+
+      // If the current time matches any prayer time exactly and seconds are close to 0, play adzan
+      if (prayerTimes.includes(currentTimeString) && now.getSeconds() < 10) {
+        if (adzanAudio && adzanAudio.paused) {
+          adzanAudio.play().catch(e => console.log('Adzan playback blocked:', e));
+        }
+      }
+    };
+
+    const interval = setInterval(checkAdzan, 5000); // Check every 5 seconds
+
     const handleEnded = () => {
       if (activeAyahIndex < currentAyahs.length - 1) {
         setActiveAyahIndex(prev => prev + 1);
@@ -212,12 +244,13 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
     });
 
     return () => {
+      clearInterval(interval);
       if (audioRef.current) {
         audioRef.current.removeEventListener('ended', handleEnded);
         audioRef.current.removeEventListener('error', handleError);
       }
     };
-  }, [activeAyahIndex, isPlayingAudio, selectedSurahNumber, audioSpeed]);
+  }, [activeAyahIndex, isPlayingAudio, selectedSurahNumber, audioSpeed, alarmEnabled, selectedCity, isOpen]);
 
   if (!isOpen) return null;
 
@@ -515,11 +548,24 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                   </select>
                 </div>
 
-                <div className="text-right">
-                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest font-bold">
-                    Kalender Hijriah
-                  </span>
-                  <p className="text-sm font-bold text-white font-serif">{getHijriDate()}</p>
+                <div className="flex items-center gap-4 text-right">
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest font-bold">
+                      Notifikasi Adzan
+                    </span>
+                    <button
+                      onClick={() => setAlarmEnabled(!alarmEnabled)}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${alarmEnabled ? 'bg-amber-500' : 'bg-blue-800'}`}
+                    >
+                      <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${alarmEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                    </button>
+                  </div>
+                  <div className="text-right border-l border-blue-800 pl-4">
+                    <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest font-bold">
+                      Kalender Hijriah
+                    </span>
+                    <p className="text-sm font-bold text-white font-serif">{getHijriDate()}</p>
+                  </div>
                 </div>
               </div>
 

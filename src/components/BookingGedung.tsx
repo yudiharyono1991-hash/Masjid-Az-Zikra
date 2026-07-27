@@ -58,7 +58,11 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
   }, []);
 
   const handleCekInfo = () => {
-    window.open('https://wa.me/6285810008899?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20tentang%20sewa%20Alhambra%20Ballroom%20Masjid%20Tazkia', '_blank');
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');
+    } else {
+      window.open('https://wa.me/6285810008899?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20tentang%20sewa%20Alhambra%20Ballroom%20Masjid%20Tazkia', '_blank');
+    }
   };
 
   return (
@@ -134,21 +138,17 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
                 onClick={handleCekInfo}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg w-full sm:w-auto cursor-pointer"
               >
-                <span>Cek Info Gedung</span>
-                <ArrowRight className="w-4 h-4" />
+                <FileText className="w-4 h-4" />
+                <span>Cek Info & Katalog PDF</span>
               </button>
               
-              {pdfUrl && (
-                <a
-                  href={pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 border border-amber-500/30 px-8 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm w-full sm:w-auto cursor-pointer"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Katalog PDF</span>
-                </a>
-              )}
+              <button
+                onClick={() => window.open('https://wa.me/6285810008899?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20tentang%20sewa%20Alhambra%20Ballroom%20Masjid%20Tazkia', '_blank')}
+                className="bg-green-500/10 hover:bg-green-500/20 text-green-600 border border-green-500/30 px-8 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm w-full sm:w-auto cursor-pointer"
+              >
+                <span>Tanya via WhatsApp</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
             
           </div>

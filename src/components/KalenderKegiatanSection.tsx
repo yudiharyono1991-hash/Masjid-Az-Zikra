@@ -62,29 +62,24 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
           })}
         </div>
         
-        <div className="mt-6 flex items-center justify-center gap-4 text-[10px] sm:text-xs text-slate-500 font-medium">
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full border border-slate-300"></div> Tersedia</div>
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-100 border border-blue-300"></div> Ada Event</div>
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-600"></div> Hari Ini</div>
+        <div className="mt-6 flex flex-col gap-4">
+          <div className="flex items-center justify-center gap-4 text-[10px] sm:text-xs text-slate-500 font-medium">
+            <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full border border-slate-300"></div> Tersedia</div>
+            <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-100 border border-blue-300"></div> Ada Event</div>
+            <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-600"></div> Hari Ini</div>
+          </div>
+          <button className={`w-full text-blue-600 font-bold text-sm hover:text-blue-700 transition-colors ${isDark ? 'text-blue-400' : ''}`}>
+            Tampilkan Semua Agenda
+          </button>
         </div>
       </div>
     );
   };
 
   return (
-    <section className={`min-h-screen ${isDark ? 'bg-[#0a1128]' : 'bg-slate-50'}`}>
+    <section className={`min-h-screen ${isDark ? 'bg-[#0a1128]' : 'bg-slate-50'} py-12`}>
       
-      {/* Blue Header Section */}
-      <div className="bg-[#1e3a8a] text-white py-16 sm:py-24 text-center px-4">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif mb-4">
-          Agenda & Program
-        </h1>
-        <p className="text-blue-200 text-sm sm:text-base max-w-2xl mx-auto">
-          Ikuti kegiatan kajian, sosial, dan pendidikan di Masjid Tazkia.
-        </p>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 sm:-mt-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Calendar Side */}
@@ -103,16 +98,14 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
                 <div key={idx} className={`p-5 rounded-2xl border transition-all hover:shadow-lg ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 hover:border-blue-300'}`}>
                   <div className="flex flex-col sm:flex-row gap-5 items-start">
                     
-                    {/* Date Badge */}
-                    <div className="flex-shrink-0 w-24 h-24 rounded-xl border border-blue-100 flex flex-col overflow-hidden shadow-sm">
-                      <div className="bg-blue-600 text-white text-[10px] font-bold text-center py-1.5 uppercase tracking-wider">
-                        Jumat
-                      </div>
-                      <div className="flex-1 bg-blue-50/50 flex flex-col items-center justify-center p-1">
-                        <span className="text-2xl font-bold text-blue-900 leading-none">
+                    {/* Image / Date Badge */}
+                    <div className="flex-shrink-0 w-32 h-28 rounded-xl border border-blue-100 overflow-hidden shadow-sm relative group bg-blue-50">
+                      <img src="https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=300&q=80" alt="Kajian" className="w-full h-full object-cover" />
+                      <div className="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-center shadow-sm">
+                        <span className="block text-xs font-bold text-blue-900 leading-none">
                           {agenda.date.split('-')[2] || '??'}
                         </span>
-                        <span className="text-xs font-semibold text-blue-700">
+                        <span className="block text-[9px] font-semibold text-blue-700">
                           {agenda.date.split('-')[1] || '??'}
                         </span>
                       </div>
@@ -120,8 +113,8 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
 
                     {/* Content */}
                     <div className="flex-1 space-y-3">
-                      <h3 className={`font-bold text-lg leading-tight ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        Shalat Jum'at Masjid Tazkia | {agenda.khatibJumat}
+                      <h3 className={`font-bold text-lg leading-tight ${isDark ? 'text-white' : 'text-[#1e3a8a]'}`}>
+                        Kajian & Shalat Jum'at Masjid Tazkia | {agenda.khatibJumat}
                       </h3>
                       
                       <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-medium text-slate-500">
@@ -131,7 +124,7 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
                         </div>
                         <div className="flex items-center gap-1.5">
                           <MapPin className="w-4 h-4 text-blue-500" />
-                          <span>Masjid Tazkia Sentul City</span>
+                          <span>Ballroom Al-Hambra Masjid Tazkia</span>
                         </div>
                       </div>
 

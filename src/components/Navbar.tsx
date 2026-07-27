@@ -61,6 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const setMobileMenuOpen = externalSetMobileMenuOpen || setInternalMobileMenuOpen;
   const isDark = themeMode === 'dark';
 
+  const handleTabClick = (tabId: string) => {
+    setActiveTab(tabId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
       <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md bg-[#172554]/95 text-white border-b border-[#172554]`}>
       {/* Top Quick Announcement Bar */}
@@ -143,7 +148,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-1">
             <button
-              onClick={() => setActiveTab('beranda')}
+              onClick={() => handleTabClick('beranda')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'beranda'
                   ? 'bg-blue-700 text-white shadow-md'
@@ -166,16 +171,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => setActiveTab('program')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Program ZISWAF</button>
-                  <button onClick={() => setActiveTab('qurban')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Patungan Qurban</button>
-                  <button onClick={() => setActiveTab('transparansi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Laporan Transparansi</button>
-                  <button onClick={() => setActiveTab('edukasi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Edukasi ZISWAF</button>
+                  <button onClick={() => handleTabClick('program')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Program ZISWAF</button>
+                  <button onClick={() => handleTabClick('qurban')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Patungan Qurban</button>
+                  <button onClick={() => handleTabClick('transparansi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Laporan Transparansi</button>
+                  <button onClick={() => handleTabClick('edukasi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Edukasi ZISWAF</button>
                 </div>
               </div>
             </div>
 
             <button
-              onClick={() => setActiveTab('jadwal_khatib')}
+              onClick={() => handleTabClick('jadwal_khatib')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'jadwal_khatib'
                   ? 'bg-blue-700 text-white shadow-md'
@@ -198,14 +203,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <div className="absolute top-full left-0 mt-2 w-48 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => setActiveTab('sejarah')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Sejarah Tazkia</button>
-                  <button onClick={() => setActiveTab('galeri')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Galeri & Kajian</button>
+                  <button onClick={() => handleTabClick('sejarah')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Sejarah Tazkia</button>
+                  <button onClick={() => handleTabClick('galeri')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Galeri & Kajian</button>
                 </div>
               </div>
             </div>
 
             <button
-              onClick={() => setActiveTab('booking')}
+              onClick={() => handleTabClick('booking')}
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'booking'
                   ? 'bg-blue-700 text-white shadow-md'
