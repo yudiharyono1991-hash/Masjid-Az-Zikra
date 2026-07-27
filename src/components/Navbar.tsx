@@ -69,6 +69,21 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => clearInterval(timer);
   }, []);
 
+  const getNextPrayer = () => {
+    const hour = currentTime.getHours();
+    const minute = currentTime.getMinutes();
+    const timeNum = hour * 60 + minute;
+    
+    // Estimasi waktu: Subuh 04:30(270), Dzuhur 12:00(720), Ashar 15:15(915), Maghrib 18:00(1080), Isya 19:15(1155)
+    if (timeNum < 270) return { name: 'Subuh', time: '04:30' };
+    if (timeNum < 720) return { name: 'Dzuhur', time: '12:00' };
+    if (timeNum < 915) return { name: 'Ashar', time: '15:15' };
+    if (timeNum < 1080) return { name: 'Maghrib', time: '18:00' };
+    if (timeNum < 1155) return { name: 'Isya', time: '19:15' };
+    return { name: 'Subuh', time: '04:30' }; // Next day
+  };
+  const nextPrayer = getNextPrayer();
+
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -100,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div className="flex items-center gap-1 cursor-default bg-blue-900/50 px-2 py-0.5 rounded-full border border-blue-700/50 text-[9px]">
               <Moon className="w-3 h-3 text-amber-400" />
-              <span>Isya: 19:15</span>
+              <span>{nextPrayer.name}: {nextPrayer.time}</span>
             </div>
           </div>
 
@@ -265,7 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="bg-[#1e3a8a] hover:bg-[#172554] text-amber-300 border border-amber-500/40 font-bold px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs flex items-center gap-1 sm:gap-1.5 transition-all shadow-md cursor-pointer"
             >
               <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
-              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider">{session.isLoggedIn ? session.name : 'Akses Jamaah'}</span>
+              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider">{session.isLoggedIn ? session.name : 'Login Portal'}</span>
             </button>
 
             {/* Mobile Hamburger Toggle (Menu Susun Tiga) */}

@@ -14,7 +14,6 @@ import {
   QurbanParticipant
 } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
-import { generateSupabaseSQLSchema } from '../lib/store';
 import {
   Plus,
   Trash2,
@@ -232,9 +231,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
 
-  // SQL Copy State
-  const [copiedSql, setCopiedSql] = useState(false);
-
   // Helper file uploader
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setUrl: (url: string) => void) => {
     const file = e.target.files?.[0];
@@ -375,12 +371,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
-  const handleCopySql = () => {
-    navigator.clipboard.writeText(generateSupabaseSQLSchema());
-    setCopiedSql(true);
-    setTimeout(() => setCopiedSql(false), 2500);
-  };
-
   const handleToggleSetting = (key: keyof AppAdminSettings) => {
     if (!adminSettings || !onUpdateAdminSettings) return;
     onUpdateAdminSettings({
@@ -448,8 +438,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'program', label: 'Program & Campaign', icon: Sparkles },
             { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
             { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
-            { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
-            { id: 'supabase', label: 'Export Supabase SQL', icon: Database }
+            { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone }
           ].map(tab => {
             const IconComp = tab.icon;
             return (
@@ -2600,36 +2589,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 8: SUPABASE SQL EXPORTER */}
-        {dkmTab === 'supabase' && (
-          <div className="space-y-4">
-            <div className="bg-blue-900 border border-amber-500/30 rounded-3xl p-6 space-y-4">
-              <div className="flex items-center justify-between border-b border-blue-800 pb-4">
-                <div>
-                  <h3 className="text-lg font-bold font-serif text-white">
-                    Skema SQL Supabase Siap Pakai
-                  </h3>
-                  <p className="text-xs text-blue-400">
-                    Salin skema SQL di bawah ini dan tempelkan ke Supabase SQL Editor milik Anda untuk membuat seluruh tabel.
-                  </p>
-                </div>
-
-                <button
-                  onClick={handleCopySql}
-                  className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-md"
-                >
-                  {copiedSql ? <Check className="w-4 h-4 text-blue-950" /> : <Copy className="w-4 h-4" />}
-                  <span>{copiedSql ? 'Tersalin ke Clipboard!' : 'Salin Skema SQL'}</span>
-                </button>
-              </div>
-
-              <pre className="bg-blue-950 p-4 rounded-2xl text-[11px] font-mono text-amber-300/90 overflow-x-auto max-h-96 border border-blue-800">
-                {generateSupabaseSQLSchema()}
-              </pre>
             </div>
           </div>
         )}

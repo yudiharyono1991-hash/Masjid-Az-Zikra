@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserSession, UserRole } from '../types';
 import {
   UserCheck,
@@ -33,7 +33,17 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<UserRole>('jamaah');
-  const [name, setName] = useState('Jamaah Tazkia');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    if (isOpen && !session.isLoggedIn) {
+      setEmail('');
+      setPassword('');
+      setName('');
+      setRole('jamaah');
+      setShowPassword(false);
+    }
+  }, [isOpen, session.isLoggedIn]);
 
   if (!isOpen) return null;
 
