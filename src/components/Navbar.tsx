@@ -79,23 +79,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-4 ml-auto text-[10px] sm:text-[11px] font-mono uppercase tracking-wider shrink-0">
-          <button
-            onClick={() => openDigitalIbadah('salat')}
-            className="hover:text-blue-600 transition-colors flex items-center gap-1 cursor-pointer font-bold"
-          >
-            <Calendar className="w-3 h-3 text-amber-500" />
-            <span className="hidden xs:inline">Jadwal</span> Shalat
-          </button>
-          <span className="opacity-30">|</span>
-          <button
-            onClick={() => openDigitalIbadah('kiblat')}
-            className="hover:text-blue-600 transition-colors flex items-center gap-1 cursor-pointer font-bold"
-          >
-            <Compass className="w-3 h-3 text-blue-600" />
-            <span>Kiblat</span>
-          </button>
-          <span className="opacity-30">|</span>
-          <span className="opacity-30">|</span>
           {session && hasDkmPortalAccess(session.role) && (
             <button
               onClick={openTvMode}

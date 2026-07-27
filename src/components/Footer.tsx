@@ -154,6 +154,30 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+        {(() => {
+          try {
+            const saved = localStorage.getItem('tazkia_sponsors');
+            if (saved) {
+              const sponsors = JSON.parse(saved);
+              if (sponsors && sponsors.length > 0) {
+                return (
+                  <div className="py-6 border-t border-blue-800/50">
+                    <p className="text-center text-xs font-bold text-blue-300 mb-4 uppercase tracking-widest">Sponsored & Supported By</p>
+                    <div className="flex flex-wrap justify-center gap-6 items-center">
+                      {sponsors.map((sp: any) => (
+                        <div key={sp.id} className="bg-white/90 p-2 rounded-xl hover:bg-white transition-colors">
+                          <img src={sp.imageUrl} alt={sp.name} className="h-10 object-contain" title={sp.name} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+            }
+          } catch(e) {}
+          return null;
+        })()}
+
         <div className="pt-4 border-t border-blue-800 flex flex-col items-center justify-center text-xs text-blue-400 text-center">
           <div className="space-y-1">
             <p className="font-semibold text-blue-200 tracking-wide text-xs sm:text-sm">

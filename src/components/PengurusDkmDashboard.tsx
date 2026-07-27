@@ -55,6 +55,8 @@ import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
 import { SewaGedungAdmin } from './SewaGedungAdmin';
 
+import { AppManagerAdmin } from './AppManagerAdmin';
+
 interface PengurusDkmDashboardProps {
   financials: FinancialTransaction[];
   inventories: InventoryItem[];
@@ -114,7 +116,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddQurbanGroup,
   onDeleteQurbanGroup
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
 
@@ -362,7 +364,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const handleSendWaBroadcast = () => {
     if (!broadcastMessage) return;
     const text = encodeURIComponent(
-      `ðŸ“¢ *BROADCAST RESMI Masjid Tazkia*\n` +
+      `📢 *BROADCAST RESMI Masjid Tazkia*\n` +
       `*${broadcastTitle || 'Pengumuman Jamaah'}*\n\n` +
       `${broadcastMessage}\n\n` +
       `_Pesan otomatis dikirim oleh Portal DKM Masjid Tazkia._`
@@ -427,6 +429,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
             { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
             { id: 'sewa', label: 'Sewa & Booking', icon: Building },
+            { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
             { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
             { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
             { id: 'program', label: 'Program & Campaign', icon: Sparkles },

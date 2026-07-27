@@ -94,7 +94,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         {/* Quick Shortcut Pills Header */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 font-mono text-[9px] sm:text-[10px] uppercase tracking-widest font-bold">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 font-sans text-xs font-medium">
           <button
             onClick={() => openDigitalIbadah('quran')}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
