@@ -7,7 +7,8 @@ import {
   CreditCard, 
   Heart,
   TrendingUp,
-  Award
+  Award,
+  RefreshCw
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
@@ -62,6 +63,17 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <p className="text-[10px] text-blue-300 font-mono uppercase">Bergabung Sejak</p>
                   <p className="font-bold text-white text-sm mt-1">{new Date(profile.joinDate).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                 </div>
+                <button
+                  onClick={() => {
+                    alert('Alhamdulillah, sistem berhasil direfresh.');
+                    window.location.reload();
+                  }}
+                  className="bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 border border-amber-500/40 px-4 py-2 rounded-xl backdrop-blur-sm transition-all flex flex-col items-center justify-center cursor-pointer"
+                  title="Refresh Dashboard"
+                >
+                  <RefreshCw className="w-4 h-4 mb-0.5" />
+                  <span className="text-[10px] font-mono uppercase font-bold">Refresh</span>
+                </button>
               </div>
             </div>
           </div>

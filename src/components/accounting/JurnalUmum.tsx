@@ -70,6 +70,7 @@ export function JurnalUmum() {
       description: '',
       reference: '',
     });
+    alert('Alhamdulillah, Jurnal Umum berhasil disimpan!');
   };
 
   return (

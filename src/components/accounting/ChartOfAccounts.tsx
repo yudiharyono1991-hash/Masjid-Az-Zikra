@@ -31,6 +31,7 @@ export function ChartOfAccounts() {
     addErpCoa(newAccount);
     setIsAdding(false);
     setFormData({ accountCode: '', accountName: '', accountType: 'Asset', normalBalance: 'Debit', groupName: '', isActive: true });
+    alert('Alhamdulillah, Akun CoA berhasil disimpan!');
   };
 
   const handleExport = () => {
@@ -48,6 +49,7 @@ export function ChartOfAccounts() {
         })) as ERPChartOfAccount[];
         
         setErpCoa([...state.erpCoa, ...newCoas]);
+        alert('Alhamdulillah, data CoA berhasil diimpor!');
       } catch (err) {
         console.error('Failed to import', err);
         alert('Gagal mengimpor file Excel.');

@@ -31,6 +31,7 @@ import {
   ShieldCheck,
   Sparkles,
   Settings,
+  RefreshCw,
   BookOpen,
   FileText,
   Wallet,
@@ -303,6 +304,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     }
     setKcPurpose('');
     setShowAddKasKecil(false);
+    alert('Alhamdulillah, Transaksi Kas Kecil berhasil disimpan!');
   };
 
   const handleCreateInventory = (e: React.FormEvent) => {
@@ -322,6 +324,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     });
     setInvName('');
     setShowAddInv(false);
+    alert('Alhamdulillah, Inventaris Aset berhasil ditambah!');
   };
 
   const handleCreateProgram = (e: React.FormEvent) => {
@@ -337,6 +340,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     });
     setProgTitle('');
     setShowAddProg(false);
+    alert('Alhamdulillah, Program/Campaign baru berhasil dipublikasi!');
   };
 
   const handleCreateAnnouncement = (e: React.FormEvent) => {
@@ -353,6 +357,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     setAncTitle('');
     setAncContent('');
     setShowAddAnc(false);
+    alert('Alhamdulillah, Pengumuman berhasil dipublikasi!');
   };
 
   const handleSaveAdminPhotos = () => {
@@ -422,6 +427,17 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     <span className="hidden sm:inline">Display TV</span>
                   </button>
                 )}
+                <button
+                  onClick={() => {
+                    alert('Alhamdulillah, sistem berhasil direfresh.');
+                    window.location.reload();
+                  }}
+                  className="ml-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500 hover:text-white px-2 py-1 flex items-center gap-1.5 rounded-full text-xs font-bold transition-all shadow-sm"
+                  title="Refresh Sistem"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Refresh Data</span>
+                </button>
               </div>
               <p className="text-xs text-blue-400 mt-0.5">
                 Manajemen Keuangan Akuntansi PSAK 109, Jurnal Umum, Buku Besar, Kas Kecil, & Pengaturan Visibilitas Modul
