@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { BookOpen, Calculator, CheckCircle2, ShieldAlert, Sparkles, HelpCircle, HeartHandshake, FileText, ArrowRight } from 'lucide-react';
 
 interface EdukasiZiswafSectionProps {
@@ -17,9 +17,9 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
   const eduItems = {
     zakat: {
       title: 'Zakat (Fitrah & Maal)',
-      arabic: 'الزَّكَاةُ',
+      arabic: '??????????',
       subtitle: 'Kewajiban Pokok Rukun Islam Ketiga',
-      dalil: 'وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ',
+      dalil: '??????????? ?????????? ??????? ?????????? ??????????? ???? ?????????????',
       dalilTrans: '"Dan dirikanlah shalat, tunaikanlah zakat, dan ruku\'lah rukuk bersama orang-orang yang ruku\'." (QS. Al-Baqarah: 43)',
       explanation: `Zakat adalah bagian dari harta tertentu yang wajib dikeluarkan oleh seorang muslim apabila telah mencapai syarat-syarat yang ditetapkan oleh syariat (mencapai nisab & haul). Zakat disalurkan khusus kepada 8 Asnaf (delapan golongan penerima zakat) sesuai Al-Qur'an Surah At-Taubah ayat 60.`,
       kinds: [
@@ -40,9 +40,9 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
     },
     infaq: {
       title: 'Infaq',
-      arabic: 'الإِنْفَاقُ',
+      arabic: '???????????',
       subtitle: 'Membelanjakan Harta untuk Kemaslahatan Umat',
-      dalil: 'الَّذِينَ يُنْفِقُونَ أَمْوَالَهُمْ بِاللَّيْلِ وَالنَّهَارِ سِرًّا وَعَلَانِيَةً فَلَهُمْ أَجْرُهُمْ عِنْدَ رَبِّهِمْ',
+      dalil: '????????? ??????????? ????????????? ??????????? ???????????? ?????? ????????????? ???????? ?????????? ?????? ?????????',
       dalilTrans: '"Orang-orang yang menafkahkan hartanya di malam dan di siang hari secara tersembunyi dan terang-terangan, maka mereka mendapat pahala di sisi Tuhannya." (QS. Al-Baqarah: 274)',
       explanation: `Infaq secara bahasa berarti mengeluarkan atau membelanjakan harta. Secara syariah, Infaq adalah pemberian sukarela yang dikeluarkan seseorang untuk kepentingan ibadah, dakwah, operasional masjid, fasilitas air bersih, serta membantu sesama tanpa terikat nisab atau haul tertentu.`,
       kinds: [
@@ -62,9 +62,9 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
     },
     shadaqah: {
       title: 'Shadaqah (Sedekah)',
-      arabic: 'الصَّدَقَةُ',
+      arabic: '???????????',
       subtitle: 'Bukti Keimanan & Kebaikan yang Luas',
-      dalil: 'مَثَلُ الَّذِينَ يُنْفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنْبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِائَةُ حَبَّةٍ',
+      dalil: '?????? ????????? ??????????? ????????????? ??? ??????? ??????? ???????? ??????? ?????????? ?????? ????????? ??? ????? ?????????? ??????? ???????',
       dalilTrans: '"Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji." (QS. Al-Baqarah: 261)',
       explanation: `Shadaqah berasas dari kata 'Shidq' yang berarti kebenaran/kejujuran iman. Sedekah tidak terbatas pada materi/uang saja, namun mencakup setiap perbuatan baik seperti tersenyum kepada sesama, membantu fisik, ilmu yang bermanfaat, hingga menyingkirkan duri di jalan.`,
       kinds: [
@@ -84,9 +84,9 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
     },
     wakaf: {
       title: 'Wakaf (Uang & Aset)',
-      arabic: 'الْوَقْفُ',
+      arabic: '?????????',
       subtitle: 'Pahala Abadi Mengalir Tiada Putus',
-      dalil: 'إِذَا مَاتَ ابْنُ آدَمَ انْقَطَعَ عَمَلُهُ إِلاَّ مِنْ ثَلاَثٍ: صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ',
+      dalil: '????? ????? ????? ????? ????????? ???????? ?????? ???? ???????: ???????? ?????????? ???? ?????? ?????????? ????? ???? ?????? ??????? ??????? ????',
       dalilTrans: '"Apabila manusia meninggal dunia maka terputuslah amalnya kecuali tiga perkara: sedekah jariyah (wakaf), ilmu yang bermanfaat, atau anak sholeh yang mendoakannya." (HR. Muslim)',
       explanation: `Wakaf adalah menahan pokok suatu harta yang tahan lama (seperti tanah, bangunan, peralatan, atau wakaf uang) dan menyerahkan manfaatnya untuk jalan Allah secara permanen. Harta wakaf tidak boleh dijual, diwariskan, atau dihibahkan.`,
       kinds: [
@@ -106,9 +106,9 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
     },
     fidyah: {
       title: 'Fidyah Puasa',
-      arabic: 'الْفِدْيَةُ',
+      arabic: '???????????',
       subtitle: 'Pengganti Puasa bagi Kondisi Khusus',
-      dalil: 'وَعَلَى الَّذِينَ يُطِيقُونَهُ فِدْيَةٌ طَعَامُ مِسْكِينٍ',
+      dalil: '??????? ????????? ???????????? ???????? ??????? ?????????',
       dalilTrans: '"Dan wajib bagi orang-orang yang berat menjalankannya (jika mereka tidak berpuasa) membayar fidyah, (yaitu): memberi makan seorang miskin." (QS. Al-Baqarah: 184)',
       explanation: `Fidyah adalah denda syariat berupa pemberian makanan pokok/santunan kepada fakir miskin sebagai ganti dari puasa Ramadhan yang ditinggalkan oleh orang yang sudah tua renta, sakit menahun tak ada harapan sembuh, atau ibu hamil/menyusui dengan pertimbangan syar'i.`,
       kinds: [
@@ -127,19 +127,19 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
   const currentInfo = eduItems[activeEduTab];
 
   return (
-    <section className="py-12 bg-[#022C22] border-y border-emerald-900 text-emerald-100">
+    <section className="py-12 bg-[#172554] border-y border-blue-900 text-blue-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Header Title */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-mono font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-300 text-xs font-mono font-bold uppercase tracking-widest">
             <BookOpen className="w-4 h-4 text-amber-300" />
             <span>Edukasi & Literasi Syariah Umat</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold font-serif text-white">
             Panduan Lengkap Zakat, Infaq, Shadaqah, Wakaf & Fidyah
           </h2>
-          <p className="text-sm text-emerald-100/80">
+          <p className="text-sm text-blue-100/80">
             Pelajari perbedaan, hukum, nisab, dan tata cara penunaian ZISWAF yang sah sesuai Al-Qur'an dan As-Sunnah.
           </p>
         </div>
@@ -152,8 +152,8 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
               onClick={() => setActiveEduTab(tabKey)}
               className={`px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shrink-0 border ${
                 activeEduTab === tabKey
-                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-lg scale-105 font-extrabold'
-                  : 'bg-emerald-950 text-emerald-200/80 border-emerald-900 hover:text-white hover:bg-emerald-900'
+                  ? 'bg-blue-600 text-white border-blue-400 shadow-lg scale-105 font-extrabold'
+                  : 'bg-blue-950 text-blue-200/80 border-blue-900 hover:text-white hover:bg-blue-900'
               }`}
             >
               {tabKey}
@@ -162,10 +162,10 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
         </div>
 
         {/* Selected Topic Content Display */}
-        <div className="bg-emerald-950/80 border border-emerald-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-8 animate-fadeIn">
+        <div className="bg-blue-950/80 border border-blue-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-8 animate-fadeIn">
           
           {/* Header Title & Arabic */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-emerald-800 pb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-800 pb-6">
             <div>
               <span className="text-xs font-mono font-bold text-amber-300 uppercase tracking-widest block">
                 {currentInfo.subtitle}
@@ -180,7 +180,7 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
           </div>
 
           {/* Dalil Card */}
-          <div className="bg-emerald-950 border-l-4 border-amber-400 p-5 rounded-2xl space-y-3">
+          <div className="bg-blue-950 border-l-4 border-amber-400 p-5 rounded-2xl space-y-3">
             <div className="flex items-center gap-2 text-amber-300 text-xs font-bold font-mono uppercase">
               <Sparkles className="w-4 h-4" />
               <span>Dalil Al-Qur'an / As-Sunnah:</span>
@@ -188,38 +188,38 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
             <p className="text-right text-lg sm:text-xl font-serif text-amber-200 leading-loose">
               {currentInfo.dalil}
             </p>
-            <p className="text-xs text-emerald-100/90 italic font-sans leading-relaxed">
+            <p className="text-xs text-blue-100/90 italic font-sans leading-relaxed">
               {currentInfo.dalilTrans}
             </p>
           </div>
 
           {/* Explanation Text */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-emerald-300 flex items-center gap-2">
+            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-blue-300 flex items-center gap-2">
               <FileText className="w-4 h-4" />
               <span>Pengertian & Hukum Syariah:</span>
             </h4>
-            <p className="text-sm text-emerald-100/90 leading-relaxed">
+            <p className="text-sm text-blue-100/90 leading-relaxed">
               {currentInfo.explanation}
             </p>
           </div>
 
           {/* Kinds / Types Breakdown */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-emerald-300 flex items-center gap-2">
+            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-blue-300 flex items-center gap-2">
               <HeartHandshake className="w-4 h-4" />
               <span>Bentuk & Jenis Penunaian:</span>
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {currentInfo.kinds.map((kind, idx) => (
-                <div key={idx} className="bg-emerald-950 p-4 rounded-2xl border border-emerald-800 space-y-2 hover:border-amber-400/40 transition-colors">
+                <div key={idx} className="bg-blue-950 p-4 rounded-2xl border border-blue-800 space-y-2 hover:border-amber-400/40 transition-colors">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-300 shrink-0" />
                     <h5 className="font-bold text-white text-xs sm:text-sm font-serif">
                       {kind.name}
                     </h5>
                   </div>
-                  <p className="text-xs text-emerald-200/70 leading-relaxed">
+                  <p className="text-xs text-blue-200/70 leading-relaxed">
                     {kind.desc}
                   </p>
                 </div>
@@ -229,14 +229,14 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
 
           {/* Asnaf Penerima (If Zakat) */}
           {activeEduTab === 'zakat' && currentInfo.asnaf && (
-            <div className="bg-emerald-950 border border-emerald-700/60 p-5 rounded-2xl space-y-3">
+            <div className="bg-blue-950 border border-blue-700/60 p-5 rounded-2xl space-y-3">
               <h4 className="text-xs font-bold font-mono uppercase text-amber-300 flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-amber-400" />
                 <span>8 Asnaf Penerima Zakat Sesuai Surah At-Taubah Ayat 60:</span>
               </h4>
               <div className="flex flex-wrap gap-2">
                 {currentInfo.asnaf.map((asn, i) => (
-                  <span key={i} className="bg-emerald-900 text-emerald-100 border border-emerald-700 text-xs px-3 py-1 rounded-xl font-mono">
+                  <span key={i} className="bg-blue-900 text-blue-100 border border-blue-700 text-xs px-3 py-1 rounded-xl font-mono">
                     {i + 1}. {asn}
                   </span>
                 ))}
@@ -245,11 +245,11 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
           )}
 
           {/* Action Buttons */}
-          <div className="pt-4 border-t border-emerald-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-4 border-t border-blue-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             {onOpenCalculator && activeEduTab === 'zakat' && (
               <button
                 onClick={onOpenCalculator}
-                className="bg-amber-400 hover:bg-amber-300 text-emerald-950 font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 cursor-pointer shadow-md"
+                className="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 cursor-pointer shadow-md"
               >
                 <Calculator className="w-4 h-4" />
                 <span>Hitung Kalkulator Zakat Saya</span>
@@ -259,7 +259,7 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
             {onSelectCategoryDonate && activeEduTab !== 'fidyah' && (
               <button
                 onClick={() => onSelectCategoryDonate(activeEduTab as any)}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-xs flex items-center gap-2 cursor-pointer shadow-lg ml-auto border border-emerald-400/30"
+                className="bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-2.5 rounded-xl text-xs flex items-center gap-2 cursor-pointer shadow-lg ml-auto border border-blue-400/30"
               >
                 <span>Salurkan {currentInfo.title} Sekarang</span>
                 <ArrowRight className="w-4 h-4" />
@@ -270,31 +270,31 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
         </div>
 
         {/* Comparison Summary Grid */}
-        <div className="bg-emerald-900 border border-emerald-800 rounded-2xl p-6">
+        <div className="bg-blue-900 border border-blue-800 rounded-2xl p-6">
           <h4 className="text-sm font-bold font-serif text-white mb-4 flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-emerald-300" />
+            <HelpCircle className="w-4 h-4 text-blue-300" />
             <span>Ringkasan Perbedaan ZISWAF at a Glance:</span>
           </h4>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-sans">
               <thead>
-                <tr className="border-b border-emerald-800 text-emerald-400 font-mono">
+                <tr className="border-b border-blue-800 text-blue-400 font-mono">
                   <th className="py-2 px-3">Instrumen</th>
                   <th className="py-2 px-3">Hukum</th>
                   <th className="py-2 px-3">Nisab / Syarat</th>
                   <th className="py-2 px-3">Penerima</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-emerald-800 text-emerald-300">
+              <tbody className="divide-y divide-blue-800 text-blue-300">
                 <tr>
                   <td className="py-2.5 px-3 font-bold text-amber-300">Zakat Maal</td>
-                  <td className="py-2.5 px-3 font-mono text-emerald-400">Wajib (Fardhu 'Ain)</td>
+                  <td className="py-2.5 px-3 font-mono text-blue-400">Wajib (Fardhu 'Ain)</td>
                   <td className="py-2.5 px-3">Nisab 85 gr emas & Haul 1 thn</td>
                   <td className="py-2.5 px-3">Khusus 8 Asnaf</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-bold text-amber-300">Zakat Fitrah</td>
-                  <td className="py-2.5 px-3 font-mono text-emerald-400">Wajib di Ramadhan</td>
+                  <td className="py-2.5 px-3 font-mono text-blue-400">Wajib di Ramadhan</td>
                   <td className="py-2.5 px-3">2.5 kg beras / Rp 45.000 / jiwa</td>
                   <td className="py-2.5 px-3">Fakir & Miskin utama</td>
                 </tr>
@@ -305,8 +305,8 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
                   <td className="py-2.5 px-3">Umum, Masjid, Dhuafa</td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 px-3 font-bold text-emerald-300">Wakaf</td>
-                  <td className="py-2.5 px-3 font-mono text-emerald-300">Sunnah / Jariyah Abadi</td>
+                  <td className="py-2.5 px-3 font-bold text-blue-300">Wakaf</td>
+                  <td className="py-2.5 px-3 font-mono text-blue-300">Sunnah / Jariyah Abadi</td>
                   <td className="py-2.5 px-3">Harta tahan lama / uang produktif</td>
                   <td className="py-2.5 px-3">Mauquf 'Alaih (Umat)</td>
                 </tr>

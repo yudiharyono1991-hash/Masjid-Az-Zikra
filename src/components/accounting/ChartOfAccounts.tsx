@@ -1,0 +1,171 @@
+import React, { useState } from 'react';
+import { useMasjidStore } from '../../lib/store';
+import { ERPChartOfAccount } from '../../types';
+import { Download, Upload, Plus, Edit2, Trash2 } from 'lucide-react';
+import { exportCoaToExcel, importCoaFromExcel } from '../../lib/excelUtils';
+
+export function ChartOfAccounts() {
+  const { state, addErpCoa, setErpCoa } = useMasjidStore();
+  const [isAdding, setIsAdding] = useState(false);
+  
+  const [formData, setFormData] = useState<Partial<ERPChartOfAccount>>({
+    accountCode: '',
+    accountName: '',
+    accountType: 'Asset',
+    normalBalance: 'Debit',
+    isActive: true
+  });
+
+  const handleSave = () => {
+    if (!formData.accountCode || !formData.accountName) return;
+    const newAccount: ERPChartOfAccount = {
+      id: `COA-${Math.floor(1000 + Math.random() * 9000)}`,
+      accountCode: formData.accountCode,
+      accountName: formData.accountName,
+      accountType: formData.accountType as any,
+      normalBalance: formData.normalBalance as any,
+      groupName: formData.groupName || 'Uncategorized',
+      isActive: formData.isActive ?? true,
+      createdAt: new Date().toISOString()
+    };
+    addErpCoa(newAccount);
+    setIsAdding(false);
+    setFormData({ accountCode: '', accountName: '', accountType: 'Asset', normalBalance: 'Debit', groupName: '', isActive: true });
+  };
+
+  const handleExport = () => {
+    exportCoaToExcel(state.erpCoa);
+  };
+
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      try {
+        const imported = await importCoaFromExcel(e.target.files[0]);
+        const newCoas = imported.map(acc => ({
+          ...acc,
+          id: `COA-${Math.floor(1000 + Math.random() * 9000)}`,
+          createdAt: new Date().toISOString()
+        })) as ERPChartOfAccount[];
+        
+        setErpCoa([...state.erpCoa, ...newCoas]);
+      } catch (err) {
+        console.error('Failed to import', err);
+        alert('Gagal mengimpor file Excel.');
+      }
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+        <h3 className="font-bold text-lg text-blue-900">Bagan Akun (Chart of Accounts)</h3>
+        <div className="flex gap-2">
+          <button onClick={handleExport} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
+            <Download className="w-4 h-4" /> Ekspor
+          </button>
+          <label className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
+            <Upload className="w-4 h-4" /> Impor
+            <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleImport} />
+          </label>
+          <button onClick={() => setIsAdding(true)} className="px-3 py-2 bg-tazkia-primary text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-tazkia-light">
+            <Plus className="w-4 h-4" /> Tambah Akun
+          </button>
+        </div>
+      </div>
+
+      {isAdding && (
+        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Kode Akun</label>
+            <input 
+              value={formData.accountCode} 
+              onChange={e => setFormData({ ...formData, accountCode: e.target.value })} 
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm" 
+              placeholder="e.g. 1101" 
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Nama Akun</label>
+            <input 
+              value={formData.accountName} 
+              onChange={e => setFormData({ ...formData, accountName: e.target.value })} 
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm" 
+              placeholder="e.g. Kas Masjid" 
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Tipe & Saldo</label>
+            <div className="flex gap-2">
+              <select 
+                value={formData.accountType} 
+                onChange={e => setFormData({ ...formData, accountType: e.target.value as any })} 
+                className="w-1/2 p-2 border border-gray-300 rounded-lg text-sm"
+              >
+                <option value="Asset">Asset</option>
+                <option value="Liability">Liability</option>
+                <option value="Equity">Equity</option>
+                <option value="Revenue">Revenue</option>
+                <option value="Expense">Expense</option>
+              </select>
+              <select 
+                value={formData.normalBalance} 
+                onChange={e => setFormData({ ...formData, normalBalance: e.target.value as any })} 
+                className="w-1/2 p-2 border border-gray-300 rounded-lg text-sm"
+              >
+                <option value="Debit">Debit</option>
+                <option value="Credit">Credit</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Kategori / Kelompok</label>
+            <input 
+              value={formData.groupName || ''} 
+              onChange={e => setFormData({ ...formData, groupName: e.target.value })} 
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm" 
+              placeholder="e.g. Aset Lancar" 
+            />
+          </div>
+          <div className="flex items-end gap-2 col-span-2 md:col-span-4">
+            <button onClick={handleSave} className="flex-1 p-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700">Simpan</button>
+            <button onClick={() => setIsAdding(false)} className="flex-1 p-2 bg-gray-100 text-gray-600 rounded-lg text-sm font-semibold hover:bg-gray-200">Batal</button>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-gray-50 border-b border-gray-100 text-gray-600">
+            <tr>
+              <th className="p-4 font-semibold">Kode Akun</th>
+              <th className="p-4 font-semibold">Nama Akun</th>
+              <th className="p-4 font-semibold">Tipe Akun</th>
+              <th className="p-4 font-semibold">Saldo Normal</th>
+              <th className="p-4 font-semibold text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {state.erpCoa.map(acc => (
+              <tr key={acc.id} className="hover:bg-gray-50">
+                <td className="p-4 font-mono text-blue-600">{acc.accountCode}</td>
+                <td className="p-4 font-medium text-gray-800">{acc.accountName}</td>
+                <td className="p-4 text-gray-600">{acc.accountType}</td>
+                <td className="p-4 text-gray-600">{acc.normalBalance}</td>
+                <td className="p-4 text-center">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${acc.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {acc.isActive ? 'Aktif' : 'Non-Aktif'}
+                  </span>
+                </td>
+              </tr>
+            ))}
+            {state.erpCoa.length === 0 && (
+              <tr>
+                <td colSpan={5} className="p-8 text-center text-gray-400">Belum ada data Chart of Accounts.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

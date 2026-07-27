@@ -48,10 +48,10 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
   const zakatFitrahRupiah = familyMembers * fitrahRiceKgPerPerson * ricePricePerKg;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl relative text-emerald-100 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blue-950/80 backdrop-blur-md overflow-y-auto">
+      <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl relative text-blue-100 my-8">
         {/* Header Bar */}
-        <div className="bg-emerald-900 px-6 py-4 border-b border-emerald-800 flex items-center justify-between">
+        <div className="bg-blue-900 px-6 py-4 border-b border-blue-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
               <Calculator className="w-5 h-5" />
@@ -60,7 +60,7 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
               <h3 className="text-base font-bold font-serif text-white">
                 Kalkulator ZISWAF Syariah
               </h3>
-              <p className="text-xs text-emerald-400">
+              <p className="text-xs text-blue-400">
                 Hitung kewajiban Zakat Mal, Zakat Profesi, dan Fitrah sesuai nisab
               </p>
             </div>
@@ -68,14 +68,14 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 text-emerald-400 hover:text-white rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer"
+            className="p-2 text-blue-400 hover:text-white rounded-xl hover:bg-blue-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex border-b border-emerald-800 bg-emerald-950 p-2 gap-2">
+        <div className="flex border-b border-blue-800 bg-blue-950 p-2 gap-2">
           {[
             { id: 'profesi', label: 'Zakat Penghasilan' },
             { id: 'mal', label: 'Zakat Mal & Emas' },
@@ -86,8 +86,8 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
               onClick={() => setCalcTab(t.id as any)}
               className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 calcTab === t.id
-                  ? 'bg-amber-500 text-emerald-950 shadow-md shadow-amber-500/20'
-                  : 'text-emerald-400 hover:text-emerald-200 hover:bg-emerald-900'
+                  ? 'bg-amber-500 text-blue-950 shadow-md shadow-amber-500/20'
+                  : 'text-blue-400 hover:text-blue-200 hover:bg-blue-900'
               }`}
             >
               {t.label}
@@ -102,58 +102,58 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
             <div className="space-y-4">
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">
                     Gaji / Penghasilan Rutin per Bulan (Rp):
                   </label>
                   <input
                     type="number"
                     value={monthlyIncome}
                     onChange={(e) => setMonthlyIncome(Number(e.target.value))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">
                     Bonus / Tunjangan / Pendapatan Tambahan (Rp):
                   </label>
                   <input
                     type="number"
                     value={monthlyBonus}
                     onChange={(e) => setMonthlyBonus(Number(e.target.value))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">
                     Pengeluaran Kebutuhan Pokok & Cicilan (Rp):
                   </label>
                   <input
                     type="number"
                     value={monthlyNeeds}
                     onChange={(e) => setMonthlyNeeds(Number(e.target.value))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
                 </div>
               </div>
 
               {/* Result Calculation Box */}
-              <div className="bg-emerald-900 border border-amber-500/30 rounded-2xl p-4 space-y-3">
+              <div className="bg-blue-900 border border-amber-500/30 rounded-2xl p-4 space-y-3">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-emerald-400">Nishab Bulanan (85gr Emas/12):</span>
-                  <span className="font-mono text-emerald-200">{formatRupiahFull(nishabProfesiBulan)}</span>
+                  <span className="text-blue-400">Nishab Bulanan (85gr Emas/12):</span>
+                  <span className="font-mono text-blue-200">{formatRupiahFull(nishabProfesiBulan)}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-emerald-400">Status Wajib Zakat:</span>
-                  <span className={`font-bold px-2 py-0.5 rounded ${isProfesiWajib ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-300'}`}>
+                  <span className="text-blue-400">Status Wajib Zakat:</span>
+                  <span className={`font-bold px-2 py-0.5 rounded ${isProfesiWajib ? 'bg-blue-500/20 text-blue-400' : 'bg-rose-500/20 text-rose-300'}`}>
                     {isProfesiWajib ? 'WAJIB ZAKAT (2.5%)' : 'Belum Mencapai Nishab'}
                   </span>
                 </div>
 
-                <div className="pt-2 border-t border-emerald-800 flex items-center justify-between">
+                <div className="pt-2 border-t border-blue-800 flex items-center justify-between">
                   <div>
-                    <span className="text-xs text-emerald-400 block">Zakat Wajib Ditunaikan / Bulan:</span>
+                    <span className="text-xs text-blue-400 block">Zakat Wajib Ditunaikan / Bulan:</span>
                     <span className="text-2xl font-bold font-mono text-amber-400">
                       {formatRupiahFull(zakatProfesiBulan)}
                     </span>
@@ -164,7 +164,7 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
                       onSelectAmountForDonation(zakatProfesiBulan || 100000, 'zakat');
                       onClose();
                     }}
-                    className="bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
+                    className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
                   >
                     <span>Salurkan Sekarang</span>
                     <ArrowRight className="w-4 h-4" />
@@ -179,47 +179,47 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
             <div className="space-y-4">
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">
                     Nilai Deposito / Tabungan / Surat Berharga (Rp):
                   </label>
                   <input
                     type="number"
                     value={savingsValue}
                     onChange={(e) => setSavingsValue(Number(e.target.value))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">
                     Kepemilikan Emas Murni (Gram):
                   </label>
                   <input
                     type="number"
                     value={goldGram}
                     onChange={(e) => setGoldGram(Number(e.target.value))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
-                  <span className="text-[10px] text-emerald-500 mt-1 block">
+                  <span className="text-[10px] text-blue-500 mt-1 block">
                     *Asumsi harga emas Rp 1.350.000 / gram
                   </span>
                 </div>
               </div>
 
               {/* Result Calculation Box */}
-              <div className="bg-emerald-900 border border-amber-500/30 rounded-2xl p-4 space-y-3">
+              <div className="bg-blue-900 border border-amber-500/30 rounded-2xl p-4 space-y-3">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-emerald-400">Total Harta Tersimpan:</span>
-                  <span className="font-mono text-emerald-200">{formatRupiahFull(totalMalValue)}</span>
+                  <span className="text-blue-400">Total Harta Tersimpan:</span>
+                  <span className="font-mono text-blue-200">{formatRupiahFull(totalMalValue)}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-emerald-400">Nishab Zakat Mal (85g Emas):</span>
-                  <span className="font-mono text-emerald-200">{formatRupiahFull(nishabMalTahun)}</span>
+                  <span className="text-blue-400">Nishab Zakat Mal (85g Emas):</span>
+                  <span className="font-mono text-blue-200">{formatRupiahFull(nishabMalTahun)}</span>
                 </div>
 
-                <div className="pt-2 border-t border-emerald-800 flex items-center justify-between">
+                <div className="pt-2 border-t border-blue-800 flex items-center justify-between">
                   <div>
-                    <span className="text-xs text-emerald-400 block">Kewajiban Zakat Mal / Tahun:</span>
+                    <span className="text-xs text-blue-400 block">Kewajiban Zakat Mal / Tahun:</span>
                     <span className="text-2xl font-bold font-mono text-amber-400">
                       {formatRupiahFull(zakatMalTahun)}
                     </span>
@@ -230,7 +230,7 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
                       onSelectAmountForDonation(zakatMalTahun || 250000, 'zakat');
                       onClose();
                     }}
-                    className="bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
+                    className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
                   >
                     <span>Salurkan Zakat Mal</span>
                     <ArrowRight className="w-4 h-4" />
@@ -244,7 +244,7 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
           {calcTab === 'fitrah' && (
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-semibold text-emerald-300 block mb-1">
+                <label className="text-xs font-semibold text-blue-300 block mb-1">
                   Jumlah Jiwa / Tanggungan Keluarga:
                 </label>
                 <div className="flex items-center gap-3">
@@ -253,18 +253,18 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
                     min={1}
                     value={familyMembers}
                     onChange={(e) => setFamilyMembers(Math.max(1, Number(e.target.value)))}
-                    className="w-full bg-emerald-900 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
+                    className="w-full bg-blue-900 border border-blue-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none"
                   />
-                  <span className="text-xs text-emerald-400 font-medium">Orang</span>
+                  <span className="text-xs text-blue-400 font-medium">Orang</span>
                 </div>
-                <p className="text-[11px] text-emerald-400 mt-2">
+                <p className="text-[11px] text-blue-400 mt-2">
                   Zakat fitrah per orang disetarakan 2.5 kg beras (Rp 37.500 @ Rp 15.000/kg).
                 </p>
               </div>
 
-              <div className="bg-emerald-900 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between">
+              <div className="bg-blue-900 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between">
                 <div>
-                  <span className="text-xs text-emerald-400 block">Total Zakat Fitrah ({familyMembers} Orang):</span>
+                  <span className="text-xs text-blue-400 block">Total Zakat Fitrah ({familyMembers} Orang):</span>
                   <span className="text-2xl font-bold font-mono text-amber-400">
                     {formatRupiahFull(zakatFitrahRupiah)}
                   </span>
@@ -275,7 +275,7 @@ export const ZiswafCalculatorModal: React.FC<ZiswafCalculatorModalProps> = ({
                     onSelectAmountForDonation(zakatFitrahRupiah, 'zakat');
                     onClose();
                   }}
-                  className="bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
+                  className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
                 >
                   <span>Bayar Zakat Fitrah</span>
                   <ArrowRight className="w-4 h-4" />

@@ -1,6 +1,6 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useMasjidStore } from './lib/store';
-import { Program, ProgramCategory } from './types';
+import { Program, ProgramCategory, hasDkmPortalAccess } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { ProgramCardsSection } from './components/ProgramCardsSection';
@@ -57,7 +57,21 @@ export default function App() {
   } = useMasjidStore();
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<string>('beranda');
+  const [activeTab, setActiveTabState] = useState<string>(() => {
+    return window.location.hash.replace('#', '') || 'beranda';
+  });
+
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      setActiveTabState(window.location.hash.replace('#', '') || 'beranda');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const setActiveTab = (tab: string) => {
+    window.location.hash = tab;
+  };
 
   // Modal Overlays State
   const [donationModalOpen, setDonationModalOpen] = useState<boolean>(false);
@@ -109,11 +123,11 @@ export default function App() {
   // Theme Mode & Palette styling
   const isDark = state.themeMode === 'dark';
   const themeContainerBg = isDark
-    ? 'bg-[#022C22] text-emerald-100 dark'
-    : 'bg-[#F4FBF7] text-emerald-900';
+    ? 'bg-[#172554] text-blue-100 dark'
+    : 'bg-[#F4FBF7] text-blue-900';
 
   return (
-    <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-emerald-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>
+    <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-blue-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>
       {/* 1. Header Navigation */}
       <Navbar
         activeTab={activeTab}
@@ -155,32 +169,6 @@ export default function App() {
               openDonationModal={handleOpenDonationModal}
               openCalculator={() => setCalculatorModalOpen(true)}
               openCatalogPdf={() => setCatalogPdfOpen(true)}
-            />
-
-            <FridayAgendaSection
-              petugasList={state.petugas}
-              isDark={isDark}
-            />
-
-            <PatunganQurbanSection
-              qurbanGroups={state.qurbanGroups || []}
-              onAddParticipant={addQurbanParticipant}
-              onUpdateGroupImage={updateQurbanGroup}
-              isDark={isDark}
-              session={state.session}
-            />
-
-            <SejarahTazkiaSection isDark={isDark} />
-
-            <EdukasiZiswafSection
-              isDark={isDark}
-              onOpenCalculator={() => setCalculatorModalOpen(true)}
-              onSelectCategoryDonate={(cat) => handleOpenDonationModal(cat)}
-            />
-
-            <TransparencySection
-              financials={state.financials}
-              petugasList={state.petugas}
             />
           </>
         )}
@@ -252,7 +240,7 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'dkm_portal' && ['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(state.session.role) && (
+        {activeTab === 'dkm_portal' && hasDkmPortalAccess(state.session.role) && (
           <PengurusDkmDashboard
             financials={state.financials}
             inventories={state.inventories}
@@ -353,7 +341,7 @@ export default function App() {
         session={state.session}
         onLogin={(email, name, role) => {
           login(email, name, role);
-          if (['pengurus_dkm', 'admin_masjid', 'ketua_dkm'].includes(role)) {
+          if (hasDkmPortalAccess(role)) {
             setActiveTab('dkm_portal');
           }
         }}

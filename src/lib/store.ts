@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getSupabaseClient } from './supabase';
 import {
   Program,
@@ -17,7 +17,11 @@ import {
   GalleryItem,
   QurbanGroup,
   QurbanParticipant,
-  UserRole
+  UserRole,
+  ERPChartOfAccount,
+  ERPGeneralJournal,
+  ERPJournalEntry,
+  ReportSignature
 } from '../types';
 import {
   INITIAL_PROGRAMS,
@@ -31,7 +35,8 @@ import {
   INITIAL_PETTY_CASH,
   INITIAL_ADMIN_SETTINGS,
   INITIAL_GALLERY,
-  INITIAL_QURBAN_GROUPS
+  INITIAL_QURBAN_GROUPS,
+  INITIAL_ERP_COA
 } from './initialData';
 
 const LOCAL_STORAGE_KEY = 'masjid_Tazkia_app_state_v3';
@@ -54,6 +59,10 @@ export interface AppState {
   session: UserSession;
   supabaseUrl: string;
   supabaseAnonKey: string;
+  erpCoa: ERPChartOfAccount[];
+  erpJournals: ERPGeneralJournal[];
+  erpJournalEntries: ERPJournalEntry[];
+  erpSignatures: ReportSignature[];
 }
 
 const defaultState: AppState = {
@@ -78,7 +87,11 @@ const defaultState: AppState = {
     role: 'jamaah'
   },
   supabaseUrl: import.meta.env.VITE_SUPABASE_URL || '',
-  supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+  supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
+  erpCoa: INITIAL_ERP_COA,
+  erpJournals: [],
+  erpJournalEntries: [],
+  erpSignatures: []
 };
 
 export function getStoredState(): AppState {
@@ -99,7 +112,13 @@ export function getStoredState(): AppState {
         journalEntries: parsed.journalEntries || [],
         glAccounts: parsed.glAccounts?.length ? parsed.glAccounts : INITIAL_GL_ACCOUNTS,
         pettyCash: parsed.pettyCash || [],
-        adminSettings: parsed.adminSettings ? { ...INITIAL_ADMIN_SETTINGS, ...parsed.adminSettings } : INITIAL_ADMIN_SETTINGS
+        adminSettings: parsed.adminSettings ? { ...INITIAL_ADMIN_SETTINGS, ...parsed.adminSettings } : INITIAL_ADMIN_SETTINGS,
+        galleryItems: parsed.galleryItems?.length ? parsed.galleryItems : INITIAL_GALLERY,
+        qurbanGroups: parsed.qurbanGroups?.length ? parsed.qurbanGroups : INITIAL_QURBAN_GROUPS,
+        erpCoa: parsed.erpCoa || [],
+        erpJournals: parsed.erpJournals || [],
+        erpJournalEntries: parsed.erpJournalEntries || [],
+        erpSignatures: parsed.erpSignatures || []
       };
     }
   } catch (e) {
@@ -411,12 +430,49 @@ export function useMasjidStore() {
     }));
   };
 
-  const addJournalEntry = (entry: Omit<JournalEntry, 'id'>) => {
+  const addJournalEntry = (entry: Omit<ERPJournalEntry, 'id'>) => {
     const id = `JRN-${Math.floor(100 + Math.random() * 900)}`;
-    const created: JournalEntry = { ...entry, id };
+    const created: ERPJournalEntry = { ...entry, id };
     setState(prev => ({
       ...prev,
       journalEntries: [created, ...prev.journalEntries]
+    }));
+  };
+
+  const setErpCoa = (coa: ERPChartOfAccount[]) => {
+    setState(prev => ({ ...prev, erpCoa: coa }));
+  };
+
+  const addErpCoa = (account: ERPChartOfAccount) => {
+    setState(prev => ({ ...prev, erpCoa: [...prev.erpCoa, account] }));
+  };
+
+  const setErpJournals = (journals: ERPGeneralJournal[]) => {
+    setState(prev => ({ ...prev, erpJournals: journals }));
+  };
+
+  const addErpJournal = (journal: ERPGeneralJournal) => {
+    setState(prev => ({ ...prev, erpJournals: [...prev.erpJournals, journal] }));
+  };
+
+  const setErpJournalEntries = (entries: ERPJournalEntry[]) => {
+    setState(prev => ({ ...prev, erpJournalEntries: entries }));
+  };
+
+  const addErpJournalEntry = (entry: ERPJournalEntry) => {
+    setState(prev => ({ ...prev, erpJournalEntries: [...prev.erpJournalEntries, entry] }));
+  };
+
+  const setErpSignatures = (signatures: ReportSignature[]) => {
+    setState(prev => ({ ...prev, erpSignatures: signatures }));
+  };
+
+  const updateErpSignature = (id: string, status: 'Pending' | 'Signed' | 'Rejected', notes?: string) => {
+    setState(prev => ({
+      ...prev,
+      erpSignatures: prev.erpSignatures.map(sig => 
+        sig.id === id ? { ...sig, status, notes, signatureDate: new Date().toISOString() } : sig
+      )
     }));
   };
 
@@ -580,6 +636,14 @@ export function useMasjidStore() {
     saveSupabaseKeys,
     updateAdminSettings,
     addJournalEntry,
+    setErpCoa,
+    addErpCoa,
+    setErpJournals,
+    addErpJournal,
+    setErpJournalEntries,
+    addErpJournalEntry,
+    setErpSignatures,
+    updateErpSignature,
     addPettyCashEntry,
     addGalleryItem,
     updateGalleryItem,

@@ -188,7 +188,21 @@ export type ColorPalette = 'emerald_green' | 'emerald_gold' | 'deep_blue' | 'sky
 
 export type ThemeMode = 'light' | 'dark';
 
-export type UserRole = 'jamaah' | 'pengurus_dkm' | 'admin_masjid' | 'ketua_dkm';
+export type UserRole = 'jamaah' | 'ketua_dkm' | 'bendahara' | 'penghimpunan' | 'penyaluran' | 'admin_masjid' | 'pengurus_dkm';
+
+/** Role pengurus yang dapat mengakses Portal DKM */
+export const DKM_PORTAL_ROLES: UserRole[] = [
+  'ketua_dkm',
+  'bendahara',
+  'penghimpunan',
+  'penyaluran',
+  'admin_masjid',
+  'pengurus_dkm'
+];
+
+export function hasDkmPortalAccess(role: UserRole): boolean {
+  return DKM_PORTAL_ROLES.includes(role);
+}
 
 export interface UserSession {
   isLoggedIn: boolean;
@@ -260,4 +274,47 @@ export interface AppAdminSettings {
   masjidAddressInfo?: string;
   masjidPhoneContact?: string;
   featureInfoAnnouncement?: string;
+}
+
+export interface ERPChartOfAccount {
+  id: string;
+  accountCode: string;
+  accountName: string;
+  accountType: 'Asset' | 'Liability' | 'Equity' | 'Revenue' | 'Expense';
+  normalBalance: 'Debit' | 'Credit';
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface ERPGeneralJournal {
+  id: string;
+  journalNo: string;
+  date: string;
+  description: string;
+  reference?: string;
+  status: 'Draft' | 'Posted';
+  createdBy?: string;
+  createdAt?: string;
+}
+
+export interface ERPJournalEntry {
+  id: string;
+  journalId: string;
+  accountId: string;
+  accountCode?: string; // For UI convenience
+  accountName?: string; // For UI convenience
+  debit: number;
+  credit: number;
+  description?: string;
+}
+
+export interface ReportSignature {
+  id: string;
+  reportType: string;
+  period: string;
+  role: string;
+  signerName?: string;
+  status: 'Pending' | 'Signed' | 'Rejected';
+  signatureDate?: string;
+  notes?: string;
 }

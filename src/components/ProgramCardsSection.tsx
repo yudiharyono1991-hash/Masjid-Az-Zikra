@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Program, ProgramCategory } from '../types';
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -56,23 +56,23 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
   });
 
   return (
-    <section className={`py-16 border-b transition-colors ${isDark ? "bg-emerald-950 text-emerald-100 border-emerald-800" : "bg-stone-50 text-emerald-900 border-emerald-200"}`}>
+    <section className={`py-16 border-b transition-colors ${isDark ? "bg-blue-950 text-blue-100 border-blue-800" : "bg-stone-50 text-blue-900 border-blue-200"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Hero Title & Headline */}
-        <div className={`text-center max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-8 border-b transition-colors ${isDark ? "border-emerald-800/50" : "border-emerald-200"}`}>
+        <div className={`text-center max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-8 border-b transition-colors ${isDark ? "border-blue-800/50" : "border-blue-200"}`}>
           <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
             Ekosistem Digital Masjid Tazkia
           </div>
 
-          <h1 className={`text-2xl sm:text-5xl lg:text-6xl font-serif leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg transition-colors ${isDark ? "text-white" : "text-emerald-950"}`}>
+          <h1 className={`text-2xl sm:text-5xl lg:text-6xl font-serif leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg transition-colors ${isDark ? "text-white" : "text-blue-950"}`}>
             Pusat Peradaban Islam &amp; <br className="hidden sm:inline" /> Kesejahteraan Umat
             <span className="block font-serif italic font-semibold text-amber-300 mt-2 text-xl sm:text-4xl lg:text-5xl">
               Melalui Optimalisasi ZISWAF, Dakwah &amp; Zikir
             </span>
           </h1>
 
-          <p className={`text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2 transition-colors ${isDark ? "text-emerald-100" : "text-emerald-700"}`}>
+          <p className={`text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2 transition-colors ${isDark ? "text-blue-100" : "text-blue-700"}`}>
             Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Tazkia untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
             <span className="block mt-1.5 font-bold text-amber-300 font-mono text-[10px] sm:text-xs tracking-wider">
               #ZISWAFMasjidTazkiaSentul
@@ -83,7 +83,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 pt-2">
             <button
               onClick={() => openDonationModal()}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer border border-emerald-400/40 w-full sm:w-auto"
+              className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer border border-blue-400/40 w-full sm:w-auto"
             >
               <HeartHandshake className="w-4 h-4 text-amber-300 shrink-0" />
               <span>Daftar Program / Donasi</span>
@@ -92,7 +92,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
 
             <button
               onClick={openCalculator}
-              className="bg-emerald-950/90 hover:bg-emerald-900 text-amber-300 border border-amber-500/40 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md w-full sm:w-auto"
+              className="bg-blue-950/90 hover:bg-blue-900 text-amber-300 border border-amber-500/40 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md w-full sm:w-auto"
             >
               <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
               <span>Hitung Zakat</span>
@@ -103,7 +103,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                 onClick={openCatalogPdf}
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-xs sm:text-sm font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md backdrop-blur-sm w-full sm:w-auto"
               >
-                <FileText className="w-4 h-4 text-emerald-300 shrink-0" />
+                <FileText className="w-4 h-4 text-blue-300 shrink-0" />
                 <span>Katalog PDF</span>
               </button>
             )}
@@ -113,21 +113,21 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
 
         {/* Benchmark Inspired Header */}
         <div className="text-center pt-8 pb-4">
-          <h2 className={`text-2xl sm:text-3xl font-serif transition-colors ${isDark ? "text-white" : "text-emerald-950"}`}>
+          <h2 className={`text-2xl sm:text-3xl font-serif transition-colors ${isDark ? "text-white" : "text-blue-950"}`}>
             Daftar Program
           </h2>
         </div>
 
         {/* Search and Filter Bar */}
-        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-3 rounded-2xl border transition-colors ${isDark ? "bg-emerald-950/80 border-emerald-800" : "bg-white border-emerald-200 shadow-sm"}`}>
+        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-3 rounded-2xl border transition-colors ${isDark ? "bg-blue-950/80 border-blue-800" : "bg-white border-blue-200 shadow-sm"}`}>
           <div className="relative w-full sm:w-2/3">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-400" />
             <input
               type="text"
               placeholder="Cari program donasi..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full border rounded-xl pl-9 pr-3 py-2 text-sm outline-none transition-colors ${isDark ? "bg-emerald-900 border-emerald-800 focus:border-amber-400 text-white" : "bg-stone-50 border-emerald-200 focus:border-emerald-500 text-emerald-900"}`}
+              className={`w-full border rounded-xl pl-9 pr-3 py-2 text-sm outline-none transition-colors ${isDark ? "bg-blue-900 border-blue-800 focus:border-amber-400 text-white" : "bg-stone-50 border-blue-200 focus:border-blue-500 text-blue-900"}`}
             />
           </div>
           
@@ -135,7 +135,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className={`w-full sm:w-auto border rounded-xl px-4 py-2 text-sm outline-none cursor-pointer appearance-none transition-colors ${isDark ? "bg-emerald-900 border-emerald-800 focus:border-amber-400 text-white" : "bg-stone-50 border-emerald-200 focus:border-emerald-500 text-emerald-900"}`}
+              className={`w-full sm:w-auto border rounded-xl px-4 py-2 text-sm outline-none cursor-pointer appearance-none transition-colors ${isDark ? "bg-blue-900 border-blue-800 focus:border-amber-400 text-white" : "bg-stone-50 border-blue-200 focus:border-blue-500 text-blue-900"}`}
             >
               <option value="semua">Semua Kategori</option>
               <option value="infaq">Infaq & Shadaqah</option>
@@ -153,12 +153,12 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
             return (
               <div
                 key={prog.id}
-                className={`border rounded-2xl overflow-hidden transition-all flex flex-col group shadow-md ${isDark ? "bg-emerald-900/90 border-emerald-800 hover:border-emerald-400/60" : "bg-white border-emerald-200 hover:border-emerald-400 hover:shadow-lg"}`}
+                className={`border rounded-2xl overflow-hidden transition-all flex flex-col group shadow-md ${isDark ? "bg-blue-900/90 border-blue-800 hover:border-blue-400/60" : "bg-white border-blue-200 hover:border-blue-400 hover:shadow-lg"}`}
               >
                 {/* Image Banner */}
                 <div 
                   onClick={() => onSelectProgramDetail && onSelectProgramDetail(prog)}
-                  className="relative h-48 overflow-hidden bg-emerald-950 cursor-pointer"
+                  className="relative h-48 overflow-hidden bg-blue-950 cursor-pointer"
                 >
                   <img
                     src={prog.imageUrl}
@@ -166,11 +166,11 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/40 to-transparent" />
 
                   {/* Badge Category */}
                   <div className="absolute top-3 left-3 flex items-center gap-2">
-                    <span className="bg-emerald-600 text-white font-mono font-bold text-[9px] uppercase tracking-widest px-2.5 py-1 rounded shadow">
+                    <span className="bg-blue-600 text-white font-mono font-bold text-[9px] uppercase tracking-widest px-2.5 py-1 rounded shadow">
                       {prog.category}
                     </span>
                     {prog.isUrgent && (
@@ -189,17 +189,17 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                     </span>
                     <h3 
                       onClick={() => onSelectProgramDetail && onSelectProgramDetail(prog)}
-                      className={`text-lg font-serif font-bold mt-1 transition-colors line-clamp-2 cursor-pointer ${isDark ? "text-white group-hover:text-emerald-300" : "text-emerald-950 group-hover:text-emerald-600"}`}
+                      className={`text-lg font-serif font-bold mt-1 transition-colors line-clamp-2 cursor-pointer ${isDark ? "text-white group-hover:text-blue-300" : "text-blue-950 group-hover:text-blue-600"}`}
                     >
                       {prog.title}
                     </h3>
-                    <p className={`text-xs mt-2 line-clamp-3 leading-relaxed ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
+                    <p className={`text-xs mt-2 line-clamp-3 leading-relaxed ${isDark ? "text-blue-300" : "text-blue-700"}`}>
                       {prog.description}
                     </p>
                     <button
                       type="button"
                       onClick={() => onSelectProgramDetail && onSelectProgramDetail(prog)}
-                      className="mt-2 text-[11px] text-emerald-300 font-mono font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                      className="mt-2 text-[11px] text-blue-300 font-mono font-bold hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       <span>Lihat Rincian Program Lengkap</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -207,17 +207,17 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                   </div>
 
                   {/* Progress Bar & Amount */}
-                  <div className="space-y-3 pt-3 border-t border-emerald-800">
+                  <div className="space-y-3 pt-3 border-t border-blue-800">
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-center text-xs font-mono font-bold">
-                        <span className="text-emerald-400">Terkumpul</span>
+                        <span className="text-blue-400">Terkumpul</span>
                         <span className="text-amber-400">
                           {percentage}%
                         </span>
                       </div>
-                      <div className="w-full bg-emerald-950 rounded-full h-2 overflow-hidden border border-emerald-800">
+                      <div className="w-full bg-blue-950 rounded-full h-2 overflow-hidden border border-blue-800">
                         <div
-                          className="bg-emerald-500 h-full rounded-full transition-all duration-700"
+                          className="bg-blue-500 h-full rounded-full transition-all duration-700"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
@@ -225,26 +225,26 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
 
                     <div className="flex items-center justify-between text-xs">
                       <div>
-                        <p className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Terkumpul:</p>
-                        <p className={`font-bold font-mono text-sm ${isDark ? "text-white" : "text-emerald-950"}`}>
+                        <p className="text-[9px] font-mono uppercase tracking-wider text-blue-400 font-bold">Terkumpul:</p>
+                        <p className={`font-bold font-mono text-sm ${isDark ? "text-white" : "text-blue-950"}`}>
                           {formatRupiah(prog.collectedAmount)}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Target:</p>
-                        <p className={`font-mono text-xs font-bold ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
+                        <p className="text-[9px] font-mono uppercase tracking-wider text-blue-400 font-bold">Target:</p>
+                        <p className={`font-mono text-xs font-bold ${isDark ? "text-blue-300" : "text-blue-700"}`}>
                           {formatRupiah(prog.targetAmount)}
                         </p>
                       </div>
                     </div>
 
                     {/* Donors Count */}
-                    <div className={`flex items-center justify-between text-xs pt-1 ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
+                    <div className={`flex items-center justify-between text-xs pt-1 ${isDark ? "text-blue-300" : "text-blue-700"}`}>
                       <div className="flex items-center gap-1.5 font-mono text-[11px]">
                         <Users className="w-3.5 h-3.5 text-amber-400" />
-                        <span>{prog.donorsCount.toLocaleString('id-ID')} Donatur</span>
+                        <span>{(prog.donorsCount || 0).toLocaleString('id-ID')} Donatur</span>
                       </div>
-                      <span className="text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
+                      <span className="text-blue-300 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
                         <CheckCircle className="w-3 h-3 text-amber-300" /> Verifikasi DKM
                       </span>
                     </div>
@@ -252,7 +252,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                     {/* CTA Button */}
                     <button
                       onClick={() => openDonationForProgram(prog)}
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer mt-2 border border-emerald-400/30"
+                      className="w-full bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer mt-2 border border-blue-400/30"
                     >
                       <HeartHandshake className="w-4 h-4 text-amber-300" />
                       <span>Wakaf / Donasi Sekarang</span>

@@ -19,19 +19,35 @@
 @layer utilities {
   /* Editorial Aesthetic Background Utilities */
   .bg-editorial-paper {
-    background-color: #F9F8F4;
+    background-color: #F8FAFC; /* Light slate/blue tint */
   }
 
   .bg-editorial-cream {
-    background-color: #F4F2EA;
+    background-color: #F1F5F9;
   }
 
-  .bg-editorial-emerald {
-    background-color: #064E3B;
+  .bg-editorial-blue {
+    background-color: #1E3A8A; /* Blue 900 */
   }
 
-  .text-editorial-emerald {
-    color: #064E3B;
+  .text-editorial-blue {
+    color: #1E3A8A; /* Blue 900 */
+  }
+
+  .bg-tazkia-primary {
+    background-color: #2563EB; /* Blue 600 */
+  }
+  
+  .bg-tazkia-light {
+    background-color: #3B82F6; /* Blue 500 */
+  }
+
+  .text-tazkia-gold {
+    color: #D97706; /* Amber 600 / Gold */
+  }
+
+  .border-tazkia-gold {
+    border-color: #D97706; /* Amber 600 / Gold */
   }
 
   .border-editorial {
@@ -56,13 +72,13 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #F4F2EA;
+    background: #F1F5F9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #064E3B;
+    background: #1E3A8A;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #04392b;
+    background: #1E40AF;
   }
 }

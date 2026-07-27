@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import { getSupabaseClient } from '../lib/supabase';
 import {
@@ -22,9 +22,9 @@ interface HeroSectionProps {
 }
 
 const DEFAULT_HERO_BACKGROUNDS = [
-  '/masjid-Tazkia-hero.jpg',
-  '/hero-2.jpg',
-  '/hero-3.jpg'
+  '/hero-1.jpg',
+  'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1920&q=80',
+  'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1920&q=80'
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -74,7 +74,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   }, [backgrounds]);
 
   return (
-    <section className="relative overflow-hidden bg-[#022C22] text-white py-8 md:py-12 border-b border-emerald-900 h-[45vh] md:h-[55vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden bg-[#172554] text-white py-8 md:py-12 border-b border-blue-900 h-[45vh] md:h-[55vh] flex flex-col justify-center">
       {/* Background Image Carousel */}
       {backgrounds.map((bg, index) => (
         <div
@@ -85,7 +85,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           style={{ backgroundImage: `url('${bg}')` }}
         />
       ))}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#022C22]/10 via-transparent to-[#022C22]/90 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/10 via-transparent to-[#172554]/90 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}
@@ -99,8 +99,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             onClick={() => openDigitalIbadah('quran')}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
               isDark 
-                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
             }`}
           >
             <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
@@ -110,8 +110,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             onClick={() => openDigitalIbadah('salat')}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
               isDark 
-                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
             }`}
           >
             <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
@@ -121,11 +121,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             onClick={() => openDigitalIbadah('kiblat')}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
               isDark 
-                ? 'bg-emerald-950/90 hover:bg-emerald-600 hover:text-white text-emerald-100 border-emerald-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-emerald-50 text-emerald-900 border-emerald-200'
+                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
+                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
             }`}
           >
-            <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-300" />
+            <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />
             <span>Arah Kiblat</span>
           </button>
         </div>

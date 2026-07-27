@@ -19,8 +19,8 @@ content = content.replace(
 
 // Logo isDark
 content = content.replace(
-  '<AzzikraBrandLogo variant="navbar" isDark={true} />',
-  '<AzzikraBrandLogo variant="navbar" isDark={isDark} />'
+  '<TazkiaBrandLogo variant="navbar" isDark={true} />',
+  '<TazkiaBrandLogo variant="navbar" isDark={isDark} />'
 );
 
 // Text colors

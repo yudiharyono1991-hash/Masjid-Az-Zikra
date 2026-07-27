@@ -1,4 +1,4 @@
-﻿export function formatRupiah(amount: number): string {
+export function formatRupiah(amount: number): string {
   if (amount >= 1000000000) {
     const bill = amount / 1000000000;
     return `Rp ${bill % 1 === 0 ? bill : bill.toFixed(1)}M`;

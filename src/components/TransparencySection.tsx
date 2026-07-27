@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { FinancialTransaction, PetugasJadwal } from '../types';
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -45,39 +45,39 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
   const nextFriday = petugasList.find(p => p.khatibJumat);
 
   return (
-    <section className="py-16 bg-[#022C22] text-emerald-100 border-b border-emerald-900">
+    <section className="py-16 bg-[#172554] text-blue-100 border-b border-blue-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full">
+          <span className="bg-blue-500/20 border border-blue-400/40 text-blue-300 text-[10px] font-mono font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full">
             Prinsip Akuntabilitas & Transparansi Realtime
           </span>
           <h2 className="text-3xl sm:text-5xl font-serif text-white">
             Laporan Keuangan & <span className="font-serif italic font-semibold text-amber-300">Audit Transparansi</span>
           </h2>
-          <p className="text-emerald-100/80 text-xs sm:text-sm font-sans">
+          <p className="text-blue-100/80 text-xs sm:text-sm font-sans">
             Setiap rupiah amanah ZISWAF tercatat secara terverifikasi dan transparan untuk pertanggungjawaban publik umat.
           </p>
         </div>
 
         {/* Financial Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-emerald-950/80 border border-emerald-800 rounded-2xl p-6 shadow-md relative overflow-hidden">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-2xl p-6 shadow-md relative overflow-hidden">
             <div className="flex justify-between items-center">
-              <span className="text-[10px] text-emerald-200/70 font-mono font-bold uppercase tracking-[0.2em]">Pemasukan ZISWAF</span>
-              <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-300">
+              <span className="text-[10px] text-blue-200/70 font-mono font-bold uppercase tracking-[0.2em]">Pemasukan ZISWAF</span>
+              <div className="p-2 rounded-lg bg-blue-500/20 text-blue-300">
                 <TrendingUp className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-bold font-mono text-emerald-300 mt-3">
+            <p className="text-2xl sm:text-3xl font-bold font-mono text-blue-300 mt-3">
               {formatRupiahFull(totalMasuk)}
             </p>
-            <p className="text-[11px] text-emerald-200/60 mt-1 font-mono">Zakat, Infaq, Shadaqah & Wakaf</p>
+            <p className="text-[11px] text-blue-200/60 mt-1 font-mono">Zakat, Infaq, Shadaqah & Wakaf</p>
           </div>
 
-          <div className="bg-emerald-950/80 border border-emerald-800 rounded-2xl p-6 shadow-md relative overflow-hidden">
+          <div className="bg-blue-950/80 border border-blue-800 rounded-2xl p-6 shadow-md relative overflow-hidden">
             <div className="flex justify-between items-center">
-              <span className="text-[10px] text-emerald-200/70 font-mono font-bold uppercase tracking-[0.2em]">Pengeluaran & Penyaluran</span>
+              <span className="text-[10px] text-blue-200/70 font-mono font-bold uppercase tracking-[0.2em]">Pengeluaran & Penyaluran</span>
               <div className="p-2 rounded-lg bg-rose-500/20 text-rose-300">
                 <TrendingDown className="w-5 h-5" />
               </div>
@@ -85,10 +85,10 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
             <p className="text-2xl sm:text-3xl font-bold font-mono text-rose-300 mt-3">
               {formatRupiahFull(totalKeluar)}
             </p>
-            <p className="text-[11px] text-emerald-200/60 mt-1 font-mono">Program Sosial & Operasional</p>
+            <p className="text-[11px] text-blue-200/60 mt-1 font-mono">Program Sosial & Operasional</p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#064E3B] to-[#022C22] text-white rounded-2xl p-6 shadow-lg relative overflow-hidden border-2 border-amber-400">
+          <div className="bg-gradient-to-br from-[#1e3a8a] to-[#172554] text-white rounded-2xl p-6 shadow-lg relative overflow-hidden border-2 border-amber-400">
             <div className="flex justify-between items-center">
               <span className="text-[10px] text-amber-300 font-mono font-bold uppercase tracking-[0.2em]">Saldo Kas Bersih</span>
               <div className="p-2 rounded-lg bg-amber-500/20 text-amber-300">
@@ -98,7 +98,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
             <p className="text-2xl sm:text-3xl font-bold font-mono text-amber-300 mt-3">
               {formatRupiahFull(saldoKas)}
             </p>
-            <p className="text-[11px] text-emerald-100 mt-1 font-mono flex items-center gap-1">
+            <p className="text-[11px] text-blue-100 mt-1 font-mono flex items-center gap-1">
               <CheckCircle className="w-3.5 h-3.5 text-amber-400" /> Terverifikasi Audit DKM
             </p>
           </div>
@@ -106,7 +106,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
 
         {/* Friday Khatib & Imam Highlight Banner */}
         {nextFriday && (
-          <div className="bg-gradient-to-r from-[#064E3B] via-[#022C22] to-[#064E3B] text-white border-2 border-amber-400/80 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="bg-gradient-to-r from-[#1e3a8a] via-[#172554] to-[#1e3a8a] text-white border-2 border-amber-400/80 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
             <div className="space-y-2 text-center md:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-mono font-bold uppercase tracking-[0.2em]">
                 <Calendar className="w-3.5 h-3.5 text-amber-300" /> JADWAL KHATIB & IMAM JUMAT Tazkia SENTUL
@@ -114,19 +114,19 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
               <h3 className="text-xl sm:text-3xl font-serif text-white">
                 "{nextFriday.topikJumat || 'Pentingnya Keberkahan Rezeki dalam ZISWAF'}"
               </h3>
-              <p className="text-xs text-emerald-100/80 font-mono">
+              <p className="text-xs text-blue-100/80 font-mono">
                 Tanggal: <span className="font-bold text-amber-300">{nextFriday.date} ({nextFriday.dayName})</span>
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 bg-emerald-950/90 p-4 rounded-2xl border border-emerald-800">
+            <div className="flex flex-col sm:flex-row items-center gap-4 bg-blue-950/90 p-4 rounded-2xl border border-blue-800">
               <div className="text-center sm:text-left">
-                <p className="text-[9px] font-mono uppercase tracking-widest text-emerald-200/70 font-bold">Khatib Jumat:</p>
+                <p className="text-[9px] font-mono uppercase tracking-widest text-blue-200/70 font-bold">Khatib Jumat:</p>
                 <p className="text-xs font-bold text-amber-300">{nextFriday.khatibJumat}</p>
               </div>
-              <div className="text-center sm:text-left sm:border-l border-emerald-800 sm:pl-4">
-                <p className="text-[9px] font-mono uppercase tracking-widest text-emerald-200/70 font-bold">Imam Jumat:</p>
-                <p className="text-xs font-bold text-emerald-200">{nextFriday.imamJumat}</p>
+              <div className="text-center sm:text-left sm:border-l border-blue-800 sm:pl-4">
+                <p className="text-[9px] font-mono uppercase tracking-widest text-blue-200/70 font-bold">Imam Jumat:</p>
+                <p className="text-xs font-bold text-blue-200">{nextFriday.imamJumat}</p>
               </div>
             </div>
           </div>
@@ -141,13 +141,13 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
 
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-blue-400" />
                 <input
                   type="text"
                   placeholder="Cari transaksi..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="bg-white border border-black/15 focus:border-[#064E3B] rounded-xl pl-9 pr-3 py-2 text-xs text-[#1A1A1A] outline-none shadow-sm font-sans"
+                  className="bg-white border border-black/15 focus:border-[#1e3a8a] rounded-xl pl-9 pr-3 py-2 text-xs text-[#1A1A1A] outline-none shadow-sm font-sans"
                 />
               </div>
 
@@ -158,7 +158,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
                     onClick={() => setFilterType(t)}
                     className={`px-3 py-1 rounded-lg capitalize transition-all cursor-pointer ${
                       filterType === t
-                        ? 'bg-[#064E3B] text-white'
+                        ? 'bg-[#1e3a8a] text-white'
                         : 'text-[#1A1A1A]/60 hover:text-[#1A1A1A]'
                     }`}
                   >
@@ -188,7 +188,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
                       <td className="p-4">
                         <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider ${
                           trx.type === 'masuk'
-                            ? 'bg-[#064E3B]/10 text-[#064E3B] border border-[#064E3B]/20'
+                            ? 'bg-[#1e3a8a]/10 text-[#1e3a8a] border border-[#1e3a8a]/20'
                             : 'bg-rose-50 text-rose-600 border border-rose-200'
                         }`}>
                           {trx.type}
@@ -198,9 +198,9 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
                         <p className="font-bold text-[#1A1A1A]">{trx.title}</p>
                         <p className="text-[11px] text-[#1A1A1A]/60">{trx.description}</p>
                       </td>
-                      <td className="p-4 font-mono text-[11px] font-bold text-[#064E3B]">{trx.category}</td>
+                      <td className="p-4 font-mono text-[11px] font-bold text-[#1e3a8a]">{trx.category}</td>
                       <td className={`p-4 text-right font-mono font-bold text-sm ${
-                        trx.type === 'masuk' ? 'text-[#064E3B]' : 'text-rose-600'
+                        trx.type === 'masuk' ? 'text-[#1e3a8a]' : 'text-rose-600'
                       }`}>
                         {trx.type === 'masuk' ? '+' : '-'}{formatRupiahFull(trx.amount)}
                       </td>

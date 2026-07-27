@@ -1,4 +1,4 @@
-﻿# Supabase SQL Setup for Masjid Tazkia
+# Supabase SQL Setup for Masjid Tazkia
 
 Gunakan query SQL berikut di Supabase SQL editor untuk membuat tabel dasar aplikasi.
 
@@ -221,6 +221,68 @@ create trigger update_announcements_updated_at
 
 create trigger update_app_settings_updated_at
   before update on app_settings
+  for each row execute function update_updated_at_column();
+
+-- ERP Accounting: Chart of Accounts
+create table if not exists chart_of_accounts (
+  id uuid primary key default uuid_generate_v4(),
+  account_code text not null unique,
+  account_name text not null,
+  account_type text not null, -- Asset, Liability, Equity, Revenue, Expense
+  normal_balance text not null, -- Debit, Credit
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- ERP Accounting: General Journals
+create table if not exists general_journals (
+  id uuid primary key default uuid_generate_v4(),
+  journal_no text not null unique,
+  date date not null,
+  description text not null,
+  reference text,
+  status text not null default 'Draft', -- Draft, Posted
+  created_by text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- ERP Accounting: Journal Entries
+create table if not exists journal_entries (
+  id uuid primary key default uuid_generate_v4(),
+  journal_id uuid references general_journals(id) on delete cascade,
+  account_id uuid references chart_of_accounts(id) on delete restrict,
+  debit bigint not null default 0,
+  credit bigint not null default 0,
+  description text,
+  created_at timestamptz not null default now()
+);
+
+-- ERP Accounting: Report Signatures
+create table if not exists report_signatures (
+  id uuid primary key default uuid_generate_v4(),
+  report_type text not null, -- LabaRugi, Neraca, ArusKas, Penyaluran
+  period text not null, -- e.g., 2026-07
+  role text not null, -- Pembuat, Bendahara, Ketua DKM, Dewan Pembina
+  signer_name text,
+  status text not null default 'Pending', -- Pending, Signed, Rejected
+  signature_date timestamptz,
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create trigger update_coa_updated_at
+  before update on chart_of_accounts
+  for each row execute function update_updated_at_column();
+
+create trigger update_journals_updated_at
+  before update on general_journals
+  for each row execute function update_updated_at_column();
+
+create trigger update_report_signatures_updated_at
+  before update on report_signatures
   for each row execute function update_updated_at_column();
 ```
 

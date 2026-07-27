@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Download, FileText, CheckCircle2, ShieldCheck, Smartphone, Monitor, Server, Sparkles, X, Printer, ChevronRight, Layers, Database, AlertCircle, Edit3, History } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -100,15 +100,15 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
   </style>
 </head>
 <body class="bg-stone-50 min-h-screen">
-  <div class="no-print max-w-[800px] mx-auto bg-[#064E3B] text-white p-5 rounded-2xl mb-6 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+  <div class="no-print max-w-[800px] mx-auto bg-[#1e3a8a] text-white p-5 rounded-2xl mb-6 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
     <div>
-      <h2 class="font-bold text-base">📄 Dokumen Resmi Katalog Perancangan Aplikasi Masjid Tazkia</h2>
+      <h2 class="font-bold text-base">?? Dokumen Resmi Katalog Perancangan Aplikasi Masjid Tazkia</h2>
       <p class="text-xs text-white/80 mt-1">
         Tekan <strong>Ctrl + P</strong> (Cmd + P di Mac) lalu pilih Destination <strong>"Save as PDF"</strong> untuk menyimpan sebagai PDF.
       </p>
     </div>
-    <button onclick="window.print()" class="bg-white text-[#064E3B] font-mono font-bold text-xs uppercase px-5 py-3 rounded-xl cursor-pointer shadow-md border-0">
-      🖨️ Cetak / Simpan PDF
+    <button onclick="window.print()" class="bg-white text-[#1e3a8a] font-mono font-bold text-xs uppercase px-5 py-3 rounded-xl cursor-pointer shadow-md border-0">
+      ??? Cetak / Simpan PDF
     </button>
   </div>
 
@@ -152,13 +152,13 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
             </style>
           </head>
           <body class="p-6 max-w-4xl mx-auto">
-            <div class="no-print bg-[#064E3B] text-white p-4 rounded-xl mb-6 flex justify-between items-center shadow-lg">
+            <div class="no-print bg-[#1e3a8a] text-white p-4 rounded-xl mb-6 flex justify-between items-center shadow-lg">
               <div>
-                <p class="font-bold text-sm">🖨️ Dokumen Lembar Coretan & Persetujuan Pemesan Aplikasi</p>
+                <p class="font-bold text-sm">??? Dokumen Lembar Coretan & Persetujuan Pemesan Aplikasi</p>
                 <p class="text-xs text-white/80 mt-1">Pilih "Save as PDF" / "Simpan sebagai PDF" di browser Anda.</p>
               </div>
-              <button onclick="window.print()" style="background:#fff; color:#064E3B; font-weight:bold; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:12px; border:none;">
-                🖨️ SIMPAN / CETAK PDF
+              <button onclick="window.print()" style="background:#fff; color:#1e3a8a; font-weight:bold; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:12px; border:none;">
+                ??? SIMPAN / CETAK PDF
               </button>
             </div>
             ${content}
@@ -179,10 +179,10 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-emerald-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-white border border-emerald-200 rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-blue-950/80 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-white border border-blue-200 rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
         {/* Modal Header */}
-        <div className="bg-[#064E3B] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-emerald-900">
+        <div className="bg-[#1e3a8a] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-blue-900">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-white/10 text-white">
               <FileText className="w-5 h-5" />
@@ -191,7 +191,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
               <h2 className="text-lg font-serif italic font-semibold text-white">
                 Katalog Perancangan & Lembar Persetujuan / Coretan Pemesan
               </h2>
-              <p className="text-[11px] font-mono text-emerald-200 uppercase tracking-widest">
+              <p className="text-[11px] font-mono text-blue-200 uppercase tracking-widest">
                 Masjid Tazkia &bull; Dokumen Evaluasi &amp; Penyesuaian Fitur
               </p>
             </div>
@@ -219,16 +219,16 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
             <button
               onClick={handleDownloadPdf}
               disabled={isGenerating}
-              className="bg-amber-400 text-emerald-950 hover:bg-amber-300 font-mono font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-md cursor-pointer disabled:opacity-50"
+              className="bg-amber-400 text-blue-950 hover:bg-amber-300 font-mono font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-md cursor-pointer disabled:opacity-50"
             >
               {isGenerating ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-emerald-950 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-blue-950 border-t-transparent rounded-full animate-spin" />
                   <span>Proses...</span>
                 </>
               ) : (
                 <>
-                  <Download className="w-4 h-4 text-emerald-950" />
+                  <Download className="w-4 h-4 text-blue-950" />
                   <span>Unduh PDF</span>
                 </>
               )}
@@ -244,10 +244,10 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
         </div>
 
         {/* Scrollable PDF Preview Area */}
-        <div className="p-4 sm:p-8 overflow-y-auto space-y-6 bg-emerald-100">
-          <div className="flex justify-between items-center text-xs font-mono text-emerald-700 pb-1">
-            <span className="font-bold text-[#064E3B] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+        <div className="p-4 sm:p-8 overflow-y-auto space-y-6 bg-blue-100">
+          <div className="flex justify-between items-center text-xs font-mono text-blue-700 pb-1">
+            <span className="font-bold text-[#1e3a8a] flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-blue-600" />
               Dokumen Spesifikasi Lengkap & Lembar Coretan / Tambahan Pemesan
             </span>
             <span>&bull; A4 Printable Format</span>
@@ -256,25 +256,25 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
           {/* Printable Document Sheet */}
           <div
             ref={pdfContainerRef}
-            className="bg-white p-6 sm:p-12 border border-emerald-300 rounded-2xl shadow-xl text-emerald-900 space-y-8 max-w-[800px] mx-auto font-sans"
+            className="bg-white p-6 sm:p-12 border border-blue-300 rounded-2xl shadow-xl text-blue-900 space-y-8 max-w-[800px] mx-auto font-sans"
           >
             {/* Catalog Header */}
-            <div className="border-b-2 border-[#064E3B] pb-6 flex flex-col sm:flex-row justify-between items-start gap-4">
+            <div className="border-b-2 border-[#1e3a8a] pb-6 flex flex-col sm:flex-row justify-between items-start gap-4">
               <div>
-                <div className="inline-block px-3 py-1 bg-emerald-100 text-[#064E3B] font-mono text-[10px] font-bold uppercase tracking-[0.2em] rounded-full mb-3 border border-emerald-300">
+                <div className="inline-block px-3 py-1 bg-blue-100 text-[#1e3a8a] font-mono text-[10px] font-bold uppercase tracking-[0.2em] rounded-full mb-3 border border-blue-300">
                   DOKUMEN EKSKLUSIF PERANCANGAN APLIKASI
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-serif font-bold text-emerald-900 leading-tight">
+                <h1 className="text-2xl sm:text-3xl font-serif font-bold text-blue-900 leading-tight">
                   Katalog Perancangan Platform Digital <br />
-                  <span className="font-serif italic text-[#064E3B]">Masjid Tazkia</span>
+                  <span className="font-serif italic text-[#1e3a8a]">Masjid Tazkia</span>
                 </h1>
-                <p className="text-xs text-emerald-600 mt-2 font-mono">
+                <p className="text-xs text-blue-600 mt-2 font-mono">
                   Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
                 </p>
               </div>
 
-              <div className="text-left sm:text-right font-mono text-[11px] text-emerald-600 space-y-1 bg-emerald-50 p-3 rounded-xl border border-emerald-200">
-                <p className="font-bold text-[#064E3B]">REVISI PERANCANGAN: 2026-07-26</p>
+              <div className="text-left sm:text-right font-mono text-[11px] text-blue-600 space-y-1 bg-blue-50 p-3 rounded-xl border border-blue-200">
+                <p className="font-bold text-[#1e3a8a]">REVISI PERANCANGAN: 2026-07-26</p>
                 <p>KODE MODUL: Tazkia-ENT-2026</p>
                 <p>LEMBAR CORETAN: DAPAT DICETAK &amp; DITANDATANGANI</p>
               </div>
@@ -293,30 +293,30 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
 
             {/* SECTION 1: MENELUSURI SEJARAH Masjid Tazkia */}
             <div className="space-y-3">
-              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#064E3B] border-b border-emerald-200 pb-1.5 flex items-center gap-2">
-                <History className="w-4 h-4 text-[#064E3B]" />
+              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#1e3a8a] border-b border-blue-200 pb-1.5 flex items-center gap-2">
+                <History className="w-4 h-4 text-[#1e3a8a]" />
                 1. Modul Menelusuri Sejarah Masjid Tazkia
               </h2>
-              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs">
-                <p className="font-bold text-emerald-900 font-serif">A. Profil Sejarah & Warisan KH. Muhammad Arifin Ilham</p>
-                <p className="text-emerald-600 leading-relaxed">
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-2 text-xs">
+                <p className="font-bold text-blue-900 font-serif">A. Profil Sejarah & Warisan KH. Muhammad Arifin Ilham</p>
+                <p className="text-blue-600 leading-relaxed">
                   Menampilkan sejarah pendirian Masjid Tazkia di lahan 5 hektar Kampung Sunnah Bukit Sentul, biografi KH. Muhammad Arifin Ilham, 7 Sunnah Harian, tradisi Majelis Zikir Akbar, Pesantren Tahfidz, dan Muallaf Center.
                 </p>
-                <div className="pt-2 border-t border-emerald-200 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px]">
+                <div className="pt-2 border-t border-blue-200 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px]">
                   <div className="flex gap-4">
-                    <label className="flex items-center gap-1 font-bold text-emerald-800"><input type="checkbox" defaultChecked /> [x] Setuju / Standard</label>
+                    <label className="flex items-center gap-1 font-bold text-blue-800"><input type="checkbox" defaultChecked /> [x] Setuju / Standard</label>
                     <label className="flex items-center gap-1"><input type="checkbox" /> [ ] Modifikasi</label>
                     <label className="flex items-center gap-1 text-red-700"><input type="checkbox" /> [ ] Hapus</label>
                   </div>
-                  <span className="text-emerald-400 italic">Coretan Catatan: ______________________</span>
+                  <span className="text-blue-400 italic">Coretan Catatan: ______________________</span>
                 </div>
               </div>
             </div>
 
             {/* SECTION 2: COMPREHENSIVE FEATURES CHECKLIST */}
             <div className="space-y-4">
-              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#064E3B] border-b border-emerald-200 pb-1.5 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-[#064E3B]" />
+              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#1e3a8a] border-b border-blue-200 pb-1.5 flex items-center gap-2">
+                <Layers className="w-4 h-4 text-[#1e3a8a]" />
                 2. Katalog Fitur Lengkap &amp; Lembar Evaluasi Pemesan
               </h2>
 
@@ -363,17 +363,17 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                     desc: 'Sistem kasir buku besar, jurnal keuangan, kas kecil imprest, manajemen inventaris, dan publikasi pengumuman masjid.'
                   }
                 ].map((item, index) => (
-                  <div key={index} className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2">
+                  <div key={index} className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl space-y-2">
                     <div className="flex justify-between items-start">
-                      <h3 className="font-bold text-[#064E3B] font-serif text-xs">{item.title}</h3>
-                      <span className="text-[10px] font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">
+                      <h3 className="font-bold text-[#1e3a8a] font-serif text-xs">{item.title}</h3>
+                      <span className="text-[10px] font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">
                         Siap Diuji
                       </span>
                     </div>
-                    <p className="text-emerald-600 text-[11px] leading-relaxed">{item.desc}</p>
-                    <div className="pt-2 border-t border-emerald-200 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px]">
+                    <p className="text-blue-600 text-[11px] leading-relaxed">{item.desc}</p>
+                    <div className="pt-2 border-t border-blue-200 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px]">
                       <div className="flex gap-3">
-                        <label className="flex items-center gap-1 font-bold text-emerald-800 cursor-pointer">
+                        <label className="flex items-center gap-1 font-bold text-blue-800 cursor-pointer">
                           <input type="checkbox" defaultChecked /> [x] Disetujui
                         </label>
                         <label className="flex items-center gap-1 cursor-pointer">
@@ -383,7 +383,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                           <input type="checkbox" /> [ ] Hapus
                         </label>
                       </div>
-                      <span className="text-emerald-400 italic">Catatan Pemesan: ___________________________</span>
+                      <span className="text-blue-400 italic">Catatan Pemesan: ___________________________</span>
                     </div>
                   </div>
                 ))}
@@ -392,21 +392,21 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
 
             {/* SECTION 3: RESPONSIFITAS MOBILE & LAYAR TV */}
             <div className="space-y-3">
-              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#064E3B] border-b border-emerald-200 pb-1.5 flex items-center gap-2">
-                <Smartphone className="w-4 h-4 text-[#064E3B]" />
+              <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#1e3a8a] border-b border-blue-200 pb-1.5 flex items-center gap-2">
+                <Smartphone className="w-4 h-4 text-[#1e3a8a]" />
                 3. Spesifikasi Presisi Tampilan Mobile (HP Android/iOS) &amp; Display TV
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
-                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
-                  <p className="font-bold text-[#064E3B]">📱 Mode Mobile Smartphone (HP)</p>
-                  <p className="text-[11px] text-emerald-600 leading-relaxed font-sans">
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
+                  <p className="font-bold text-[#1e3a8a]">?? Mode Mobile Smartphone (HP)</p>
+                  <p className="text-[11px] text-blue-600 leading-relaxed font-sans">
                     Bottom navigation bar 5 menu, touch target minimal 44px, drawer responsive sheet, donasi kilat QRIS.
                   </p>
                 </div>
-                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
-                  <p className="font-bold text-[#064E3B]">📺 Mode Layar Signage TV Masjid</p>
-                  <p className="text-[11px] text-emerald-600 leading-relaxed font-sans">
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
+                  <p className="font-bold text-[#1e3a8a]">?? Mode Layar Signage TV Masjid</p>
+                  <p className="text-[11px] text-blue-600 leading-relaxed font-sans">
                     Layar penuh (fullscreen), running text marquee, countdown adzan &amp; iqamah, jam digital font raksasa.
                   </p>
                 </div>
@@ -414,22 +414,22 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
             </div>
 
             {/* LEMBAR CORETAN DAN CATATAN BEBAS PEMESAN */}
-            <div className="p-4 bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-2xl space-y-3">
-              <h3 className="font-serif font-bold text-sm text-emerald-900 flex items-center gap-2">
-                <Edit3 className="w-4 h-4 text-[#064E3B]" />
+            <div className="p-4 bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl space-y-3">
+              <h3 className="font-serif font-bold text-sm text-blue-900 flex items-center gap-2">
+                <Edit3 className="w-4 h-4 text-[#1e3a8a]" />
                 Lembar Coretan &amp; Catatan Tambahan Pemesan Aplikasi:
               </h3>
-              <div className="space-y-2 font-mono text-xs text-emerald-400">
-                <p className="border-b border-emerald-300 pb-2">1. ____________________________________________________________________________________</p>
-                <p className="border-b border-emerald-300 pb-2">2. ____________________________________________________________________________________</p>
-                <p className="border-b border-emerald-300 pb-2">3. ____________________________________________________________________________________</p>
+              <div className="space-y-2 font-mono text-xs text-blue-400">
+                <p className="border-b border-blue-300 pb-2">1. ____________________________________________________________________________________</p>
+                <p className="border-b border-blue-300 pb-2">2. ____________________________________________________________________________________</p>
+                <p className="border-b border-blue-300 pb-2">3. ____________________________________________________________________________________</p>
               </div>
             </div>
 
             {/* Delivery Sign-off */}
-            <div className="p-5 bg-[#064E3B] text-white rounded-2xl space-y-4">
-              <div className="flex justify-between items-center border-b border-emerald-700 pb-2">
-                <span className="font-mono font-bold text-xs uppercase tracking-widest text-emerald-200">
+            <div className="p-5 bg-[#1e3a8a] text-white rounded-2xl space-y-4">
+              <div className="flex justify-between items-center border-b border-blue-700 pb-2">
+                <span className="font-mono font-bold text-xs uppercase tracking-widest text-blue-200">
                   LEMBAR TANDA TANGAN &amp; PERSETUJUAN
                 </span>
                 <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-amber-300">
@@ -439,48 +439,48 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
               <div className="grid grid-cols-2 gap-6 pt-2 font-mono text-[11px]">
                 <div className="space-y-8">
                   <p className="font-bold text-white">Pihak Pengembang (Developer):</p>
-                  <p className="border-t border-emerald-600 pt-1 text-emerald-200">Google AI Studio Build &amp; Engineering Team</p>
+                  <p className="border-t border-blue-600 pt-1 text-blue-200">Google AI Studio Build &amp; Engineering Team</p>
                 </div>
                 <div className="space-y-8 text-right">
                   <p className="font-bold text-white">Penerima Pemesan Aplikasi:</p>
-                  <p className="border-t border-emerald-600 pt-1 text-emerald-200">Syaripudin Kusin (Ketua DKM Tazkia)</p>
+                  <p className="border-t border-blue-600 pt-1 text-blue-200">Syaripudin Kusin (Ketua DKM Tazkia)</p>
                 </div>
               </div>
             </div>
 
             {/* Footer Notice */}
-            <div className="text-center font-mono text-[10px] text-emerald-500 pt-4 border-t border-emerald-200">
+            <div className="text-center font-mono text-[10px] text-blue-500 pt-4 border-t border-blue-200">
               © 2026 Masjid Tazkia. All Rights Reserved. &bull; Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
             </div>
           </div>
         </div>
 
         {/* Modal Bottom Actions */}
-        <div className="p-4 bg-emerald-50 border-t border-emerald-200 flex flex-wrap justify-between items-center gap-3 shrink-0 font-mono text-xs">
-          <div className="text-emerald-600 text-[11px] leading-tight">
-            💡 <strong className="text-[#064E3B]">Cetak Katalog:</strong> Tekan <kbd className="bg-white px-1.5 py-0.5 rounded border border-emerald-300 font-bold">Ctrl + P</kbd> lalu pilih <strong>"Save as PDF"</strong> untuk mengunduh versi cetak.
+        <div className="p-4 bg-blue-50 border-t border-blue-200 flex flex-wrap justify-between items-center gap-3 shrink-0 font-mono text-xs">
+          <div className="text-blue-600 text-[11px] leading-tight">
+            ?? <strong className="text-[#1e3a8a]">Cetak Katalog:</strong> Tekan <kbd className="bg-white px-1.5 py-0.5 rounded border border-blue-300 font-bold">Ctrl + P</kbd> lalu pilih <strong>"Save as PDF"</strong> untuk mengunduh versi cetak.
           </div>
           <div className="flex flex-wrap gap-2 ml-auto">
             <button
               onClick={handleDownloadHtml}
-              className="px-3.5 py-2 bg-white text-[#064E3B] border border-[#064E3B]/30 rounded-xl hover:bg-emerald-100 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white text-[#1e3a8a] border border-[#1e3a8a]/30 rounded-xl hover:bg-blue-100 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Download className="w-3.5 h-3.5 text-[#064E3B]" />
+              <Download className="w-3.5 h-3.5 text-[#1e3a8a]" />
               <span>Unduh File HTML</span>
             </button>
 
             <button
               onClick={handlePrintPdf}
-              className="px-3.5 py-2 bg-white text-[#064E3B] border border-[#064E3B]/30 rounded-xl hover:bg-emerald-100 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-white text-[#1e3a8a] border border-[#1e3a8a]/30 rounded-xl hover:bg-blue-100 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Printer className="w-3.5 h-3.5 text-[#064E3B]" />
+              <Printer className="w-3.5 h-3.5 text-[#1e3a8a]" />
               <span>Cetak / Simpan PDF</span>
             </button>
 
             <button
               onClick={handleDownloadPdf}
               disabled={isGenerating}
-              className="px-4 py-2 bg-[#064E3B] text-white rounded-xl hover:bg-[#04392b] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50"
+              className="px-4 py-2 bg-[#1e3a8a] text-white rounded-xl hover:bg-[#04392b] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50"
             >
               <Download className="w-3.5 h-3.5 text-white" />
               <span>Unduh PDF</span>
