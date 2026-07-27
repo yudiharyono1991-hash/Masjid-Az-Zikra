@@ -50,9 +50,10 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
             return (
               <button
                 key={day}
-                className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-medium transition-colors
+                onClick={() => alert(`Detail agenda untuk tanggal ${day} Juli 2026 belum diunggah.`)}
+                className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-medium transition-colors cursor-pointer hover:scale-105 active:scale-95
                   ${isToday ? 'bg-blue-600 text-white shadow-md font-bold' : ''}
-                  ${hasEvent && !isToday ? (isDark ? 'bg-blue-900/40 text-blue-300' : 'bg-blue-100 text-blue-700') : ''}
+                  ${hasEvent && !isToday ? (isDark ? 'bg-blue-900/40 text-blue-300 border border-blue-700/50' : 'bg-blue-100 text-blue-700 border border-blue-200') : ''}
                   ${!isToday && !hasEvent ? (isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100') : ''}
                 `}
               >
@@ -68,7 +69,7 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
             <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-100 border border-blue-300"></div> Ada Event</div>
             <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-600"></div> Hari Ini</div>
           </div>
-          <button className={`w-full text-blue-600 font-bold text-sm hover:text-blue-700 transition-colors ${isDark ? 'text-blue-400' : ''}`}>
+          <button onClick={() => alert('Fitur ini akan membuka layar jadwal agenda 1 tahun ke depan.')} className={`w-full text-blue-600 font-bold text-sm hover:text-blue-700 transition-colors cursor-pointer p-2 ${isDark ? 'text-blue-400' : ''}`}>
             Tampilkan Semua Agenda
           </button>
         </div>

@@ -114,7 +114,7 @@ export const SejarahTazkiaSection: React.FC = () => {
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
                 {/* Photo Placeholder */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Prof. Dr. M. Syafii Antonio</h4>
@@ -136,7 +136,7 @@ export const SejarahTazkiaSection: React.FC = () => {
             
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Syaripudin Kusin</h4>
@@ -158,7 +158,7 @@ export const SejarahTazkiaSection: React.FC = () => {
             
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Abdul Mughni</h4>

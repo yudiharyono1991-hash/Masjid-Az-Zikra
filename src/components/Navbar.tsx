@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import {
   Compass,
@@ -13,7 +13,8 @@ import {
   FileText,
   Moon,
   Sun,
-  ChevronDown
+  ChevronDown,
+  Clock
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
 
@@ -61,6 +62,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   const setMobileMenuOpen = externalSetMobileMenuOpen || setInternalMobileMenuOpen;
   const isDark = themeMode === 'dark';
 
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -79,16 +87,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-4 ml-auto text-[10px] sm:text-[11px] font-mono uppercase tracking-wider shrink-0">
-          {session && hasDkmPortalAccess(session.role) && (
-            <button
-              onClick={openTvMode}
-              className="text-amber-300 hover:bg-amber-500 hover:text-blue-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
-              title="Tampilan Layar TV Masjid"
-            >
-              <Tv className="w-3 h-3" />
-              <span className="hidden sm:inline">Display TV</span>
-            </button>
-          )}
+          
+          {/* Jadwal Sholat & Kiblat Info */}
+          <div className="hidden md:flex items-center gap-3 text-amber-300 font-bold border-r border-blue-800/50 pr-3 mr-1">
+            <div className="flex items-center gap-1 cursor-default" title="Arah Kiblat: 295° dari Utara">
+              <Compass className="w-3 h-3" />
+              <span>Kiblat: 295°</span>
+            </div>
+            <div className="flex items-center gap-1 cursor-default">
+              <Clock className="w-3 h-3" />
+              <span>{currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB</span>
+            </div>
+            <div className="flex items-center gap-1 cursor-default bg-blue-900/50 px-2 py-0.5 rounded-full border border-blue-700/50 text-[9px]">
+              <Moon className="w-3 h-3 text-amber-400" />
+              <span>Isya: 19:15</span>
+            </div>
+          </div>
 
           {/* Theme Mode Toggle Button (Light/Dark) */}
           <span className="opacity-30">|</span>
@@ -429,15 +443,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="truncate">Kalkulator Zakat</span>
               </button>
 
-              {session && hasDkmPortalAccess(session.role) && (
-                <button
-                  onClick={() => { openTvMode(); setMobileMenuOpen(false); }}
-                  className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-2"
-                >
-                  <Tv className="w-4 h-4 text-amber-300 shrink-0" />
-                  <span className="truncate">Display TV</span>
-                </button>
-              )}
+              <div className="p-2.5 rounded-xl border flex items-center justify-between gap-2 bg-blue-950/80 border-blue-700 text-amber-300">
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 shrink-0" />
+                  <span className="truncate">{currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+                <div className="flex items-center gap-1.5 border-l border-blue-700 pl-2">
+                  <Compass className="w-4 h-4 shrink-0" />
+                  <span className="truncate">295°</span>
+                </div>
+              </div>
             </div>
           </div>
 

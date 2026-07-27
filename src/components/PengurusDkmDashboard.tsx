@@ -46,7 +46,8 @@ import {
   ExternalLink,
   Video,
   Play,
-  Heart
+  Heart,
+  Tv
 } from 'lucide-react';
 
 import { ChartOfAccounts } from './accounting/ChartOfAccounts';
@@ -85,6 +86,7 @@ interface PengurusDkmDashboardProps {
   onDeleteGalleryItem?: (id: string) => void;
   onAddQurbanGroup?: (group: Omit<QurbanGroup, 'id' | 'participants' | 'filledShares' | 'isCompleted'>) => void;
   onDeleteQurbanGroup?: (id: string) => void;
+  openTvMode?: () => void;
 }
 
 export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
@@ -114,7 +116,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddGalleryItem,
   onDeleteGalleryItem,
   onAddQurbanGroup,
-  onDeleteQurbanGroup
+  onDeleteQurbanGroup,
+  openTvMode
 }) => {
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
@@ -413,6 +416,16 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <span className="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
                   Role: Pengurus / Administrator
                 </span>
+                {openTvMode && (
+                  <button
+                    onClick={openTvMode}
+                    className="ml-2 bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500 hover:text-blue-950 px-2 py-1 flex items-center gap-1.5 rounded-full text-xs font-bold transition-all shadow-sm"
+                    title="Buka Tampilan TV Masjid"
+                  >
+                    <Tv className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Display TV</span>
+                  </button>
+                )}
               </div>
               <p className="text-xs text-blue-400 mt-0.5">
                 Manajemen Keuangan Akuntansi PSAK 109, Jurnal Umum, Buku Besar, Kas Kecil, & Pengaturan Visibilitas Modul

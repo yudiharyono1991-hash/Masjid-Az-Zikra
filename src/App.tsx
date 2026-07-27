@@ -274,6 +274,7 @@ export default function App() {
             onDeleteGalleryItem={deleteGalleryItem}
             onAddQurbanGroup={addQurbanGroup}
             onDeleteQurbanGroup={deleteQurbanGroup}
+            openTvMode={() => setTvModeOpen(true)}
           />
         )}
       </main>
