@@ -756,6 +756,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
   }
 ];
 
+
 export const INITIAL_ERP_COA = [
   { id: 'coa-1000', accountCode: '1000', accountName: 'ASET', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: true, isActive: true },
   { id: 'coa-1100', accountCode: '1100', accountName: 'ASET LANCAR', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: true, isActive: true },
