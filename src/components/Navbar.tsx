@@ -241,7 +241,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               Kontak Kami
             </button>
 
-            {session && hasDkmPortalAccess(session.role) && (
+            {session && session.isLoggedIn && hasDkmPortalAccess(session.role) && (
               <button
                 onClick={() => setActiveTab('dkm_portal')}
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-sm ${
@@ -255,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
-            {session && session.role === 'jamaah' && (
+            {session && session.isLoggedIn && session.role === 'jamaah' && (
               <button
                 onClick={() => setActiveTab('jamaah_portal')}
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-sm ${
@@ -274,7 +274,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-1.5 sm:gap-2">
 
             {/* Supabase & Settings (Only for Admin/Ketua DKM) */}
-            {session && ['admin_masjid', 'ketua_dkm'].includes(session.role) && (
+            {session && session.isLoggedIn && ['admin_masjid', 'ketua_dkm'].includes(session.role) && (
               <button
                 onClick={openSupabaseModal}
                 className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
@@ -425,7 +425,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-[10px] font-mono font-normal opacity-70">Sewa Fasilitas</span>
               </button>
 
-              {session && hasDkmPortalAccess(session.role) && (
+              {session && session.isLoggedIn && hasDkmPortalAccess(session.role) && (
                 <button
                   onClick={() => { setActiveTab('dkm_portal'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="w-full text-left px-3.5 py-2.5 rounded-xl text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 font-bold uppercase tracking-wider flex items-center justify-between border border-amber-500/40 col-span-1 sm:col-span-2"

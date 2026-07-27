@@ -154,6 +154,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 </div>
               </div>
 
+              {/* Panduan Login Block */}
+              <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-left">
+                <h5 className="text-xs font-bold text-amber-800 mb-1">Panduan Login Khusus Jamaah:</h5>
+                <ul className="text-[10px] text-amber-700 space-y-1 list-disc pl-4">
+                  <li>Jamaah cukup memasukkan <strong>No. Handphone (WhatsApp)</strong> yang aktif, tidak wajib email.</li>
+                  <li>Sistem akan secara otomatis menyinkronkan data donasi dan riwayat jamaah ke Dashboard Anda.</li>
+                  <li>Jika Anda Petugas Masjid, pastikan memilih akses peran yang sesuai di atas.</li>
+                </ul>
+              </div>
+
               <div className="text-left">
                 <label className="text-xs font-semibold text-blue-800 block mb-1">
                   Nama Lengkap:
@@ -168,15 +178,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
               <div className="text-left">
                 <label className="text-xs font-semibold text-blue-800 block mb-1">
-                  Alamat Email:
+                  Email atau No. Handphone (Jamaah):
                 </label>
                 <div className="relative">
                   <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-500" />
                   <input
-                    type="email"
+                    type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-blue-900 outline-none font-mono"
+                    placeholder="Contoh: 08123456789 atau user@email.com"
                   />
                 </div>
               </div>

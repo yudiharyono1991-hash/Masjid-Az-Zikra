@@ -11,6 +11,7 @@ import {
   FileText,
   UserCheck
 } from 'lucide-react';
+import { useMasjidStore } from '../lib/store';
 
 interface FooterProps {
   openDonationModal: () => void;
@@ -29,6 +30,8 @@ export const Footer: React.FC<FooterProps> = ({
   session,
   isDark = false
 }) => {
+  const { programs } = useMasjidStore();
+
   return (
     <footer className="pt-16 pb-12 border-t transition-colors bg-[#172554] text-white border-[#172554]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -93,12 +96,16 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 3: Program Operasional */}
           <div className="space-y-3">
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-blue-800 pb-2">
-              Program Operasional Masjid
+              Daftar Program Saat Ini
             </h4>
             <ul className="space-y-2 text-xs font-medium text-blue-200">
-              <li>&bull; Santunan Yatim Piatu</li>
-              <li>&bull; Wakaf Masjid</li>
-              <li>&bull; Santunan Dhuafa</li>
+              {programs.length > 0 ? (
+                programs.slice(0, 5).map((p, index) => (
+                  <li key={p.id}>{index + 1}. {p.title}</li>
+                ))
+              ) : (
+                <li>Belum ada program.</li>
+              )}
             </ul>
           </div>
 
