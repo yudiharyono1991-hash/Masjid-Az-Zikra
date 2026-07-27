@@ -1,5 +1,5 @@
-import React from 'react';
-import { AzzikraBrandLogo } from './AzzikraBrandLogo';
+﻿import React from 'react';
+import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import {
   MapPin,
   Phone,
@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
-            <AzzikraBrandLogo variant="navbar" isDark={isDark} />
+            <TazkiaBrandLogo variant="navbar" isDark={isDark} />
 
             <p className={`text-xs leading-relaxed font-sans transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               Pusat Zikir Akbar, Pendidikan Pesantren, Muallaf Center, dan Transaksi ZISWAF yang transparan serta amanah.
@@ -45,15 +45,15 @@ export const Footer: React.FC<FooterProps> = ({
             <div className={`pt-2 text-xs space-y-1.5 font-mono transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
               <p className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                <span className="leading-snug">Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Bogor 16810</span>
+                <span className="leading-snug">Kampung Sunnah Tazkia, Bukit Sentul, Babakan Madang, Bogor 16810</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>+62 812-9876-5432 (Sekretariat DKM Az-Zikra)</span>
+                <span>+62 812-9876-5432 (Sekretariat DKM Tazkia)</span>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>ziswaf@azzikra-sentul.or.id</span>
+                <span>ziswaf@Tazkia-sentul.or.id</span>
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ export const Footer: React.FC<FooterProps> = ({
               Program Unggulan
             </h4>
             <ul className={`space-y-2 text-xs font-medium transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
-              <li>&bull; Operasional Masjid (Az-Zikra)</li>
+              <li>&bull; Operasional Masjid (Tazkia)</li>
               <li>&bull; Santunan Yatim Piatu</li>
               <li>&bull; Wakaf Masjid (Pemeliharaan & Pengembangan)</li>
               <li>&bull; Santunan Dhuafa (& Fakir Miskin)</li>
@@ -119,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({
               Layar TV Signage
             </h4>
             <p className={`text-xs leading-relaxed font-sans transition-colors ${isDark ? "text-emerald-300" : "text-emerald-700"}`}>
-              Buka tampilan khusus Digital Signage TV Masjid Az-Zikra Sentul untuk diproyeksikan pada TV utama masjid.
+              Buka tampilan khusus Digital Signage TV Masjid Tazkia untuk diproyeksikan pada TV utama masjid.
             </p>
 
             <button
@@ -135,10 +135,10 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="pt-8 border-t border-emerald-800 flex flex-col sm:flex-row items-center justify-between text-xs text-emerald-400 gap-4 text-center sm:text-left">
           <div className="space-y-1">
             <p className="font-semibold text-emerald-200 tracking-wide text-xs sm:text-sm">
-              &copy; 2026 Masjid Az-Zikra. All Rights Reserved.
+              &copy; 2026 Masjid Tazkia. All Rights Reserved.
             </p>
             <p className="text-[11px] text-emerald-400">
-              Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Kabupaten Bogor, Jawa Barat.
+              Kampung Sunnah Tazkia, Bukit Sentul, Babakan Madang, Kabupaten Bogor, Jawa Barat.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider bg-emerald-900/80 px-4 py-2 rounded-xl border border-emerald-800">
@@ -153,3 +153,4 @@ export const Footer: React.FC<FooterProps> = ({
     </footer>
   );
 };
+

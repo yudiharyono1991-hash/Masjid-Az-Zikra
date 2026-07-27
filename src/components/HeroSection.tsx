@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { AzzikraBrandLogo } from './AzzikraBrandLogo';
+﻿import React, { useState, useEffect } from 'react';
+import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import { getSupabaseClient } from '../lib/supabase';
 import {
   TrendingUp,
@@ -22,7 +22,7 @@ interface HeroSectionProps {
 }
 
 const DEFAULT_HERO_BACKGROUNDS = [
-  '/masjid-azzikra-hero.jpg',
+  '/masjid-Tazkia-hero.jpg',
   '/hero-2.jpg',
   '/hero-3.jpg'
 ];
@@ -90,7 +90,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}
         <div className="flex justify-center mb-6">
-          <AzzikraBrandLogo variant="large" isDark={true} />
+          <TazkiaBrandLogo variant="large" isDark={true} />
         </div>
 
         {/* Quick Shortcut Pills Header */}
@@ -133,3 +133,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     </section>
   );
 };
+

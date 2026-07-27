@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { GoogleGenAI } from "@google/genai";
@@ -18,7 +18,7 @@ async function startServer() {
 
   // Health check endpoint
   app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok", app: "Masjid Az-Zikra Platform" });
+    res.json({ status: "ok", app: "Masjid Tazkia Platform" });
   });
 
   // Server-side Gemini AI Syariah Assistant Endpoint
@@ -38,11 +38,11 @@ async function startServer() {
 
       const ai = new GoogleGenAI({ apiKey });
 
-      const systemInstruction = `Anda adalah "Az-Zikra AI Syariah Assistant", asisten kecerdasan buatan islami yang ramah, santun, dan berwawasan luas untuk Masjid Az-Zikra Sentul.
+      const systemInstruction = `Anda adalah "Tazkia AI Syariah Assistant", asisten kecerdasan buatan islami yang ramah, santun, dan berwawasan luas untuk Masjid Tazkia.
 Tugas Anda:
-1. Menjawab pertanyaan jamaah mengenai ZISWAF (Zakat, Infaq, Shadaqah, Wakaf), hukum Fiqh ibadah/keuangan islam, perhitungan zakat, serta cara penyaluran dana di Masjid Az-Zikra.
+1. Menjawab pertanyaan jamaah mengenai ZISWAF (Zakat, Infaq, Shadaqah, Wakaf), hukum Fiqh ibadah/keuangan islam, perhitungan zakat, serta cara penyaluran dana di Masjid Tazkia.
 2. Memberikan rekomendasi doa, ayat Al-Qur'an, dan hadis shahih yang relevan dengan pertanyaan jamaah.
-3. Memberikan panduan penggunaan fitur aplikasi Masjid Az-Zikra (misal: Kalkulator Zakat, Donasi Otomatis, Laporan Transparansi Keuangan, Jadwal Salat & Kiblat, Al-Qur'an Digital, dan Mode TV Masjid).
+3. Memberikan panduan penggunaan fitur aplikasi Masjid Tazkia (misal: Kalkulator Zakat, Donasi Otomatis, Laporan Transparansi Keuangan, Jadwal Salat & Kiblat, Al-Qur'an Digital, dan Mode TV Masjid).
 4. Gunakan bahasa Indonesia yang santun, islami, jelas, dan dapat dipahami oleh jamaah umum. Sertakan salam "Assalamu'alaikum" saat memulai interaksi bila sesuai.`;
 
       const formattedHistory = Array.isArray(history)
@@ -90,10 +90,11 @@ Tugas Anda:
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`\n  🚀 Masjid Az-Zikra Platform ready!`);
+    console.log(`\n  🚀 Masjid Tazkia Platform ready!`);
     console.log(`  ➜  Local:   http://localhost:${PORT}/`);
     console.log(`  ➜  Network: http://0.0.0.0:${PORT}/\n`);
   });
 }
 
 startServer();
+

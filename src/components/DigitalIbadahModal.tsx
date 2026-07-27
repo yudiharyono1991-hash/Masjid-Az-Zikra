@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import {
   X,
   BookOpen,
@@ -260,7 +260,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold font-serif text-white">
-                Fasilitas Ibadah Digital Masjid Az-Zikra Sentul
+                Fasilitas Ibadah Digital Masjid Tazkia
               </h3>
               <p className="text-xs text-emerald-400">
                 Al-Qur'an Digital Audio Murottal, Auto-Scroll Verse, Jadwal Shalat, Kiblat &amp; Doa
@@ -626,3 +626,4 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
     </div>
   );
 };
+

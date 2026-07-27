@@ -1,4 +1,4 @@
-import {
+﻿import {
   Program,
   DonationRecord,
   FinancialTransaction,
@@ -14,13 +14,13 @@ import {
 export const INITIAL_PROGRAMS: Program[] = [
   {
     id: 'prg-1',
-    title: 'Operasional Masjid (Az-Zikra)',
+    title: 'Operasional Masjid (Tazkia)',
     subtitle: 'Kenyamanan Ibadah Jamaah',
     category: 'infaq',
     targetAmount: 500000000,
     collectedAmount: 250000000,
     donorsCount: 1540,
-    imageUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '<https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80>',
     description: 'Infaq operasional untuk kebersihan, listrik, dan kenyamanan fasilitas masjid agar jamaah dapat beribadah dengan khusyuk.',
     isUrgent: true,
     featured: true
@@ -33,8 +33,8 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 250000000,
     collectedAmount: 180000000,
     donorsCount: 890,
-    imageUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
-    description: 'Program santunan rutin, beasiswa pendidikan, dan pembinaan karakter bagi anak-anak yatim piatu di sekitar lingkungan Masjid Az-Zikra.',
+    imageUrl: '<https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80>',
+    description: 'Program santunan rutin, beasiswa pendidikan, dan pembinaan karakter bagi anak-anak yatim piatu di sekitar lingkungan Masjid Tazkia.',
     isUrgent: false,
     featured: true
   },
@@ -46,7 +46,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 10000000000,
     collectedAmount: 6500000000,
     donorsCount: 3200,
-    imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '<https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80>',
     description: 'Pekerjaan perbaikan infrastruktur masjid, perluasan area ibadah, dan pengadaan sarana prasana dakwah yang berkelanjutan.',
     isUrgent: false,
     featured: true
@@ -59,7 +59,7 @@ export const INITIAL_PROGRAMS: Program[] = [
     targetAmount: 750000000,
     collectedAmount: 450000000,
     donorsCount: 1120,
-    imageUrl: 'https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '<https://images.unsplash.com/photo-1593113589914-075990190da5?auto=format&fit=crop&w=800&q=80>',
     description: 'Penyaluran zakat dan infaq bagi fakir miskin, keluarga prasejahtera, dan bantuan modal usaha kecil berbasis syariah (Baitul Maal).',
     isUrgent: false,
     featured: true
@@ -126,8 +126,8 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     category: 'Zakat Mal',
     amount: 125000000,
     date: '2026-07-25',
-    description: 'Penerimaan dana zakat mal via transfer bank & QRIS resmi Masjid Az-Zikra.',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    description: 'Penerimaan dana zakat mal via transfer bank & QRIS resmi Masjid Tazkia.',
+    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
   },
   {
     id: 'FIN-102',
@@ -137,17 +137,17 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 45000000,
     date: '2026-07-24',
     description: 'Pendistribusian bahan pokok kepada keluarga dhuafa terdaftar di 5 kelurahan sekitar.',
-    proofUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80>'
   },
   {
     id: 'FIN-103',
     type: 'masuk',
-    title: 'Infaq Keliling Shalat Jumat Az-Zikra',
+    title: 'Infaq Keliling Shalat Jumat Tazkia',
     category: 'Infaq Jumat',
     amount: 18450000,
     date: '2026-07-24',
     description: 'Perhitungan kotam infaq Jumat jamaah masjid.',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
   },
   {
     id: 'FIN-104',
@@ -157,7 +157,7 @@ export const INITIAL_FINANCIAL: FinancialTransaction[] = [
     amount: 12800000,
     date: '2026-07-22',
     description: 'Pembayaran tagihan utilitas PLN, PDAM, dan servis berkala 12 unit AC Sentral.',
-    proofUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80>'
   }
 ];
 
@@ -257,17 +257,17 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
     category: 'Kajian',
     date: '2026-07-25',
     isPinned: true,
-    author: 'Pengurus DKM Az-Zikra',
+    author: 'Pengurus DKM Tazkia',
     imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 'ANC-2',
     title: 'Laporan Akuntabilitas & Transparansi Kas Masjid Bulan Juni 2026',
-    content: 'Laporan rincian pemasukan dan pengeluaran kas Masjid Az-Zikra periode Juni 2026 telah terverifikasi oleh Tim Audit Internal. Informasi selengkapnya dapat diakses pada menu Transparansi.',
+    content: 'Laporan rincian pemasukan dan pengeluaran kas Masjid Tazkia periode Juni 2026 telah terverifikasi oleh Tim Audit Internal. Informasi selengkapnya dapat diakses pada menu Transparansi.',
     category: 'Keuangan',
     date: '2026-07-20',
     isPinned: true,
-    author: 'Bendahara DKM Az-Zikra',
+    author: 'Bendahara DKM Tazkia',
     imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
   },
   {
@@ -521,7 +521,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 350000,
     remainingBalance: 5550000,
     receiptProof: 'Nota Toko Berkah Jaya',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
   },
   {
     id: 'KC-002',
@@ -533,7 +533,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 250000,
     remainingBalance: 5900000,
     receiptProof: 'Kuitansi Petugas',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
   },
   {
     id: 'KC-003',
@@ -545,7 +545,7 @@ export const INITIAL_PETTY_CASH = [
     amount: 3000000,
     remainingBalance: 6150000,
     receiptProof: 'Slip Penarikan BSI',
-    proofUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+    proofUrl: '<https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80>'
   }
 ];
 
@@ -556,39 +556,39 @@ export const INITIAL_ADMIN_SETTINGS = {
   showLiveMutations: true,
   showTargetDonationBar: true,
   allowAnonymousDonation: true,
-  runningTextTv: 'Selamat Datang di Masjid Az-Zikra Sentul (Kampung Sunnah Sentul) - Mohon menonaktifkan nada dering HP selama pelaksanaan Ibadah Shalat Jamaah & Dzikir Akbar.',
+  runningTextTv: 'Selamat Datang di Masjid Tazkia (Kampung Sunnah Sentul) - Mohon menonaktifkan nada dering HP selama pelaksanaan Ibadah Shalat Jamaah & Dzikir Akbar.',
   goldNisabPrice: 1350000,
-  bankAccountBsi: '7130-2498-17 (a.n. DKM Masjid Az-Zikra ZISWAF)',
-  bankAccountBca: '8820-1192-33 (a.n. Yayasan Az-Zikra Sentul)',
-  qrisMerchantName: 'MASJID AZ-ZIKRA SENTUL QRIS NASIONAL',
+  bankAccountBsi: '7130-2498-17 (a.n. DKM Masjid Tazkia ZISWAF)',
+  bankAccountBca: '8820-1192-33 (a.n. Yayasan Tazkia Sentul)',
+  qrisMerchantName: 'Masjid Tazkia QRIS NASIONAL',
   iqamahCountdownMinutes: 10,
-  masjidLogoUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80',
-  masjidHeroPhotoUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
-  qrisCodeImageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+  masjidLogoUrl: '<https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31>',
+  masjidHeroPhotoUrl: '<https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80>',
+  qrisCodeImageUrl: '<https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80>',
   jumatKhatibName: 'Prof. Dr. KH. Nasaruddin Umar, MA',
   jumatImamName: 'Ustadz H. M. Zainuddin, Sq',
   jumatMuadzinName: 'Ustadz Bilal Al-Hafiz',
   jumatTopicTitle: 'Keagungan Zikir & Transparansi Pengelolaan Aset Umat',
   jumatTimeInfo: 'Jumat Ini, 11:55 WIB - Selesai',
-  masjidAddressInfo: 'Kampung Sunnah Az-Zikra, Perumahan Bukit Sentul, Cipambuan, Babakan Madang, Bogor',
-  masjidPhoneContact: '+62 812-9876-5432 (Sekertariat DKM Az-Zikra)',
-  featureInfoAnnouncement: 'Ekosistem Digital Masjid Az-Zikra Sentul melayani ZISWAF, Al-Qur\'an MP3, Jadwal Shalat & Adzan, Penunjuk Arah Kiblat, Sejarah Masjid, serta TV Signage Display.'
+  masjidAddressInfo: 'Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia',
+  masjidPhoneContact: '0858 1000 8899 (Sekretariat DKM) / masjidtazkia@tazkia.ac.id',
+  featureInfoAnnouncement: 'Ekosistem Digital Masjid Tazkia melayani ZISWAF, Al-Qur\'an MP3, Jadwal Shalat & Adzan, Penunjuk Arah Kiblat, Sejarah Masjid, serta TV Signage Display.'
 };
 
 export const INITIAL_GALLERY: GalleryItem[] = [
   {
     id: 'gal-1',
     title: 'Tabligh Akbar Sentul: Membangun Peradaban Berbasis Al-Qur\'an',
-    subtitle: 'Kajian Utama Masjid Az-Zikra',
+    subtitle: 'Kajian Utama Masjid Tazkia',
     category: 'Tabligh Akbar',
     mediaType: 'video',
-    mediaUrl: 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80',
-    videoEmbedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    mediaUrl: '<https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=1200&q=80>',
+    videoEmbedUrl: '<https://www.youtube.com/embed/dQw4w9WgXcQ>',
     date: '2026-07-20',
     ustadzName: 'Dr. KH. M. Hidayatullah, M.A.',
-    location: 'Ruang Utama Masjid Az-Zikra Sentul',
-    summary: 'Dokumentasi video dan artikel lengkap Tabligh Akbar yang dihadiri lebih dari 3.000 jamaah di Masjid Az-Zikra Sentul City.',
-    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern — tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Az-Zikra. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
+    location: 'Ruang Utama Masjid Tazkia',
+    summary: 'Dokumentasi video dan artikel lengkap Tabligh Akbar yang dihadiri lebih dari 3.000 jamaah di Masjid Tazkia City.',
+    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern — tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Tazkia. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
     likesCount: 342,
     viewsCount: 2150,
     tags: ['TablighAkbar', 'KajianSentul', 'PeradabanIslam'],
@@ -602,10 +602,10 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     mediaType: 'photo',
     mediaUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80',
     date: '2026-07-15',
-    ustadzName: 'Tim UPZ DKM Az-Zikra',
-    location: 'Plaza & Sekretariat ZISWAF Az-Zikra',
+    ustadzName: 'Tim UPZ DKM Tazkia',
+    location: 'Plaza & Sekretariat ZISWAF Tazkia',
     summary: 'Penyaluran beras premium, paket minyak, dan santunan tunai secara terverifikasi bagi lansia, janda kurang mampu, dan kaum dhuafa.',
-    articleContent: `Program Bakti Sosial Keumatan ini merupakan wujud pertanggungjawaban dan penyaluran amanah zakat, infaq, dan shadaqah yang dipercayakan oleh para muzakki kepada DKM Masjid Az-Zikra Sentul.\n\nSebanyak 500 paket bantuan pangan dan uang tunai diserahkan secara tertib dan penuh kehangatan. Pendataan dilakukan secara presisi oleh Tim Unit Pengumpul Zakat (UPZ) DKM bekerjasama dengan pengurus RT/RW setempat agar tepat sasaran.\n\nKetua UPZ DKM menyampaikan ucapan terima kasih mendalam kepada para donatur: "Jazakumullah khairan katsiran. Semoga setiap bulir beras dan rupiah yang disalurkan menjadi pembersih harta serta penolak bala bagi para muzakki beserta keluarga."`,
+    articleContent: `Program Bakti Sosial Keumatan ini merupakan wujud pertanggungjawaban dan penyaluran amanah zakat, infaq, dan shadaqah yang dipercayakan oleh para muzakki kepada DKM Masjid Tazkia.\n\nSebanyak 500 paket bantuan pangan dan uang tunai diserahkan secara tertib dan penuh kehangatan. Pendataan dilakukan secara presisi oleh Tim Unit Pengumpul Zakat (UPZ) DKM bekerjasama dengan pengurus RT/RW setempat agar tepat sasaran.\n\nKetua UPZ DKM menyampaikan ucapan terima kasih mendalam kepada para donatur: "Jazakumullah khairan katsiran. Semoga setiap bulir beras dan rupiah yang disalurkan menjadi pembersih harta serta penolak bala bagi para muzakki beserta keluarga."`,
     likesCount: 289,
     viewsCount: 1820,
     tags: ['BaktiSosial', 'ZakatTepatSasaran', 'SentulPeduli'],
@@ -637,9 +637,9 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     mediaUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80',
     date: '2026-06-28',
     ustadzName: 'Ustadz H. M. Zainuddin, Sq & Pengasuh TPA',
-    location: 'Ruang Utama Masjid Az-Zikra',
-    summary: 'Sebanyak 85 santri cilik TPA Az-Zikra lulus ujian munaqosyah hafalan Juz 30 dan Juz 29 dengan predikat Mumtaz.',
-    articleContent: `Suasana penuh haru dan kebanggaan menyelimuti Wisuda Santri TPA & Tahfidz Al-Qur'an Masjid Az-Zikra Sentul. Para santri memasangkan mahkota secara simbolis di hadapan kedua orang tua mereka sebagai perlambang syafaat Al-Qur'an di akhirat kelak.\n\nDKM Masjid Az-Zikra memberikan penghargaan apresiasi serta beasiswa sekolah penuh bagi santri berprestasi yang berasal dari keluarga dhuafa.\n\n"Kami berkomitmen melahirkan generasi yang tidak hanya mahir membaca Al-Qur'an, namun juga berakhlaqul karimah dan berprestasi secara akademis," pungkas Kepala Pengasuh TPA Az-Zikra.`,
+    location: 'Ruang Utama Masjid Tazkia',
+    summary: 'Sebanyak 85 santri cilik TPA Tazkia lulus ujian munaqosyah hafalan Juz 30 dan Juz 29 dengan predikat Mumtaz.',
+    articleContent: `Suasana penuh haru dan kebanggaan menyelimuti Wisuda Santri TPA & Tahfidz Al-Qur'an Masjid Tazkia. Para santri memasangkan mahkota secara simbolis di hadapan kedua orang tua mereka sebagai perlambang syafaat Al-Qur'an di akhirat kelak.\n\nDKM Masjid Tazkia memberikan penghargaan apresiasi serta beasiswa sekolah penuh bagi santri berprestasi yang berasal dari keluarga dhuafa.\n\n"Kami berkomitmen melahirkan generasi yang tidak hanya mahir membaca Al-Qur'an, namun juga berakhlaqul karimah dan berprestasi secara akademis," pungkas Kepala Pengasuh TPA Tazkia.`,
     likesCount: 410,
     viewsCount: 2900,
     tags: ['WisudaSantri', 'TahfidzAnak', 'PendidikanAlquran'],
@@ -650,21 +650,21 @@ export const INITIAL_GALLERY: GalleryItem[] = [
 export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
   {
     id: 'qrb-sapi-1',
-    title: 'Kelompok Sapi Patungan A (Az-Zikra 1447H)',
+    title: 'Kelompok Sapi Patungan A (Tazkia 1447H)',
     animalType: 'Sapi',
     type: 'sapi_patungan',
     pricePerShare: 3500000,
     totalShares: 7,
     filledShares: 5,
     weightEstimate: '320 - 350 kg (Sapi Limosin / Simental)',
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80',
-    description: 'Patungan Qurban Sapi 1/7 Saham Sesuai Syariat Islam. Bebas Biaya Operasional & Pemotongan di Masjid Az-Zikra Sentul. Daging disalurkan ke 350+ KK Mustahik & Fakir Miskin Sentul.',
+    imageUrl: '<https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=1200&q=80>',
+    description: 'Patungan Qurban Sapi 1/7 Saham Sesuai Syariat Islam. Bebas Biaya Operasional & Pemotongan di Masjid Tazkia. Daging disalurkan ke 350+ KK Mustahik & Fakir Miskin Sentul.',
     isCompleted: false,
     participants: [
       {
         id: 'p-1',
         groupId: 'qrb-sapi-1',
-        groupTitle: 'Kelompok Sapi Patungan A (Az-Zikra 1447H)',
+        groupTitle: 'Kelompok Sapi Patungan A (Tazkia 1447H)',
         mudhahhiName: 'Bapak H. Bambang Soetrisno & Keluarga',
         phone: '081298761234',
         sharesCount: 1,
@@ -676,7 +676,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
       {
         id: 'p-2',
         groupId: 'qrb-sapi-1',
-        groupTitle: 'Kelompok Sapi Patungan A (Az-Zikra 1447H)',
+        groupTitle: 'Kelompok Sapi Patungan A (Tazkia 1447H)',
         mudhahhiName: 'Ibu Hj. Siti Aminah binti Fulan',
         phone: '081388123456',
         sharesCount: 2,
@@ -688,7 +688,7 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
       {
         id: 'p-3',
         groupId: 'qrb-sapi-1',
-        groupTitle: 'Kelompok Sapi Patungan A (Az-Zikra 1447H)',
+        groupTitle: 'Kelompok Sapi Patungan A (Tazkia 1447H)',
         mudhahhiName: 'Drs. Ahmad Hidayat',
         phone: '08119022311',
         sharesCount: 2,
@@ -701,21 +701,21 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
   },
   {
     id: 'qrb-sapi-2',
-    title: 'Kelompok Sapi Patungan B (Az-Zikra 1447H)',
+    title: 'Kelompok Sapi Patungan B (Tazkia 1447H)',
     animalType: 'Sapi',
     type: 'sapi_patungan',
     pricePerShare: 3500000,
     totalShares: 7,
     filledShares: 2,
     weightEstimate: '330 - 360 kg (Sapi PO Super)',
-    imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80',
-    description: 'Sapi Patungan Kloter B. Kesempatan meraih pahala Qurban bersama 7 shohibul qurban di Masjid Az-Zikra Sentul.',
+    imageUrl: '<https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80>',
+    description: 'Sapi Patungan Kloter B. Kesempatan meraih pahala Qurban bersama 7 shohibul qurban di Masjid Tazkia.',
     isCompleted: false,
     participants: [
       {
         id: 'p-4',
         groupId: 'qrb-sapi-2',
-        groupTitle: 'Kelompok Sapi Patungan B (Az-Zikra 1447H)',
+        groupTitle: 'Kelompok Sapi Patungan B (Tazkia 1447H)',
         mudhahhiName: 'Bapak Dr. Hendra Wijaya',
         phone: '081277665544',
         sharesCount: 2,
@@ -735,8 +735,8 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '28 - 32 kg (Kambing Etawa / Garut)',
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80',
-    description: 'Qurban 1 Ekor Kambing / Domba Individual Atas Nama Pribadi. Hewan sehat, cukup umur (musinnah), certified oleh dokter hewan & DKM Masjid Az-Zikra Sentul.',
+    imageUrl: '<https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1200&q=80>',
+    description: 'Qurban 1 Ekor Kambing / Domba Individual Atas Nama Pribadi. Hewan sehat, cukup umur (musinnah), certified oleh dokter hewan & DKM Masjid Tazkia.',
     isCompleted: false,
     participants: []
   },
@@ -749,10 +749,9 @@ export const INITIAL_QURBAN_GROUPS: QurbanGroup[] = [
     totalShares: 1,
     filledShares: 0,
     weightEstimate: '35 - 40 kg (Domba Garut Super)',
-    imageUrl: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: '<https://images.unsplash.com/photo-1533318087102-b3ad366ed041?auto=format&fit=crop&w=1200&q=80>',
     description: 'Domba Garut Pilihan dengan bobot ekstra besar. Bebas PMK, sehat & cukup umur sesuai syariat ibadah Qurban.',
     isCompleted: false,
     participants: []
   }
 ];
-

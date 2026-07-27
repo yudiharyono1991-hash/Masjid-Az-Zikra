@@ -1,4 +1,4 @@
-export function formatRupiah(amount: number): string {
+﻿export function formatRupiah(amount: number): string {
   if (amount >= 1000000000) {
     const bill = amount / 1000000000;
     return `Rp ${bill % 1 === 0 ? bill : bill.toFixed(1)}M`;
@@ -38,7 +38,7 @@ export interface CityPrayerTime {
 
 export const CITIES_DATA: CityPrayerTime[] = [
   {
-    name: 'Sentul / Bogor (Masjid Az-Zikra)',
+    name: 'Sentul / Bogor (Masjid Tazkia)',
     lat: -6.5815,
     lng: 106.8710,
     fajr: '04:44',
@@ -1092,3 +1092,4 @@ export const SAMPLE_AYAHS_ALFATIHAH = [
     "translation": "(yaitu) jalan orang-orang yang telah Engkau beri nikmat kepada mereka; bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) mereka yang sesat."
   }
 ];
+

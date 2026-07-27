@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   Video,
   Image as ImageIcon,
@@ -111,7 +111,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             Dokumentasi Kegiatan & <span className="italic font-semibold text-emerald-300">Arsip Kajian Umat</span>
           </h2>
           <p className="text-sm sm:text-base opacity-80 leading-relaxed font-sans">
-            Saksikan rekaman video kajian, dokumentasi foto aksi sosial, serta artikel ilmu pengetahuan Islam terlengkap dari Masjid Az-Zikra Sentul.
+            Saksikan rekaman video kajian, dokumentasi foto aksi sosial, serta artikel ilmu pengetahuan Islam terlengkap dari Masjid Tazkia.
           </p>
           
           {onOpenDkmUpload && (
@@ -482,3 +482,4 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     </section>
   );
 };
+

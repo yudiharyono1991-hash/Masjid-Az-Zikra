@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { QurbanGroup, QurbanParticipant, UserSession } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -161,7 +161,7 @@ export const PatunganQurbanSection: React.FC<PatunganQurbanSectionProps> = ({
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#064E3B] border border-emerald-300 text-xs font-mono font-bold uppercase tracking-widest shadow-md">
             <Sparkles className="w-4 h-4 text-emerald-700" />
-            <span>Identitas Syariah Masjid Az-Zikra Sentul</span>
+            <span>Identitas Syariah Masjid Tazkia</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold font-serif text-white tracking-wide">
             Patungan Qurban Sapi &amp; Kambing / Domba Garut
@@ -477,7 +477,7 @@ export const PatunganQurbanSection: React.FC<PatunganQurbanSectionProps> = ({
                       className="w-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs rounded-xl px-3.5 py-2.5 outline-none focus:border-[#064E3B] font-serif"
                     />
                     <p className="text-[10px] text-emerald-500 mt-1">
-                      Nama ini yang akan dilafadzkan saat penyembelihan hewan Qurban di Masjid Az-Zikra Sentul.
+                      Nama ini yang akan dilafadzkan saat penyembelihan hewan Qurban di Masjid Tazkia.
                     </p>
                   </div>
 
@@ -604,7 +604,7 @@ export const PatunganQurbanSection: React.FC<PatunganQurbanSectionProps> = ({
                       Bismillah, Pendaftaran Qurban Berhasil!
                     </h4>
                     <p className="text-xs text-emerald-600 mt-1">
-                      Kwitansi &amp; Tanda Terima Qurban Resmi DKM Masjid Az-Zikra Sentul telah diterbitkan.
+                      Kwitansi &amp; Tanda Terima Qurban Resmi DKM Masjid Tazkia telah diterbitkan.
                     </p>
                   </div>
 
@@ -650,4 +650,5 @@ export const PatunganQurbanSection: React.FC<PatunganQurbanSectionProps> = ({
     </section>
   );
 };
+
 

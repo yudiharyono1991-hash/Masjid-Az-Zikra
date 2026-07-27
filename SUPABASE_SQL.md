@@ -1,4 +1,4 @@
-# Supabase SQL Setup for Masjid Az-Zikra
+﻿# Supabase SQL Setup for Masjid Tazkia
 
 Gunakan query SQL berikut di Supabase SQL editor untuk membuat tabel dasar aplikasi.
 
@@ -223,3 +223,4 @@ create trigger update_app_settings_updated_at
   before update on app_settings
   for each row execute function update_updated_at_column();
 ```
+

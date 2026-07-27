@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+﻿import { useState, useEffect, useCallback } from 'react';
 import { getSupabaseClient } from './supabase';
 import {
   Program,
@@ -34,7 +34,7 @@ import {
   INITIAL_QURBAN_GROUPS
 } from './initialData';
 
-const LOCAL_STORAGE_KEY = 'masjid_azzikra_app_state_v3';
+const LOCAL_STORAGE_KEY = 'masjid_Tazkia_app_state_v3';
 
 export interface AppState {
   programs: Program[];
@@ -74,7 +74,7 @@ const defaultState: AppState = {
   session: {
     isLoggedIn: false,
     email: '',
-    name: 'Jamaah Az-Zikra',
+    name: 'Jamaah Tazkia',
     role: 'jamaah'
   },
   supabaseUrl: import.meta.env.VITE_SUPABASE_URL || '',
@@ -387,7 +387,7 @@ export function useMasjidStore() {
       session: {
         isLoggedIn: false,
         email: '',
-        name: 'Jamaah Az-Zikra',
+        name: 'Jamaah Tazkia',
         role: 'jamaah'
       }
     }));
@@ -596,7 +596,7 @@ export function useMasjidStore() {
 
 export function generateSupabaseSQLSchema(): string {
   return `-- ==========================================
--- SUPABASE POSTGRESQL SCHEMA FOR MASJID AZ-ZIKRA
+-- SUPABASE POSTGRESQL SCHEMA FOR Masjid Tazkia
 -- Paste ini ke Supabase SQL Editor untuk membuat tabel
 -- ==========================================
 
@@ -686,7 +686,7 @@ CREATE TABLE IF NOT EXISTS public.announcements (
   category TEXT NOT NULL,
   date DATE NOT NULL,
   is_pinned BOOLEAN DEFAULT FALSE,
-  author TEXT DEFAULT 'Pengurus DKM Az-Zikra',
+  author TEXT DEFAULT 'Pengurus DKM Tazkia',
   image_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -735,3 +735,4 @@ CREATE POLICY "Public Read Announcements" ON public.announcements FOR SELECT USI
 CREATE POLICY "Public Insert Donations" ON public.donations FOR INSERT WITH CHECK (true);
 `;
 }
+

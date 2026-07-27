@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, X, User, Sparkles, Loader2 } from 'lucide-react';
 
 interface Message {
@@ -6,12 +6,12 @@ interface Message {
   parts: [{ text: string }];
 }
 
-interface AzZikraAiAssistantModalProps {
+interface TazkiaAiAssistantModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const AzZikraAiAssistantModal: React.FC<AzZikraAiAssistantModalProps> = ({
+export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
   isOpen,
   onClose
 }) => {
@@ -20,7 +20,7 @@ export const AzZikraAiAssistantModal: React.FC<AzZikraAiAssistantModalProps> = (
       role: 'model',
       parts: [
         {
-          text: "Assalamu'alaikum warahmatullah. Saya adalah **Az-Zikra AI Syariah Assistant**. \n\nAda yang bisa saya bantu mengenai perhitungan ZISWAF, hukum Fiqh ibadah/keuangan, jadwal Zikir Akbar, Sejarah Masjid, atau program keumatan di Masjid Az-Zikra Sentul?"
+          text: "Assalamu'alaikum warahmatullah. Saya adalah **Tazkia AI Syariah Assistant**. \n\nAda yang bisa saya bantu mengenai perhitungan ZISWAF, hukum Fiqh ibadah/keuangan, jadwal Zikir Akbar, Sejarah Masjid, atau program keumatan di Masjid Tazkia?"
         }
       ]
     }
@@ -103,7 +103,7 @@ export const AzZikraAiAssistantModal: React.FC<AzZikraAiAssistantModalProps> = (
             </div>
             <div>
               <h3 className="text-sm font-bold font-serif text-white">
-                Az-Zikra AI Syariah Assistant
+                Tazkia AI Syariah Assistant
               </h3>
               <p className="text-[11px] text-amber-300 font-medium">
                 Kecerdasan Buatan Konsultasi ZISWAF & Fiqh
@@ -166,7 +166,7 @@ export const AzZikraAiAssistantModal: React.FC<AzZikraAiAssistantModalProps> = (
         <form onSubmit={handleSend} className="p-4 bg-[#064E3B] border-t border-emerald-800 flex items-center gap-2">
           <input
             type="text"
-            placeholder="Tanyakan seputar ZISWAF, Fiqh, atau Layanan Az-Zikra..."
+            placeholder="Tanyakan seputar ZISWAF, Fiqh, atau Layanan Tazkia..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="flex-1 bg-emerald-950 border border-emerald-800 focus:border-amber-400 rounded-xl px-4 py-2.5 text-xs text-white outline-none placeholder-emerald-300/50"
@@ -184,3 +184,4 @@ export const AzZikraAiAssistantModal: React.FC<AzZikraAiAssistantModalProps> = (
     </div>
   );
 };
+

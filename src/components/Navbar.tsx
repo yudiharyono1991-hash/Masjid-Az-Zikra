@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AzzikraBrandLogo } from './AzzikraBrandLogo';
+﻿import React, { useState } from 'react';
+import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import {
   Compass,
   BookOpen,
@@ -75,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             Official
           </span>
           <span className="text-[10px] sm:text-[11px] font-medium tracking-wide">
-            Masjid Az-Zikra Sentul <span className="hidden sm:inline">&bull; Kampung Sunnah, Bogor</span>
+            Masjid Tazkia <span className="hidden sm:inline">&bull; Kampung Sunnah, Bogor</span>
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-4 ml-auto text-[10px] sm:text-[11px] font-mono uppercase tracking-wider shrink-0">
@@ -137,9 +137,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div
             className="cursor-pointer group py-1"
             onClick={() => setActiveTab('beranda')}
-            title="Masjid Az-Zikra Sentul &bull; Beranda"
+            title="Masjid Tazkia &bull; Beranda"
           >
-            <AzzikraBrandLogo variant="navbar" isDark={isDark} />
+            <TazkiaBrandLogo variant="navbar" isDark={isDark} />
           </div>
 
           {/* Desktop Nav Links */}
@@ -273,7 +273,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={openAiAssistant}
               className="hidden sm:flex bg-emerald-50 dark:bg-emerald-950/80 hover:bg-emerald-100 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all cursor-pointer"
-              title="Az-Zikra AI Syariah Assistant"
+              title="Tazkia AI Syariah Assistant"
             >
               <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
               <span className="hidden md:inline font-mono uppercase text-[10px] tracking-wider">AI Syariah</span>
@@ -412,7 +412,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   activeTab === 'sejarah' ? 'bg-emerald-700 text-white font-extrabold shadow-md' : isDark ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-100' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                 }`}
               >
-                <span>6. Sejarah Az-Zikra</span>
+                <span>6. Sejarah Tazkia</span>
                 <span className="text-[10px] font-mono font-normal opacity-70">Arsitektur & Tokoh</span>
               </button>
 
@@ -514,3 +514,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

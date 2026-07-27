@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   FinancialTransaction,
   InventoryItem,
@@ -209,7 +209,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [ancTitle, setAncTitle] = useState('');
   const [ancContent, setAncContent] = useState('');
   const [ancCategory, setAncCategory] = useState<'Penting' | 'Kajian' | 'Kegiatan' | 'Keuangan'>('Kajian');
-  const [ancAuthor, setAncAuthor] = useState('Pengurus DKM Az-Zikra');
+  const [ancAuthor, setAncAuthor] = useState('Pengurus DKM Tazkia');
   const [ancImageUrl, setAncImageUrl] = useState('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80');
 
   // Admin Settings Image States
@@ -246,7 +246,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
       category: newTrxCategory,
       amount: newTrxAmount,
       date: new Date().toISOString().split('T')[0],
-      description: newTrxDesc || 'Pencatatan DKM Az-Zikra',
+      description: newTrxDesc || 'Pencatatan DKM Tazkia',
       proofUrl: newTrxProofUrl
     });
     setNewTrxTitle('');
@@ -315,7 +315,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     if (!progTitle) return;
     onAddProgram({
       title: progTitle,
-      subtitle: progSubtitle || 'Program Kebaikan DKM Az-Zikra',
+      subtitle: progSubtitle || 'Program Kebaikan DKM Tazkia',
       category: progCategory,
       targetAmount: progTarget,
       imageUrl: progImageUrl || 'https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80',
@@ -332,7 +332,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
       title: ancTitle,
       content: ancContent,
       category: ancCategory,
-      author: ancAuthor || 'Pengurus DKM Az-Zikra',
+      author: ancAuthor || 'Pengurus DKM Tazkia',
       imageUrl: ancImageUrl,
       isPinned: true
     });
@@ -355,10 +355,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const handleSendWaBroadcast = () => {
     if (!broadcastMessage) return;
     const text = encodeURIComponent(
-      `📢 *BROADCAST RESMI MASJID AZ-ZIKRA SENTUL*\n` +
+      `📢 *BROADCAST RESMI Masjid Tazkia*\n` +
       `*${broadcastTitle || 'Pengumuman Jamaah'}*\n\n` +
       `${broadcastMessage}\n\n` +
-      `_Pesan otomatis dikirim oleh Portal DKM Masjid Az-Zikra Sentul._`
+      `_Pesan otomatis dikirim oleh Portal DKM Masjid Tazkia._`
     );
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
@@ -399,7 +399,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl sm:text-2xl font-serif font-bold text-white">
-                  Portal Admin & Pengurus DKM Az-Zikra Sentul
+                  Portal Admin & Pengurus DKM Tazkia Sentul
                 </h2>
                 <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
                   Role: Pengurus / Administrator
@@ -1479,7 +1479,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
                 <div className="space-y-3 text-xs">
                   {[
-                    { key: 'showAiAssistant', label: 'Modul Az-Zikra AI Syariah Assistant (Gemini 2.5)', desc: 'Menampilkan tombol asisten konsultasi fiqih AI di navigasi.' },
+                    { key: 'showAiAssistant', label: 'Modul Tazkia AI Syariah Assistant (Gemini 2.5)', desc: 'Menampilkan tombol asisten konsultasi fiqih AI di navigasi.' },
                     { key: 'showTvSignageOption', label: 'Modul Mode Display TV Signage Masjid', desc: 'Menampilkan opsi layar penuh jadwal jam shalat TV masjid.' },
                     { key: 'showQuranModule', label: 'Modul Digital Ibadah (Al-Qur\'an, Shalat, Doa)', desc: 'Menyediakan fitur membaca surah mp3 & jadwal shalat.' },
                     { key: 'showLiveMutations', label: 'Stream Live Mutasi Kas Transparansi', desc: 'Menampilkan tabel live pencatatan keuangan ke publik.' },
@@ -2604,4 +2604,5 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     </section>
   );
 };
+
 

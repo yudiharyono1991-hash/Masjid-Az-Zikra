@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useMasjidStore } from './lib/store';
 import { Program, ProgramCategory } from './types';
 import { Navbar } from './components/Navbar';
@@ -10,7 +10,7 @@ import { DigitalIbadahModal } from './components/DigitalIbadahModal';
 import { TransparencySection } from './components/TransparencySection';
 import { PengurusDkmDashboard } from './components/PengurusDkmDashboard';
 import { TvDisplayMode } from './components/TvDisplayMode';
-import { AzZikraAiAssistantModal } from './components/AzZikraAiAssistantModal';
+import { TazkiaAiAssistantModal } from './components/TazkiaAiAssistantModal';
 import { SupabaseConfigModal } from './components/SupabaseConfigModal';
 import { LoginModal } from './components/LoginModal';
 import { CatalogPdfModal } from './components/CatalogPdfModal';
@@ -19,7 +19,7 @@ import { ProgramDetailModal } from './components/ProgramDetailModal';
 import { EdukasiZiswafSection } from './components/EdukasiZiswafSection';
 import { FridayAgendaSection } from './components/FridayAgendaSection';
 import { PatunganQurbanSection } from './components/PatunganQurbanSection';
-import { SejarahAzzikraSection } from './components/SejarahAzzikraSection';
+import { SejarahTazkiaSection } from './components/SejarahTazkiaSection';
 import { SocialMediaSection } from './components/SocialMediaSection';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
@@ -170,7 +170,7 @@ export default function App() {
               session={state.session}
             />
 
-            <SejarahAzzikraSection isDark={isDark} />
+            <SejarahTazkiaSection isDark={isDark} />
 
             <EdukasiZiswafSection
               isDark={isDark}
@@ -232,7 +232,7 @@ export default function App() {
         )}
 
         {activeTab === 'sejarah' && (
-          <SejarahAzzikraSection isDark={isDark} />
+          <SejarahTazkiaSection isDark={isDark} />
         )}
 
         {activeTab === 'edukasi' && (
@@ -329,7 +329,7 @@ export default function App() {
         initialTab={digitalIbadahTab}
       />
 
-      <AzZikraAiAssistantModal
+      <TazkiaAiAssistantModal
         isOpen={aiAssistantOpen}
         onClose={() => setAiAssistantOpen(false)}
       />
@@ -385,3 +385,4 @@ export default function App() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { CITIES_DATA, getHijriDate, CityPrayerTime } from '../lib/islamicUtils';
 import { Announcement, PetugasJadwal, AppAdminSettings } from '../types';
 import { Tv, X, Volume2, Calendar, MapPin, Sparkles } from 'lucide-react';
@@ -48,7 +48,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-wide">
-              MASJID AZ-ZIKRA SENTUL
+              Masjid Tazkia
             </h1>
             <p className="text-xs text-amber-400 font-medium flex items-center gap-2">
               <MapPin className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
               Wakaf Tunai Sound System & Akustik Ruang Shalat Utama
             </h2>
             <p className="text-emerald-300 text-base max-w-2xl mx-auto">
-              Dukung pengadaan tata suara jernih kristal untuk kekhusyu'an ibadah jamaah Masjid Az-Zikra.
+              Dukung pengadaan tata suara jernih kristal untuk kekhusyu'an ibadah jamaah Masjid Tazkia.
             </p>
             <p className="text-amber-400 font-mono font-bold text-xl">
               Terkumpul: Rp 8.25M / Target: Rp 15M
@@ -172,10 +172,11 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
           <div className="inline-block animate-marquee text-xs font-medium text-amber-300 space-x-8">
             <span>✨ Harap mematikan atau mengheningkan nada dering ponsel saat berada di ruang shalat utama.</span>
             <span>✨ Kajian Subuh Berkah setiap hari Sabtu bersama KH. Ridwan Kamil, Lc.</span>
-            <span>✨ Salurkan ZISWAF Anda melalui Portal Digital Masjid Az-Zikra atau Sekertariat DKM.</span>
+            <span>✨ Salurkan ZISWAF Anda melalui Portal Digital Masjid Tazkia atau Sekertariat DKM.</span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+

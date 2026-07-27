@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { FinancialTransaction, PetugasJadwal } from '../types';
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -109,7 +109,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
           <div className="bg-gradient-to-r from-[#064E3B] via-[#022C22] to-[#064E3B] text-white border-2 border-amber-400/80 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
             <div className="space-y-2 text-center md:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-mono font-bold uppercase tracking-[0.2em]">
-                <Calendar className="w-3.5 h-3.5 text-amber-300" /> JADWAL KHATIB & IMAM JUMAT AZ-ZIKRA SENTUL
+                <Calendar className="w-3.5 h-3.5 text-amber-300" /> JADWAL KHATIB & IMAM JUMAT Tazkia SENTUL
               </div>
               <h3 className="text-xl sm:text-3xl font-serif text-white">
                 "{nextFriday.topikJumat || 'Pentingnya Keberkahan Rezeki dalam ZISWAF'}"
@@ -215,3 +215,4 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
     </section>
   );
 };
+

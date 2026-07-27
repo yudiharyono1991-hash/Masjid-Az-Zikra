@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { BookOpen, Calculator, CheckCircle2, ShieldAlert, Sparkles, HelpCircle, HeartHandshake, FileText, ArrowRight } from 'lucide-react';
 
 interface EdukasiZiswafSectionProps {
@@ -48,7 +48,7 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
       kinds: [
         {
           name: 'Infaq Operasional Masjid',
-          desc: 'Membantu biaya listrik, pemeliharaan AC, kebersihan, dan kenyamanan ibadah di Masjid Az-Zikra.'
+          desc: 'Membantu biaya listrik, pemeliharaan AC, kebersihan, dan kenyamanan ibadah di Masjid Tazkia.'
         },
         {
           name: 'Infaq Jumat Khusus',
@@ -100,7 +100,7 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
         },
         {
           name: 'Wakaf Tanah / Bangunan',
-          desc: 'Wakaf lahan perluasan masjid, gedung Rumah Tahfidz, dan Mualaf Center Az-Zikra.'
+          desc: 'Wakaf lahan perluasan masjid, gedung Rumah Tahfidz, dan Mualaf Center Tazkia.'
         }
       ]
     },
@@ -319,3 +319,4 @@ export const EdukasiZiswafSection: React.FC<EdukasiZiswafSectionProps> = ({
     </section>
   );
 };
+

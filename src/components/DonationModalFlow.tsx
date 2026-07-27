@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Program, ProgramCategory, DonationRecord, AppAdminSettings } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import confetti from 'canvas-confetti';
@@ -73,8 +73,8 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
   // Default fallback images from admin settings
   const qrisImage = adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
-  const bsiAccount = adminSettings?.bankAccountBsi || '7130-2498-17 (a.n. DKM Masjid Az-Zikra ZISWAF)';
-  const bcaAccount = adminSettings?.bankAccountBca || '8820-1192-33 (a.n. Yayasan Az-Zikra Sentul)';
+  const bsiAccount = adminSettings?.bankAccountBsi || '7130-2498-17 (a.n. DKM Masjid Tazkia ZISWAF)';
+  const bcaAccount = adminSettings?.bankAccountBca || '8820-1192-33 (a.n. Yayasan Tazkia Sentul)';
 
   useEffect(() => {
     if (initialProgram) {
@@ -143,7 +143,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
     const donationData = {
       programId: selectedProgram?.id || 'prog-gen',
-      programTitle: `${selectedProgram?.title || 'Donasi ZISWAF Az-Zikra'} (${infaqPurpose})`,
+      programTitle: `${selectedProgram?.title || 'Donasi ZISWAF Tazkia'} (${infaqPurpose})`,
       category: selectedCategory,
       amount,
       uniqueCode,
@@ -180,7 +180,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   };
 
   const waReceiptText = encodeURIComponent(
-    `Assalamu'alaikum Pengurus DKM Masjid Az-Zikra Sentul,\n\nSaya telah menunaikan Infaq/Donasi ZISWAF:\n` +
+    `Assalamu'alaikum Pengurus DKM Masjid Tazkia,\n\nSaya telah menunaikan Infaq/Donasi ZISWAF:\n` +
     `📌 Kode Transaksi: ${createdRecord?.transactionRef}\n` +
     `📌 Peruntukan: ${createdRecord?.programTitle}\n` +
     `📌 Nominal: ${formatRupiahFull(createdRecord?.totalAmount || 0)}\n` +
@@ -203,7 +203,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold font-serif text-white flex items-center gap-2">
-                <span>Layanan Donasi & Infaq Az-Zikra</span>
+                <span>Layanan Donasi & Infaq Tazkia</span>
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
               </h3>
               <p className="text-xs text-emerald-400">
@@ -499,7 +499,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     <div className="p-3 bg-white rounded-2xl inline-block shadow-xl border-2 border-amber-400 relative group">
                       <img
                         src={qrisImage}
-                        alt="Barcode QRIS Masjid Az-Zikra"
+                        alt="Barcode QRIS Masjid Tazkia"
                         className="w-48 h-48 object-contain cursor-pointer"
                         onClick={() => setZoomQrisModal(true)}
                       />
@@ -512,7 +512,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     </div>
 
                     <p className="text-[11px] text-emerald-300 font-mono">
-                      Merchant: MASJID AZ-ZIKRA SENTUL QRIS NASIONAL (NMID: ID10200394819)
+                      Merchant: Masjid Tazkia QRIS NASIONAL (NMID: ID10200394819)
                     </p>
                   </div>
                 )}
@@ -570,7 +570,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       </span>
                       <button
                         type="button"
-                        onClick={() => handleCopyAccount('0812-9876-5432 (a.n. DKM Az-Zikra)', 'EWALLET')}
+                        onClick={() => handleCopyAccount('0812-9876-5432 (a.n. DKM Tazkia)', 'EWALLET')}
                         className="bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                       >
                         {copiedAccount === 'EWALLET' ? <Check className="w-3.5 h-3.5 text-amber-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -578,7 +578,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                       </button>
                     </div>
                     <div className="bg-emerald-900 p-3 rounded-xl border border-emerald-800 font-mono text-sm text-amber-400 font-bold">
-                      0812-9876-5432 (a.n. Bendahara DKM Az-Zikra)
+                      0812-9876-5432 (a.n. Bendahara DKM Tazkia)
                     </div>
                   </div>
                 )}
@@ -704,7 +704,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                   Jazakallahu Khairan Katsiran!
                 </h4>
                 <p className="text-xs text-emerald-300 mt-1">
-                  Infaq & Donasi Anda telah tercatat secara sah di database resmi DKM Masjid Az-Zikra Sentul.
+                  Infaq & Donasi Anda telah tercatat secara sah di database resmi DKM Masjid Tazkia.
                 </p>
               </div>
 
@@ -798,7 +798,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
             <h4 className="font-serif font-bold text-white text-base flex items-center justify-center gap-2">
               <QrCode className="w-5 h-5 text-emerald-400" />
-              <span>Barcode QRIS Resmi Masjid Az-Zikra Sentul</span>
+              <span>Barcode QRIS Resmi Masjid Tazkia</span>
             </h4>
 
             <div className="p-4 bg-white rounded-2xl border-2 border-amber-400 inline-block shadow-2xl">
@@ -837,3 +837,4 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
     </div>
   );
 };
+

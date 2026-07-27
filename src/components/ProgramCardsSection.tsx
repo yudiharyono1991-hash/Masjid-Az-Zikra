@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Program, ProgramCategory } from '../types';
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -62,7 +62,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
         {/* Hero Title & Headline */}
         <div className={`text-center max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-8 border-b transition-colors ${isDark ? "border-emerald-800/50" : "border-emerald-200"}`}>
           <div className="inline-block px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full shadow-sm">
-            Ekosistem Digital Masjid Az-Zikra Sentul
+            Ekosistem Digital Masjid Tazkia
           </div>
 
           <h1 className={`text-2xl sm:text-5xl lg:text-6xl font-serif leading-snug sm:leading-[1.15] tracking-tight drop-shadow-lg transition-colors ${isDark ? "text-white" : "text-emerald-950"}`}>
@@ -73,9 +73,9 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
           </h1>
 
           <p className={`text-xs sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans px-2 transition-colors ${isDark ? "text-emerald-100" : "text-emerald-700"}`}>
-            Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Az-Zikra Sentul untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
+            Salurkan Zakat, Infaq, Shadaqah, dan Wakaf Anda secara transparan di Masjid Tazkia untuk dakwah, pendidikan pesantren, dan pemberdayaan ekonomi umat.
             <span className="block mt-1.5 font-bold text-amber-300 font-mono text-[10px] sm:text-xs tracking-wider">
-              #ZISWAFMasjidAzZikraSentul
+              #ZISWAFMasjidTazkiaSentul
             </span>
           </p>
 
@@ -267,3 +267,4 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
     </section>
   );
 };
+

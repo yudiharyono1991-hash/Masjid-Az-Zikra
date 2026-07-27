@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+﻿import React, { useRef, useState } from 'react';
 import { Download, FileText, CheckCircle2, ShieldCheck, Smartphone, Monitor, Server, Sparkles, X, Printer, ChevronRight, Layers, Database, AlertCircle, Edit3, History } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -59,7 +59,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
 
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = 'Katalog_Perancangan_Aplikasi_Masjid_AzZikra_Sentul.pdf';
+      link.download = 'Katalog_Perancangan_Aplikasi_Masjid_Tazkia_Sentul.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -88,7 +88,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Perancangan Platform Digital Masjid Az-Zikra Sentul</title>
+  <title>Katalog Perancangan Platform Digital Masjid Tazkia</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @media print {
@@ -102,7 +102,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
 <body class="bg-stone-50 min-h-screen">
   <div class="no-print max-w-[800px] mx-auto bg-[#064E3B] text-white p-5 rounded-2xl mb-6 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
     <div>
-      <h2 class="font-bold text-base">📄 Dokumen Resmi Katalog Perancangan Aplikasi Masjid Az-Zikra Sentul</h2>
+      <h2 class="font-bold text-base">📄 Dokumen Resmi Katalog Perancangan Aplikasi Masjid Tazkia</h2>
       <p class="text-xs text-white/80 mt-1">
         Tekan <strong>Ctrl + P</strong> (Cmd + P di Mac) lalu pilih Destination <strong>"Save as PDF"</strong> untuk menyimpan sebagai PDF.
       </p>
@@ -122,7 +122,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Katalog_Perancangan_Aplikasi_Masjid_AzZikra_Sentul.html';
+    a.download = 'Katalog_Perancangan_Aplikasi_Masjid_Tazkia_Sentul.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -140,7 +140,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
         <!DOCTYPE html>
         <html>
           <head>
-            <title>Katalog Perancangan Aplikasi Masjid Az-Zikra Sentul</title>
+            <title>Katalog Perancangan Aplikasi Masjid Tazkia</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <style>
               @media print {
@@ -192,7 +192,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                 Katalog Perancangan & Lembar Persetujuan / Coretan Pemesan
               </h2>
               <p className="text-[11px] font-mono text-emerald-200 uppercase tracking-widest">
-                Masjid Az-Zikra Sentul &bull; Dokumen Evaluasi &amp; Penyesuaian Fitur
+                Masjid Tazkia &bull; Dokumen Evaluasi &amp; Penyesuaian Fitur
               </p>
             </div>
           </div>
@@ -266,16 +266,16 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-emerald-900 leading-tight">
                   Katalog Perancangan Platform Digital <br />
-                  <span className="font-serif italic text-[#064E3B]">Masjid Az-Zikra Sentul</span>
+                  <span className="font-serif italic text-[#064E3B]">Masjid Tazkia</span>
                 </h1>
                 <p className="text-xs text-emerald-600 mt-2 font-mono">
-                  Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Kab. Bogor, Jawa Barat
+                  Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
                 </p>
               </div>
 
               <div className="text-left sm:text-right font-mono text-[11px] text-emerald-600 space-y-1 bg-emerald-50 p-3 rounded-xl border border-emerald-200">
                 <p className="font-bold text-[#064E3B]">REVISI PERANCANGAN: 2026-07-26</p>
-                <p>KODE MODUL: AZZIKRA-ENT-2026</p>
+                <p>KODE MODUL: Tazkia-ENT-2026</p>
                 <p>LEMBAR CORETAN: DAPAT DICETAK &amp; DITANDATANGANI</p>
               </div>
             </div>
@@ -291,16 +291,16 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
               </p>
             </div>
 
-            {/* SECTION 1: MENELUSURI SEJARAH MASJID AZ-ZIKRA */}
+            {/* SECTION 1: MENELUSURI SEJARAH Masjid Tazkia */}
             <div className="space-y-3">
               <h2 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#064E3B] border-b border-emerald-200 pb-1.5 flex items-center gap-2">
                 <History className="w-4 h-4 text-[#064E3B]" />
-                1. Modul Menelusuri Sejarah Masjid Az-Zikra Sentul
+                1. Modul Menelusuri Sejarah Masjid Tazkia
               </h2>
               <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs">
                 <p className="font-bold text-emerald-900 font-serif">A. Profil Sejarah & Warisan KH. Muhammad Arifin Ilham</p>
                 <p className="text-emerald-600 leading-relaxed">
-                  Menampilkan sejarah pendirian Masjid Az-Zikra di lahan 5 hektar Kampung Sunnah Bukit Sentul, biografi KH. Muhammad Arifin Ilham, 7 Sunnah Harian, tradisi Majelis Zikir Akbar, Pesantren Tahfidz, dan Muallaf Center.
+                  Menampilkan sejarah pendirian Masjid Tazkia di lahan 5 hektar Kampung Sunnah Bukit Sentul, biografi KH. Muhammad Arifin Ilham, 7 Sunnah Harian, tradisi Majelis Zikir Akbar, Pesantren Tahfidz, dan Muallaf Center.
                 </p>
                 <div className="pt-2 border-t border-emerald-200 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px]">
                   <div className="flex gap-4">
@@ -351,7 +351,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                     desc: 'Modul edukasi lengkap rukun zakat, nisab, haul, adab berinfak, serta konsultasi fiqih syariah.'
                   },
                   {
-                    title: 'H. Asisten AI Syariah Gemini (Az-Zikra AI Consultation)',
+                    title: 'H. Asisten AI Syariah Gemini (Tazkia AI Consultation)',
                     desc: 'Asisten kecerdasan buatan Gemini untuk menjawab pertanyaan zakat, waris, dan jadwal kegiatan masjid 24/7.'
                   },
                   {
@@ -430,7 +430,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
             <div className="p-5 bg-[#064E3B] text-white rounded-2xl space-y-4">
               <div className="flex justify-between items-center border-b border-emerald-700 pb-2">
                 <span className="font-mono font-bold text-xs uppercase tracking-widest text-emerald-200">
-                  LEMBAR LEMBAR TANDA TANGAN &amp; PERSETUJUAN
+                  LEMBAR TANDA TANGAN &amp; PERSETUJUAN
                 </span>
                 <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-amber-300">
                   AKAD DEPLOYMENT SYARIAH
@@ -443,14 +443,14 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                 </div>
                 <div className="space-y-8 text-right">
                   <p className="font-bold text-white">Penerima Pemesan Aplikasi:</p>
-                  <p className="border-t border-emerald-600 pt-1 text-emerald-200">DKM / Yayasan Masjid Az-Zikra Sentul</p>
+                  <p className="border-t border-emerald-600 pt-1 text-emerald-200">Syaripudin Kusin (Ketua DKM Tazkia)</p>
                 </div>
               </div>
             </div>
 
             {/* Footer Notice */}
             <div className="text-center font-mono text-[10px] text-emerald-500 pt-4 border-t border-emerald-200">
-              © 2026 Masjid Az-Zikra. All Rights Reserved. &bull; Kampung Sunnah Az-Zikra, Bukit Sentul, Babakan Madang, Kabupaten Bogor
+              © 2026 Masjid Tazkia. All Rights Reserved. &bull; Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
             </div>
           </div>
         </div>

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { BookOpen, Award, Compass, Heart, MapPin, Sparkles, History, Users, ShieldCheck } from 'lucide-react';
 
-interface SejarahAzzikraSectionProps {
+interface SejarahTazkiaSectionProps {
   isDark?: boolean;
 }
 
-export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ isDark = false }) => {
+export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDark = false }) => {
   const [activeTab, setActiveTab] = useState<'sejarah' | 'arsitektur' | 'kegiatan' | 'pendiri'>('sejarah');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -34,11 +34,11 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-emerald-900 dark:text-white leading-tight">
             Menelusuri Sejarah & Keagungan <br />
-            <span className="italic text-emerald-700 dark:text-emerald-400">Masjid Az-Zikra Sentul</span>
+            <span className="italic text-emerald-700 dark:text-emerald-400">Masjid Tazkia</span>
           </h2>
 
           <p className="text-sm sm:text-base text-emerald-600 dark:text-emerald-300 leading-relaxed font-sans">
-            Pusat Zikir Akbar, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kampung Sunnah Az-Zikra, Bukit Sentul, Kabupaten Bogor.
+            Pusat Zikir Akbar, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kampung Sunnah Tazkia, Bukit Sentul, Kabupaten Bogor.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
               <div>
                 <h4 className="font-serif font-bold text-emerald-900 dark:text-white text-base">Lokasi Strategis</h4>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 leading-relaxed">
-                  Kampung Sunnah Az-Zikra, Perumahan Bukit Sentul, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
+                  Kampung Sunnah Tazkia, Perumahan Bukit Sentul, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-bold text-emerald-900 dark:text-white">
-                    Awal Mula Pendirian Masjid Az-Zikra Sentul
+                    Awal Mula Pendirian Masjid Tazkia
                   </h3>
                   <p className="text-xs text-emerald-500 font-mono">Pusat Dakwah & Zikir Akbar Sejak Tahun 2009</p>
                 </div>
@@ -141,10 +141,10 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
 
               <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed space-y-3 font-sans">
                 <p>
-                  Masjid Az-Zikra Sentul dibangun atas prakarsa almarhum KH. Muhammad Arifin Ilham bersama Yayasan Majelis Az-Zikra. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah zikir yang selalu memadati kegiatan Zikir Akbar bulanan.
+                  Masjid Tazkia dibangun atas prakarsa almarhum KH. Muhammad Arifin Ilham bersama Yayasan Majelis Tazkia. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah zikir yang selalu memadati kegiatan Zikir Akbar bulanan.
                 </p>
                 <p>
-                  Dengan dukungan dari para donatur internasional, pemerintah, serta jamaah Majelis Az-Zikra, kompleks masjid ini diresmikan di kawasan Bukit Sentul, Cipambuan, Babakan Madang, Kabupaten Bogor. Kawasan ini kemudian berkembang menjadi **Kampung Sunnah Az-Zikra**, sebuah pemukiman islami yang dikembangkan dengan mengedepankan nilai-nilai kedamaian, persaudaraan, dan pengamalan sunnah Rasulullah SAW.
+                  Dengan dukungan dari para donatur internasional, pemerintah, serta jamaah Majelis Tazkia, kompleks masjid ini diresmikan di kawasan Bukit Sentul, Cipambuan, Babakan Madang, Kabupaten Bogor. Kawasan ini kemudian berkembang menjadi **Kampung Sunnah Tazkia**, sebuah pemukiman islami yang dikembangkan dengan mengedepankan nilai-nilai kedamaian, persaudaraan, dan pengamalan sunnah Rasulullah SAW.
                 </p>
               </div>
 
@@ -187,12 +187,12 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   KH. Muhammad Arifin Ilham dikenal dengan kelembutan tutur kata dan seruan zikirnya yang menggetarkan hati jutaan umat Islam di Indonesia. Beliau mempopulerkan gerakan Zikir Bersama yang dihadiri oleh berbagai lapisan masyarakat, pejabat, ulama, hingga rakyat biasa tanpa sekat.
                 </p>
                 <p>
-                  Pesan mendalam beliau yang selalu diwariskan kepada jamaah Az-Zikra adalah menjaga 7 Sunnah Harian Rasulullah SAW: Shalat Tahajjud, Membaca Al-Qur'an, Shalat Berjamaah di Masjid, Shalat Dhuha, Bersedekah, Menjaga Wudhu, dan Selalu Berzikir.
+                  Pesan mendalam beliau yang selalu diwariskan kepada jamaah Tazkia adalah menjaga 7 Sunnah Harian Rasulullah SAW: Shalat Tahajjud, Membaca Al-Qur'an, Shalat Berjamaah di Masjid, Shalat Dhuha, Bersedekah, Menjaga Wudhu, dan Selalu Berzikir.
                 </p>
               </div>
 
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-900 dark:text-amber-200 space-y-1">
-                <p className="font-bold font-serif text-sm">7 Sunnah Harian Istiqamah Majelis Az-Zikra:</p>
+                <p className="font-bold font-serif text-sm">7 Sunnah Harian Istiqamah Majelis Tazkia:</p>
                 <p className="text-[11px] leading-relaxed">
                   1. Shalat Tahajjud &bull; 2. Membaca & Merenungkan Al-Qur'an &bull; 3. Shalat Berjamaah Awal Waktu di Masjid &bull; 4. Shalat Dhuha &bull; 5. Sedekah Harian &bull; 6. Menjaga Wudhu &bull; 7. Istighfar & Zikir Setiap Saat.
                 </p>
@@ -216,7 +216,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
 
               <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed space-y-3 font-sans">
                 <p>
-                  Warna dominan **putih bersih** menjadi ciri khas visual Masjid Az-Zikra Sentul. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam zikir.
+                  Warna dominan **putih bersih** menjadi ciri khas visual Masjid Tazkia. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam zikir.
                 </p>
                 <p>
                   Bangunan utama memiliki kubah raksasa berwarna putih bersih, dikelilingi ornamen kaligrafi Arab yang indah. Menara azan setinggi 50 meter berdiri menjulang di samping masjid, menjadi landmark megah di wilayah Sentul Bogor. Interior ruang shalat dilapisi lantai marmer putih dingin dengan sirkulasi udara alami yang segar.
@@ -247,7 +247,7 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-stone-50 dark:bg-emerald-950 space-y-1.5">
-                  <h4 className="font-bold text-emerald-900 dark:text-white font-serif text-sm">Pondok Pesantren Az-Zikra</h4>
+                  <h4 className="font-bold text-emerald-900 dark:text-white font-serif text-sm">Pondok Pesantren Tazkia</h4>
                   <p className="text-emerald-600 dark:text-emerald-400 leading-relaxed">
                     Mendidik ratusan santri penghafal Al-Qur'an (Tahfidz) dan kader ustadz yang dibekali akhlakul karimah serta jiwa kewirausahaan syariah.
                   </p>
@@ -260,3 +260,4 @@ export const SejarahAzzikraSection: React.FC<SejarahAzzikraSectionProps> = ({ is
     </section>
   );
 };
+

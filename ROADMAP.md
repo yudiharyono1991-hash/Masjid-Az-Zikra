@@ -1,7 +1,7 @@
-# Roadmap Pengembangan Aplikasi Masjid Az-Zikra
+﻿# Roadmap Pengembangan Aplikasi Masjid Tazkia
 
 ## Ringkasan Aplikasi
-Aplikasi ini dirancang sebagai platform digital untuk Masjid Az-Zikra Sentul yang menggabungkan:
+Aplikasi ini dirancang sebagai platform digital untuk Masjid Tazkia yang menggabungkan:
 - Portal donasi ZISWAF, zakat, infaq, wakaf, dan qurban.
 - Kalkulator Zakat dan ZISWAF.
 - Digital Ibadah: Al-Qur'an, jadwal shalat, arah kiblat, doa.
@@ -68,3 +68,4 @@ Fitur inti yang ada dalam proyek:
 - Stack utama: React 19, Vite 6, Tailwind CSS, Supabase, Express, Gemini AI.
 - Pastikan `GEMINI_API_KEY` tersedia untuk fitur AI.
 - Jalankan dengan `npm install` dan `npm run dev`.
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Program } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import { X, Heart, Users, Target, ShieldCheck, CheckCircle2, Sparkles, MapPin, Calendar, Share2 } from 'lucide-react';
@@ -20,7 +20,7 @@ export const ProgramDetailModal: React.FC<ProgramDetailModalProps> = ({
     if (navigator.share) {
       navigator.share({
         title: program.title,
-        text: `${program.title} - ${program.subtitle}. Mari berwakaf & berinfaq melalui DKM Masjid Az-Zikra.`,
+        text: `${program.title} - ${program.subtitle}. Mari berwakaf & berinfaq melalui DKM Masjid Tazkia.`,
         url: window.location.href,
       }).catch(() => {});
     } else {
@@ -142,7 +142,7 @@ export const ProgramDetailModal: React.FC<ProgramDetailModalProps> = ({
                 <MapPin className="w-5 h-5 text-amber-300 shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs text-emerald-200/70 block font-mono uppercase">Lokasi Pelaksanaan:</span>
-                  <span className="text-xs font-bold text-white">Kompleks Masjid Az-Zikra Sentul</span>
+                  <span className="text-xs font-bold text-white">Kompleks Masjid Tazkia</span>
                 </div>
               </div>
 
@@ -201,3 +201,4 @@ export const ProgramDetailModal: React.FC<ProgramDetailModalProps> = ({
     </div>
   );
 };
+

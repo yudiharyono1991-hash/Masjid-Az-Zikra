@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { PetugasJadwal } from '../types';
 import { Calendar, UserCheck, Mic, Clock, Sparkles, BookOpen, Share2, CheckCircle2, ShieldAlert, Volume2 } from 'lucide-react';
 
@@ -26,9 +26,9 @@ export const FridayAgendaSection: React.FC<FridayAgendaSectionProps> = ({
   };
 
   const handleShare = () => {
-    const text = `Agenda Shalat Jumat Masjid Az-Zikra Sentul:\n📅 ${currentFriday.date}\n🎙️ Khatib: ${currentFriday.khatibJumat}\n📖 Imam: ${currentFriday.imamJumat}\n📢 Topik: "${currentFriday.topikJumat}"`;
+    const text = `Agenda Shalat Jumat Masjid Tazkia:\n📅 ${currentFriday.date}\n🎙️ Khatib: ${currentFriday.khatibJumat}\n📖 Imam: ${currentFriday.imamJumat}\n📢 Topik: "${currentFriday.topikJumat}"`;
     if (navigator.share) {
-      navigator.share({ title: 'Agenda Jumat Masjid Az-Zikra Sentul', text, url: window.location.href }).catch(() => {});
+      navigator.share({ title: 'Agenda Jumat Masjid Tazkia', text, url: window.location.href }).catch(() => {});
     } else {
       navigator.clipboard.writeText(text);
       alert('Agenda Jumat berhasil disalin ke papan klip!');
@@ -47,7 +47,7 @@ export const FridayAgendaSection: React.FC<FridayAgendaSectionProps> = ({
               <span>Jadwal Ibadah & Khutbah Jumat</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-white mt-2">
-              Agenda Shalat Jumat Masjid Az-Zikra
+              Agenda Shalat Jumat Masjid Tazkia
             </h2>
             <p className="text-xs sm:text-sm text-emerald-100/80 mt-1">
               Informasi lengkap Khatib, Imam, Muadzin, Bilal, serta Tema Khutbah Jumat pekan ini.
@@ -197,3 +197,4 @@ export const FridayAgendaSection: React.FC<FridayAgendaSectionProps> = ({
     </section>
   );
 };
+
