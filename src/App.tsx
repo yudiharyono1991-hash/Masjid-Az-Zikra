@@ -123,8 +123,8 @@ export default function App() {
   // Theme Mode & Palette styling
   const isDark = state.themeMode === 'dark';
   const themeContainerBg = isDark
-    ? 'bg-[#172554] text-blue-100 dark'
-    : 'bg-[#F4FBF7] text-blue-900';
+    ? 'bg-[#040814] text-blue-100 dark'
+    : 'bg-[#F9F8F4] text-blue-900';
 
   return (
     <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-blue-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>

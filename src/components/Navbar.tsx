@@ -61,11 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = themeMode === 'dark';
 
   return (
-    <header className={`sticky top-0 z-40 backdrop-blur-md transition-colors duration-300 ${
-      isDark
-        ? 'bg-[#172554]/95 text-white border-b border-blue-900/60'
+      <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md ${
+        isDark 
+        ? 'bg-[#172554]/95 text-white border-b border-blue-900/60' 
         : 'bg-white/95 text-blue-900 border-b border-blue-200'
-    }`}>
+      }`}>
       {/* Top Quick Announcement Bar */}
       <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-xs flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none ${
         isDark ? 'bg-[#172554] border-blue-900 text-blue-100' : 'bg-blue-50 border-blue-200 text-blue-900'

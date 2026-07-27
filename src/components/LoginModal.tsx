@@ -109,7 +109,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <label className="text-xs font-semibold text-blue-800 block">
                   Pilih Akses Peran (Role):
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => {
@@ -119,7 +119,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                       role === 'jamaah'
                         ? 'bg-amber-400 text-blue-950 border-amber-500'
-                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'
+                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700'
                     }`}
                   >
                     Jamaah Umum
@@ -127,58 +127,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      setRole('ketua_dkm');
-                      setName('Syaripudin Kusin');
+                      setRole('admin_masjid');
+                      setName('Petugas Masjid Tazkia');
                     }}
                     className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      role === 'ketua_dkm'
+                      role === 'admin_masjid'
                         ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'
+                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700'
                     }`}
                   >
-                    Ketua DKM
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRole('bendahara');
-                      setName('Bendahara DKM');
-                    }}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      role === 'bendahara'
-                        ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'
-                    }`}
-                  >
-                    Bendahara
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRole('penghimpunan');
-                      setName('Bagian Penghimpunan');
-                    }}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      role === 'penghimpunan'
-                        ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'
-                    }`}
-                  >
-                    Penghimpunan
-                  </button>
-                   <button
-                    type="button"
-                    onClick={() => {
-                      setRole('penyaluran');
-                      setName('Bagian Penyaluran');
-                    }}
-                    className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      role === 'penyaluran'
-                        ? 'bg-blue-600 text-white border-blue-700'
-                        : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'
-                    }`}
-                  >
-                    Penyaluran
+                    Petugas Masjid
                   </button>
                 </div>
               </div>
