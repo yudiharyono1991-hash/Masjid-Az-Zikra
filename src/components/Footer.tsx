@@ -17,7 +17,7 @@ interface FooterProps {
   openCalculator: () => void;
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
   openTvMode: () => void;
-  openCatalogPdf?: () => void;
+  session?: any;
   isDark?: boolean;
 }
 
@@ -26,22 +26,22 @@ export const Footer: React.FC<FooterProps> = ({
   openCalculator,
   openDigitalIbadah,
   openTvMode,
-  openCatalogPdf,
+  session,
   isDark = false
 }) => {
   return (
-    <footer className={`pt-16 pb-12 border-t transition-colors ${isDark ? 'bg-[#172554] text-white border-blue-900' : 'bg-stone-50 text-blue-900 border-blue-200'}`}>
+    <footer className="pt-16 pb-12 border-t transition-colors bg-[#172554] text-white border-[#172554]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
-            <TazkiaBrandLogo variant="navbar" isDark={isDark} />
+            <TazkiaBrandLogo variant="navbar" isDark={true} />
 
-            <p className={`text-xs leading-relaxed font-sans transition-colors ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
+            <p className="text-xs leading-relaxed font-sans text-blue-200">
               Pusat ibadah, ZISWAF transparan, dan pelayanan umat di Sentul City, Bogor.
             </p>
 
-            <div className={`pt-2 text-xs space-y-1.5 font-mono transition-colors ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
+            <div className="pt-2 text-xs space-y-1.5 font-mono text-blue-200">
               <p className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                 <span className="leading-snug">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia</span>
@@ -87,14 +87,6 @@ export const Footer: React.FC<FooterProps> = ({
                   <span>Jadwal Shalat & Adzan</span>
                 </button>
               </li>
-              {openCatalogPdf && (
-                <li>
-                  <button onClick={openCatalogPdf} className="hover:text-blue-300 transition-colors flex items-center gap-1.5 cursor-pointer text-blue-400 font-bold">
-                    <FileText className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Katalog Perancangan Aplikasi (PDF)</span>
-                  </button>
-                </li>
-              )}
             </ul>
           </div>
 
@@ -103,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-blue-800 pb-2">
               Program Operasional Masjid
             </h4>
-            <ul className={`space-y-2 text-xs font-medium transition-colors ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
+            <ul className="space-y-2 text-xs font-medium text-blue-200">
               <li>&bull; Santunan Yatim Piatu</li>
               <li>&bull; Wakaf Masjid</li>
               <li>&bull; Santunan Dhuafa</li>
@@ -115,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400 border-b border-blue-800 pb-2">
               Pengurus DKM
             </h4>
-            <div className={`space-y-2 text-xs transition-colors ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
+            <div className="space-y-2 text-xs text-blue-200">
               <p className="flex items-start gap-2">
                 <UserCheck className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                 <span>
@@ -133,25 +125,27 @@ export const Footer: React.FC<FooterProps> = ({
               </p>
             </div>
 
-            <button
-              onClick={openTvMode}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white font-mono font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all border border-blue-500/40 mt-4"
-            >
-              <span>Tampilkan Mode TV Masjid</span>
-            </button>
+            {session && ['admin_masjid', 'ketua_dkm', 'pengurus_dkm'].includes(session.role) && (
+              <button
+                onClick={openTvMode}
+                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-mono font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all border border-blue-500/40 mt-4"
+              >
+                <span>Tampilkan Mode TV Masjid</span>
+              </button>
+            )}
           </div>
         </div>
 
         {/* Bottom: Salam & Identitas Resmi */}
-        <div className={`rounded-2xl border p-6 space-y-4 ${isDark ? 'bg-blue-950/50 border-blue-800' : 'bg-white border-blue-200'}`}>
-          <p className={`text-sm font-serif italic leading-relaxed ${isDark ? 'text-amber-200' : 'text-blue-800'}`}>
+        <div className="rounded-2xl border p-6 space-y-4 bg-blue-950/50 border-blue-800">
+          <p className="text-sm font-serif italic leading-relaxed text-amber-200">
             Assalamu&apos;alaikum Warahmatullahi Wabarakatuh.
           </p>
-          <p className={`text-xs leading-relaxed ${isDark ? 'text-blue-300' : 'text-blue-700'}`}>
-            Aplikasi digital <strong>Masjid Tazkia</strong> hadir untuk memudahkan jamaah dalam ber-ZISWAF,
+          <p className="text-xs leading-relaxed text-blue-200">
+            Aplikasi digital <strong className="text-blue-100">Masjid Tazkia</strong> hadir untuk memudahkan jamaah dalam ber-ZISWAF,
             memantau transparansi keuangan, serta mengakses layanan ibadah dan informasi masjid secara modern dan amanah.
           </p>
-          <div className={`grid sm:grid-cols-2 gap-3 text-[11px] font-mono ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+          <div className="grid sm:grid-cols-2 gap-3 text-[11px] font-mono text-blue-300">
             <p><span className="text-amber-400 font-bold">Nama Masjid:</span> Masjid Tazkia</p>
             <p><span className="text-amber-400 font-bold">Direktur / Ketua DKM:</span> Syarifudin Kusin</p>
             <p className="sm:col-span-2"><span className="text-amber-400 font-bold">Alamat:</span> Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia</p>
@@ -160,7 +154,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        <div className="pt-4 border-t border-blue-800 flex flex-col sm:flex-row items-center justify-between text-xs text-blue-400 gap-4 text-center sm:text-left">
+        <div className="pt-4 border-t border-blue-800 flex flex-col items-center justify-center text-xs text-blue-400 text-center">
           <div className="space-y-1">
             <p className="font-semibold text-blue-200 tracking-wide text-xs sm:text-sm">
               &copy; 2026 Masjid Tazkia. All Rights Reserved.
@@ -168,13 +162,6 @@ export const Footer: React.FC<FooterProps> = ({
             <p className="text-[11px] text-blue-400">
               Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
             </p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-blue-400 font-mono text-[10px] font-bold uppercase tracking-wider bg-blue-900/80 px-4 py-2 rounded-xl border border-blue-800">
-            <span>ZISWAF</span>
-            <span className="opacity-40">&bull;</span>
-            <span>Al-Qur&apos;an Digital</span>
-            <span className="opacity-40">&bull;</span>
-            <span>Katalog PDF</span>
           </div>
         </div>
       </div>

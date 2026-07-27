@@ -62,15 +62,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = themeMode === 'dark';
 
   return (
-      <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md ${
-        isDark 
-        ? 'bg-[#172554]/95 text-white border-b border-blue-900/60' 
-        : 'bg-white/95 text-blue-900 border-b border-blue-200'
-      }`}>
+      <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md bg-[#172554]/95 text-white border-b border-[#172554]`}>
       {/* Top Quick Announcement Bar */}
-      <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-xs flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none ${
-        isDark ? 'bg-[#172554] border-blue-900 text-blue-100' : 'bg-blue-50 border-blue-200 text-blue-900'
-      }`}>
+      <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-[11px] flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none bg-[#1e3a8a] border-[#172554] text-blue-100`}>
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="bg-blue-700 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-widest font-mono shadow-sm">
             Official
@@ -96,14 +90,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Kiblat</span>
           </button>
           <span className="opacity-30">|</span>
-          <button
-            onClick={openTvMode}
-            className="text-amber-400 hover:bg-amber-500 hover:text-blue-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
-            title="Tampilan Layar TV Masjid"
-          >
-            <Tv className="w-3 h-3" />
-            <span className="hidden sm:inline">Display TV</span>
-          </button>
+          <span className="opacity-30">|</span>
+          {session && hasDkmPortalAccess(session.role) && (
+            <button
+              onClick={openTvMode}
+              className="text-amber-400 hover:bg-amber-500 hover:text-blue-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
+              title="Tampilan Layar TV Masjid"
+            >
+              <Tv className="w-3 h-3" />
+              <span className="hidden sm:inline">Display TV</span>
+            </button>
+          )}
 
           {/* Theme Mode Toggle Button (Light/Dark) */}
           <span className="opacity-30">|</span>
@@ -144,13 +141,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-1">
             <button
               onClick={() => setActiveTab('beranda')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'beranda'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
               }`}
             >
               Home
@@ -159,32 +156,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* ZISWAF Dropdown */}
             <div className="relative group">
               <button
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold flex items-center gap-1 ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['program', 'qurban', 'transparansi', 'edukasi'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                    : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
                 }`}
               >
                 ZISWAF <ChevronDown className="w-4 h-4" />
               </button>
-              <div className={`absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 ${
-                isDark ? 'bg-[#1e3a8a] border-blue-800' : 'bg-white border-blue-100'
-              }`}>
+              <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => setActiveTab('program')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Program ZISWAF</button>
-                  <button onClick={() => setActiveTab('qurban')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Patungan Qurban</button>
-                  <button onClick={() => setActiveTab('transparansi')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Laporan Transparansi</button>
-                  <button onClick={() => setActiveTab('edukasi')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Edukasi ZISWAF</button>
+                  <button onClick={() => setActiveTab('program')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Program ZISWAF</button>
+                  <button onClick={() => setActiveTab('qurban')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Patungan Qurban</button>
+                  <button onClick={() => setActiveTab('transparansi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Laporan Transparansi</button>
+                  <button onClick={() => setActiveTab('edukasi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Edukasi ZISWAF</button>
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => setActiveTab('jadwal_khatib')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'jadwal_khatib'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                  : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
               }`}
             >
               Kalender Kegiatan
@@ -193,30 +188,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Tentang Kami Dropdown */}
             <div className="relative group">
               <button
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold flex items-center gap-1 ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['sejarah', 'galeri'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
+                    : 'text-blue-100 hover:text-white hover:bg-blue-800/50'
                 }`}
               >
                 Tentang Kami <ChevronDown className="w-4 h-4" />
               </button>
-              <div className={`absolute top-full left-0 mt-2 w-48 rounded-2xl shadow-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 ${
-                isDark ? 'bg-[#1e3a8a] border-blue-800' : 'bg-white border-blue-100'
-              }`}>
+              <div className="absolute top-full left-0 mt-2 w-48 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => setActiveTab('sejarah')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Sejarah Tazkia</button>
-                  <button onClick={() => setActiveTab('galeri')} className={`text-left px-4 py-2 hover:bg-amber-500/10 hover:text-amber-500 transition-colors ${isDark ? 'text-blue-100' : 'text-blue-900'}`}>Galeri & Kajian</button>
+                  <button onClick={() => setActiveTab('sejarah')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Sejarah Tazkia</button>
+                  <button onClick={() => setActiveTab('galeri')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-blue-100 font-medium">Galeri & Kajian</button>
                 </div>
               </div>
             </div>
 
-            {/* Booking Gedung Placeholder */}
             <button
               onClick={() => alert('Fitur Booking Gedung sedang dalam pengembangan. Silakan hubungi admin untuk informasi lebih lanjut.')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
-                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
+              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-blue-100 hover:text-white hover:bg-blue-800/50"
             >
               Booking Gedung
             </button>
@@ -225,9 +215,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
               }}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold ${
-                isDark ? 'hover:text-blue-300 hover:bg-blue-900/60' : 'hover:text-blue-700 hover:bg-blue-50'
-              }`}
+              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-blue-100 hover:text-white hover:bg-blue-800/50"
             >
               Kontak Kami
             </button>
@@ -235,7 +223,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {session && hasDkmPortalAccess(session.role) && (
               <button
                 onClick={() => setActiveTab('dkm_portal')}
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-sm ${
                   activeTab === 'dkm_portal'
                     ? 'bg-amber-500 text-blue-950 shadow-md'
                     : 'text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30'
@@ -249,25 +237,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Catalog PDF Button */}
-            <button
-              onClick={openCatalogPdf}
-              className="hidden md:flex bg-blue-700 hover:bg-blue-800 text-white border border-blue-600 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all shadow-sm cursor-pointer"
-              title="Katalog Perancangan & Spesifikasi Aplikasi (PDF)"
-            >
-              <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              <span className="hidden lg:inline font-mono uppercase text-[10px] tracking-wider">Katalog PDF</span>
-            </button>
-
-            {/* AI Assistant Button */}
-            <button
-              onClick={openAiAssistant}
-              className="hidden sm:flex bg-blue-50 dark:bg-blue-950/80 hover:bg-blue-100 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-700 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all cursor-pointer"
-              title="Tazkia AI Syariah Assistant"
-            >
-              <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
-              <span className="hidden md:inline font-mono uppercase text-[10px] tracking-wider">AI Syariah</span>
-            </button>
 
             {/* Ziswaf Calculator Button */}
             <button
@@ -331,9 +300,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu (Menu Susun Tiga) */}
       {mobileMenuOpen && (
-        <div className={`border-t px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto ${
-          isDark ? 'border-blue-900 bg-[#172554] text-white' : 'border-blue-200 bg-white text-blue-900'
-        }`}>
+        <div className="border-t border-[#172554] px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto bg-[#1e3a8a] text-white">
           
           {/* Section 1: Halaman Utama Navigasi */}
           <div className="space-y-2">
@@ -349,7 +316,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('beranda'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'beranda' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'beranda' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>1. Beranda Utama</span>
@@ -359,7 +326,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('program'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'program' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'program' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>2. Program ZISWAF</span>
@@ -369,7 +336,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('jadwal_khatib'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'jadwal_khatib' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'jadwal_khatib' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>3. Agenda Shalat Jumat</span>
@@ -379,7 +346,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('qurban'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'qurban' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'qurban' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>4. Patungan Qurban</span>
@@ -389,7 +356,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('transparansi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'transparansi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'transparansi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>5. Laporan Transparansi</span>
@@ -399,27 +366,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('sejarah'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'sejarah' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'sejarah' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>6. Sejarah Tazkia</span>
-                <span className="text-[10px] font-mono font-normal opacity-70">Arsitektur & Tokoh</span>
+                <span className="text-[10px] font-mono font-normal opacity-70">Profil & Visi</span>
               </button>
 
               <button
                 onClick={() => { setActiveTab('edukasi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'edukasi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'edukasi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>7. Edukasi ZISWAF</span>
-                <span className="text-[10px] font-mono font-normal opacity-70">Fiqih & Panduan</span>
+                <span className="text-[10px] font-mono font-normal opacity-70">Artikel Fiqih</span>
               </button>
 
               <button
                 onClick={() => { setActiveTab('galeri'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'galeri' ? 'bg-blue-700 text-white font-extrabold shadow-md' : isDark ? 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100' : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
+                  activeTab === 'galeri' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-blue-100'
                 }`}
               >
                 <span>8. Galeri & Kajian Umat</span>
@@ -459,43 +426,29 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <button
                 onClick={() => { openDigitalIbadah('quran'); setMobileMenuOpen(false); }}
-                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-blue-950/80 border-blue-700 text-blue-200' : 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-900'}`}
+                className="p-2.5 rounded-xl border flex items-center gap-2 bg-blue-950/80 border-blue-700 text-blue-200"
               >
                 <BookOpen className="w-4 h-4 text-blue-400 shrink-0" />
                 <span className="truncate">Al-Qur'an Digital</span>
               </button>
 
               <button
-                onClick={() => { openAiAssistant(); setMobileMenuOpen(false); }}
-                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-blue-950/80 border-blue-700 text-blue-200' : 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-900'}`}
-              >
-                <Bot className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="truncate">AI Syariah</span>
-              </button>
-
-              <button
                 onClick={() => { openCalculator(); setMobileMenuOpen(false); }}
-                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-blue-950/80 border-blue-700 text-blue-200' : 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-900'}`}
+                className="p-2.5 rounded-xl border flex items-center gap-2 bg-blue-950/80 border-blue-700 text-blue-200"
               >
                 <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                 <span className="truncate">Kalkulator Zakat</span>
               </button>
 
-              <button
-                onClick={() => { openCatalogPdf(); setMobileMenuOpen(false); }}
-                className={`p-2.5 rounded-xl border flex items-center gap-2 ${isDark ? 'bg-blue-950/80 border-blue-700 text-blue-200' : 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-900'}`}
-              >
-                <FileText className="w-4 h-4 text-blue-400 shrink-0" />
-                <span className="truncate">Katalog PDF</span>
-              </button>
-
-              <button
-                onClick={() => { openTvMode(); setMobileMenuOpen(false); }}
-                className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-2"
-              >
-                <Tv className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="truncate">Display TV</span>
-              </button>
+              {session && hasDkmPortalAccess(session.role) && (
+                <button
+                  onClick={() => { openTvMode(); setMobileMenuOpen(false); }}
+                  className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-2"
+                >
+                  <Tv className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span className="truncate">Display TV</span>
+                </button>
+              )}
             </div>
           </div>
 

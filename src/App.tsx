@@ -282,7 +282,7 @@ export default function App() {
         openCalculator={() => setCalculatorModalOpen(true)}
         openDigitalIbadah={handleOpenDigitalIbadah}
         openTvMode={() => setTvModeOpen(true)}
-        openCatalogPdf={() => setCatalogPdfOpen(true)}
+        session={state.session}
         isDark={isDark}
       />
 
