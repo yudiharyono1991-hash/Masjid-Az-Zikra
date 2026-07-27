@@ -30,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({
   session,
   isDark = false
 }) => {
-  const { programs } = useMasjidStore();
+  const { state } = useMasjidStore();
 
   return (
     <footer className="pt-16 pb-12 border-t transition-colors bg-[#172554] text-white border-[#172554]">
@@ -99,8 +99,8 @@ export const Footer: React.FC<FooterProps> = ({
               Daftar Program Saat Ini
             </h4>
             <ul className="space-y-2 text-xs font-medium text-blue-200">
-              {programs.length > 0 ? (
-                programs.slice(0, 5).map((p, index) => (
+              {state.programs.length > 0 ? (
+                state.programs.slice(0, 5).map((p, index) => (
                   <li key={p.id}>{index + 1}. {p.title}</li>
                 ))
               ) : (
