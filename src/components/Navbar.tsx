@@ -254,6 +254,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Portal DKM
               </button>
             )}
+
+            {session && session.role === 'jamaah' && (
+              <button
+                onClick={() => setActiveTab('jamaah_portal')}
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-sm ${
+                  activeTab === 'jamaah_portal'
+                    ? 'bg-amber-400 text-blue-950 shadow-md'
+                    : 'text-amber-300 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30'
+                }`}
+              >
+                <UserCheck className="w-4 h-4" />
+                Portal Saya
+              </button>
+            )}
           </nav>
 
           {/* Action Buttons Right */}

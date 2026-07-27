@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CITIES_DATA, getHijriDate, CityPrayerTime } from '../lib/islamicUtils';
 import { Announcement, PetugasJadwal, AppAdminSettings } from '../types';
-import { Tv, X, Volume2, Calendar, MapPin, Sparkles } from 'lucide-react';
+import { Tv, X, Volume2, VolumeX, Play, Pause, Calendar, MapPin, Sparkles } from 'lucide-react';
+
+const QARI_LIST = [
+  { id: 'alafasy', name: 'Mishary Rashid Alafasy', url: 'https://server8.mp3quran.net/afs/001.mp3' },
+  { id: 'abdulbasit', name: 'Abdul Basit (Murattal)', url: 'https://server7.mp3quran.net/basit/001.mp3' },
+  { id: 'sudais', name: 'Abdurrahman As-Sudais', url: 'https://server11.mp3quran.net/sds/001.mp3' }
+];
 
 interface TvDisplayModeProps {
   onExit: () => void;
@@ -19,6 +25,8 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
   const [time, setTime] = useState<Date>(new Date());
   const [selectedCity] = useState<CityPrayerTime>(CITIES_DATA[0]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
+  const [selectedQari, setSelectedQari] = useState<string>(QARI_LIST[0].url);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -57,8 +65,38 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
           </div>
         </div>
 
-        {/* Realtime Digital Clock */}
+        {/* Audio Player & Digital Clock */}
         <div className="text-right flex items-center gap-6">
+          
+          <div className="flex items-center gap-2 bg-blue-950/80 p-2 rounded-xl border border-blue-800">
+            <button 
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center text-amber-400 transition-colors"
+            >
+              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-1" />}
+            </button>
+            <div className="flex flex-col text-left mr-2">
+              <span className="text-[9px] font-mono text-blue-400 uppercase tracking-widest">Murottal Al-Quran</span>
+              <select 
+                value={selectedQari}
+                onChange={(e) => setSelectedQari(e.target.value)}
+                className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-32 truncate appearance-none"
+              >
+                {QARI_LIST.map(q => (
+                  <option key={q.id} value={q.url} className="bg-blue-900">{q.name}</option>
+                ))}
+              </select>
+            </div>
+            <audio 
+              src={selectedQari} 
+              autoPlay={isPlaying} 
+              loop 
+              muted={!isPlaying}
+              style={{ display: 'none' }}
+              id="murottal-player"
+            />
+          </div>
+
           <div className="text-right">
             <div className="text-3xl sm:text-5xl font-mono font-extrabold text-amber-400 tracking-wider">
               {timeStr}

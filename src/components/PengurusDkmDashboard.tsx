@@ -11,7 +11,9 @@ import {
   AppAdminSettings,
   GalleryItem,
   QurbanGroup,
-  QurbanParticipant
+  QurbanParticipant,
+  AuditLog,
+  JamaahProfile
 } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -69,6 +71,8 @@ interface PengurusDkmDashboardProps {
   adminSettings?: AppAdminSettings;
   galleryItems?: GalleryItem[];
   qurbanGroups?: QurbanGroup[];
+  auditLogs?: AuditLog[];
+  jamaahProfiles?: JamaahProfile[];
   onAddFinancial: (trx: Omit<FinancialTransaction, 'id'>) => void;
   onAddInventory: (item: Omit<InventoryItem, 'id'>) => void;
   onDeleteInventory: (id: string) => void;
@@ -100,6 +104,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   adminSettings,
   galleryItems = [],
   qurbanGroups = [],
+  auditLogs = [],
+  jamaahProfiles = [],
   onAddFinancial,
   onAddInventory,
   onDeleteInventory,
@@ -438,7 +444,9 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'program', label: 'Program & Campaign', icon: Sparkles },
             { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
             { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
-            { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone }
+            { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
+            { id: 'jamaah_manage', label: 'Manajemen Jamaah', icon: Heart },
+            { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
           ].map(tab => {
             const IconComp = tab.icon;
             return (
@@ -2592,6 +2600,122 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </div>
           </div>
         )}
+      {/* TAB: MANAJEMEN JAMAAH */}
+        {dkmTab === 'jamaah_manage' && (
+          <div className="space-y-6">
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl">
+              <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
+                <Heart className="w-5 h-5 text-rose-400" />
+                Rekap Data Jamaah
+              </h3>
+              <p className="text-xs text-blue-400 mt-1">Daftar jamaah yang telah mengakses portal atau berdonasi.</p>
+            </div>
+            <div className="bg-[#0a1128] rounded-2xl shadow-xl overflow-hidden border border-blue-800">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-blue-950 text-blue-300 font-mono text-[10px] uppercase tracking-wider border-b border-blue-800">
+                    <tr>
+                      <th className="px-4 py-3">Nama Jamaah</th>
+                      <th className="px-4 py-3">Email & Kontak</th>
+                      <th className="px-4 py-3">Tanggal Bergabung</th>
+                      <th className="px-4 py-3">Terakhir Login</th>
+                      <th className="px-4 py-3 text-right">Total Donasi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-blue-800/50">
+                    {jamaahProfiles.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada data jamaah.</td>
+                      </tr>
+                    ) : (
+                      jamaahProfiles.map((j) => (
+                        <tr key={j.id} className="hover:bg-blue-900/50 transition-colors">
+                          <td className="px-4 py-3 font-bold text-white">{j.name}</td>
+                          <td className="px-4 py-3 text-blue-300">
+                            <div>{j.email}</div>
+                            <div className="text-xs text-blue-400">{j.phone || '-'}</div>
+                          </td>
+                          <td className="px-4 py-3 text-blue-400 font-mono text-[11px]">
+                            {new Date(j.joinDate).toLocaleDateString('id-ID')}
+                          </td>
+                          <td className="px-4 py-3 text-blue-400 font-mono text-[11px]">
+                            {new Date(j.lastLogin).toLocaleString('id-ID')}
+                          </td>
+                          <td className="px-4 py-3 text-right font-bold text-amber-400">
+                            {formatRupiahFull(j.totalDonation)}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB: AUDIT LOG */}
+        {dkmTab === 'audit_log' && (
+          <div className="space-y-6">
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl">
+              <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-amber-400" />
+                Sistem Audit Log Petugas
+              </h3>
+              <p className="text-xs text-blue-400 mt-1">Rekam jejak aktivitas login dan logout seluruh pengguna sistem.</p>
+            </div>
+            <div className="bg-[#0a1128] rounded-2xl shadow-xl overflow-hidden border border-blue-800">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-blue-950 text-blue-300 font-mono text-[10px] uppercase tracking-wider border-b border-blue-800">
+                    <tr>
+                      <th className="px-4 py-3">Waktu (WIB)</th>
+                      <th className="px-4 py-3">Pengguna</th>
+                      <th className="px-4 py-3">Role</th>
+                      <th className="px-4 py-3">Aksi</th>
+                      <th className="px-4 py-3">Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-blue-800/50">
+                    {auditLogs.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada rekaman audit log.</td>
+                      </tr>
+                    ) : (
+                      auditLogs.map((log) => (
+                        <tr key={log.id} className="hover:bg-blue-900/50 transition-colors">
+                          <td className="px-4 py-3 font-mono text-[11px] text-blue-400 whitespace-nowrap">
+                            {new Date(log.timestamp).toLocaleString('id-ID')}
+                          </td>
+                          <td className="px-4 py-3 text-white">
+                            <span className="font-bold block">{log.userName}</span>
+                            <span className="text-[10px] text-blue-400">{log.userEmail}</span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="bg-blue-800 text-blue-200 font-mono text-[10px] px-2 py-0.5 rounded-full uppercase">
+                              {log.role.replace('_', ' ')}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className={`font-mono text-[10px] px-2 py-0.5 rounded-full uppercase ${
+                              log.action === 'LOGIN' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                            }`}>
+                              {log.action}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-blue-300 text-xs">
+                            {log.details}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
       {/* Lightbox / Zoom Photo Preview Modal */}

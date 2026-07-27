@@ -21,7 +21,9 @@ import {
   ERPChartOfAccount,
   ERPGeneralJournal,
   ERPJournalEntry,
-  ReportSignature
+  ReportSignature,
+  AuditLog,
+  JamaahProfile
 } from '../types';
 import {
   INITIAL_PROGRAMS,
@@ -63,6 +65,8 @@ export interface AppState {
   erpJournals: ERPGeneralJournal[];
   erpJournalEntries: ERPJournalEntry[];
   erpSignatures: ReportSignature[];
+  auditLogs: AuditLog[];
+  jamaahProfiles: JamaahProfile[];
 }
 
 const defaultState: AppState = {
@@ -91,7 +95,9 @@ const defaultState: AppState = {
   erpCoa: INITIAL_ERP_COA,
   erpJournals: [],
   erpJournalEntries: [],
-  erpSignatures: []
+  erpSignatures: [],
+  auditLogs: [],
+  jamaahProfiles: []
 };
 
 export function getStoredState(): AppState {
@@ -118,7 +124,9 @@ export function getStoredState(): AppState {
         erpCoa: parsed.erpCoa || [],
         erpJournals: parsed.erpJournals || [],
         erpJournalEntries: parsed.erpJournalEntries || [],
-        erpSignatures: parsed.erpSignatures || []
+        erpSignatures: parsed.erpSignatures || [],
+        auditLogs: parsed.auditLogs || [],
+        jamaahProfiles: parsed.jamaahProfiles || []
       };
     }
   } catch (e) {
@@ -388,28 +396,78 @@ export function useMasjidStore() {
   };
 
   const login = (email: string, name: string, role: UserRole, phone?: string) => {
-    setState(prev => ({
-      ...prev,
-      session: {
-        isLoggedIn: true,
-        email,
-        name,
+    setState(prev => {
+      const newAuditLog: AuditLog = {
+        id: crypto.randomUUID(),
+        timestamp: new Date().toISOString(),
+        userEmail: email,
+        userName: name,
         role,
-        phone
+        action: 'LOGIN',
+        details: 'User logged in successfully'
+      };
+
+      let newJamaahProfiles = [...prev.jamaahProfiles];
+      if (role === 'jamaah') {
+        const existingIdx = newJamaahProfiles.findIndex(p => p.email === email);
+        if (existingIdx >= 0) {
+          newJamaahProfiles[existingIdx] = {
+            ...newJamaahProfiles[existingIdx],
+            lastLogin: new Date().toISOString(),
+            name,
+            phone: phone || newJamaahProfiles[existingIdx].phone
+          };
+        } else {
+          newJamaahProfiles.push({
+            id: crypto.randomUUID(),
+            email,
+            name,
+            phone,
+            joinDate: new Date().toISOString(),
+            lastLogin: new Date().toISOString(),
+            totalDonation: 0
+          });
+        }
       }
-    }));
+
+      return {
+        ...prev,
+        session: {
+          isLoggedIn: true,
+          email,
+          name,
+          role,
+          phone
+        },
+        auditLogs: [newAuditLog, ...prev.auditLogs],
+        jamaahProfiles: newJamaahProfiles
+      };
+    });
   };
 
   const logout = () => {
-    setState(prev => ({
-      ...prev,
-      session: {
-        isLoggedIn: false,
-        email: '',
-        name: 'Jamaah Tazkia',
-        role: 'jamaah'
-      }
-    }));
+    setState(prev => {
+      const newAuditLog: AuditLog = {
+        id: crypto.randomUUID(),
+        timestamp: new Date().toISOString(),
+        userEmail: prev.session.email,
+        userName: prev.session.name,
+        role: prev.session.role,
+        action: 'LOGOUT',
+        details: 'User logged out successfully'
+      };
+
+      return {
+        ...prev,
+        session: {
+          isLoggedIn: false,
+          email: '',
+          name: 'Jamaah Tazkia',
+          role: 'jamaah'
+        },
+        auditLogs: prev.session.isLoggedIn ? [newAuditLog, ...prev.auditLogs] : prev.auditLogs
+      };
+    });
   };
 
   const saveSupabaseKeys = (supabaseUrl: string, supabaseAnonKey: string) => {

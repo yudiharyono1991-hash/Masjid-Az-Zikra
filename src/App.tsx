@@ -22,6 +22,7 @@ import { PatunganQurbanSection } from './components/PatunganQurbanSection';
 import { SejarahTazkiaSection } from './components/SejarahTazkiaSection';
 import { SocialMediaSection } from './components/SocialMediaSection';
 import { BookingGedung } from './components/BookingGedung';
+import { PortalJamaahDashboard } from './components/PortalJamaahDashboard';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
 
@@ -258,6 +259,8 @@ export default function App() {
             adminSettings={state.adminSettings}
             galleryItems={state.galleryItems}
             qurbanGroups={state.qurbanGroups || []}
+            auditLogs={state.auditLogs || []}
+            jamaahProfiles={state.jamaahProfiles || []}
             onAddFinancial={addFinancialTransaction}
             onAddInventory={addInventoryItem}
             onDeleteInventory={deleteInventoryItem}
@@ -275,6 +278,14 @@ export default function App() {
             onAddQurbanGroup={addQurbanGroup}
             onDeleteQurbanGroup={deleteQurbanGroup}
             openTvMode={() => setTvModeOpen(true)}
+          />
+        )}
+
+        {activeTab === 'jamaah_portal' && state.session.role === 'jamaah' && (
+          <PortalJamaahDashboard 
+            session={state.session}
+            jamaahProfiles={state.jamaahProfiles || []}
+            onUpdateProfile={() => {}} 
           />
         )}
       </main>
@@ -349,6 +360,8 @@ export default function App() {
           login(email, name, role);
           if (hasDkmPortalAccess(role)) {
             setActiveTab('dkm_portal');
+          } else if (role === 'jamaah') {
+            setActiveTab('jamaah_portal');
           }
         }}
         onLogout={() => {

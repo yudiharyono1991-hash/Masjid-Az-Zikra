@@ -318,3 +318,23 @@ export interface ReportSignature {
   signatureDate?: string;
   notes?: string;
 }
+
+export interface AuditLog {
+  id: string;
+  timestamp: string;
+  userEmail: string;
+  userName: string;
+  role: string;
+  action: string;
+  details: string;
+}
+
+export interface JamaahProfile {
+  id: string;
+  email: string;
+  name: string;
+  phone?: string;
+  joinDate: string;
+  lastLogin: string;
+  totalDonation: number;
+}
