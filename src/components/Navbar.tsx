@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {session && hasDkmPortalAccess(session.role) && (
             <button
               onClick={openTvMode}
-              className="text-amber-400 hover:bg-amber-500 hover:text-blue-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
+              className="text-amber-300 hover:bg-amber-500 hover:text-blue-950 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full transition-all cursor-pointer border border-amber-500/30"
               title="Tampilan Layar TV Masjid"
             >
               <Tv className="w-3 h-3" />
@@ -97,13 +97,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-bold text-[9px] sm:text-[10px] tracking-wider transition-all cursor-pointer border ${
               isDark
                 ? 'bg-amber-500/15 text-amber-300 border-amber-500/30 hover:bg-amber-500/25'
-                : 'bg-blue-900 text-amber-400 border-blue-700 hover:bg-blue-800'
+                : 'bg-blue-900 text-amber-300 border-blue-700 hover:bg-blue-800'
             }`}
             title={isDark ? "Beralih ke Mode Terang (Light Mode)" : "Beralih ke Mode Gelap (Dark Mode)"}
           >
             {isDark ? (
               <>
-                <Sun className="w-3 h-3 text-amber-400 animate-spin-slow" />
+                <Sun className="w-3 h-3 text-amber-300 animate-spin-slow" />
                 <span className="hidden xs:inline">Mode Terang</span>
               </>
             ) : (
@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'beranda'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-amber-400 hover:text-amber-300 hover:bg-blue-800/50'
+                  : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
               }`}
             >
               Home
@@ -147,17 +147,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['program', 'qurban', 'transparansi', 'edukasi'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-amber-400 hover:text-amber-300 hover:bg-blue-800/50'
+                    : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
                 }`}
               >
                 ZISWAF <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => handleTabClick('program')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Program ZISWAF</button>
-                  <button onClick={() => handleTabClick('qurban')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Patungan Qurban</button>
-                  <button onClick={() => handleTabClick('transparansi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Laporan Transparansi</button>
-                  <button onClick={() => handleTabClick('edukasi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Edukasi ZISWAF</button>
+                  <button onClick={() => handleTabClick('program')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Program ZISWAF</button>
+                  <button onClick={() => handleTabClick('qurban')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Patungan Qurban</button>
+                  <button onClick={() => handleTabClick('transparansi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Laporan Transparansi</button>
+                  <button onClick={() => handleTabClick('edukasi')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Edukasi ZISWAF</button>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'jadwal_khatib'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-amber-400 hover:text-amber-300 hover:bg-blue-800/50'
+                  : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
               }`}
             >
               Kalender Kegiatan
@@ -179,15 +179,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
                   ['sejarah', 'galeri'].includes(activeTab)
                     ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-amber-400 hover:text-amber-300 hover:bg-blue-800/50'
+                    : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
                 }`}
               >
                 Tentang Kami <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute top-full left-0 mt-2 w-48 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
                 <div className="py-2 flex flex-col">
-                  <button onClick={() => handleTabClick('sejarah')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Sejarah Tazkia</button>
-                  <button onClick={() => handleTabClick('galeri')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-400 transition-colors text-amber-400 font-medium">Galeri & Kajian</button>
+                  <button onClick={() => handleTabClick('sejarah')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Sejarah Tazkia</button>
+                  <button onClick={() => handleTabClick('galeri')} className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium">Galeri & Kajian</button>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
                 activeTab === 'booking'
                   ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-amber-400 hover:text-amber-300 hover:bg-blue-800/50'
+                  : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
               }`}
             >
               Booking Gedung
@@ -207,7 +207,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
               }}
-              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-amber-400 hover:text-amber-300 hover:bg-blue-800/50"
+              className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm text-amber-300 hover:text-amber-200 hover:bg-blue-800/50"
             >
               Kontak Kami
             </button>
@@ -264,7 +264,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
               title="Menu Susun Tiga / Navigasi Halaman"
             >
-              <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -284,7 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Section 1: Halaman Utama Navigasi */}
           <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-blue-800/60 pb-1.5">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400 flex items-center gap-1.5">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Pilih Halaman Yang Ingin Dilihat</span>
               </span>
@@ -295,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('beranda'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'beranda' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'beranda' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>1. Beranda Utama</span>
@@ -305,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('program'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'program' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'program' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>2. Program ZISWAF</span>
@@ -315,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('jadwal_khatib'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'jadwal_khatib' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'jadwal_khatib' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>3. Agenda Shalat Jumat</span>
@@ -325,7 +325,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('qurban'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'qurban' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'qurban' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>4. Patungan Qurban</span>
@@ -335,7 +335,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('transparansi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'transparansi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'transparansi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>5. Laporan Transparansi</span>
@@ -345,7 +345,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('sejarah'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'sejarah' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'sejarah' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>6. Sejarah Tazkia</span>
@@ -355,7 +355,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('edukasi'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'edukasi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'edukasi' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>7. Edukasi ZISWAF</span>
@@ -365,7 +365,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('galeri'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'galeri' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'galeri' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>8. Galeri & Kajian Umat</span>
@@ -375,7 +375,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => { setActiveTab('booking'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
-                  activeTab === 'booking' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-400 hover:text-amber-300'
+                  activeTab === 'booking' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
                 }`}
               >
                 <span>9. Booking Gedung</span>
@@ -388,7 +388,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="w-full text-left px-3.5 py-2.5 rounded-xl text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 font-bold uppercase tracking-wider flex items-center justify-between border border-amber-500/40 col-span-1 sm:col-span-2"
                 >
                   <span className="flex items-center gap-2">
-                    <UserCheck className="w-4 h-4 text-amber-400" />
+                    <UserCheck className="w-4 h-4 text-amber-300" />
                     <span>9. Portal Pengurus DKM</span>
                   </span>
                   <span className="text-[10px] font-mono bg-amber-500 text-blue-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
@@ -400,7 +400,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Section 2: Layanan & Fitur Digital Cepat */}
           <div className="space-y-2 pt-2 border-t border-blue-800/60">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
-              <Bot className="w-3.5 h-3.5 text-amber-400" />
+              <Bot className="w-3.5 h-3.5 text-amber-300" />
               <span>Layanan & Fitur Digital Cepat</span>
             </span>
 
@@ -425,7 +425,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => { openCalculator(); setMobileMenuOpen(false); }}
                 className="p-2.5 rounded-xl border flex items-center gap-2 bg-blue-950/80 border-blue-700 text-blue-200"
               >
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
                 <span className="truncate">Kalkulator Zakat</span>
               </button>
 
@@ -434,7 +434,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => { openTvMode(); setMobileMenuOpen(false); }}
                   className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-2"
                 >
-                  <Tv className="w-4 h-4 text-amber-400 shrink-0" />
+                  <Tv className="w-4 h-4 text-amber-300 shrink-0" />
                   <span className="truncate">Display TV</span>
                 </button>
               )}
