@@ -1,263 +1,181 @@
-﻿import React, { useState, useEffect } from 'react';
-import { BookOpen, Award, Compass, Heart, MapPin, Sparkles, History, Users, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Info, CheckCircle2 } from 'lucide-react';
 
-interface SejarahTazkiaSectionProps {
-  isDark?: boolean;
+interface ProfilData {
+  youtubeUrl: string;
+  sejarah: string;
+  visi: string;
+  misi: string[];
 }
 
-export const SejarahTazkiaSection: React.FC<SejarahTazkiaSectionProps> = ({ isDark = false }) => {
-  const [activeTab, setActiveTab] = useState<'sejarah' | 'arsitektur' | 'kegiatan' | 'pendiri'>('sejarah');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const SEJARAH_IMAGES = [
-    '/hero-4.jpg',
-    '/hero-5.jpg',
-    '/hero-6.jpg'
-  ];
+export const SejarahTazkiaSection: React.FC = () => {
+  const [profilData, setProfilData] = useState<ProfilData>({
+    youtubeUrl: 'https://youtu.be/-oT4ZYK2ZjI?si=-pEBAAicepgcMVPj',
+    sejarah: `Andalusia Islamic Center hadir karena kepedulian akan masalah besar bangsa dan ummat Islam Indonesia yang didominasi oleh kemiskinan, keterbelakangan Pendidikan serta rendahnya moralitas baik di tingkat birokrasi maupun swasta. Besar harapan kami dengan segala kekurangan, Andalusia Islamic Center dapat menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial ummat yang berlandaskan nilai-nilai luhur spiritual Islam.\n\nSejak pendiriannya tahun 2006 oleh Prof. Dr. Syafii Antonio, M.Ec. Andalusia Islamic Center telah berkiprah dalam bidang sosial, dakwah dan pemberdayaan ekonomi yang meliputi:\n\n1. Sarana Ibadah\n2. Kajian Ke-Islaman harian, mingguan, dan bulanan\n3. Program Tahfidz untuk berbagai umur\n4. Pemberdayaan ekonomi mikro\n5. Santunan Yatim dan dhuafa\n6. Pembinaan muallaf\n7. Peringatan hari besar Islam`,
+    visi: 'Menjadi Oase Spiritual dan Intelektual Islam yang memberikan pencerahan, kesejukan dan pemberdayaan serta wawasan Rahmatan Lil Alamin.',
+    misi: [
+      'Menyelenggarakan pelatihan dan konseling keumatan.',
+      'Mengembangkan ekonomi kerakyatan berbasis syariah.',
+      'Membina para muallaf agar istiqomah.'
+    ]
+  });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % SEJARAH_IMAGES.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    try {
+      const saved = localStorage.getItem('tazkia_profil_data');
+      if (saved) {
+        setProfilData(JSON.parse(saved));
+      }
+    } catch (e) {}
   }, []);
 
+  // Extract YouTube ID
+  let youtubeId = '-oT4ZYK2ZjI';
+  try {
+    if (profilData.youtubeUrl.includes('youtu.be/')) {
+      youtubeId = profilData.youtubeUrl.split('youtu.be/')[1].split('?')[0];
+    } else if (profilData.youtubeUrl.includes('youtube.com/watch?v=')) {
+      youtubeId = profilData.youtubeUrl.split('v=')[1].split('&')[0];
+    }
+  } catch(e) {}
+
   return (
-    <section className={`py-12 md:py-20 ${isDark ? 'bg-blue-950 text-white' : 'bg-stone-50 text-blue-900'} border-b border-blue-200 dark:border-blue-800 transition-colors`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 font-mono text-xs font-bold uppercase tracking-widest">
-            <History className="w-3.5 h-3.5" />
-            <span>Wisata Religi & Warisan Ulama</span>
-          </div>
+    <section className="bg-white min-h-screen font-sans pb-24">
+      {/* Header Blue */}
+      <div className="bg-[#1e3a8a] text-white py-16 text-center">
+        <p className="text-[10px] sm:text-xs font-mono font-bold tracking-[0.2em] text-blue-300 mb-3 uppercase">Tentang Kami</p>
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold">Mengenal Masjid Tazkia</h1>
+        <p className="text-sm mt-3 text-blue-200 max-w-2xl mx-auto px-4">
+          Menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial umat yang berdasarkan nilai-nilai luhur Islam.
+        </p>
+      </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-blue-900 dark:text-white leading-tight">
-            Menelusuri Sejarah & Keagungan <br />
-            <span className="italic text-blue-700 dark:text-blue-400">Masjid Tazkia</span>
-          </h2>
-
-          <p className="text-sm sm:text-base text-blue-600 dark:text-blue-300 leading-relaxed font-sans">
-            Pusat Ekonomi Syariah, Pendidikan Pesantren, dan Syiar Islam Nusantara di Kawasan Andalusia Tazkia, Bukit Sentul City, Kabupaten Bogor.
-          </p>
-        </div>
-
-        {/* Feature Banner Photo Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 relative rounded-3xl overflow-hidden shadow-2xl border border-blue-200 dark:border-blue-800 group min-h-[320px]">
-            {SEJARAH_IMAGES.map((imgUrl, idx) => (
-              <div
-                key={idx}
-                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out group-hover:scale-105 ${
-                  idx === currentImageIndex ? 'opacity-100 z-0' : 'opacity-0 -z-10'
-                }`}
-                style={{ backgroundImage: `url('${imgUrl}')` }}
-              />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
-              <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-400 bg-blue-950/80 px-3 py-1 rounded-full border border-blue-500/40 w-fit mb-2">
-                Kawasan Andalusia Sentul City
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
-                Kubah Putih Megah & Menara Menjulang 50 Meter
-              </h3>
-              <p className="text-xs sm:text-sm text-blue-200 mt-2 line-clamp-2">
-                Didirikan di atas lahan seluas 5 hektar di Bukit Sentul City, Babakan Madang, Bogor. Mampu menampung hingga 22.000 jamaah Ekonomi Syariah.
-              </p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        
+        {/* Row 1: Sejarah & Video */}
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 sm:p-12 mb-12 flex flex-col lg:flex-row gap-12">
+          <div className="flex-1 space-y-6">
+            <h2 className="text-2xl font-bold font-serif text-slate-800 border-b-2 border-amber-500 pb-3 inline-block">Sejarah & Latar Belakang</h2>
+            <div className="text-sm text-slate-600 leading-relaxed space-y-4 whitespace-pre-wrap">
+              {profilData.sejarah}
             </div>
           </div>
-
-          <div className="space-y-6 flex flex-col justify-between">
-            <div className="p-6 rounded-3xl bg-white dark:bg-blue-900 border border-blue-200 dark:border-blue-800 shadow-md space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
-                ??
-              </div>
-              <div>
-                <h4 className="font-serif font-bold text-blue-900 dark:text-white text-base">Lokasi Strategis</h4>
-                <p className="text-xs text-blue-600 dark:text-blue-400 mt-1 leading-relaxed">
-                  Kawasan Andalusia Tazkia, Perumahan Bukit Sentul City, Cipambuan, Kec. Babakan Madang, Kab. Bogor, Jawa Barat 16810.
-                </p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-3xl bg-blue-800 text-white shadow-xl space-y-3 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Users className="w-24 h-24 text-white" />
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-blue-200 font-bold">
-                Kapasitas Jamaah
-              </span>
-              <h4 className="text-3xl font-serif font-extrabold text-amber-300">
-                22.000+ Jamaah
-              </h4>
-              <p className="text-xs text-blue-100">
-                Ruang shalat utama marmer putih bersuasana khusyuk dan sejuk di kaki pegunungan Sentul City.
-              </p>
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-100 aspect-video w-full bg-slate-900 relative">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src={`https://www.youtube.com/embed/${youtubeId}?rel=0`} 
+                title="Video Profil Masjid Tazkia" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
             </div>
           </div>
         </div>
 
-        {/* Tab Navigation for History details */}
-        <div className="flex border-b border-blue-200 dark:border-blue-800 gap-2 overflow-x-auto pb-1">
-          {[
-            { id: 'sejarah', label: '1. Sejarah Pendirian', icon: History },
-            { id: 'pendiri', label: '2. Prof. Dr. Syafii Antonio', icon: Award },
-            { id: 'arsitektur', label: '3. Arsitektur Putih Suci', icon: Compass },
-            { id: 'kegiatan', label: '4. Pusat Majelis Ekonomi Syariah', icon: Users }
-          ].map(tab => {
-            const IconComp = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`py-3 px-5 rounded-2xl text-xs font-mono font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? 'bg-blue-700 text-white shadow-lg shadow-blue-700/20'
-                    : 'bg-white dark:bg-blue-900 text-blue-600 dark:text-blue-400 hover:text-blue-900 border border-blue-200 dark:border-blue-800'
-                }`}
-              >
-                <IconComp className="w-4 h-4" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        {/* Row 2: Visi & Misi */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="bg-white rounded-3xl border border-blue-100 shadow-lg p-8 relative overflow-hidden group hover:border-blue-300 transition-colors">
+            <div className="absolute top-0 left-0 w-full h-1 bg-blue-600"></div>
+            <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6">
+              <Info className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-4">Visi</h3>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {profilData.visi}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-amber-100 shadow-lg p-8 relative overflow-hidden group hover:border-amber-300 transition-colors">
+            <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+            <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center text-amber-600 mb-6">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-4">Misi</h3>
+            <ul className="text-sm text-slate-600 leading-relaxed space-y-3">
+              {profilData.misi.map((m, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="text-amber-500 font-bold shrink-0">&bull;</span>
+                  <span>{m}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Tab Content Box */}
-        <div className="bg-white dark:bg-blue-900 rounded-3xl border border-blue-200 dark:border-blue-800 p-6 sm:p-10 shadow-xl space-y-6">
-          {activeTab === 'sejarah' && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
-                  <History className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
-                    Awal Mula Pendirian Masjid Tazkia
-                  </h3>
-                  <p className="text-xs text-blue-500 font-mono">Pusat Dakwah & Ekonomi Syariah Sejak Tahun 2009</p>
+        {/* Row 3: Dewan Pembina & Direktur */}
+        <div className="space-y-16">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Dewan Pembina Yayasan</h2>
+            
+            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
+              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
+                {/* Photo Placeholder */}
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                <div className="relative z-10 text-white">
+                  <h4 className="font-bold text-lg font-serif">Prof. Dr. M. Syafii Antonio</h4>
+                  <p className="text-xs text-blue-200 mt-1 font-mono">Ketua Dewan Pembina</p>
                 </div>
               </div>
-
-              <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
-                <p>
-                  Masjid Tazkia dibangun atas prakarsa almarhum Prof. Dr. Syafii Antonio bersama Yayasan Yayasan Tazkia. Pembangunan masjid ini bermula dari kebutuhan tempat peribadatan yang representatif bagi puluhan ribu jamaah Kajian yang selalu memadati kegiatan Ekonomi Syariah bulanan.
-                </p>
-                <p>
-                  Dengan dukungan dari para donatur internasional, pemerintah, serta jamaah Yayasan Tazkia, kompleks masjid ini diresmikan di kawasan Bukit Sentul City, Cipambuan, Babakan Madang, Kabupaten Bogor. Kawasan ini kemudian berkembang menjadi **Kawasan Andalusia Tazkia**, sebuah pemukiman islami yang dikembangkan dengan mengedepankan nilai-nilai kedamaian, persaudaraan, dan pengamalan sunnah Rasulullah SAW.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-blue-100 dark:border-blue-800">
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
-                  <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Luas Lahan</p>
-                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Â± 5 Hektar</p>
-                  <p className="text-[11px] text-blue-500 mt-0.5">Termasuk kompleks pesantren & sekolah</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
-                  <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Kawasan</p>
-                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Kawasan Andalusia</p>
-                  <p className="text-[11px] text-blue-500 mt-0.5">Pemukiman bernuansa islami</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-stone-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
-                  <p className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Layanan Mualaf</p>
-                  <p className="text-lg font-bold font-serif text-blue-900 dark:text-white mt-1">Muallaf Center</p>
-                  <p className="text-[11px] text-blue-500 mt-0.5">Pembinaan & advokasi ribuan mualaf</p>
+              <div className="sm:w-2/3 p-8 sm:p-10 relative">
+                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                  <p>Lahir di Sukabumi, 12 Mei 1965. Beliau adalah tokoh ekonomi syariah Indonesia yang memiliki latar belakang perjalanan spiritual yang unik dan inspiratif.</p>
+                  <p>Tumbuh di lingkungan keluarga yang majemuk, beliau mengenal ajaran Islam melalui interaksi sosial sejak kecil. Ketertarikannya pada cara ibadah umat Islam membawanya pada pencarian kebenaran, hingga akhirnya memutuskan untuk bersyahadat.</p>
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
-          {activeTab === 'pendiri' && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-2xl">
-                  <Award className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
-                    Almarhum Prof. Dr. Syafii Antonio (Pendiri)
-                  </h3>
-                  <p className="text-xs text-blue-500 font-mono">Tokoh Pemersatu & Dai Ekonomi Syariah Indonesia</p>
-                </div>
-              </div>
-
-              <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
-                <p>
-                  Prof. Dr. Syafii Antonio dikenal dengan kelembutan tutur kata dan seruan Kajiannya yang menggetarkan hati jutaan umat Islam di Indonesia. Beliau mempopulerkan gerakan Kajian Bersama yang dihadiri oleh berbagai lapisan masyarakat, pejabat, ulama, hingga rakyat biasa tanpa sekat.
-                </p>
-                <p>
-                  Pesan mendalam beliau yang selalu diwariskan kepada jamaah Tazkia adalah menjaga 7 Sunnah Harian Rasulullah SAW: Shalat Tahajjud, Membaca Al-Qur'an, Shalat Berjamaah di Masjid, Shalat Dhuha, Bersedekah, Menjaga Wudhu, dan Selalu BerKajian.
-                </p>
-              </div>
-
-              <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-900 dark:text-amber-200 space-y-1">
-                <p className="font-bold font-serif text-sm">7 Sunnah Harian Istiqamah Yayasan Tazkia:</p>
-                <p className="text-[11px] leading-relaxed">
-                  1. Shalat Tahajjud &bull; 2. Membaca & Merenungkan Al-Qur'an &bull; 3. Shalat Berjamaah Awal Waktu di Masjid &bull; 4. Shalat Dhuha &bull; 5. Sedekah Harian &bull; 6. Menjaga Wudhu &bull; 7. Istighfar & Kajian Setiap Saat.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'arsitektur' && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
-                  <Compass className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
-                    Arsitektur Berbalut Warna Putih Suci
-                  </h3>
-                  <p className="text-xs text-blue-500 font-mono">Desain Klasik Islami & Pencahayaan Alami</p>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Direktur Masjid Tazkia Islamic Center</h2>
+            
+            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
+              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                <div className="relative z-10 text-white">
+                  <h4 className="font-bold text-lg font-serif">Syaripudin Kusin</h4>
+                  <p className="text-xs text-blue-200 mt-1 font-mono">Direktur</p>
                 </div>
               </div>
-
-              <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 leading-relaxed space-y-3 font-sans">
-                <p>
-                  Warna dominan **putih bersih** menjadi ciri khas visual Masjid Tazkia. Warna putih melambangkan kesucian niat, kebersihan jiwa, dan persatuan dalam Kajian.
-                </p>
-                <p>
-                  Bangunan utama memiliki kubah raksasa berwarna putih bersih, dikelilingi ornamen kaligrafi Arab yang indah. Menara azan setinggi 50 meter berdiri menjulang di samping masjid, menjadi landmark megah di wilayah Sentul City Bogor. Interior ruang shalat dilapisi lantai marmer putih dingin dengan sirkulasi udara alami yang segar.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'kegiatan' && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
-                  <Users className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-serif font-bold text-blue-900 dark:text-white">
-                    Pusat Kegiatan Keumatan & Zikrukah Bulanan
-                  </h3>
-                  <p className="text-xs text-blue-500 font-mono">DEkonomi Syariah, Pesantren, dan ZISWAF</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 rounded-2xl border border-blue-200 dark:border-blue-800 bg-stone-50 dark:bg-blue-950 space-y-1.5">
-                  <h4 className="font-bold text-blue-900 dark:text-white font-serif text-sm">Ekonomi Syariah Ahad Pertama</h4>
-                  <p className="text-blue-600 dark:text-blue-400 leading-relaxed">
-                    Setiap hari Ahad minggu pertama setiap bulan, puluhan ribu jamaah dari seluruh Indonesia berkumpul untuk menghadiri DEkonomi Syariah & Tausiyah Subuh.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl border border-blue-200 dark:border-blue-800 bg-stone-50 dark:bg-blue-950 space-y-1.5">
-                  <h4 className="font-bold text-blue-900 dark:text-white font-serif text-sm">Pondok Pesantren Tazkia</h4>
-                  <p className="text-blue-600 dark:text-blue-400 leading-relaxed">
-                    Mendidik ratusan santri penghafal Al-Qur'an (Tahfidz) dan kader ustadz yang dibekali akhlakul karimah serta jiwa kewirausahaan syariah.
-                  </p>
+              <div className="sm:w-2/3 p-8 sm:p-10 relative">
+                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                  <p>Direktur Operasional Masjid Tazkia adalah sosok profesional yang amanah dan berpengalaman luas dalam pengelolaan keuangan, audit, dan tata kelola organisasi. Dengan pengalaman lebih dari dua dekade di berbagai perusahaan dan lembaga, beliau berperan memastikan operasional masjid berjalan secara efektif, transparan, dan sesuai prinsip syariah.</p>
+                  <p>Berkomitmen menjadikan masjid sebagai pusat ibadah, pendidikan, dan pemberdayaan umat, beliau mengedepankan nilai keikhlasan, profesionalisme, serta pelayanan terbaik bagi jamaah.</p>
                 </div>
               </div>
             </div>
-          )}
+          </div>
+
+          <div className="text-center">
+            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Ketua DKM Masjid Tazkia Islamic Center</h2>
+            
+            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
+              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=400&q=80')] bg-cover bg-center mix-blend-luminosity opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                <div className="relative z-10 text-white">
+                  <h4 className="font-bold text-lg font-serif">Abdul Mughni</h4>
+                  <p className="text-xs text-blue-200 mt-1 font-mono">Ketua DKM</p>
+                </div>
+              </div>
+              <div className="sm:w-2/3 p-8 sm:p-10 relative">
+                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                  <p>Ketua DKM Masjid Tazkia adalah pemimpin yang amanah dan berkomitmen dalam memakmurkan masjid sebagai pusat ibadah, dakwah, dan pemberdayaan umat.</p>
+                  <p>Dengan mengedepankan nilai keikhlasan, kebersamaan, dan profesionalisme, beliau membina pengelolaan masjid yang transparan, inklusif, serta berlandaskan Al-Quran dan Sunnah, demi menghadirkan pelayanan terbaik bagi jamaah dan masyarakat luas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
-

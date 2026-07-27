@@ -24,9 +24,30 @@ export const AppManagerAdmin: React.FC = () => {
     return [{ id: '1', name: 'Tazkia Mart', imageUrl: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=200&q=80', link: '#' }];
   });
 
+  const [profilData, setProfilData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('tazkia_profil_data');
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return {
+      youtubeUrl: 'https://youtu.be/-oT4ZYK2ZjI?si=-pEBAAicepgcMVPj',
+      sejarah: `Andalusia Islamic Center hadir karena kepedulian akan masalah besar bangsa dan ummat Islam Indonesia yang didominasi oleh kemiskinan, keterbelakangan Pendidikan serta rendahnya moralitas baik di tingkat birokrasi maupun swasta. Besar harapan kami dengan segala kekurangan, Andalusia Islamic Center dapat menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial ummat yang berlandaskan nilai-nilai luhur spiritual Islam.\n\nSejak pendiriannya tahun 2006 oleh Prof. Dr. Syafii Antonio, M.Ec. Andalusia Islamic Center telah berkiprah dalam bidang sosial, dakwah dan pemberdayaan ekonomi yang meliputi:`,
+      visi: 'Menjadi Oase Spiritual dan Intelektual Islam yang memberikan pencerahan, kesejukan dan pemberdayaan serta wawasan Rahmatan Lil Alamin.',
+      misi: [
+        'Menyelenggarakan pelatihan dan konseling keumatan.',
+        'Mengembangkan ekonomi kerakyatan berbasis syariah.',
+        'Membina para muallaf agar istiqomah.'
+      ]
+    };
+  });
+
   useEffect(() => {
     localStorage.setItem('tazkia_sponsors', JSON.stringify(sponsors));
   }, [sponsors]);
+
+  useEffect(() => {
+    localStorage.setItem('tazkia_profil_data', JSON.stringify(profilData));
+  }, [profilData]);
 
   useEffect(() => {
     fetchHeroImages();
@@ -107,7 +128,8 @@ export const AppManagerAdmin: React.FC = () => {
         {[
           { id: 'hero', label: 'Foto Animasi Beranda', icon: ImageIcon },
           { id: 'qr', label: 'Cetak QR Aplikasi', icon: QrCode },
-          { id: 'sponsor', label: 'Sponsor & Mitra', icon: Store }
+          { id: 'sponsor', label: 'Sponsor & Mitra', icon: Store },
+          { id: 'profil', label: 'Profil & Sejarah Masjid', icon: Settings }
         ].map(sub => {
           const SubIcon = sub.icon;
           return (
@@ -256,6 +278,58 @@ export const AppManagerAdmin: React.FC = () => {
               <p className="text-xs text-amber-400 leading-relaxed font-mono">
                 <strong className="text-sm">Info:</strong> Menambah logo di sini secara otomatis akan memasukkan banner/ikon mitra ke area Footer dan Beranda (jika diaktifkan) sebagai tanda "Sponsored By".
               </p>
+            </div>
+          </div>
+        )}
+
+        {/* PROFIL MASJID TAB */}
+        {activeSubTab === 'profil' && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold font-serif mb-2">Profil & Sejarah Masjid Tazkia</h3>
+                <p className="text-sm text-blue-300">Ubah data sejarah, Visi, Misi, dan link YouTube Profil Masjid. Perubahan akan langsung tampil di menu "Tentang Kami".</p>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-blue-200 mb-1">Link YouTube Video Profil</label>
+                <input 
+                  type="text" 
+                  value={profilData.youtubeUrl}
+                  onChange={(e) => setProfilData({...profilData, youtubeUrl: e.target.value})}
+                  className="w-full bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2.5 text-white"
+                  placeholder="https://youtu.be/..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-blue-200 mb-1">Visi Masjid</label>
+                <textarea 
+                  value={profilData.visi}
+                  onChange={(e) => setProfilData({...profilData, visi: e.target.value})}
+                  className="w-full bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2.5 text-white h-24"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-blue-200 mb-1">Misi Masjid (pisahkan dengan baris baru)</label>
+                <textarea 
+                  value={profilData.misi.join('\n')}
+                  onChange={(e) => setProfilData({...profilData, misi: e.target.value.split('\n')})}
+                  className="w-full bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2.5 text-white h-32"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-blue-200 mb-1">Sejarah & Latar Belakang</label>
+                <textarea 
+                  value={profilData.sejarah}
+                  onChange={(e) => setProfilData({...profilData, sejarah: e.target.value})}
+                  className="w-full bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2.5 text-white h-48"
+                />
+              </div>
             </div>
           </div>
         )}
