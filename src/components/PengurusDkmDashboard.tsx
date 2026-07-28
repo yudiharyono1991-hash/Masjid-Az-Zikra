@@ -409,7 +409,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     <section className="py-12 bg-[#0b1329] text-blue-100 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header Title Bar */}
-        <div className="bg-gradient-to-r from-blue-950/80 via-blue-900 to-blue-950/80 border border-blue-500/30 p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl">
+        <div className="bg-gradient-to-r from-blue-950/80 via-blue-900 to-blue-950/80 border border-blue-500/30 p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl print-hidden">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6" />
@@ -451,8 +451,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           </div>
         </div>
 
-        {/* Dashboard Sub Navigation */}
-        <div className="flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto">
+        {/* Dashboard Navigation Tabs */}
+        <div className="flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print-hidden">
           {[
             { id: 'akuntansi', label: 'ERP Akuntansi', icon: BookOpen },
             { id: 'keuangan', label: 'Keuangan (Lama)', icon: DollarSign },
@@ -2771,7 +2771,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <p className="text-xs text-blue-400 mt-1">Kelola data jamaah, atur hak akses (role) pengurus, dan kelola sandi pengguna.</p>
               </div>
               <button 
-                onClick={() => showToast('Alhamdulillah, form penambahan pengurus baru sedang disiapkan sistem.')}
+                onClick={() => alert('Alhamdulillah, form penambahan pengurus baru sedang disiapkan sistem.')}
                 className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg transition-all"
               >
                 <Plus className="w-4 h-4" />

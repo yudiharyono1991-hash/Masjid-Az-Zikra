@@ -82,3 +82,22 @@
     background: #1E40AF;
   }
 }
+
+@media print {
+  /* Sembunyikan elemen yang tidak perlu dicetak */
+  header, nav, .print-hidden, [role="navigation"] {
+    display: none !important;
+  }
+  
+  /* Pastikan elemen cetak menggunakan warna hitam yang solid dan background putih */
+  body, .print-content, .print-content * {
+    color: #000000 !important;
+    background: transparent !important;
+  }
+
+  /* Hilangkan bayangan dan border yang mengganggu */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

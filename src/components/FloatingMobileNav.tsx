@@ -68,7 +68,7 @@ export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
           className="flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition-all cursor-pointer text-amber-300 bg-amber-500/10 border border-amber-500/30 font-black"
         >
           <Menu className="w-5 h-5" />
-          <span>Menu â˜°</span>
+          <span>Menu</span>
         </button>
 
       </div>

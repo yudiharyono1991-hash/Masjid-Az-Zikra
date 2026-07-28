@@ -68,16 +68,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       <div className="bg-[#F9F8F4] border border-black/15 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative text-[#1A1A1A] my-8">
         {/* Header Bar */}
         <div className="bg-[#1e3a8a] text-white px-6 py-4 border-b border-black/10 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/10 text-white border border-white/20 flex items-center justify-center">
+          <div className="flex items-center gap-3 flex-1 min-w-0 mr-2">
+            <div className="w-9 h-9 rounded-xl bg-white/10 text-white border border-white/20 flex items-center justify-center shrink-0">
               <UserCheck className="w-5 h-5" />
             </div>
-            <div>
-              <h3 className="text-base font-serif italic font-semibold text-white">
+            <div className="min-w-0 flex-1">
+              <h3 className="text-sm md:text-base font-serif italic font-semibold text-white truncate">
                 Masjid Tazkia - Portal Keanggotaan
               </h3>
-              <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-white/80">
-                Selamat Datang di Portal Transaksi ZISWAF Jamaah
+              <p className="text-[9px] md:text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 truncate">
+                Selamat Datang di Portal Transaksi ZISWAF
               </p>
             </div>
           </div>

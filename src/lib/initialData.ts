@@ -1,4 +1,4 @@
-﻿import {
+import {
   Program,
   DonationRecord,
   FinancialTransaction,
@@ -729,7 +729,8 @@ export const INITIAL_ERP_COA = [
   { id: 'coa-1103', accountCode: '1103', accountName: 'Kas Bank Zakat', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
   { id: 'coa-1104', accountCode: '1104', accountName: 'Kas Bank Infaq/Sedekah', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
   { id: 'coa-1105', accountCode: '1105', accountName: 'Kas Bank Wakaf', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
-  { id: 'coa-1106', accountCode: '1106', accountName: 'Perlengkapan Masjid', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
+  { id: 'coa-1106', accountCode: '1106', accountName: 'Kas Keropak Infaq Masjid', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
+  { id: 'coa-1107', accountCode: '1107', accountName: 'Perlengkapan Masjid', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Lancar', isHeader: false, isActive: true },
   { id: 'coa-1200', accountCode: '1200', accountName: 'ASET TETAP', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Tetap', isHeader: true, isActive: true },
   { id: 'coa-1201', accountCode: '1201', accountName: 'Tanah', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Tetap', isHeader: false, isActive: true },
   { id: 'coa-1202', accountCode: '1202', accountName: 'Bangunan Masjid', accountType: 'Asset', normalBalance: 'Debit', groupName: 'Aset Tetap', isHeader: false, isActive: true },
