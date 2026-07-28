@@ -140,6 +140,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Carousel Indicators */}
+      {backgrounds.length > 1 && (
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+          {backgrounds.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentBgIndex(idx)}
+              className={`h-1.5 rounded-full transition-all duration-500 ${
+                idx === currentBgIndex 
+                  ? 'w-8 bg-amber-400' 
+                  : 'w-4 bg-white/40 hover:bg-white/70'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
