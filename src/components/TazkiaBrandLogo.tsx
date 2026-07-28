@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMasjidStore } from '../lib/store';
 
 interface TazkiaBrandLogoProps {
@@ -13,7 +13,28 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
   className = ''
 }) => {
   const { state } = useMasjidStore();
-  const logoUrl = state.adminSettings?.masjidLogoUrl || "/logo.png";
+  const storedLogoUrl = state.adminSettings?.masjidLogoUrl;
+  const [logoUrl, setLogoUrl] = useState<string>(storedLogoUrl || '/logo.png');
+
+  // Coba load dari IndexedDB jika store tidak punya logo custom
+  useEffect(() => {
+    const loadLogo = async () => {
+      try {
+        const { getImageFromStorage } = await import('../lib/imageStorage');
+        const saved = await getImageFromStorage('tazkia_logo_masjid');
+        if (saved) {
+          setLogoUrl(saved);
+        }
+      } catch (e) {
+        // Fallback ke logo default
+      }
+    };
+    if (!storedLogoUrl || storedLogoUrl === '/logo.png') {
+      loadLogo();
+    } else {
+      setLogoUrl(storedLogoUrl);
+    }
+  }, [storedLogoUrl]);
 
   if (variant === 'large' || variant === 'hero') {
     return (

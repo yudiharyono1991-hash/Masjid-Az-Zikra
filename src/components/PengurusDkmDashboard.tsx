@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FinancialTransaction,
   InventoryItem,
@@ -72,6 +72,7 @@ import { BoardMemberAdmin } from './BoardMemberAdmin';
 import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
 
 import { AppManagerAdmin } from './AppManagerAdmin';
+import { saveImageToStorage, getImageFromStorage } from '../lib/imageStorage';
 
 interface PengurusDkmDashboardProps {
   financials: FinancialTransaction[];
@@ -280,9 +281,33 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [ancImageUrl, setAncImageUrl] = useState('https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80');
 
   // Admin Settings Image States
-  const [logoUrlInput, setLogoUrlInput] = useState(adminSettings?.masjidLogoUrl || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
-  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroCarouselUrls?.join(', ') || adminSettings?.masjidHeroPhotoUrl || 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80');
-  const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80');
+  const [logoUrlInput, setLogoUrlInput] = useState(adminSettings?.masjidLogoUrl || '/logo.png');
+  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroCarouselUrls?.join(', ') || adminSettings?.masjidHeroPhotoUrl || '/hero-1.jpg');
+  const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || '');
+
+  // Load images from IndexedDB on mount (persists across sessions regardless of localStorage size)
+  useEffect(() => {
+    const loadStoredImages = async () => {
+      try {
+        const { getImageFromStorage } = await import('../lib/imageStorage');
+        const savedLogo = await getImageFromStorage('tazkia_logo_masjid');
+        if (savedLogo && savedLogo !== adminSettings?.masjidLogoUrl) {
+          setLogoUrlInput(savedLogo);
+        }
+        const savedHero = await getImageFromStorage('tazkia_hero_banner');
+        if (savedHero) {
+          setHeroUrlInput(savedHero);
+        }
+        const savedQris = await getImageFromStorage('tazkia_qris_barcode');
+        if (savedQris) {
+          setQrisUrlInput(savedQris);
+        }
+      } catch (e) {
+        console.warn('Could not load images from IndexedDB', e);
+      }
+    };
+    loadStoredImages();
+  }, []);
 
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
@@ -486,14 +511,27 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     showToast('Alhamdulillah, kata sandi berhasil diubah! ✓');
   };
 
-  // Helper file uploader
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setUrl: (url: string) => void) => {
+  // Helper file uploader - simpan ke IndexedDB untuk kapasitas besar
+  const handleFileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setUrl: (url: string) => void,
+    storageKey?: string
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = async (event) => {
         if (event.target?.result) {
-          setUrl(event.target.result as string);
+          const dataUrl = event.target.result as string;
+          setUrl(dataUrl);
+          // Simpan juga ke IndexedDB untuk memastikan persisten
+          if (storageKey) {
+            try {
+              await saveImageToStorage(storageKey, dataUrl);
+            } catch (e) {
+              console.warn('IndexedDB save failed, using memory only', e);
+            }
+          }
         }
       };
       reader.readAsDataURL(file);
@@ -2173,7 +2211,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setLogoUrlInput)}
+                        onChange={(e) => handleFileUpload(e, setLogoUrlInput, 'tazkia_logo_masjid')}
                       />
                     </label>
                   </div>
@@ -2215,7 +2253,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setHeroUrlInput)}
+                        onChange={(e) => handleFileUpload(e, setHeroUrlInput, 'tazkia_hero_banner')}
                       />
                     </label>
                   </div>
@@ -2257,7 +2295,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setQrisUrlInput)}
+                        onChange={(e) => handleFileUpload(e, setQrisUrlInput, 'tazkia_qris_barcode')}
                       />
                     </label>
                   </div>
