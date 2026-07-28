@@ -171,6 +171,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
       },
       y: {
         beginAtZero: true,
+        suggestedMax: 10000000,
         border: {
           display: false
         },

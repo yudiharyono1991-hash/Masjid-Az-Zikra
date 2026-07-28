@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CITIES_DATA, getHijriDate, CityPrayerTime } from '../lib/islamicUtils';
 import { Announcement, PetugasJadwal, AppAdminSettings } from '../types';
 import { Tv, X, Volume2, VolumeX, Play, Pause, Calendar, MapPin, Sparkles } from 'lucide-react';
@@ -27,6 +27,42 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [selectedQari, setSelectedQari] = useState<string>(QARI_LIST[0].url);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current?.play().catch(e => {
+        console.error("Autoplay blocked by browser", e);
+        setIsPlaying(false);
+      });
+    } else {
+      audioRef.current?.pause();
+    }
+  }, [isPlaying, selectedQari]);
+
+  const getActivePrayerIndex = () => {
+    const parseTime = (timeStr: string) => {
+      const [h, m] = timeStr.split(':').map(Number);
+      return h * 60 + m;
+    };
+    const currentMinutes = time.getHours() * 60 + time.getMinutes();
+    
+    const fajr = parseTime(selectedCity.fajr);
+    const sunrise = parseTime(selectedCity.sunrise);
+    const dhuhr = parseTime(selectedCity.dhuhr);
+    const asr = parseTime(selectedCity.asr);
+    const maghrib = parseTime(selectedCity.maghrib);
+    const isha = parseTime(selectedCity.isha);
+
+    if (currentMinutes >= isha || currentMinutes < fajr) return 0; // Subuh
+    if (currentMinutes >= fajr && currentMinutes < sunrise) return 1; // Terbit
+    if (currentMinutes >= sunrise && currentMinutes < dhuhr) return 2; // Dzuhur
+    if (currentMinutes >= dhuhr && currentMinutes < asr) return 3; // Ashar
+    if (currentMinutes >= asr && currentMinutes < maghrib) return 4; // Maghrib
+    if (currentMinutes >= maghrib && currentMinutes < isha) return 5; // Isya
+    return 0;
+  };
+  const activePrayerIdx = getActivePrayerIndex();
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -51,8 +87,8 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
       {/* Top Header Bar */}
       <div className="flex items-center justify-between border-b border-amber-500/30 pb-4 bg-blue-900/60 p-4 rounded-2xl">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center text-3xl shadow-lg">
-            ??
+          <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center shadow-lg">
+            <Tv className="w-8 h-8" />
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-wide">
@@ -88,10 +124,9 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
               </select>
             </div>
             <audio 
+              ref={audioRef}
               src={selectedQari} 
-              autoPlay={isPlaying} 
               loop 
-              muted={!isPlaying}
               style={{ display: 'none' }}
               id="murottal-player"
             />
@@ -148,8 +183,8 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
             <span className="bg-blue-500 text-blue-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
               HADIS SHAHIH HARI INI
             </span>
-            <p className="text-3xl sm:text-4xl font-serif text-amber-300 leading-relaxed">
-              "??? ???????? ???????? ???? ?????"
+            <p className="text-3xl sm:text-4xl font-serif text-amber-300 leading-relaxed font-arabic" dir="rtl">
+              مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ
             </p>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto font-serif italic">
               "Sedekah itu tidak akan pernah mengurangi harta sedikit pun, melainkan Allah akan menambah kemuliaan."
@@ -180,37 +215,39 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
       <div className="space-y-4">
         <div className="grid grid-cols-6 gap-3">
           {[
-            { name: 'SUBUH', time: selectedCity.fajr, icon: '??' },
-            { name: 'TERBIT', time: selectedCity.sunrise, icon: '??' },
-            { name: 'DZUHUR', time: selectedCity.dhuhr, icon: '??' },
-            { name: 'ASHAR', time: selectedCity.asr, icon: '???' },
-            { name: 'MAGHRIB', time: selectedCity.maghrib, icon: '??', active: true },
-            { name: 'ISYA', time: selectedCity.isha, icon: '??' }
-          ].map((item, idx) => (
+            { name: 'SUBUH', time: selectedCity.fajr },
+            { name: 'TERBIT', time: selectedCity.sunrise },
+            { name: 'DZUHUR', time: selectedCity.dhuhr },
+            { name: 'ASHAR', time: selectedCity.asr },
+            { name: 'MAGHRIB', time: selectedCity.maghrib },
+            { name: 'ISYA', time: selectedCity.isha }
+          ].map((item, idx) => {
+            const isActive = idx === activePrayerIdx;
+            return (
             <div
               key={idx}
               className={`p-4 rounded-2xl border text-center transition-all ${
-                item.active
+                isActive
                   ? 'bg-amber-500 text-blue-950 border-amber-300 shadow-2xl scale-105'
                   : 'bg-blue-900/90 border-blue-800 text-blue-200'
               }`}
             >
-              <p className={`text-xs font-bold font-mono ${item.active ? 'text-blue-950' : 'text-blue-400'}`}>
+              <p className={`text-xs font-bold font-mono ${isActive ? 'text-blue-950' : 'text-blue-400'}`}>
                 {item.name}
               </p>
-              <p className={`text-2xl sm:text-3xl font-extrabold font-mono mt-1 ${item.active ? 'text-blue-950' : 'text-amber-400'}`}>
+              <p className={`text-2xl sm:text-3xl font-extrabold font-mono mt-1 ${isActive ? 'text-blue-950' : 'text-amber-400'}`}>
                 {item.time}
               </p>
             </div>
-          ))}
+          )})}
         </div>
 
         {/* Running Text Announcement Footer */}
         <div className="bg-amber-500/20 border border-amber-500/30 rounded-xl px-4 py-2 overflow-hidden whitespace-nowrap">
           <div className="inline-block animate-marquee text-xs font-medium text-amber-300 space-x-8">
-            <span>? Harap mematikan atau mengheningkan nada dering ponsel saat berada di ruang shalat utama.</span>
-            <span>? Kajian Subuh Berkah setiap hari Sabtu bersama KH. Ridwan Kamil, Lc.</span>
-            <span>? Salurkan ZISWAF Anda melalui Portal Digital Masjid Tazkia atau Sekertariat DKM.</span>
+            <span>• Harap mematikan atau mengheningkan nada dering ponsel saat berada di ruang shalat utama.</span>
+            <span>• Kajian Subuh Berkah setiap hari Sabtu bersama KH. Ridwan Kamil, Lc.</span>
+            <span>• Salurkan ZISWAF Anda melalui Portal Digital Masjid Tazkia atau Sekertariat DKM.</span>
           </div>
         </div>
       </div>
