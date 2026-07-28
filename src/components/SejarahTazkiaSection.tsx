@@ -137,8 +137,8 @@ export const SejarahTazkiaSection: React.FC = () => {
                     {member.bio && (
                       <div className="p-8 md:p-12 relative flex-grow bg-white flex flex-col justify-center">
                         <div className="text-7xl text-blue-100 absolute top-6 left-8 font-serif opacity-40 leading-none">"</div>
-                        <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify mt-4">
-                          <p>{member.bio}</p>
+                        <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify mt-4 whitespace-pre-wrap break-words">
+                          {member.bio}
                         </div>
                       </div>
                     )}
@@ -168,9 +168,9 @@ export const SejarahTazkiaSection: React.FC = () => {
                       </div>
                     </div>
                     {member.bio && (
-                      <div className="p-7 relative flex-grow bg-white">
-                        <div className="text-[13px] text-slate-500 leading-relaxed relative z-10">
-                          <p>{member.bio}</p>
+                      <div className="p-7 relative flex-grow bg-white flex flex-col">
+                        <div className="text-[13px] text-slate-500 leading-[1.7] relative z-10 text-justify whitespace-pre-wrap break-words">
+                          {member.bio}
                         </div>
                       </div>
                     )}
