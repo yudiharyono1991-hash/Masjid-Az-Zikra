@@ -50,7 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       if (!supabase) return;
       
       try {
-        const { data, error } = await supabase.storage.from('hero-images').list();
+        const { data, error } = await supabase.storage.from('tazkia-media').list('hero');
         if (error) {
           console.error('Error fetching hero images from Supabase:', error);
           return;
@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           
           if (imageFiles.length > 0) {
             const urls = imageFiles.map(file => {
-              const { data: { publicUrl } } = supabase.storage.from('hero-images').getPublicUrl(file.name);
+              const { data: { publicUrl } } = supabase.storage.from('tazkia-media').getPublicUrl(`hero/${file.name}`);
               return publicUrl;
             });
             setBackgrounds(urls);
