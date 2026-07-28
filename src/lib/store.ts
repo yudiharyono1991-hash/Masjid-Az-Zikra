@@ -27,6 +27,17 @@ import {
   JamaahProfile,
   BoardMember
 } from '../types';
+
+export interface GedungBooking {
+  id: string;
+  date: string;
+  name: string;
+  whatsapp: string;
+  email: string;
+  notes: string;
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
+}
 import {
   INITIAL_PROGRAMS,
   INITIAL_DONATIONS,
@@ -75,6 +86,7 @@ export interface AppState {
   jamaahProfiles: JamaahProfile[];
   boardMembers: BoardMember[];
   reportSignatories: ReportSignatory[];
+  gedungBookings: GedungBooking[];
 }
 
 const defaultState: AppState = {
@@ -107,7 +119,8 @@ const defaultState: AppState = {
   auditLogs: INITIAL_AUDIT_LOGS,
   jamaahProfiles: INITIAL_JAMAAH_PROFILES,
   boardMembers: INITIAL_BOARD_MEMBERS,
-  reportSignatories: INITIAL_REPORT_SIGNATORIES
+  reportSignatories: INITIAL_REPORT_SIGNATORIES,
+  gedungBookings: []
 };
 
 export function getStoredState(): AppState {
@@ -143,7 +156,8 @@ export function getStoredState(): AppState {
         auditLogs: (parsed.auditLogs && parsed.auditLogs.length > 0) ? parsed.auditLogs : INITIAL_AUDIT_LOGS,
         jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES,
         boardMembers: (parsed.boardMembers && parsed.boardMembers.length > 0) ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
-        reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES
+        reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES,
+        gedungBookings: parsed.gedungBookings || []
       };
     }
   } catch (e) {
@@ -917,6 +931,33 @@ export function useMasjidStore() {
     }));
   };
 
+  const addGedungBooking = (booking: Omit<GedungBooking, 'id' | 'createdAt'>) => {
+    setState(prev => ({
+      ...prev,
+      gedungBookings: [{
+        ...booking,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString()
+      }, ...prev.gedungBookings]
+    }));
+  };
+
+  const updateGedungBookingStatus = (id: string, status: 'pending' | 'approved' | 'rejected') => {
+    setState(prev => ({
+      ...prev,
+      gedungBookings: prev.gedungBookings.map(b => 
+        b.id === id ? { ...b, status } : b
+      )
+    }));
+  };
+
+  const deleteGedungBooking = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      gedungBookings: prev.gedungBookings.filter(b => b.id !== id)
+    }));
+  };
+
   const resetToDefault = () => {
     setState(defaultState);
   };
@@ -978,6 +1019,9 @@ export function useMasjidStore() {
     addReportSignatory,
     updateReportSignatory,
     deleteReportSignatory,
+    addGedungBooking,
+    updateGedungBookingStatus,
+    deleteGedungBooking,
     resetToDefault
   };
 }

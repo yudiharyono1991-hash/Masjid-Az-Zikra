@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, FileText, Image as ImageIcon, Trash2, CheckCircle2, Building } from 'lucide-react';
+import { Upload, FileText, Image as ImageIcon, Trash2, CheckCircle2, Building, CalendarCheck, Clock, XCircle } from 'lucide-react';
+import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
+import { useMasjidStore } from '../lib/store';
 import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
 
 export const SewaGedungAdmin: React.FC = () => {
+  const { gedungBookings, updateGedungBookingStatus } = useMasjidStore();
+  const [activeTab, setActiveTab] = useState<'assets' | 'bookings'>('bookings');
+  
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
   const [pdf, setPdf] = useState<{name: string, url: string} | null>(null);
   const [loading, setLoading] = useState(true);
@@ -82,10 +87,136 @@ export const SewaGedungAdmin: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="bg-blue-900 border border-blue-800 rounded-2xl p-6 shadow-lg">
-        <h3 className="font-serif text-xl font-bold text-white mb-2 flex items-center gap-2">
-          <Building className="w-5 h-5 text-amber-400" />
-          Kelola Aset Booking Gedung
+      {/* Tabs */}
+      <div className="flex border-b border-blue-800/50">
+        <button
+          onClick={() => setActiveTab('bookings')}
+          className={`px-6 py-3 font-bold text-sm transition-all border-b-2 flex items-center gap-2 ${
+            activeTab === 'bookings' 
+              ? 'border-amber-400 text-amber-400 bg-blue-900/50' 
+              : 'border-transparent text-blue-300 hover:text-white hover:bg-blue-900/30'
+          }`}
+        >
+          <CalendarCheck className="w-4 h-4" /> Manajemen Reservasi
+        </button>
+        <button
+          onClick={() => setActiveTab('assets')}
+          className={`px-6 py-3 font-bold text-sm transition-all border-b-2 flex items-center gap-2 ${
+            activeTab === 'assets' 
+              ? 'border-amber-400 text-amber-400 bg-blue-900/50' 
+              : 'border-transparent text-blue-300 hover:text-white hover:bg-blue-900/30'
+          }`}
+        >
+          <Building className="w-4 h-4" /> Aset & Galeri Gedung
+        </button>
+      </div>
+
+      {activeTab === 'bookings' && (
+        <div className="bg-blue-900 border border-blue-800 rounded-2xl p-6 shadow-lg">
+          <h3 className="font-serif text-xl font-bold text-white mb-2 flex items-center gap-2">
+            <CalendarCheck className="w-5 h-5 text-amber-400" />
+            Daftar Pesanan Gedung
+          </h3>
+          <p className="text-sm text-blue-200 mb-6">
+            Kelola permintaan pemesanan Alhambra Ballroom. Setujui permintaan untuk menandai tanggal sebagai "Penuh" di kalender pengunjung.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-blue-800 text-blue-300 text-xs uppercase tracking-wider">
+                  <th className="p-4 font-semibold">TANGGAL</th>
+                  <th className="p-4 font-semibold">PEMESAN</th>
+                  <th className="p-4 font-semibold">KONTAK</th>
+                  <th className="p-4 font-semibold">CATATAN</th>
+                  <th className="p-4 font-semibold text-center">STATUS</th>
+                  <th className="p-4 font-semibold text-right">AKSI</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-blue-800/50 text-sm">
+                {gedungBookings.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="p-8 text-center text-blue-400 italic">
+                      Belum ada permintaan booking.
+                    </td>
+                  </tr>
+                ) : (
+                  gedungBookings.map(booking => (
+                    <tr key={booking.id} className="hover:bg-blue-800/20 transition-colors">
+                      <td className="p-4 font-medium text-white whitespace-nowrap">
+                        {new Date(booking.date).toLocaleDateString('id-ID', { dateStyle: 'medium' })}
+                      </td>
+                      <td className="p-4 text-blue-100">
+                        {booking.name}
+                      </td>
+                      <td className="p-4 text-blue-100">
+                        <div className="flex flex-col gap-1">
+                          <a href={`https://wa.me/${booking.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noreferrer" className="text-amber-300 hover:underline">{booking.whatsapp}</a>
+                          <span className="text-xs text-blue-300">{booking.email}</span>
+                        </div>
+                      </td>
+                      <td className="p-4 text-blue-200 max-w-xs truncate" title={booking.notes}>
+                        {booking.notes || '-'}
+                      </td>
+                      <td className="p-4 text-center">
+                        {booking.status === 'pending' && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                            <Clock className="w-3.5 h-3.5" /> Menunggu
+                          </span>
+                        )}
+                        {booking.status === 'approved' && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-green-500/20 text-green-400 border border-green-500/30">
+                            <CheckCircle2 className="w-3.5 h-3.5" /> Disetujui
+                          </span>
+                        )}
+                        {booking.status === 'rejected' && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                            <XCircle className="w-3.5 h-3.5" /> Ditolak
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-4 text-right whitespace-nowrap">
+                        {booking.status === 'pending' && (
+                          <div className="flex justify-end gap-2">
+                            <button 
+                              onClick={() => updateGedungBookingStatus(booking.id, 'approved')}
+                              className="p-1.5 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500 hover:text-white transition-colors cursor-pointer"
+                              title="Setujui (Tandai Penuh)"
+                            >
+                              <CheckCircle2 className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => updateGedungBookingStatus(booking.id, 'rejected')}
+                              className="p-1.5 rounded-lg bg-rose-500/20 text-rose-400 hover:bg-rose-500 hover:text-white transition-colors cursor-pointer"
+                              title="Tolak"
+                            >
+                              <XCircle className="w-4 h-4" />
+                            </button>
+                          </div>
+                        )}
+                        {booking.status !== 'pending' && (
+                          <button 
+                            onClick={() => updateGedungBookingStatus(booking.id, 'pending')}
+                            className="text-xs text-blue-400 hover:text-amber-300 underline underline-offset-2 transition-colors cursor-pointer"
+                          >
+                            Batalkan Status
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'assets' && (
+        <div className="bg-blue-900 border border-blue-800 rounded-2xl p-6 shadow-lg">
+          <h3 className="font-serif text-xl font-bold text-white mb-2 flex items-center gap-2">
+            <Building className="w-5 h-5 text-amber-400" />
+            Kelola Aset Booking Gedung
         </h3>
         <p className="text-sm text-blue-200 mb-6">
           Unggah foto galeri Alhambra Ballroom dan file PDF Syarat & Ketentuan. Foto-foto ini akan otomatis ditampilkan pada halaman Booking Gedung di sisi pengguna.
@@ -165,6 +296,7 @@ export const SewaGedungAdmin: React.FC = () => {
           </div>
         )}
       </div>
+      )}
     </div>
   );
 };
