@@ -75,7 +75,7 @@ export function ReportPrinter() {
         </div>
       </div>
 
-      <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm max-w-4xl mx-auto print:border-none print:shadow-none" ref={printRef}>
+      <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm max-w-4xl mx-auto print:border-none print:shadow-none text-gray-900" ref={printRef}>
         <div className="text-center mb-8 border-b-4 border-double border-blue-900 pb-4">
           <h1 className="text-2xl font-bold text-blue-900 tracking-widest uppercase">MASJID TAZKIA</h1>
           <p className="text-gray-600 font-medium">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor</p>

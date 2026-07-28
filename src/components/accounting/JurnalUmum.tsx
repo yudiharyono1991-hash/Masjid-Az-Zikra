@@ -126,7 +126,7 @@ export function JurnalUmum() {
                         const newEntries = [...entries];
                         newEntries[idx].accountId = e.target.value;
                         setEntries(newEntries);
-                      }} className="w-full p-2 border border-gray-300 rounded-lg">
+                      }} className="w-full p-2 border border-gray-300 rounded-lg text-gray-900 bg-white">
                         <option value="">Pilih Akun...</option>
                         {state.erpCoa.filter(c => c.isActive).map(coa => (
                           <option key={coa.id} value={coa.id}>[{coa.accountCode}] {coa.accountName}</option>
@@ -138,21 +138,21 @@ export function JurnalUmum() {
                         const newEntries = [...entries];
                         newEntries[idx].description = e.target.value;
                         setEntries(newEntries);
-                      }} className="w-full p-2 border border-gray-300 rounded-lg" placeholder="Opsional" />
+                      }} className="w-full p-2 border border-gray-300 rounded-lg text-gray-900 bg-white" placeholder="Keterangan..." />
                     </td>
                     <td className="py-1 pr-2">
                       <input type="number" value={entry.debit || ''} onChange={e => {
                         const newEntries = [...entries];
                         newEntries[idx].debit = Number(e.target.value);
                         setEntries(newEntries);
-                      }} className="w-full p-2 border border-gray-300 rounded-lg" />
+                      }} className="w-full p-2 border border-gray-300 rounded-lg text-gray-900 bg-white" />
                     </td>
                     <td className="py-1">
                       <input type="number" value={entry.credit || ''} onChange={e => {
                         const newEntries = [...entries];
                         newEntries[idx].credit = Number(e.target.value);
                         setEntries(newEntries);
-                      }} className="w-full p-2 border border-gray-300 rounded-lg" />
+                      }} className="w-full p-2 border border-gray-300 rounded-lg text-gray-900 bg-white" />
                     </td>
                   </tr>
                 ))}
