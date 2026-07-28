@@ -95,7 +95,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           style={{ backgroundImage: `url("${bg}"), url("/hero-1.jpg")` }}
         />
       ))}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/10 via-transparent to-[#172554]/90 pointer-events-none" />
+      <div className={`absolute inset-0 z-0 ${isDark ? 'bg-slate-950/85' : 'bg-[#153476]/85'} pointer-events-none`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}

@@ -94,9 +94,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-      <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md bg-[#172554]/95 text-white border-b border-[#172554]`}>
+      <header className={`sticky w-full z-40 top-0 transition-colors backdrop-blur-md ${isDark ? 'bg-[#172554]/95 text-white border-b border-[#172554]' : 'bg-white/95 text-slate-800 border-b border-slate-100 shadow-sm'}`}>
       {/* Top Quick Announcement Bar */}
-      <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-[11px] flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none bg-[#1e3a8a] border-[#172554] text-blue-100`}>
+      <div className={`border-b px-2 sm:px-4 py-1 text-[10px] sm:text-[11px] flex items-center justify-between gap-1 sm:gap-2 max-w-7xl mx-auto font-sans transition-colors overflow-x-auto whitespace-nowrap scrollbar-none ${isDark ? 'bg-[#1e3a8a] border-[#172554] text-blue-100' : 'bg-blue-900 border-blue-800 text-blue-50'}`}>
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="bg-blue-700 text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-widest font-mono shadow-sm">
             Official
@@ -165,10 +165,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <nav className="hidden lg:flex items-center gap-1">
             <button
               onClick={() => handleTabClick('beranda')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
+              className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] ${
                 activeTab === 'beranda'
-                  ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
+                  ? (isDark ? 'border-amber-400 text-amber-400' : 'border-blue-600 text-blue-700')
+                  : (isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700')
               }`}
             >
               Home
@@ -177,10 +177,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* ZISWAF Dropdown */}
             <div className="relative group">
               <button
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
+                className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] flex items-center gap-1 ${
                   ['program', 'qurban', 'transparansi', 'edukasi'].includes(activeTab)
-                    ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
+                    ? (isDark ? 'border-amber-400 text-amber-400' : 'border-blue-600 text-blue-700')
+                    : (isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700')
                 }`}
               >
                 ZISWAF <ChevronDown className="w-4 h-4" />
@@ -197,10 +197,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => handleTabClick('jadwal_khatib')}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm ${
+              className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] ${
                 activeTab === 'jadwal_khatib'
-                  ? 'bg-blue-700 text-white shadow-md'
-                  : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
+                  ? (isDark ? 'border-amber-400 text-amber-400' : 'border-blue-600 text-blue-700')
+                  : (isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700')
               }`}
             >
               Kalender Kegiatan
@@ -209,10 +209,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Tentang Kami Dropdown */}
             <div className="relative group">
               <button
-                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 ${
+                className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] flex items-center gap-1 ${
                   ['sejarah', 'galeri'].includes(activeTab)
-                    ? 'bg-blue-700 text-white shadow-md'
-                    : 'text-amber-300 hover:text-amber-200 hover:bg-blue-800/50'
+                    ? (isDark ? 'border-amber-400 text-amber-400' : 'border-blue-600 text-blue-700')
+                    : (isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700')
                 }`}
               >
                 Tentang Kami <ChevronDown className="w-4 h-4" />
@@ -228,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Layanan Resmi Dropdown */}
             <div className="relative group">
               <button
-                className="px-3.5 py-2 rounded-xl transition-all cursor-pointer font-semibold text-sm flex items-center gap-1 text-amber-300 hover:text-amber-200 hover:bg-blue-800/50"
+                className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] flex items-center gap-1 ${isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700'}`}
               >
                 Layanan Resmi <ChevronDown className="w-4 h-4" />
               </button>
