@@ -3789,6 +3789,13 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           </div>
         )}
 
+        {/* TAB: PENGATURAN APLIKASI */}
+        {dkmTab === 'aplikasi' && (
+          <div className="animate-fadeIn">
+            <AppManagerAdmin />
+          </div>
+        )}
+
         {/* TAB: TANDA TANGAN LAPORAN */}
         {dkmTab === 'ttd_laporan' && (
           <div className="animate-fadeIn">
