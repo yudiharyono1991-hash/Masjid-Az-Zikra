@@ -173,6 +173,7 @@ export default function App() {
 
             <ProgramCardsSection
               programs={state.programs}
+              adminSettings={state.adminSettings}
               openDonationForProgram={handleOpenDonationForProgram}
               onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
               totalCollected={totalCollected}
@@ -206,6 +207,7 @@ export default function App() {
             </div>
             <ProgramCardsSection
               programs={state.programs}
+              adminSettings={state.adminSettings}
               openDonationForProgram={handleOpenDonationForProgram}
               onSelectProgramDetail={(prog) => setSelectedDetailProgram(prog)}
               totalCollected={totalCollected}

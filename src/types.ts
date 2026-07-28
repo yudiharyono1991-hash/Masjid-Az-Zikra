@@ -267,6 +267,12 @@ export interface AppAdminSettings {
   masjidHeroPhotoUrl?: string;
   masjidHeroCarouselUrls?: string[];
   qrisCodeImageUrl?: string;
+
+  // Promo Text Settings
+  heroPromoTitle?: string;
+  heroPromoSubtitle?: string;
+  heroPromoDescription?: string;
+
   // Friday Khutbah & Feature Info Settings
   jumatKhatibName?: string;
   jumatImamName?: string;

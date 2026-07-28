@@ -2093,8 +2093,46 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       className="w-full bg-blue-950 border border-blue-800 rounded-xl p-2.5 text-amber-300 font-sans text-xs outline-none"
                     />
                   </div>
+                  
+                  {/* Promo Text Editor */}
+                  <div className="bg-blue-950/50 p-4 rounded-xl border border-blue-800 space-y-3 mt-4">
+                    <h5 className="font-bold text-white text-xs mb-2">Teks Promosi Halaman Utama (ZISWAF & Dakwah)</h5>
+                    
+                    <div>
+                      <label className="text-blue-300 font-semibold block mb-1">Judul Promosi Utama:</label>
+                      <input
+                        type="text"
+                        value={adminSettings?.heroPromoTitle || ''}
+                        onChange={(e) => handleTextSettingChange('heroPromoTitle', e.target.value)}
+                        className="w-full bg-blue-950 border border-blue-800 rounded-lg p-2 font-serif text-white text-xs outline-none"
+                        placeholder="Contoh: Pusat Peradaban Islam & Kesejahteraan Umat"
+                      />
+                    </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-blue-300 font-semibold block mb-1">Sub-Judul Promosi:</label>
+                      <input
+                        type="text"
+                        value={adminSettings?.heroPromoSubtitle || ''}
+                        onChange={(e) => handleTextSettingChange('heroPromoSubtitle', e.target.value)}
+                        className="w-full bg-blue-950 border border-blue-800 rounded-lg p-2 font-serif text-amber-300 text-xs outline-none"
+                        placeholder="Contoh: Melalui Optimalisasi ZISWAF, Dakwah & Zikir"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-blue-300 font-semibold block mb-1">Deskripsi & Ajakan Promosi:</label>
+                      <textarea
+                        rows={3}
+                        value={adminSettings?.heroPromoDescription || ''}
+                        onChange={(e) => handleTextSettingChange('heroPromoDescription', e.target.value)}
+                        className="w-full bg-blue-950 border border-blue-800 rounded-lg p-2 text-blue-200 text-xs outline-none leading-relaxed"
+                        placeholder="Salurkan Zakat, Infaq, Shadaqah..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 mt-4">
                     <div>
                       <label className="text-blue-300 font-semibold block mb-1">
                         Harga Acuan Emas/Gram (Nisab Zakat):
