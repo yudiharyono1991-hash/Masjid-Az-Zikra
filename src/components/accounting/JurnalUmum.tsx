@@ -92,19 +92,19 @@ export function JurnalUmum() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1">No Jurnal</label>
-              <input value={journalData.journalNo} onChange={e => setJournalData({ ...journalData, journalNo: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50" readOnly />
+              <input value={journalData.journalNo} onChange={e => setJournalData({ ...journalData, journalNo: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 text-gray-900" readOnly />
             </div>
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1">Tanggal</label>
-              <input type="date" value={journalData.date} onChange={e => setJournalData({ ...journalData, date: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm" />
+              <input type="date" value={journalData.date} onChange={e => setJournalData({ ...journalData, date: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm bg-white text-gray-900" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1">Referensi</label>
-              <input value={journalData.reference} onChange={e => setJournalData({ ...journalData, reference: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Ref Bukti" />
+              <input value={journalData.reference} onChange={e => setJournalData({ ...journalData, reference: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm bg-white text-gray-900" placeholder="Ref Bukti" />
             </div>
             <div className="md:col-span-4">
               <label className="block text-xs font-semibold text-gray-600 mb-1">Keterangan Jurnal</label>
-              <input value={journalData.description} onChange={e => setJournalData({ ...journalData, description: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm" placeholder="Keterangan Transaksi" />
+              <input value={journalData.description} onChange={e => setJournalData({ ...journalData, description: e.target.value })} className="w-full p-2 border border-gray-300 rounded-lg text-sm bg-white text-gray-900" placeholder="Keterangan Transaksi" />
             </div>
           </div>
 

@@ -61,7 +61,7 @@ export function ReportPrinter() {
           <select 
             value={reportType} 
             onChange={e => setReportType(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 outline-none"
+            className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
           >
             <option value="Neraca">Laporan Posisi Keuangan (Neraca)</option>
             <option value="LabaRugi">Laporan Aktivitas (Laba/Rugi)</option>

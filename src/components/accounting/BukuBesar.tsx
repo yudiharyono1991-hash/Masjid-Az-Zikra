@@ -56,7 +56,7 @@ export function BukuBesar() {
           <select 
             value={selectedAccountId} 
             onChange={e => setSelectedAccountId(e.target.value)} 
-            className="w-full p-2.5 border border-gray-300 rounded-lg text-sm bg-gray-50 outline-none focus:border-blue-500"
+            className="w-full p-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none focus:border-blue-500"
           >
             <option value="">-- Pilih Akun --</option>
             {state.erpCoa.map(coa => (
