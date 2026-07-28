@@ -33,8 +33,13 @@ export const Footer: React.FC<FooterProps> = ({
   const { state } = useMasjidStore();
 
   return (
-    <footer className="pt-16 pb-12 border-t transition-colors bg-[#172554] text-white border-[#172554]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <footer className="pt-16 pb-12 border-t transition-colors bg-[#172554] text-white border-[#172554] relative overflow-hidden">
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{ backgroundImage: `url("/hero-1.jpg")` }}
+      />
+      <div className="absolute inset-0 z-0 bg-[#153476]/95 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Col 1: Brand Info */}
           <div className="space-y-4">

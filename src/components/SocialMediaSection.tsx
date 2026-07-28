@@ -18,7 +18,11 @@ export const SocialMediaSection: React.FC = () => {
 
   return (
     <section className="py-16 bg-[#172554] border-t border-blue-900/50 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#172554] to-blue-950/40 pointer-events-none" />
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{ backgroundImage: `url("/hero-1.jpg")` }}
+      />
+      <div className="absolute inset-0 z-0 bg-[#153476]/90 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <div className="text-center mb-10">
