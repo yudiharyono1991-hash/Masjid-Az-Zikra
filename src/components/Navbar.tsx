@@ -14,7 +14,9 @@ import {
   Moon,
   Sun,
   ChevronDown,
-  Clock
+  Clock,
+  User,
+  Database
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
 
