@@ -97,7 +97,8 @@ export function BukuBesar() {
               placeholder="Ketik kode atau nama..."
               value={coaSearch}
               onChange={e => setCoaSearch(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white outline-none focus:border-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+              style={{ color: '#111827', backgroundColor: '#ffffff' }}
             />
           </div>
           <div className="flex-1 w-full">
@@ -105,11 +106,12 @@ export function BukuBesar() {
             <select 
               value={selectedAccountId} 
               onChange={e => setSelectedAccountId(e.target.value)} 
-              className="w-full p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none focus:border-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+              style={{ color: '#111827', backgroundColor: '#ffffff' }}
             >
-              <option value="">-- Semua Akun (Semua Mutasi Transaksi) --</option>
+              <option value="" style={{ color: '#111827', backgroundColor: '#ffffff' }}>-- Semua Akun (Semua Mutasi Transaksi) --</option>
               {filteredCoa.map(coa => (
-                <option key={coa.id} value={coa.id}>[{coa.accountCode}] {coa.accountName}</option>
+                <option key={coa.id} value={coa.id} style={{ color: '#111827', backgroundColor: '#ffffff' }}>[{coa.accountCode}] {coa.accountName}</option>
               ))}
             </select>
           </div>

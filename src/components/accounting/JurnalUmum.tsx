@@ -200,11 +200,12 @@ export function JurnalUmum() {
                               newEntries[idx].accountId = e.target.value;
                               setEntries(newEntries);
                             }} 
-                            className="flex-1 p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white min-w-[140px]"
+                            className="flex-1 p-2 border border-gray-300 rounded-lg text-sm min-w-[140px]"
+                            style={{ color: '#111827', backgroundColor: '#ffffff' }}
                           >
-                            <option value="">Pilih Akun...</option>
+                            <option value="" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Pilih Akun...</option>
                             {filteredCoa.map(coa => (
-                              <option key={coa.id} value={coa.id}>[{coa.accountCode}] {coa.accountName}</option>
+                              <option key={coa.id} value={coa.id} style={{ color: '#111827', backgroundColor: '#ffffff' }}>[{coa.accountCode}] {coa.accountName}</option>
                             ))}
                           </select>
                         </div>

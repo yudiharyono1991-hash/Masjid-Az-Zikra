@@ -78,19 +78,21 @@ export function ChartOfAccounts() {
             placeholder="Cari nama/kode..." 
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px] text-gray-900 bg-white"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px]"
+            style={{ color: '#111827', backgroundColor: '#ffffff' }}
           />
           <select 
             value={filterType}
             onChange={e => setFilterType(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none text-gray-900 bg-white"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none"
+            style={{ color: '#111827', backgroundColor: '#ffffff' }}
           >
-            <option value="All">Semua Klasifikasi</option>
-            <option value="Asset">Asset</option>
-            <option value="Liability">Liability</option>
-            <option value="Equity">Equity</option>
-            <option value="Revenue">Revenue</option>
-            <option value="Expense">Expense</option>
+            <option value="All" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Semua Klasifikasi</option>
+            <option value="Asset" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Asset</option>
+            <option value="Liability" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Liability</option>
+            <option value="Equity" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Equity</option>
+            <option value="Revenue" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Revenue</option>
+            <option value="Expense" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Expense</option>
           </select>
 
           <div className="h-6 w-px bg-gray-200 hidden md:block mx-1"></div>
