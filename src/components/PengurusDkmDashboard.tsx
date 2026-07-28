@@ -72,7 +72,7 @@ import { BoardMemberAdmin } from './BoardMemberAdmin';
 import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
 
 import { AppManagerAdmin } from './AppManagerAdmin';
-import { saveImageToStorage, getImageFromStorage } from '../lib/imageStorage';
+import { uploadMedia } from '../lib/mediaUpload';
 
 interface PengurusDkmDashboardProps {
   financials: FinancialTransaction[];
@@ -280,34 +280,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [ancAuthor, setAncAuthor] = useState('Pengurus DKM Tazkia');
   const [ancImageUrl, setAncImageUrl] = useState('https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80');
 
-  // Admin Settings Image States
+  // Admin Settings Image States - URL dari Supabase Storage atau store
   const [logoUrlInput, setLogoUrlInput] = useState(adminSettings?.masjidLogoUrl || '/logo.png');
   const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroCarouselUrls?.join(', ') || adminSettings?.masjidHeroPhotoUrl || '/hero-1.jpg');
   const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || '');
-
-  // Load images from IndexedDB on mount (persists across sessions regardless of localStorage size)
-  useEffect(() => {
-    const loadStoredImages = async () => {
-      try {
-        const { getImageFromStorage } = await import('../lib/imageStorage');
-        const savedLogo = await getImageFromStorage('tazkia_logo_masjid');
-        if (savedLogo && savedLogo !== adminSettings?.masjidLogoUrl) {
-          setLogoUrlInput(savedLogo);
-        }
-        const savedHero = await getImageFromStorage('tazkia_hero_banner');
-        if (savedHero) {
-          setHeroUrlInput(savedHero);
-        }
-        const savedQris = await getImageFromStorage('tazkia_qris_barcode');
-        if (savedQris) {
-          setQrisUrlInput(savedQris);
-        }
-      } catch (e) {
-        console.warn('Could not load images from IndexedDB', e);
-      }
-    };
-    loadStoredImages();
-  }, []);
 
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
@@ -515,27 +491,30 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const handleFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     setUrl: (url: string) => void,
-    storageKey?: string
+    folder?: 'logo' | 'hero' | 'qris' | 'gallery' | 'pengurus' | 'booking' | 'program'
   ) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        if (event.target?.result) {
-          const dataUrl = event.target.result as string;
-          setUrl(dataUrl);
-          // Simpan juga ke IndexedDB untuk memastikan persisten
-          if (storageKey) {
-            try {
-              await saveImageToStorage(storageKey, dataUrl);
-            } catch (e) {
-              console.warn('IndexedDB save failed, using memory only', e);
-            }
-          }
+    if (!file) return;
+
+    // Langsung tampilkan preview lokal dulu (agar tidak menunggu)
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const localUrl = event.target?.result as string;
+      setUrl(localUrl); // tampilkan preview
+
+      // Upload ke Supabase Storage di background
+      if (folder) {
+        showToast(`Mengunggah ${file.name} ke server...`, 'success');
+        const result = await uploadMedia(file, folder);
+        if (!result.isLocal) {
+          setUrl(result.url); // ganti dengan URL Supabase
+          showToast(`✅ ${file.name} berhasil disimpan ke server! Bisa diakses dari perangkat lain.`, 'success');
+        } else {
+          showToast(`⚠️ Tersimpan lokal saja. Pastikan bucket 'masjid-media' sudah dibuat di Supabase.`, 'error');
         }
-      };
-      reader.readAsDataURL(file);
-    }
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleCreateTrx = (e: React.FormEvent) => {
@@ -2211,7 +2190,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setLogoUrlInput, 'tazkia_logo_masjid')}
+                        onChange={(e) => handleFileUpload(e, setLogoUrlInput, 'logo')}
                       />
                     </label>
                   </div>
@@ -2253,7 +2232,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setHeroUrlInput, 'tazkia_hero_banner')}
+                        onChange={(e) => handleFileUpload(e, setHeroUrlInput, 'hero')}
                       />
                     </label>
                   </div>
@@ -2295,7 +2274,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => handleFileUpload(e, setQrisUrlInput, 'tazkia_qris_barcode')}
+                        onChange={(e) => handleFileUpload(e, setQrisUrlInput, 'qris')}
                       />
                     </label>
                   </div>

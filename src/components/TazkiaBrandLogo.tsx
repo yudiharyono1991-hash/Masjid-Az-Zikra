@@ -41,23 +41,37 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
       <div className={`flex flex-col items-center text-center space-y-2 ${className}`}>
         {/* Emblem Dome Graphic */}
         <div className="relative flex items-center justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-900 to-blue-950 border-2 border-amber-400/60 p-2 shadow-2xl flex items-center justify-center relative overflow-hidden group">
-            {/* Custom Logo Image */}
-            <img src={logoUrl} alt="Logo Masjid Tazkia" className="w-full h-full object-contain drop-shadow-md z-10 relative" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-b from-blue-900 to-blue-950 border-2 border-amber-400/60 p-2 shadow-2xl flex items-center justify-center relative overflow-hidden">
+            {/* Custom Logo Image with fallback */}
+            <img
+              src={logoUrl}
+              alt="Logo Masjid Tazkia"
+              className="w-full h-full object-contain drop-shadow-md z-10 relative"
+              onError={(e) => { (e.target as HTMLImageElement).src = '/logo.png'; }}
+            />
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-blue-500/10 z-0" />
           </div>
         </div>
 
         {/* 3D Facade Style Tazkia Logo Text */}
         <div className="space-y-0.5 flex flex-col items-center">
-          <div className="inline-block px-3 py-0.5 bg-amber-500/20 border border-amber-400/40 rounded-full font-mono text-[10px] font-bold text-amber-300 uppercase tracking-[0.25em] mb-1">
+          <div className="inline-block px-2 py-0.5 bg-amber-500/30 border border-amber-400/50 rounded-full font-mono text-[9px] sm:text-[10px] font-bold text-amber-300 uppercase tracking-[0.2em] mb-1 shadow-sm">
             MASJID OFFICIAL BRANDING
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-blue-300 drop-shadow-[0_2px_10px_rgba(217,119,6,0.3)] transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_15px_rgba(251,191,36,0.6)] cursor-default">
+          <h1
+            className="text-2xl sm:text-4xl font-serif font-black tracking-wider text-amber-300 cursor-default"
+            style={{ textShadow: '0 2px 12px rgba(217,119,6,0.6), 0 0 30px rgba(217,119,6,0.3)' }}
+          >
             Tazkia
           </h1>
-          <p className="font-serif text-[13px] sm:text-sm text-amber-300 tracking-[0.1em] mt-[-2px] pb-1 font-normal">Islamic Center</p>
-          <p className="font-mono text-xs font-bold text-blue-400 uppercase tracking-[0.3em]">
+          <p
+            className="font-serif text-sm sm:text-sm text-amber-200 tracking-[0.1em] mt-[-2px] pb-1 font-normal"
+            style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}
+          >Islamic Center</p>
+          <p
+            className="font-mono text-xs font-bold text-blue-300 uppercase tracking-[0.3em]"
+            style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
+          >
             SENTUL &bull; BOGOR
           </p>
         </div>

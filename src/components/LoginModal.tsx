@@ -64,8 +64,24 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#F9F8F4] border border-black/15 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative text-[#1A1A1A] my-8">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm overflow-y-auto">
+      {/* Back button & close for mobile — sticky at top */}
+      <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 bg-[#1e3a8a] sm:hidden shadow-lg">
+        <button
+          onClick={onClose}
+          className="flex items-center gap-1.5 text-white/80 hover:text-white text-sm font-bold cursor-pointer"
+        >
+          <span className="text-lg leading-none">←</span>
+          <span>Kembali</span>
+        </button>
+        <span className="text-white text-xs font-mono font-bold uppercase tracking-wider">Portal Keanggotaan</span>
+        <button onClick={onClose} className="text-white/80 hover:text-white p-1 cursor-pointer">
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <div className="flex items-start justify-center min-h-full p-4 py-6 sm:py-8">
+      <div className="bg-[#F9F8F4] border border-black/15 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl relative text-[#1A1A1A]">
         {/* Header Bar */}
         <div className="bg-[#1e3a8a] text-white px-6 py-4 border-b border-black/10 flex items-center justify-between">
           <div className="flex items-center gap-3 flex-1 min-w-0 mr-2">
@@ -314,6 +330,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

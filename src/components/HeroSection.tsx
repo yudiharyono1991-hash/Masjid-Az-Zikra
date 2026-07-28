@@ -85,7 +85,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   }, [backgrounds]);
 
   return (
-    <section className="relative overflow-hidden bg-[#172554] text-white py-12 md:py-16 border-b border-blue-900 min-h-[50vh] md:min-h-[85vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden bg-[#172554] text-white py-12 md:py-16 border-b border-blue-900 min-h-[60vh] md:min-h-[85vh] flex flex-col justify-center">
       {/* Background Image Carousel */}
       {backgrounds.map((bg, index) => (
         <div
@@ -96,7 +96,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           style={{ backgroundImage: `url("${bg}"), url("/hero-1.jpg")` }}
         />
       ))}
-      <div className={`absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-slate-950/40 via-transparent to-slate-950/90' : 'from-[#172554]/10 via-transparent to-[#172554]/90'} pointer-events-none`} />
+      {/* Stronger overlay on mobile for text readability */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/70 via-[#172554]/30 to-[#172554]/85 pointer-events-none md:from-[#172554]/20 md:via-transparent md:to-[#172554]/90" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Official Brand Logo Banner */}

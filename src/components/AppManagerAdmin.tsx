@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Upload, Image as ImageIcon, QrCode, Store, Trash2, Plus, Link as LinkIcon, Download } from 'lucide-react';
+import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
 
 interface Sponsor {
   id: string;
@@ -61,36 +62,41 @@ export const AppManagerAdmin: React.FC = () => {
     } catch(e) {}
   };
 
-  const handleHeroUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleHeroUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setIsUploading(true);
-    setUploadProgress(10);
+    setUploadProgress(20);
     
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const newImage = { name: `${Date.now()}-${file.name}`, url: reader.result as string };
-      const updated = [...heroImages, newImage];
-      setHeroImages(updated);
-      localStorage.setItem('tazkia_hero_images', JSON.stringify(updated));
-      setUploadProgress(100);
-      
-      // Menggunakan custom toast style yang lebih informatif
-      const msg = document.createElement('div');
-      msg.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-bounce';
-      msg.innerText = '✅ Foto berhasil diunggah dan disimpan!';
-      document.body.appendChild(msg);
-      setTimeout(() => msg.remove(), 3000);
-      
-      setIsUploading(false);
-      setUploadProgress(0);
-    };
-    reader.readAsDataURL(file);
+    const result = await uploadMedia(file, 'hero', (p) => setUploadProgress(p));
+    const newImage = { name: `${Date.now()}-${file.name}`, url: result.url };
+    const updated = [...heroImages, newImage];
+    setHeroImages(updated);
+    localStorage.setItem('tazkia_hero_images', JSON.stringify(updated));
+    
+    const msg = document.createElement('div');
+    msg.className = 'fixed bottom-4 right-4 text-white px-6 py-3 rounded-xl shadow-lg z-50 text-sm font-bold';
+    if (result.isLocal) {
+      msg.className += ' bg-orange-600';
+      msg.innerText = '⚠️ Tersimpan lokal. Buat bucket masjid-media di Supabase untuk akses semua perangkat!';
+    } else {
+      msg.className += ' bg-green-600';
+      msg.innerText = '✅ Foto berhasil diunggah ke server! Bisa dilihat dari semua perangkat.';
+    }
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 4000);
+    
+    setIsUploading(false);
+    setUploadProgress(0);
   };
 
-  const handleDeleteHero = (fileName: string) => {
+  const handleDeleteHero = async (fileName: string, fileUrl?: string) => {
     if (!window.confirm("Hapus gambar ini?")) return;
+    
+    if (fileUrl && fileUrl.includes('supabase')) {
+      await deleteMediaFromSupabase(fileUrl);
+    }
     
     const updated = heroImages.filter(img => img.name !== fileName);
     setHeroImages(updated);

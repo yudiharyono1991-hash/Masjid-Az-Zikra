@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Upload, FileText, Image as ImageIcon, Trash2, CheckCircle2, Building } from 'lucide-react';
+import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
 
 export const SewaGedungAdmin: React.FC = () => {
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
@@ -26,37 +27,46 @@ export const SewaGedungAdmin: React.FC = () => {
     fetchAssets();
   }, []);
 
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
     setMessage('');
     
-    const fileExt = file.name.split('.').pop();
-    const isPdf = fileExt?.toLowerCase() === 'pdf';
-    const fileName = isPdf ? `alhambra-terms-${Date.now()}.pdf` : `gallery-${Date.now()}.${fileExt}`;
+    const fileExt = file.name.split('.').pop()?.toLowerCase();
+    const folder = fileExt === 'pdf' ? 'booking' : 'booking';
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (isPdf) {
-        const newPdf = { name: fileName, url: reader.result as string };
-        setPdf(newPdf);
-        localStorage.setItem('tazkia_booking_pdf', JSON.stringify(newPdf));
-      } else {
-        const newImage = { name: fileName, url: reader.result as string };
-        const updatedImages = [...images, newImage];
-        setImages(updatedImages);
-        localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
-      }
-      setMessage(`Berhasil mengunggah ${file.name}`);
-      setUploading(false);
-    };
-    reader.readAsDataURL(file);
+    // Upload ke Supabase Storage
+    const result = await uploadMedia(file, 'booking');
+    
+    const isPdf = fileExt === 'pdf';
+    if (isPdf) {
+      const newPdf = { name: file.name, url: result.url };
+      setPdf(newPdf);
+      localStorage.setItem('tazkia_booking_pdf', JSON.stringify(newPdf));
+    } else {
+      const newImage = { name: `${Date.now()}-${file.name}`, url: result.url };
+      const updatedImages = [...images, newImage];
+      setImages(updatedImages);
+      localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
+    }
+    
+    if (result.isLocal) {
+      setMessage(`⚠️ ${file.name} tersimpan lokal. Buat bucket 'masjid-media' di Supabase agar bisa diakses semua orang.`);
+    } else {
+      setMessage(`✅ ${file.name} berhasil diunggah ke server!`);
+    }
+    setUploading(false);
   };
 
-  const handleDelete = (fileName: string) => {
+  const handleDelete = async (fileName: string, fileUrl?: string) => {
     if (!window.confirm(`Hapus file ${fileName}?`)) return;
+
+    // Hapus dari Supabase Storage jika URL adalah dari Supabase
+    if (fileUrl && fileUrl.includes('supabase')) {
+      await deleteMediaFromSupabase(fileUrl);
+    }
 
     if (pdf && pdf.name === fileName) {
       setPdf(null);
