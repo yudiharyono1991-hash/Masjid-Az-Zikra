@@ -34,6 +34,7 @@ interface NavbarProps {
   openCatalogPdf: () => void;
   session: UserSession;
   openLoginModal: () => void;
+  logout: () => void;
   palette: ColorPalette;
   setPalette: (p: ColorPalette) => void;
   themeMode?: ThemeMode;
@@ -54,6 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   openCatalogPdf,
   session,
   openLoginModal,
+  logout,
   palette,
   setPalette,
   themeMode = 'light',
