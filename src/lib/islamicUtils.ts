@@ -1,4 +1,4 @@
-export function formatRupiah(amount: number): string {
+﻿export function formatRupiah(amount: number): string {
   if (amount >= 1000000000) {
     const bill = amount / 1000000000;
     return `Rp ${bill % 1 === 0 ? bill : bill.toFixed(1)}M`;
@@ -143,7 +143,7 @@ export function getHijriDate(): string {
 export const SURAHS_LIST = [
   {
     "number": 1,
-    "name": "سُورَةُ ٱلْفَاتِحَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘▒┘ä┘Æ┘ü┘Ä╪º╪¬┘É╪¡┘Ä╪⌐┘É",
     "englishName": "Al-Faatiha",
     "translation": "The Opening",
     "ayahsCount": 7,
@@ -151,7 +151,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 2,
-    "name": "سُورَةُ البَقَرَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¿┘Ä┘é┘Ä╪▒┘Ä╪⌐┘É",
     "englishName": "Al-Baqara",
     "translation": "The Cow",
     "ayahsCount": 286,
@@ -159,7 +159,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 3,
-    "name": "سُورَةُ آلِ عِمۡرَانَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ô┘ä┘É ╪╣┘É┘à█í╪▒┘Ä╪º┘å┘Ä",
     "englishName": "Aal-i-Imraan",
     "translation": "The Family of Imraan",
     "ayahsCount": 200,
@@ -167,7 +167,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 4,
-    "name": "سُورَةُ النِّسَاءِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘É╪│┘Ä╪º╪í┘É",
     "englishName": "An-Nisaa",
     "translation": "The Women",
     "ayahsCount": 176,
@@ -175,7 +175,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 5,
-    "name": "سُورَةُ المَائـِدَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Ä╪º╪ª┘Ç┘É╪»┘Ä╪⌐┘É",
     "englishName": "Al-Maaida",
     "translation": "The Table",
     "ayahsCount": 120,
@@ -183,7 +183,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 6,
-    "name": "سُورَةُ الأَنۡعَامِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä┘å█í╪╣┘Ä╪º┘à┘É",
     "englishName": "Al-An'aam",
     "translation": "The Cattle",
     "ayahsCount": 165,
@@ -191,7 +191,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 7,
-    "name": "سُورَةُ الأَعۡرَافِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä╪╣█í╪▒┘Ä╪º┘ü┘É",
     "englishName": "Al-A'raaf",
     "translation": "The Heights",
     "ayahsCount": 206,
@@ -199,7 +199,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 8,
-    "name": "سُورَةُ الأَنفَالِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä┘å┘ü┘Ä╪º┘ä┘É",
     "englishName": "Al-Anfaal",
     "translation": "The Spoils of War",
     "ayahsCount": 75,
@@ -207,7 +207,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 9,
-    "name": "سُورَةُ التَّوۡبَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘Ä┘ê█í╪¿┘Ä╪⌐┘É",
     "englishName": "At-Tawba",
     "translation": "The Repentance",
     "ayahsCount": 129,
@@ -215,7 +215,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 10,
-    "name": "سُورَةُ يُونُسَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘è┘Å┘ê┘å┘Å╪│┘Ä",
     "englishName": "Yunus",
     "translation": "Jonas",
     "ayahsCount": 109,
@@ -223,7 +223,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 11,
-    "name": "سُورَةُ هُودٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘ç┘Å┘ê╪»┘ì",
     "englishName": "Hud",
     "translation": "Hud",
     "ayahsCount": 123,
@@ -231,7 +231,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 12,
-    "name": "سُورَةُ يُوسُفَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘è┘Å┘ê╪│┘Å┘ü┘Ä",
     "englishName": "Yusuf",
     "translation": "Joseph",
     "ayahsCount": 111,
@@ -239,7 +239,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 13,
-    "name": "سُورَةُ الرَّعۡدِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▒┘æ┘Ä╪╣█í╪»┘É",
     "englishName": "Ar-Ra'd",
     "translation": "The Thunder",
     "ayahsCount": 43,
@@ -247,7 +247,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 14,
-    "name": "سُورَةُ إِبۡرَاهِيمَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪Ñ┘É╪¿█í╪▒┘Ä╪º┘ç┘É┘è┘à┘Ä",
     "englishName": "Ibrahim",
     "translation": "Abraham",
     "ayahsCount": 52,
@@ -255,7 +255,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 15,
-    "name": "سُورَةُ الحِجۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘É╪¼█í╪▒┘É",
     "englishName": "Al-Hijr",
     "translation": "The Rock",
     "ayahsCount": 99,
@@ -263,7 +263,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 16,
-    "name": "سُورَةُ النَّحۡلِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪¡█í┘ä┘É",
     "englishName": "An-Nahl",
     "translation": "The Bee",
     "ayahsCount": 128,
@@ -271,7 +271,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 17,
-    "name": "سُورَةُ الإِسۡرَاءِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪Ñ┘É╪│█í╪▒┘Ä╪º╪í┘É",
     "englishName": "Al-Israa",
     "translation": "The Night Journey",
     "ayahsCount": 111,
@@ -279,7 +279,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 18,
-    "name": "سُورَةُ الكَهۡفِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘â┘Ä┘ç█í┘ü┘É",
     "englishName": "Al-Kahf",
     "translation": "The Cave",
     "ayahsCount": 110,
@@ -287,7 +287,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 19,
-    "name": "سُورَةُ مَرۡيَمَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘à┘Ä╪▒█í┘è┘Ä┘à┘Ä",
     "englishName": "Maryam",
     "translation": "Mary",
     "ayahsCount": 98,
@@ -295,7 +295,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 20,
-    "name": "سُورَةُ طه",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪╖┘ç",
     "englishName": "Taa-Haa",
     "translation": "Taa-Haa",
     "ayahsCount": 135,
@@ -303,7 +303,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 21,
-    "name": "سُورَةُ الأَنبِيَاءِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä┘å╪¿┘É┘è┘Ä╪º╪í┘É",
     "englishName": "Al-Anbiyaa",
     "translation": "The Prophets",
     "ayahsCount": 112,
@@ -311,7 +311,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 22,
-    "name": "سُورَةُ الحَجِّ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘Ä╪¼┘æ┘É",
     "englishName": "Al-Hajj",
     "translation": "The Pilgrimage",
     "ayahsCount": 78,
@@ -319,7 +319,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 23,
-    "name": "سُورَةُ المُؤۡمِنُونَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪ñ█í┘à┘É┘å┘Å┘ê┘å┘Ä",
     "englishName": "Al-Muminoon",
     "translation": "The Believers",
     "ayahsCount": 118,
@@ -327,7 +327,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 24,
-    "name": "سُورَةُ النُّورِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Å┘ê╪▒┘É",
     "englishName": "An-Noor",
     "translation": "The Light",
     "ayahsCount": 64,
@@ -335,7 +335,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 25,
-    "name": "سُورَةُ الفُرۡقَانِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ü┘Å╪▒█í┘é┘Ä╪º┘å┘É",
     "englishName": "Al-Furqaan",
     "translation": "The Criterion",
     "ayahsCount": 77,
@@ -343,7 +343,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 26,
-    "name": "سُورَةُ الشُّعَرَاءِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪┤┘æ┘Å╪╣┘Ä╪▒┘Ä╪º╪í┘É",
     "englishName": "Ash-Shu'araa",
     "translation": "The Poets",
     "ayahsCount": 227,
@@ -351,7 +351,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 27,
-    "name": "سُورَةُ النَّمۡلِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä┘à█í┘ä┘É",
     "englishName": "An-Naml",
     "translation": "The Ant",
     "ayahsCount": 93,
@@ -359,7 +359,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 28,
-    "name": "سُورَةُ القَصَصِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘Ä╪╡┘Ä╪╡┘É",
     "englishName": "Al-Qasas",
     "translation": "The Stories",
     "ayahsCount": 88,
@@ -367,7 +367,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 29,
-    "name": "سُورَةُ العَنكَبُوتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╣┘Ä┘å┘â┘Ä╪¿┘Å┘ê╪¬┘É",
     "englishName": "Al-Ankaboot",
     "translation": "The Spider",
     "ayahsCount": 69,
@@ -375,7 +375,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 30,
-    "name": "سُورَةُ الرُّومِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▒┘æ┘Å┘ê┘à┘É",
     "englishName": "Ar-Room",
     "translation": "The Romans",
     "ayahsCount": 60,
@@ -383,7 +383,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 31,
-    "name": "سُورَةُ لُقۡمَانَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘ä┘Å┘é█í┘à┘Ä╪º┘å┘Ä",
     "englishName": "Luqman",
     "translation": "Luqman",
     "ayahsCount": 34,
@@ -391,7 +391,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 32,
-    "name": "سُورَةُ السَّجۡدَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪│┘æ┘Ä╪¼█í╪»┘Ä╪⌐┘É",
     "englishName": "As-Sajda",
     "translation": "The Prostration",
     "ayahsCount": 30,
@@ -399,7 +399,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 33,
-    "name": "سُورَةُ الأَحۡزَابِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä╪¡█í╪▓┘Ä╪º╪¿┘É",
     "englishName": "Al-Ahzaab",
     "translation": "The Clans",
     "ayahsCount": 73,
@@ -407,7 +407,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 34,
-    "name": "سُورَةُ سَبَإٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪│┘Ä╪¿┘Ä╪Ñ┘ì",
     "englishName": "Saba",
     "translation": "Sheba",
     "ayahsCount": 54,
@@ -415,7 +415,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 35,
-    "name": "سُورَةُ فَاطِرٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘ü┘Ä╪º╪╖┘É╪▒┘ì",
     "englishName": "Faatir",
     "translation": "The Originator",
     "ayahsCount": 45,
@@ -423,7 +423,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 36,
-    "name": "سُورَةُ يسٓ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘è╪│┘ô",
     "englishName": "Yaseen",
     "translation": "Yaseen",
     "ayahsCount": 83,
@@ -431,7 +431,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 37,
-    "name": "سُورَةُ الصَّافَّاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╡┘æ┘Ä╪º┘ü┘æ┘Ä╪º╪¬┘É",
     "englishName": "As-Saaffaat",
     "translation": "Those drawn up in Ranks",
     "ayahsCount": 182,
@@ -439,7 +439,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 38,
-    "name": "سُورَةُ صٓ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪╡┘ô",
     "englishName": "Saad",
     "translation": "The letter Saad",
     "ayahsCount": 88,
@@ -447,7 +447,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 39,
-    "name": "سُورَةُ الزُّمَرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▓┘æ┘Å┘à┘Ä╪▒┘É",
     "englishName": "Az-Zumar",
     "translation": "The Groups",
     "ayahsCount": 75,
@@ -455,7 +455,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 40,
-    "name": "سُورَةُ غَافِرٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪║┘Ä╪º┘ü┘É╪▒┘ì",
     "englishName": "Ghafir",
     "translation": "The Forgiver",
     "ayahsCount": 85,
@@ -463,7 +463,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 41,
-    "name": "سُورَةُ فُصِّلَتۡ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘ü┘Å╪╡┘æ┘É┘ä┘Ä╪¬█í",
     "englishName": "Fussilat",
     "translation": "Explained in detail",
     "ayahsCount": 54,
@@ -471,7 +471,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 42,
-    "name": "سُورَةُ الشُّورَىٰ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪┤┘æ┘Å┘ê╪▒┘Ä┘ë┘░",
     "englishName": "Ash-Shura",
     "translation": "Consultation",
     "ayahsCount": 53,
@@ -479,7 +479,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 43,
-    "name": "سُورَةُ الزُّخۡرُفِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▓┘æ┘Å╪«█í╪▒┘Å┘ü┘É",
     "englishName": "Az-Zukhruf",
     "translation": "Ornaments of gold",
     "ayahsCount": 89,
@@ -487,7 +487,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 44,
-    "name": "سُورَةُ الدُّخَانِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪»┘æ┘Å╪«┘Ä╪º┘å┘É",
     "englishName": "Ad-Dukhaan",
     "translation": "The Smoke",
     "ayahsCount": 59,
@@ -495,7 +495,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 45,
-    "name": "سُورَةُ الجَاثِيَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¼┘Ä╪º╪½┘É┘è┘Ä╪⌐┘É",
     "englishName": "Al-Jaathiya",
     "translation": "Crouching",
     "ayahsCount": 37,
@@ -503,7 +503,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 46,
-    "name": "سُورَةُ الأَحۡقَافِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä╪¡█í┘é┘Ä╪º┘ü┘É",
     "englishName": "Al-Ahqaf",
     "translation": "The Dunes",
     "ayahsCount": 35,
@@ -511,7 +511,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 47,
-    "name": "سُورَةُ مُحَمَّدٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘à┘Å╪¡┘Ä┘à┘æ┘Ä╪»┘ì",
     "englishName": "Muhammad",
     "translation": "Muhammad",
     "ayahsCount": 38,
@@ -519,7 +519,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 48,
-    "name": "سُورَةُ الفَتۡحِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ü┘Ä╪¬█í╪¡┘É",
     "englishName": "Al-Fath",
     "translation": "The Victory",
     "ayahsCount": 29,
@@ -527,7 +527,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 49,
-    "name": "سُورَةُ الحُجُرَاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘Å╪¼┘Å╪▒┘Ä╪º╪¬┘É",
     "englishName": "Al-Hujuraat",
     "translation": "The Inner Apartments",
     "ayahsCount": 18,
@@ -535,7 +535,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 50,
-    "name": "سُورَةُ قٓ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘é┘ô",
     "englishName": "Qaaf",
     "translation": "The letter Qaaf",
     "ayahsCount": 45,
@@ -543,7 +543,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 51,
-    "name": "سُورَةُ الذَّارِيَاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪░┘æ┘Ä╪º╪▒┘É┘è┘Ä╪º╪¬┘É",
     "englishName": "Adh-Dhaariyat",
     "translation": "The Winnowing Winds",
     "ayahsCount": 60,
@@ -551,7 +551,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 52,
-    "name": "سُورَةُ الطُّورِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╖┘æ┘Å┘ê╪▒┘É",
     "englishName": "At-Tur",
     "translation": "The Mount",
     "ayahsCount": 49,
@@ -559,7 +559,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 53,
-    "name": "سُورَةُ النَّجۡمِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪¼█í┘à┘É",
     "englishName": "An-Najm",
     "translation": "The Star",
     "ayahsCount": 62,
@@ -567,7 +567,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 54,
-    "name": "سُورَةُ القَمَرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘Ä┘à┘Ä╪▒┘É",
     "englishName": "Al-Qamar",
     "translation": "The Moon",
     "ayahsCount": 55,
@@ -575,7 +575,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 55,
-    "name": "سُورَةُ الرَّحۡمَٰن",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▒┘æ┘Ä╪¡█í┘à┘Ä┘░┘å",
     "englishName": "Ar-Rahmaan",
     "translation": "The Beneficent",
     "ayahsCount": 78,
@@ -583,7 +583,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 56,
-    "name": "سُورَةُ الوَاقِعَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ê┘Ä╪º┘é┘É╪╣┘Ä╪⌐┘É",
     "englishName": "Al-Waaqia",
     "translation": "The Inevitable",
     "ayahsCount": 96,
@@ -591,7 +591,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 57,
-    "name": "سُورَةُ الحَدِيدِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘Ä╪»┘É┘è╪»┘É",
     "englishName": "Al-Hadid",
     "translation": "The Iron",
     "ayahsCount": 29,
@@ -599,7 +599,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 58,
-    "name": "سُورَةُ المُجَادلَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪¼┘Ä╪º╪»┘ä┘Ä╪⌐┘É",
     "englishName": "Al-Mujaadila",
     "translation": "The Pleading Woman",
     "ayahsCount": 22,
@@ -607,7 +607,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 59,
-    "name": "سُورَةُ الحَشۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘Ä╪┤█í╪▒┘É",
     "englishName": "Al-Hashr",
     "translation": "The Exile",
     "ayahsCount": 24,
@@ -615,7 +615,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 60,
-    "name": "سُورَةُ المُمۡتَحنَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å┘à█í╪¬┘Ä╪¡┘å┘Ä╪⌐┘É",
     "englishName": "Al-Mumtahana",
     "translation": "She that is to be examined",
     "ayahsCount": 13,
@@ -623,7 +623,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 61,
-    "name": "سُورَةُ الصَّفِّ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╡┘æ┘Ä┘ü┘æ┘É",
     "englishName": "As-Saff",
     "translation": "The Ranks",
     "ayahsCount": 14,
@@ -631,7 +631,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 62,
-    "name": "سُورَةُ الجُمُعَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¼┘Å┘à┘Å╪╣┘Ä╪⌐┘É",
     "englishName": "Al-Jumu'a",
     "translation": "Friday",
     "ayahsCount": 11,
@@ -639,7 +639,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 63,
-    "name": "سُورَةُ المُنَافِقُونَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å┘å┘Ä╪º┘ü┘É┘é┘Å┘ê┘å┘Ä",
     "englishName": "Al-Munaafiqoon",
     "translation": "The Hypocrites",
     "ayahsCount": 11,
@@ -647,7 +647,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 64,
-    "name": "سُورَةُ التَّغَابُنِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘Ä╪║┘Ä╪º╪¿┘Å┘å┘É",
     "englishName": "At-Taghaabun",
     "translation": "Mutual Disillusion",
     "ayahsCount": 18,
@@ -655,7 +655,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 65,
-    "name": "سُورَةُ الطَّلَاقِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╖┘æ┘Ä┘ä┘Ä╪º┘é┘É",
     "englishName": "At-Talaaq",
     "translation": "Divorce",
     "ayahsCount": 12,
@@ -663,7 +663,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 66,
-    "name": "سُورَةُ التَّحۡرِيمِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘Ä╪¡█í╪▒┘É┘è┘à┘É",
     "englishName": "At-Tahrim",
     "translation": "The Prohibition",
     "ayahsCount": 12,
@@ -671,7 +671,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 67,
-    "name": "سُورَةُ المُلۡكِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å┘ä█í┘â┘É",
     "englishName": "Al-Mulk",
     "translation": "The Sovereignty",
     "ayahsCount": 30,
@@ -679,7 +679,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 68,
-    "name": "سُورَةُ القَلَمِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘Ä┘ä┘Ä┘à┘É",
     "englishName": "Al-Qalam",
     "translation": "The Pen",
     "ayahsCount": 52,
@@ -687,7 +687,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 69,
-    "name": "سُورَةُ الحَاقَّةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¡┘Ä╪º┘é┘æ┘Ä╪⌐┘É",
     "englishName": "Al-Haaqqa",
     "translation": "The Reality",
     "ayahsCount": 52,
@@ -695,7 +695,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 70,
-    "name": "سُورَةُ المَعَارِجِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Ä╪╣┘Ä╪º╪▒┘É╪¼┘É",
     "englishName": "Al-Ma'aarij",
     "translation": "The Ascending Stairways",
     "ayahsCount": 44,
@@ -703,7 +703,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 71,
-    "name": "سُورَةُ نُوحٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘å┘Å┘ê╪¡┘ì",
     "englishName": "Nooh",
     "translation": "Noah",
     "ayahsCount": 28,
@@ -711,7 +711,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 72,
-    "name": "سُورَةُ الجِنِّ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¼┘É┘å┘æ┘É",
     "englishName": "Al-Jinn",
     "translation": "The Jinn",
     "ayahsCount": 28,
@@ -719,7 +719,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 73,
-    "name": "سُورَةُ المُزَّمِّلِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪▓┘æ┘Ä┘à┘æ┘É┘ä┘É",
     "englishName": "Al-Muzzammil",
     "translation": "The Enshrouded One",
     "ayahsCount": 20,
@@ -727,7 +727,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 74,
-    "name": "سُورَةُ المُدَّثِّرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪»┘æ┘Ä╪½┘æ┘É╪▒┘É",
     "englishName": "Al-Muddaththir",
     "translation": "The Cloaked One",
     "ayahsCount": 56,
@@ -735,7 +735,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 75,
-    "name": "سُورَةُ القِيَامَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘É┘è┘Ä╪º┘à┘Ä╪⌐┘É",
     "englishName": "Al-Qiyaama",
     "translation": "The Resurrection",
     "ayahsCount": 40,
@@ -743,7 +743,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 76,
-    "name": "سُورَةُ الإِنسَانِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪Ñ┘É┘å╪│┘Ä╪º┘å┘É",
     "englishName": "Al-Insaan",
     "translation": "Man",
     "ayahsCount": 31,
@@ -751,7 +751,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 77,
-    "name": "سُورَةُ المُرۡسَلَاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪▒█í╪│┘Ä┘ä┘Ä╪º╪¬┘É",
     "englishName": "Al-Mursalaat",
     "translation": "The Emissaries",
     "ayahsCount": 50,
@@ -759,7 +759,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 78,
-    "name": "سُورَةُ النَّبَإِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪¿┘Ä╪Ñ┘É",
     "englishName": "An-Naba",
     "translation": "The Announcement",
     "ayahsCount": 40,
@@ -767,7 +767,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 79,
-    "name": "سُورَةُ النَّازِعَاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪º╪▓┘É╪╣┘Ä╪º╪¬┘É",
     "englishName": "An-Naazi'aat",
     "translation": "Those who drag forth",
     "ayahsCount": 46,
@@ -775,7 +775,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 80,
-    "name": "سُورَةُ عَبَسَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪╣┘Ä╪¿┘Ä╪│┘Ä",
     "englishName": "Abasa",
     "translation": "He frowned",
     "ayahsCount": 42,
@@ -783,7 +783,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 81,
-    "name": "سُورَةُ التَّكۡوِيرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘Ä┘â█í┘ê┘É┘è╪▒┘É",
     "englishName": "At-Takwir",
     "translation": "The Overthrowing",
     "ayahsCount": 29,
@@ -791,7 +791,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 82,
-    "name": "سُورَةُ الانفِطَارِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪º┘å┘ü┘É╪╖┘Ä╪º╪▒┘É",
     "englishName": "Al-Infitaar",
     "translation": "The Cleaving",
     "ayahsCount": 19,
@@ -799,7 +799,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 83,
-    "name": "سُورَةُ المُطَفِّفِينَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Å╪╖┘Ä┘ü┘æ┘É┘ü┘É┘è┘å┘Ä",
     "englishName": "Al-Mutaffifin",
     "translation": "Defrauding",
     "ayahsCount": 36,
@@ -807,7 +807,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 84,
-    "name": "سُورَةُ الانشِقَاقِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪º┘å╪┤┘É┘é┘Ä╪º┘é┘É",
     "englishName": "Al-Inshiqaaq",
     "translation": "The Splitting Open",
     "ayahsCount": 25,
@@ -815,7 +815,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 85,
-    "name": "سُورَةُ البُرُوجِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¿┘Å╪▒┘Å┘ê╪¼┘É",
     "englishName": "Al-Burooj",
     "translation": "The Constellations",
     "ayahsCount": 22,
@@ -823,7 +823,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 86,
-    "name": "سُورَةُ الطَّارِقِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╖┘æ┘Ä╪º╪▒┘É┘é┘É",
     "englishName": "At-Taariq",
     "translation": "The Morning Star",
     "ayahsCount": 17,
@@ -831,7 +831,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 87,
-    "name": "سُورَةُ الأَعۡلَىٰ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪ú┘Ä╪╣█í┘ä┘Ä┘ë┘░",
     "englishName": "Al-A'laa",
     "translation": "The Most High",
     "ayahsCount": 19,
@@ -839,7 +839,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 88,
-    "name": "سُورَةُ الغَاشِيَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪║┘Ä╪º╪┤┘É┘è┘Ä╪⌐┘É",
     "englishName": "Al-Ghaashiya",
     "translation": "The Overwhelming",
     "ayahsCount": 26,
@@ -847,7 +847,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 89,
-    "name": "سُورَةُ الفَجۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ü┘Ä╪¼█í╪▒┘É",
     "englishName": "Al-Fajr",
     "translation": "The Dawn",
     "ayahsCount": 30,
@@ -855,7 +855,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 90,
-    "name": "سُورَةُ البَلَدِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¿┘Ä┘ä┘Ä╪»┘É",
     "englishName": "Al-Balad",
     "translation": "The City",
     "ayahsCount": 20,
@@ -863,7 +863,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 91,
-    "name": "سُورَةُ الشَّمۡسِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪┤┘æ┘Ä┘à█í╪│┘É",
     "englishName": "Ash-Shams",
     "translation": "The Sun",
     "ayahsCount": 15,
@@ -871,7 +871,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 92,
-    "name": "سُورَةُ اللَّيۡلِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ä┘æ┘Ä┘è█í┘ä┘É",
     "englishName": "Al-Lail",
     "translation": "The Night",
     "ayahsCount": 21,
@@ -879,7 +879,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 93,
-    "name": "سُورَةُ الضُّحَىٰ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╢┘æ┘Å╪¡┘Ä┘ë┘░",
     "englishName": "Ad-Dhuhaa",
     "translation": "The Morning Hours",
     "ayahsCount": 11,
@@ -887,7 +887,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 94,
-    "name": "سُورَةُ الشَّرۡحِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪┤┘æ┘Ä╪▒█í╪¡┘É",
     "englishName": "Ash-Sharh",
     "translation": "The Consolation",
     "ayahsCount": 8,
@@ -895,7 +895,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 95,
-    "name": "سُورَةُ التِّينِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘É┘è┘å┘É",
     "englishName": "At-Tin",
     "translation": "The Fig",
     "ayahsCount": 8,
@@ -903,7 +903,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 96,
-    "name": "سُورَةُ العَلَقِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╣┘Ä┘ä┘Ä┘é┘É",
     "englishName": "Al-Alaq",
     "translation": "The Clot",
     "ayahsCount": 19,
@@ -911,7 +911,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 97,
-    "name": "سُورَةُ القَدۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘Ä╪»█í╪▒┘É",
     "englishName": "Al-Qadr",
     "translation": "The Power, Fate",
     "ayahsCount": 5,
@@ -919,7 +919,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 98,
-    "name": "سُورَةُ البَيِّنَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¿┘Ä┘è┘æ┘É┘å┘Ä╪⌐┘É",
     "englishName": "Al-Bayyina",
     "translation": "The Evidence",
     "ayahsCount": 8,
@@ -927,7 +927,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 99,
-    "name": "سُورَةُ الزَّلۡزَلَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪▓┘æ┘Ä┘ä█í╪▓┘Ä┘ä┘Ä╪⌐┘É",
     "englishName": "Az-Zalzala",
     "translation": "The Earthquake",
     "ayahsCount": 8,
@@ -935,7 +935,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 100,
-    "name": "سُورَةُ العَادِيَاتِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╣┘Ä╪º╪»┘É┘è┘Ä╪º╪¬┘É",
     "englishName": "Al-Aadiyaat",
     "translation": "The Chargers",
     "ayahsCount": 11,
@@ -943,7 +943,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 101,
-    "name": "سُورَةُ القَارِعَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘é┘Ä╪º╪▒┘É╪╣┘Ä╪⌐┘É",
     "englishName": "Al-Qaari'a",
     "translation": "The Calamity",
     "ayahsCount": 11,
@@ -951,7 +951,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 102,
-    "name": "سُورَةُ التَّكَاثُرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪¬┘æ┘Ä┘â┘Ä╪º╪½┘Å╪▒┘É",
     "englishName": "At-Takaathur",
     "translation": "Competition",
     "ayahsCount": 8,
@@ -959,7 +959,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 103,
-    "name": "سُورَةُ العَصۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪╣┘Ä╪╡█í╪▒┘É",
     "englishName": "Al-Asr",
     "translation": "The Declining Day, Epoch",
     "ayahsCount": 3,
@@ -967,7 +967,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 104,
-    "name": "سُورَةُ الهُمَزَةِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ç┘Å┘à┘Ä╪▓┘Ä╪⌐┘É",
     "englishName": "Al-Humaza",
     "translation": "The Traducer",
     "ayahsCount": 9,
@@ -975,7 +975,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 105,
-    "name": "سُورَةُ الفِيلِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ü┘É┘è┘ä┘É",
     "englishName": "Al-Fil",
     "translation": "The Elephant",
     "ayahsCount": 5,
@@ -983,7 +983,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 106,
-    "name": "سُورَةُ قُرَيۡشٍ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ┘é┘Å╪▒┘Ä┘è█í╪┤┘ì",
     "englishName": "Quraish",
     "translation": "Quraysh",
     "ayahsCount": 4,
@@ -991,7 +991,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 107,
-    "name": "سُورَةُ المَاعُونِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Ä╪º╪╣┘Å┘ê┘å┘É",
     "englishName": "Al-Maa'un",
     "translation": "Almsgiving",
     "ayahsCount": 7,
@@ -999,7 +999,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 108,
-    "name": "سُورَةُ الكَوۡثَرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘â┘Ä┘ê█í╪½┘Ä╪▒┘É",
     "englishName": "Al-Kawthar",
     "translation": "Abundance",
     "ayahsCount": 3,
@@ -1007,7 +1007,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 109,
-    "name": "سُورَةُ الكَافِرُونَ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘â┘Ä╪º┘ü┘É╪▒┘Å┘ê┘å┘Ä",
     "englishName": "Al-Kaafiroon",
     "translation": "The Disbelievers",
     "ayahsCount": 6,
@@ -1015,7 +1015,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 110,
-    "name": "سُورَةُ النَّصۡرِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪╡█í╪▒┘É",
     "englishName": "An-Nasr",
     "translation": "Divine Support",
     "ayahsCount": 3,
@@ -1023,7 +1023,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 111,
-    "name": "سُورَةُ المَسَدِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘à┘Ä╪│┘Ä╪»┘É",
     "englishName": "Al-Masad",
     "translation": "The Palm Fibre",
     "ayahsCount": 5,
@@ -1031,7 +1031,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 112,
-    "name": "سُورَةُ الإِخۡلَاصِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä╪Ñ┘É╪«█í┘ä┘Ä╪º╪╡┘É",
     "englishName": "Al-Ikhlaas",
     "translation": "Sincerity",
     "ayahsCount": 4,
@@ -1039,7 +1039,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 113,
-    "name": "سُورَةُ الفَلَقِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘ü┘Ä┘ä┘Ä┘é┘É",
     "englishName": "Al-Falaq",
     "translation": "The Dawn",
     "ayahsCount": 5,
@@ -1047,7 +1047,7 @@ export const SURAHS_LIST = [
   },
   {
     "number": 114,
-    "name": "سُورَةُ النَّاسِ",
+    "name": "╪│┘Å┘ê╪▒┘Ä╪⌐┘Å ╪º┘ä┘å┘æ┘Ä╪º╪│┘É",
     "englishName": "An-Naas",
     "translation": "Mankind",
     "ayahsCount": 6,
@@ -1092,4 +1092,3 @@ export const SAMPLE_AYAHS_ALFATIHAH = [
     "translation": "(yaitu) jalan orang-orang yang telah Engkau beri nikmat kepada mereka; bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) mereka yang sesat."
   }
 ];
-

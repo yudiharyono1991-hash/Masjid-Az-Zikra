@@ -94,7 +94,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
           const formattedAyahs = ar.map((ayah: any, index: number) => {
             let text = ayah.text;
             if (selectedSurahNumber !== 1 && selectedSurahNumber !== 9 && ayah.numberInSurah === 1) {
-              text = text.replace('?????? ??????? ???????????? ?????????? ', '');
+              text = text.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ', '');
             }
             return {
               numberInSurah: ayah.numberInSurah,
@@ -565,12 +565,12 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
               {/* Prayer Grid Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                 {[
-                  { name: 'Subuh', time: selectedCity.fajr, icon: '??' },
-                  { name: 'Terbit', time: selectedCity.sunrise, icon: '??' },
-                  { name: 'Dzuhur', time: selectedCity.dhuhr, icon: '???' },
-                  { name: 'Ashar', time: selectedCity.asr, icon: '??' },
-                  { name: 'Maghrib', time: selectedCity.maghrib, icon: '??' },
-                  { name: 'Isya', time: selectedCity.isha, icon: '??' }
+                  { name: 'Subuh', time: selectedCity.fajr, icon: '🌅' },
+                  { name: 'Terbit', time: selectedCity.sunrise, icon: '☀️' },
+                  { name: 'Dzuhur', time: selectedCity.dhuhr, icon: '🌤️' },
+                  { name: 'Ashar', time: selectedCity.asr, icon: '🌇' },
+                  { name: 'Maghrib', time: selectedCity.maghrib, icon: '🌆' },
+                  { name: 'Isya', time: selectedCity.isha, icon: '🌙' }
                 ].map((item, idx) => (
                   <div
                     key={idx}
@@ -591,7 +591,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
               <div>
                 <h4 className="text-lg font-serif font-bold text-white">Penunjuk Arah Kiblat Digital</h4>
                 <p className="text-xs text-blue-400 mt-1">
-                  Derajat sudut Kiblat dari lokasi {selectedCity.name}: <strong className="text-amber-400">{qiblaAngle.toFixed(1)}° SE</strong>
+                  Derajat sudut Kiblat dari lokasi {selectedCity.name}: <strong className="text-amber-400">{qiblaAngle.toFixed(1)}Â° SE</strong>
                 </p>
               </div>
 
@@ -603,7 +603,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                   <div className="w-3 h-16 bg-gradient-to-t from-blue-500 to-amber-400 rounded-full mb-20 shadow-lg"></div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-amber-500 text-blue-950 flex items-center justify-center font-bold text-xl font-mono shadow-md z-10">
-                  ??
+                  🕋
                 </div>
               </div>
 
