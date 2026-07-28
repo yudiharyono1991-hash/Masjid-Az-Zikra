@@ -17,7 +17,6 @@ import {
   DonationRecord
 } from '../types';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { exportDkmDataToExcel } from '../lib/excelUtils';
 import { AccountCombobox } from './AccountCombobox';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);

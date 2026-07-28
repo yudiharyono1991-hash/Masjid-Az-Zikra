@@ -284,6 +284,8 @@ export interface ERPChartOfAccount {
   accountName: string;
   accountType: 'Asset' | 'Liability' | 'Equity' | 'Revenue' | 'Expense';
   normalBalance: 'Debit' | 'Credit';
+  groupName?: string;
+  isHeader?: boolean;
   isActive: boolean;
   createdAt?: string;
 }

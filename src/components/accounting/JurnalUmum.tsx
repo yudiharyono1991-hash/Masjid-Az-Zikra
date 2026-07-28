@@ -89,7 +89,6 @@ export function JurnalUmum() {
 
     setIsAdding(false);
     setEditingJournalId(null);
-    setRowSearches([]);
     setEntries([{ accountId: '', debit: 0, credit: 0, description: '' }, { accountId: '', debit: 0, credit: 0, description: '' }]);
     setJournalData({
       journalNo: `JU-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -110,7 +109,6 @@ export function JurnalUmum() {
       credit: e.credit,
       description: e.description
     })));
-    setRowSearches(new Array(journalEntries.length).fill(''));
     setIsAdding(true);
   };
 
@@ -124,7 +122,6 @@ export function JurnalUmum() {
   const handleCancel = () => {
     setIsAdding(false);
     setEditingJournalId(null);
-    setRowSearches([]);
     setEntries([{ accountId: '', debit: 0, credit: 0, description: '' }, { accountId: '', debit: 0, credit: 0, description: '' }]);
     setJournalData({
       journalNo: `JU-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -243,7 +240,6 @@ export function JurnalUmum() {
             </table>
             <button onClick={() => {
               setEntries([...entries, { accountId: '', debit: 0, credit: 0, description: '' }]);
-              setRowSearches([...rowSearches, '']);
             }} className="text-sm text-blue-600 font-semibold mt-2 hover:underline">
               + Tambah Baris
             </button>
