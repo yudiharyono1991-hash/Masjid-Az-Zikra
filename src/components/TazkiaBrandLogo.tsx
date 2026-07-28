@@ -31,7 +31,7 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
           <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-blue-300 drop-shadow-[0_2px_10px_rgba(217,119,6,0.3)] transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_15px_rgba(251,191,36,0.6)] cursor-default">
             Tazkia
           </h1>
-          <p className="font-serif italic text-[13px] sm:text-sm text-blue-200 tracking-[0.1em] mt-[-2px] pb-1">Islamic Center</p>
+          <p className="font-serif text-[13px] sm:text-sm text-amber-300 tracking-[0.1em] mt-[-2px] pb-1 font-normal">Islamic Center</p>
           <p className="font-mono text-xs font-bold text-blue-400 uppercase tracking-[0.3em]">
             SENTUL &bull; BOGOR
           </p>
@@ -60,7 +60,7 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
             SENTUL
           </span>
         </div>
-        <p className={`text-[9px] sm:text-[10.5px] font-serif italic tracking-wider mt-0.5 ${isDark ? 'text-blue-300' : 'text-blue-600/80'} whitespace-nowrap`}>
+        <p className={`text-[9px] sm:text-[10.5px] font-serif tracking-wider mt-0.5 ${isDark ? 'text-amber-300' : 'text-amber-600'} whitespace-nowrap font-normal`}>
           Islamic Center
         </p>
       </div>

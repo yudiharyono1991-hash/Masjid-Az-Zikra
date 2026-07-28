@@ -94,7 +94,7 @@ export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
             role: 'model',
             parts: [
               {
-                text: `Maaf, ${data.error || 'tidak dapat menghubungi AI Assistant.'} Mohon pastikan GEMINI_API_KEY telah terpasang di Secrets Panel.`
+                text: `Maaf, gagal menghubungi AI Assistant. Kunci API (API Key) mungkin tidak valid atau tidak dikonfigurasi dengan benar. Mohon hubungi Admin.`
               }
             ]
           }

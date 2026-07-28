@@ -16,7 +16,8 @@ import {
   ChevronDown,
   Clock,
   User,
-  Database
+  Database,
+  Menu
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
 
@@ -332,6 +333,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>Login <span className="hidden sm:inline">Portal</span></span>
               </button>
             )}
+
+            {/* Mobile Hamburger Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen && setMobileMenuOpen(!mobileMenuOpen)}
+              className={`xl:hidden px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                mobileMenuOpen
+                  ? 'bg-amber-500 text-blue-950 shadow-inner'
+                  : isDark
+                    ? 'bg-blue-800/60 text-amber-300 hover:bg-blue-700 hover:text-amber-200'
+                    : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
+              }`}
+            >
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
           </div>
         </div>
       </div>

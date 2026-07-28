@@ -35,13 +35,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const { state } = useMasjidStore();
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   
-  const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0 
-    ? state.adminSettings.masjidHeroCarouselUrls 
-    : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
-
-  const [backgrounds, setBackgrounds] = useState<string[]>(configuredUrls.length > 0 ? configuredUrls : DEFAULT_HERO_BACKGROUNDS);
+  const [backgrounds, setBackgrounds] = useState<string[]>(DEFAULT_HERO_BACKGROUNDS);
 
   useEffect(() => {
+    const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0 
+      ? state.adminSettings.masjidHeroCarouselUrls 
+      : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
     // If we have custom URLs from store, use them and skip Supabase fetch
     if (configuredUrls.length > 0) {
       setBackgrounds(configuredUrls);
@@ -77,7 +76,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     };
 
     fetchHeroImages();
-  }, [configuredUrls]);
+  }, [state.adminSettings.masjidHeroCarouselUrls, state.adminSettings.masjidHeroPhotoUrl]);
 
   useEffect(() => {
     const interval = setInterval(() => {
