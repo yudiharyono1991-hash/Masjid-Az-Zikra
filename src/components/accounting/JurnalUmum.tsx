@@ -3,12 +3,17 @@ import { useMasjidStore } from '../../lib/store';
 import { ERPGeneralJournal, ERPJournalEntry } from '../../types';
 import { Download, Plus, Save, Edit2, Trash2 } from 'lucide-react';
 import { exportJurnalUmumToExcel } from '../../lib/excelUtils';
+import { AccountCombobox } from '../AccountCombobox';
 
 export function JurnalUmum() {
   const { state, addErpJournal, deleteErpJournal, updateErpJournal, addErpJournalEntry } = useMasjidStore();
   const [isAdding, setIsAdding] = useState(false);
   const [editingJournalId, setEditingJournalId] = useState<string | null>(null);
-  const [rowSearches, setRowSearches] = useState<string[]>([]);
+  const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' | 'warn' } | null>(null);
+  const showToast = (text: string, type: 'success' | 'error' | 'warn' = 'success') => {
+    setToastMsg({ text, type });
+    setTimeout(() => setToastMsg(null), 3500);
+  };
   
   const [journalData, setJournalData] = useState<Partial<ERPGeneralJournal>>({
     journalNo: `JU-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -27,13 +32,22 @@ export function JurnalUmum() {
   };
 
   const handleSave = () => {
-    if (!journalData.description) return alert('Deskripsi jurnal harus diisi');
+    if (!journalData.description) {
+      showToast('Deskripsi jurnal harus diisi terlebih dahulu.', 'error');
+      return;
+    }
     
     const totalDebit = entries.reduce((sum, e) => sum + (Number(e.debit) || 0), 0);
     const totalCredit = entries.reduce((sum, e) => sum + (Number(e.credit) || 0), 0);
     
-    if (totalDebit !== totalCredit) return alert('Total Debit dan Kredit harus seimbang (Balance)');
-    if (totalDebit === 0) return alert('Debit/Kredit tidak boleh 0');
+    if (totalDebit !== totalCredit) {
+      showToast('Total Debit dan Kredit harus seimbang (Balance)!', 'error');
+      return;
+    }
+    if (totalDebit === 0) {
+      showToast('Nilai Debit/Kredit tidak boleh 0!', 'error');
+      return;
+    }
 
     const journalId = editingJournalId || `JRN-${Math.floor(1000 + Math.random() * 9000)}`;
     const newJournal: ERPGeneralJournal = {
@@ -64,13 +78,13 @@ export function JurnalUmum() {
 
     if (editingJournalId) {
       updateErpJournal(editingJournalId, newJournal, newEntries);
-      alert('Alhamdulillah, koreksi Jurnal Umum berhasil disimpan!');
+      showToast('Alhamdulillah, koreksi Jurnal Umum berhasil disimpan! ✓');
     } else {
       addErpJournal(newJournal);
       newEntries.forEach(ne => {
         addErpJournalEntry(ne);
       });
-      alert('Alhamdulillah, Jurnal Umum berhasil disimpan!');
+      showToast('Alhamdulillah, Jurnal Umum berhasil disimpan! ✓');
     }
 
     setIsAdding(false);
@@ -103,7 +117,7 @@ export function JurnalUmum() {
   const handleDelete = (journalId: string) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus jurnal ini? Tindakan ini akan menghapus jurnal dan seluruh entri terkait secara permanen.')) {
       deleteErpJournal(journalId);
-      alert('Jurnal berhasil dihapus.');
+      showToast('Jurnal berhasil dihapus.');
     }
   };
 
@@ -122,6 +136,17 @@ export function JurnalUmum() {
 
   return (
     <div className="space-y-6">
+      {/* Toast Notification */}
+      {toastMsg && (
+        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border text-sm font-bold animate-fadeIn ${
+          toastMsg.type === 'success' ? 'bg-emerald-900 border-emerald-500/40 text-emerald-200'
+          : toastMsg.type === 'error' ? 'bg-red-900 border-red-500/40 text-red-200'
+          : 'bg-amber-900 border-amber-500/40 text-amber-200'
+        }`}>
+          <span>{toastMsg.type === 'success' ? '✅' : toastMsg.type === 'error' ? '❌' : '⚠️'}</span>
+          <span>{toastMsg.text}</span>
+        </div>
+      )}
       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <h3 className="font-bold text-lg text-blue-900">Jurnal Umum</h3>
         <div className="flex gap-2">
@@ -170,46 +195,23 @@ export function JurnalUmum() {
               </thead>
               <tbody>
                 {entries.map((entry, idx) => {
-                  const searchVal = rowSearches[idx] || '';
-                  const filteredCoa = state.erpCoa.filter(c => 
-                    c.isActive && (
-                      c.accountName.toLowerCase().includes(searchVal.toLowerCase()) ||
-                      c.accountCode.includes(searchVal)
-                    )
-                  );
+                  const coaOptions = state.erpCoa.filter(c => c.isActive).map(c => ({
+                    id: c.id,
+                    label: `[${c.accountCode}] ${c.accountName}`
+                  }));
 
                   return (
                     <tr key={idx}>
-                      <td className="py-1 pr-2">
-                        <div className="flex gap-1.5 items-center">
-                          <input 
-                            type="text" 
-                            placeholder="Cari..." 
-                            value={searchVal}
-                            onChange={e => {
-                              const newSearches = [...rowSearches];
-                              newSearches[idx] = e.target.value;
-                              setRowSearches(newSearches);
-                            }}
-                            className="w-32 p-2 border border-gray-300 rounded-lg text-xs"
-                            style={{ color: '#111827', backgroundColor: '#ffffff' }}
-                          />
-                          <select 
-                            value={entry.accountId} 
-                            onChange={e => {
-                              const newEntries = [...entries];
-                              newEntries[idx].accountId = e.target.value;
-                              setEntries(newEntries);
-                            }} 
-                            className="flex-1 p-2 border border-gray-300 rounded-lg text-sm min-w-[140px]"
-                            style={{ color: '#111827', backgroundColor: '#ffffff' }}
-                          >
-                            <option value="" style={{ color: '#111827', backgroundColor: '#ffffff' }}>Pilih Akun...</option>
-                            {filteredCoa.map(coa => (
-                              <option key={coa.id} value={coa.id} style={{ color: '#111827', backgroundColor: '#ffffff' }}>[{coa.accountCode}] {coa.accountName}</option>
-                            ))}
-                          </select>
-                        </div>
+                      <td className="py-1 pr-2 align-top">
+                        <AccountCombobox
+                          value={entry.accountId}
+                          onChange={(newId) => {
+                            const newEntries = [...entries];
+                            newEntries[idx].accountId = newId;
+                            setEntries(newEntries);
+                          }}
+                          options={coaOptions}
+                        />
                       </td>
                       <td className="py-1 pr-2">
                         <input value={entry.description} onChange={e => {

@@ -16,6 +16,11 @@ import {
   JamaahProfile,
   DonationRecord
 } from '../types';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { exportDkmDataToExcel } from '../lib/excelUtils';
+import { AccountCombobox } from './AccountCombobox';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 import { formatRupiahFull } from '../lib/islamicUtils';
 import {
   Plus,
@@ -154,6 +159,13 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
+
+  // Toast notification state
+  const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+    setToastMsg({ text, type });
+    setTimeout(() => setToastMsg(null), 3500);
+  };
 
   // Preview Modal State for Photos
   const [previewPhotoUrl, setPreviewPhotoUrl] = useState<string | null>(null);
@@ -409,7 +421,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         });
       }
       setEditingUserProfileId(null);
-      alert('Alhamdulillah, Akun Pengguna berhasil diperbarui!');
+      showToast('Alhamdulillah, Akun Pengguna berhasil diperbarui! ✓');
     } else {
       if (onAddJamaahProfile) {
         onAddJamaahProfile({
@@ -421,7 +433,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           password: userFormPassword || '123456'
         });
       }
-      alert('Alhamdulillah, Pengurus/Jamaah baru berhasil didaftarkan!');
+      showToast('Alhamdulillah, Pengurus/Jamaah baru berhasil didaftarkan! ✓');
     }
 
     // Reset Form
@@ -461,7 +473,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     }
     setChangingPasswordUserId(null);
     setNewPasswordVal('');
-    alert('Alhamdulillah, kata sandi berhasil diubah!');
+    showToast('Alhamdulillah, kata sandi berhasil diubah! ✓');
   };
 
   // Helper file uploader
@@ -492,6 +504,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     });
     setNewTrxTitle('');
     setShowAddTrx(false);
+    showToast('Alhamdulillah, Transaksi berhasil disimpan! ✓');
   };
 
   const handleCreateJournal = (e: React.FormEvent) => {
@@ -511,6 +524,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     }
     setJrnDesc('');
     setShowAddJrn(false);
+    showToast('Alhamdulillah, Jurnal berhasil disimpan! ✓');
   };
 
   const handleCreateKasKecil = (e: React.FormEvent) => {
@@ -530,7 +544,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     }
     setKcPurpose('');
     setShowAddKasKecil(false);
-    alert('Alhamdulillah, Transaksi Kas Kecil berhasil disimpan!');
+    showToast('Alhamdulillah, Transaksi Kas Kecil berhasil disimpan! ✓');
   };
 
   const handleCreateInventory = (e: React.FormEvent) => {
@@ -550,7 +564,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         });
       }
       setEditingInventoryId(null);
-      alert('Alhamdulillah, Inventaris Aset berhasil diperbarui!');
+      showToast('Alhamdulillah, Inventaris Aset berhasil diperbarui! ✓');
     } else {
       const code = `INV-${Math.floor(100 + Math.random() * 900)}`;
       onAddInventory({
@@ -564,7 +578,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         lastMaintenance: new Date().toISOString().split('T')[0],
         imageUrl: invImageUrl
       });
-      alert('Alhamdulillah, Inventaris Aset berhasil ditambah!');
+      showToast('Alhamdulillah, Inventaris Aset baru berhasil ditambah! ✓');
     }
     setInvName('');
     setShowAddInv(false);
@@ -583,7 +597,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     });
     setProgTitle('');
     setShowAddProg(false);
-    alert('Alhamdulillah, Program/Campaign baru berhasil dipublikasi!');
+    showToast('Alhamdulillah, Program/Campaign baru berhasil dipublikasi! ✓');
   };
 
   const handleCreateAnnouncement = (e: React.FormEvent) => {
@@ -601,7 +615,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         });
       }
       setEditingAnnouncementId(null);
-      alert('Alhamdulillah, Pengumuman berhasil diperbarui!');
+      showToast('Alhamdulillah, Pengumuman berhasil diperbarui! ✓');
     } else {
       if (onAddAnnouncement) {
         onAddAnnouncement({
@@ -613,7 +627,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           isPinned: true
         });
       }
-      alert('Alhamdulillah, Pengumuman berhasil dipublikasi!');
+      showToast('Alhamdulillah, Pengumuman berhasil dipublikasi! ✓');
     }
     setAncTitle('');
     setAncContent('');
@@ -621,14 +635,17 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   };
 
   const handleSaveAdminPhotos = () => {
-    if (!onUpdateAdminSettings) return;
+    if (!onUpdateAdminSettings) {
+      showToast('Gagal: Pengaturan admin tidak tersedia.', 'error');
+      return;
+    }
     onUpdateAdminSettings({
       masjidLogoUrl: logoUrlInput,
       masjidHeroPhotoUrl: heroUrlInput.split(',')[0].trim(),
       masjidHeroCarouselUrls: heroUrlInput.split(',').map(u => u.trim()).filter(Boolean),
       qrisCodeImageUrl: qrisUrlInput
     });
-    showToast('Alhamdulillah, Foto/Media telah diperbarui!');
+    showToast('Alhamdulillah, Foto & Media Masjid berhasil disimpan!');
   };
 
   const handleSendWaBroadcast = () => {
@@ -662,6 +679,18 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   return (
     <section className="py-12 bg-[#0b1329] text-blue-100 min-h-screen">
+      {/* ===== TOAST NOTIFICATION ===== */}
+      {toastMsg && (
+        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border text-sm font-bold transition-all animate-fadeIn ${
+          toastMsg.type === 'success'
+            ? 'bg-emerald-900 border-emerald-500/50 text-emerald-200'
+            : 'bg-red-900 border-red-500/50 text-red-200'
+        }`}>
+          <span className="text-lg">{toastMsg.type === 'success' ? '✅' : '❌'}</span>
+          <span>{toastMsg.text}</span>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header Title Bar */}
         <div className="bg-gradient-to-r from-blue-950/80 via-blue-900 to-blue-950/80 border border-blue-500/30 p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl print-hidden">
@@ -689,7 +718,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 )}
                 <button
                   onClick={() => {
-                    alert('Alhamdulillah, sistem berhasil direfresh.');
                     window.location.reload();
                   }}
                   className="ml-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500 hover:text-white px-2 py-1 flex items-center gap-1.5 rounded-full text-xs font-bold transition-all shadow-sm"
@@ -1452,29 +1480,26 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
                       <div>
                         <label className="text-xs font-semibold text-blue-300 block mb-1">Kode Akun / Nama Akun:</label>
-                        <select
+                        <AccountCombobox
                           value={jrnAccountCode}
-                          onChange={(e) => {
-                            setJrnAccountCode(e.target.value);
-                            const names: Record<string, string> = {
-                              '1101': 'Kas Utama Operasional Masjid',
-                              '1102': 'Bank BSI - Zakat Fitrah & Maal',
-                              '1103': 'Kas Kecil Operasional Harian',
-                              '2101': 'Kewajiban Penyaluran Mustahik',
-                              '4101': 'Penerimaan Infaq & Shadaqah',
-                              '5101': 'Beban Operasional & Pemeliharaan'
-                            };
-                            setJrnAccountName(names[e.target.value] || 'Akun ZISWAF');
+                          onChange={(id, label) => {
+                            setJrnAccountCode(id);
+                            // Extract just the name part from the label formatted as "[1101] Kas Utama..."
+                            const nameOnly = label.replace(/^\[\d+\]\s*/, '');
+                            setJrnAccountName(nameOnly || 'Akun ZISWAF');
                           }}
-                          className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
-                        >
-                          <option value="1101">1101 - Kas Utama Operasional Masjid</option>
-                          <option value="1102">1102 - Bank BSI - Zakat Fitrah & Maal</option>
-                          <option value="1103">1103 - Kas Kecil Operasional Harian</option>
-                          <option value="2101">2101 - Kewajiban Penyaluran Mustahik</option>
-                          <option value="4101">4101 - Penerimaan Infaq & Shadaqah</option>
-                          <option value="5101">5101 - Beban Operasional & Pemeliharaan</option>
-                        </select>
+                          options={[
+                            { id: '1101', label: '[1101] Kas Utama Operasional Masjid' },
+                            { id: '1102', label: '[1102] Bank BSI - Zakat Fitrah & Maal' },
+                            { id: '1103', label: '[1103] Kas Kecil Operasional Harian' },
+                            { id: '2101', label: '[2101] Kewajiban Penyaluran Mustahik' },
+                            { id: '4101', label: '[4101] Penerimaan Infaq & Shadaqah' },
+                            { id: '5101', label: '[5101] Beban Operasional & Pemeliharaan' }
+                          ]}
+                          className="w-full bg-blue-950 border border-blue-800 text-amber-300 font-mono text-xs rounded-xl px-3 py-2 outline-none placeholder-blue-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                          listClassName="absolute z-50 w-full mt-1 bg-blue-950 border border-blue-800 rounded-lg shadow-xl max-h-60 overflow-y-auto top-full left-0 text-amber-300"
+                          itemClassName="px-3 py-2 text-xs cursor-pointer hover:bg-blue-900 border-b border-blue-900 last:border-0"
+                        />
                       </div>
 
                       <div>
@@ -2117,7 +2142,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-white flex items-center gap-1.5">
                       <Image className="w-4 h-4 text-blue-400" />
-                      Logo ResmÑ– Masjid
+                      Logo Resmi Masjid
                     </span>
                     <label className="cursor-pointer bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 text-[10px] font-bold px-2 py-1 rounded-md border border-blue-500/30 flex items-center gap-1">
                       <Upload className="w-3 h-3" />
