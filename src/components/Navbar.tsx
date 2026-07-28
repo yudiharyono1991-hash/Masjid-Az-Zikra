@@ -269,7 +269,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
           </nav>
-
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
 
@@ -278,44 +277,59 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={openSupabaseModal}
                 className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
-                  isDark
-                    ? 'bg-blue-900 hover:bg-blue-800 text-white border-blue-700'
-                    : 'bg-white hover:bg-blue-50 text-blue-900 border-blue-200'
+                  isDark 
+                    ? 'bg-blue-800/60 text-amber-300 border-amber-400/40 hover:bg-blue-800' 
+                    : 'bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100'
                 }`}
-                title="Pengaturan Database Supabase / Local"
+                title="Database Settings (Admin Only)"
               >
-                <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <Database className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </button>
             )}
 
-            {/* User Login Portal Button */}
+            {/* AI Syariah (Desktop Only, mobile has floating nav) */}
             <button
-              onClick={openLoginModal}
-              className="bg-[#1e3a8a] hover:bg-[#172554] text-amber-300 border border-amber-500/40 font-bold px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs flex items-center gap-1 sm:gap-1.5 transition-all shadow-md cursor-pointer"
-            >
-              <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
-              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider">{session.isLoggedIn ? session.name : 'Login Portal'}</span>
-            </button>
-
-            {/* Mobile Hamburger Toggle (Menu Susun Tiga) */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`px-2.5 py-1.5 rounded-xl cursor-pointer flex items-center gap-1 font-bold font-mono text-[10px] uppercase tracking-wider shadow-sm transition-all md:hidden ${
+              onClick={openAiAssistant}
+              className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden md:flex items-center gap-1.5 ${
                 isDark 
-                  ? 'bg-blue-800/60 text-amber-300 border border-amber-400/40 hover:bg-blue-800' 
-                  : 'bg-blue-50 text-blue-900 border border-blue-300 hover:bg-blue-100'
+                  ? 'bg-blue-800/60 text-amber-300 border-amber-400/40 hover:bg-blue-800' 
+                  : 'bg-blue-50 text-amber-600 border-amber-300 hover:bg-amber-100'
               }`}
-              title="Menu Susun Tiga / Navigasi Halaman"
+              title="Konsultasi AI Syariah"
             >
-              <svg className="w-5 h-5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-              <span>Menu</span>
+              <Bot className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <span className="hidden lg:inline text-xs font-bold font-mono">Tanya AI</span>
             </button>
+            
+            {/* Login / Logout */}
+            {session && session.isLoggedIn ? (
+              <button
+                onClick={() => {
+                  if (confirm('Apakah Anda yakin ingin keluar dari sistem?')) {
+                    window.location.reload();
+                  }
+                }}
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-bold font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
+                  isDark
+                    ? 'bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500 hover:text-white'
+                    : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-600 hover:text-white'
+                }`}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={openLoginModal}
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl flex items-center gap-1.5 font-bold font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
+                  isDark
+                    ? 'bg-blue-800/60 text-white border border-blue-600/50 hover:bg-blue-700'
+                    : 'bg-blue-50 text-blue-900 border border-blue-300 hover:bg-blue-100'
+                }`}
+              >
+                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span>Login <span className="hidden sm:inline">Portal</span></span>
+              </button>
+            )}
           </div>
         </div>
       </div>

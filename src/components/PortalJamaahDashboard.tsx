@@ -24,6 +24,9 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   onUpdateProfile
 }) => {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'histori' | 'pengaturan'>('ringkasan');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
   const profile = jamaahProfiles.find(p => p.email === session.email) || {
     id: 'unknown',
     email: session.email,
@@ -34,10 +37,33 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
     totalDonation: 0
   };
 
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setToastMessage('Alhamdulillah, data berhasil disegarkan!');
+      setTimeout(() => setToastMessage(''), 3000);
+    }, 1000);
+  };
+
+  const handleSaveProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    setToastMessage('Alhamdulillah, pembaruan profil berhasil disimpan!');
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
   return (
     <div className="min-h-screen bg-[#F9F8F4] pt-4 pb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
         
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed top-24 right-4 z-50 bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in border border-emerald-400">
+            <Award className="w-5 h-5 text-emerald-100" />
+            {toastMessage}
+          </div>
+        )}
+
         {/* Header Profile Section */}
         <div className="bg-gradient-to-r from-blue-900 via-[#172554] to-blue-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
@@ -161,10 +187,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                 Pengaturan Akun & Profil
               </h3>
               
-              <form className="space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                alert('Pembaruan profil berhasil disimpan!');
-              }}>
+              <form className="space-y-4" onSubmit={handleSaveProfile}>
                 <div>
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
                   <input 

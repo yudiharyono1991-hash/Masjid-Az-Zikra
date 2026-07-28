@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, X, User, Sparkles, Loader2 } from 'lucide-react';
+import { useMasjidStore } from '../lib/store';
 
 interface Message {
   role: 'user' | 'model';
@@ -15,12 +16,15 @@ export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
   isOpen,
   onClose
 }) => {
+  const { state } = useMasjidStore();
+  const userName = state.session?.name || '';
+
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
       parts: [
         {
-          text: "Assalamu'alaikum warahmatullah. Saya adalah **Tazkia AI Syariah Assistant**. \n\nAda yang bisa saya bantu mengenai perhitungan ZISWAF, hukum Fiqh ibadah/keuangan, jadwal Zikir Akbar, Sejarah Masjid, atau program keumatan di Masjid Tazkia?"
+          text: `Assalamu'alaikum warahmatullah${userName ? ` ${userName}` : ''}. Saya adalah **Tazkia AI Syariah Assistant**. \n\nAda yang bisa saya bantu mengenai perhitungan ZISWAF, hukum Fiqh ibadah/keuangan, jadwal Zikir Akbar, Sejarah Masjid, atau program keumatan di Masjid Tazkia?`
         }
       ]
     }
@@ -28,6 +32,22 @@ export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
   const [input, setInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Clear history on mount / privacy reset if modal reopens
+  useEffect(() => {
+    if (isOpen) {
+      setMessages([
+        {
+          role: 'model',
+          parts: [
+            {
+              text: `Assalamu'alaikum warahmatullah${userName ? ` ${userName}` : ''}. Saya adalah **Tazkia AI Syariah Assistant**. \n\nAda yang bisa saya bantu mengenai perhitungan ZISWAF, hukum Fiqh ibadah/keuangan, jadwal Zikir Akbar, Sejarah Masjid, atau program keumatan di Masjid Tazkia?`
+            }
+          ]
+        }
+      ]);
+    }
+  }, [isOpen, userName]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -55,7 +75,8 @@ export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: userMsgText,
-          history: messages.slice(-6)
+          history: messages.slice(-6),
+          userName: userName
         })
       });
 

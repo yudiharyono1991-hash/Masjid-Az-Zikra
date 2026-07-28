@@ -264,6 +264,7 @@ export interface AppAdminSettings {
   iqamahCountdownMinutes: number;
   masjidLogoUrl?: string;
   masjidHeroPhotoUrl?: string;
+  masjidHeroCarouselUrls?: string[];
   qrisCodeImageUrl?: string;
   // Friday Khutbah & Feature Info Settings
   jumatKhatibName?: string;

@@ -155,30 +155,43 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </div>
 
               {/* Panduan Login Block */}
-              <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-left">
-                <h5 className="text-xs font-bold text-amber-800 mb-1">Panduan Login Khusus Jamaah:</h5>
-                <ul className="text-[10px] text-amber-700 space-y-1 list-disc pl-4">
-                  <li>Jamaah cukup memasukkan <strong>No. Handphone (WhatsApp)</strong> yang aktif, tidak wajib email.</li>
-                  <li>Sistem akan secara otomatis menyinkronkan data donasi dan riwayat jamaah ke Dashboard Anda.</li>
-                  <li>Jika Anda Petugas Masjid, pastikan memilih akses peran yang sesuai di atas.</li>
-                </ul>
-              </div>
+              {role === 'jamaah' ? (
+                <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-left">
+                  <h5 className="text-xs font-bold text-amber-800 mb-1">Panduan Login Khusus Jamaah:</h5>
+                  <ul className="text-[10px] text-amber-700 space-y-1 list-disc pl-4">
+                    <li>Jamaah cukup memasukkan <strong>No. Handphone (WhatsApp)</strong> yang aktif, tidak wajib email.</li>
+                    <li>Sistem akan secara otomatis menyinkronkan data donasi dan riwayat jamaah ke Dashboard Anda.</li>
+                    <li>Jika Anda Petugas Masjid, pastikan memilih akses peran yang sesuai di atas.</li>
+                  </ul>
+                </div>
+              ) : (
+                <div className="bg-blue-50 border border-blue-200 p-3 rounded-xl text-left">
+                  <h5 className="text-xs font-bold text-blue-800 mb-1">Panduan Login Khusus Petugas DKM:</h5>
+                  <ul className="text-[10px] text-blue-700 space-y-1 list-disc pl-4">
+                    <li>Silakan gunakan <strong>Email / Username</strong> yang didaftarkan oleh Super Admin.</li>
+                    <li>Akses ini bersifat rahasia dan memberikan Anda wewenang mengelola data masjid.</li>
+                    <li>Apabila lupa kata sandi atau role tidak sesuai, harap hubungi divisi IT / Super Admin.</li>
+                  </ul>
+                </div>
+              )}
+
+              {role === 'jamaah' && (
+                <div className="text-left">
+                  <label className="text-xs font-semibold text-blue-800 block mb-1">
+                    Nama Lengkap:
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-xs text-blue-900 outline-none"
+                  />
+                </div>
+              )}
 
               <div className="text-left">
                 <label className="text-xs font-semibold text-blue-800 block mb-1">
-                  Nama Lengkap:
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-xs text-blue-900 outline-none"
-                />
-              </div>
-
-              <div className="text-left">
-                <label className="text-xs font-semibold text-blue-800 block mb-1">
-                  Email atau No. Handphone (Jamaah):
+                  {role === 'jamaah' ? 'Email atau No. Handphone (Jamaah):' : 'Email / Username Petugas:'}
                 </label>
                 <div className="relative">
                   <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-500" />
@@ -187,7 +200,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-white border border-blue-300 focus:border-amber-500 focus:ring-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-blue-900 outline-none font-mono"
-                    placeholder="Contoh: 08123456789 atau user@email.com"
+                    placeholder={role === 'jamaah' ? "Contoh: 08123456789 atau user@email.com" : "Contoh: admin_keuangan@tazkia.id"}
                   />
                 </div>
               </div>
@@ -244,42 +257,61 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           {/* Right Highlights Panel matching Screenshot 3 Right Sidebar */}
           <div className="bg-blue-50 border border-blue-200 p-5 rounded-2xl space-y-4 my-auto">
             <h4 className="text-sm font-bold font-serif text-blue-900 border-b border-blue-200 pb-2">
-              Fitur Portal Jamaah (Tersedia Setelah Login):
+              {role === 'jamaah' ? 'Fitur Portal Jamaah (Tersedia Setelah Login):' : 'Akses DKM & Manajemen Masjid:'}
             </h4>
 
-            <div className="space-y-3 text-xs">
-              <div className="flex items-start gap-2.5">
-                <Calendar className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-bold text-blue-900">Donasi Otomatis</p>
-                  <p className="text-blue-600 text-[11px]">(Harian / Mingguan / Bulanan)</p>
+            {role === 'jamaah' ? (
+              <div className="space-y-3 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <Calendar className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Donasi Otomatis</p>
+                    <p className="text-blue-600 text-[11px]">(Harian / Mingguan / Bulanan)</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-2.5">
-                <Sparkles className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-bold text-blue-900">Kalkulator Zakat Pribadi</p>
-                  <p className="text-blue-600 text-[11px]">Hitung nisab zakat mal & penghasilan</p>
+                <div className="flex items-start gap-2.5">
+                  <Sparkles className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Kalkulator Zakat Pribadi</p>
+                    <p className="text-blue-600 text-[11px]">Hitung nisab zakat mal & penghasilan</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-2.5">
-                <History className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-bold text-blue-900">Histori Transaksi Cepat</p>
-                  <p className="text-blue-600 text-[11px]">Laporan tanda terima resmi DKM</p>
+                <div className="flex items-start gap-2.5">
+                  <History className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Histori Transaksi Cepat</p>
+                    <p className="text-blue-600 text-[11px]">Laporan tanda terima resmi DKM</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                <div>
-                  <p className="font-bold text-blue-900">Manajemen Profil</p>
-                  <p className="text-blue-600 text-[11px]">Keanggotaan terverifikasi jamaah</p>
+                <div className="flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Manajemen Profil</p>
+                    <p className="text-blue-600 text-[11px]">Keanggotaan terverifikasi jamaah</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-3 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Keamanan Enkripsi</p>
+                    <p className="text-blue-600 text-[11px]">Akses khusus pengurus terenkripsi</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Calendar className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="font-bold text-blue-900">Dashboard ERP Terintegrasi</p>
+                    <p className="text-blue-600 text-[11px]">Akses ke seluruh modul manajemen</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -232,7 +232,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   // Admin Settings Image States
   const [logoUrlInput, setLogoUrlInput] = useState(adminSettings?.masjidLogoUrl || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
-  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroPhotoUrl || 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80');
+  const [heroUrlInput, setHeroUrlInput] = useState(adminSettings?.masjidHeroCarouselUrls?.join(', ') || adminSettings?.masjidHeroPhotoUrl || 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80');
   const [qrisUrlInput, setQrisUrlInput] = useState(adminSettings?.qrisCodeImageUrl || 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80');
 
   // Settings Saved State Notification
@@ -364,11 +364,11 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     if (!onUpdateAdminSettings) return;
     onUpdateAdminSettings({
       masjidLogoUrl: logoUrlInput,
-      masjidHeroPhotoUrl: heroUrlInput,
+      masjidHeroPhotoUrl: heroUrlInput.split(',')[0].trim(),
+      masjidHeroCarouselUrls: heroUrlInput.split(',').map(u => u.trim()).filter(Boolean),
       qrisCodeImageUrl: qrisUrlInput
     });
-    setSavedSettingsMsg(true);
-    setTimeout(() => setSavedSettingsMsg(false), 2500);
+    showToast('Alhamdulillah, Foto/Media telah diperbarui!');
   };
 
   const handleSendWaBroadcast = () => {
@@ -1769,15 +1769,15 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
                   <div className="h-32 bg-blue-900 rounded-lg overflow-hidden border border-blue-800 flex items-center justify-center relative group">
                     <img
-                      src={heroUrlInput}
+                      src={heroUrlInput.split(',')[0].trim()}
                       alt="Hero Masjid"
                       className="h-full w-full object-cover cursor-pointer"
-                      onClick={() => setPreviewPhotoUrl(heroUrlInput)}
+                      onClick={() => setPreviewPhotoUrl(heroUrlInput.split(',')[0].trim())}
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-blue-400 block mb-1">URL Foto Landscape Masjid:</label>
+                    <label className="text-[10px] text-blue-400 block mb-1">URL Foto Landscape Masjid (pisahkan dengan koma jika banyak):</label>
                     <input
                       type="text"
                       value={heroUrlInput}
@@ -2652,7 +2652,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 </h3>
                 <p className="text-xs text-blue-400 mt-1">Kelola data jamaah, atur hak akses (role) pengurus, dan kelola sandi pengguna.</p>
               </div>
-              <button className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg">
+              <button 
+                onClick={() => showToast('Alhamdulillah, form penambahan pengurus baru sedang disiapkan sistem.')}
+                className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg transition-all"
+              >
                 <Plus className="w-4 h-4" />
                 <span>Tambah Pengurus Baru</span>
               </button>

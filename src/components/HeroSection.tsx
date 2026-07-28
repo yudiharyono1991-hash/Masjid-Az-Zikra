@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TazkiaBrandLogo } from './TazkiaBrandLogo';
 import { getSupabaseClient } from '../lib/supabase';
+import { useMasjidStore } from '../lib/store';
 import {
   TrendingUp,
   Users,
@@ -31,10 +32,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   openDigitalIbadah,
   isDark = false
 }) => {
+  const { state } = useMasjidStore();
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
-  const [backgrounds, setBackgrounds] = useState<string[]>(DEFAULT_HERO_BACKGROUNDS);
+  
+  const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0 
+    ? state.adminSettings.masjidHeroCarouselUrls 
+    : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
+
+  const [backgrounds, setBackgrounds] = useState<string[]>(configuredUrls.length > 0 ? configuredUrls : DEFAULT_HERO_BACKGROUNDS);
 
   useEffect(() => {
+    // If we have custom URLs from store, use them and skip Supabase fetch
+    if (configuredUrls.length > 0) {
+      setBackgrounds(configuredUrls);
+      return;
+    }
+
     const fetchHeroImages = async () => {
       const supabase = getSupabaseClient();
       if (!supabase) return;
@@ -64,7 +77,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     };
 
     fetchHeroImages();
-  }, []);
+  }, [configuredUrls]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,7 +87,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   }, [backgrounds]);
 
   return (
-    <section className="relative overflow-hidden bg-[#172554] text-white py-8 md:py-12 border-b border-blue-900 h-[45vh] md:h-[55vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden bg-[#172554] text-white py-12 md:py-16 border-b border-blue-900 min-h-[50vh] md:min-h-[85vh] flex flex-col justify-center">
       {/* Background Image Carousel */}
       {backgrounds.map((bg, index) => (
         <div
