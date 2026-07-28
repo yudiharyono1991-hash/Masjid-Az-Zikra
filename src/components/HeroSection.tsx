@@ -77,6 +77,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   }, [state.adminSettings.masjidHeroCarouselUrls, state.adminSettings.masjidHeroPhotoUrl]);
 
   useEffect(() => {
+    if (backgrounds.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentBgIndex((prev) => (prev + 1) % backgrounds.length);
     }, 6000); // Change image every 6 seconds

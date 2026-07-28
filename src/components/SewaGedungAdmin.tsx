@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Upload, FileText, Image as ImageIcon, Trash2, CheckCircle2, Building } from 'lucide-react';
-import { getSupabaseClient } from '../lib/supabase';
 
 export const SewaGedungAdmin: React.FC = () => {
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
@@ -9,35 +8,13 @@ export const SewaGedungAdmin: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const fetchAssets = async () => {
-    const supabase = getSupabaseClient();
-    if (!supabase) {
-      setLoading(false);
-      return;
-    }
-    
+  const fetchAssets = () => {
     try {
-      const { data, error } = await supabase.storage.from('booking-assets').list();
-      if (error) throw error;
-      
-      if (data) {
-        const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
-        const pdfFile = data.find(file => file.name.match(/\.pdf$/i));
-        
-        setImages(imageFiles.map(file => ({
-          name: file.name,
-          url: supabase.storage.from('booking-assets').getPublicUrl(file.name).data.publicUrl
-        })));
-        
-        if (pdfFile) {
-          setPdf({
-            name: pdfFile.name,
-            url: supabase.storage.from('booking-assets').getPublicUrl(pdfFile.name).data.publicUrl
-          });
-        } else {
-          setPdf(null);
-        }
-      }
+      const savedImages = localStorage.getItem('tazkia_booking_images');
+      if (savedImages) setImages(JSON.parse(savedImages));
+
+      const savedPdf = localStorage.getItem('tazkia_booking_pdf');
+      if (savedPdf) setPdf(JSON.parse(savedPdf));
     } catch (err) {
       console.error('Error fetching assets', err);
     } finally {
@@ -49,56 +26,48 @@ export const SewaGedungAdmin: React.FC = () => {
     fetchAssets();
   }, []);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    const supabase = getSupabaseClient();
-    if (!supabase) {
-      alert("Supabase client not initialized.");
-      return;
-    }
 
     setUploading(true);
     setMessage('');
     
-    try {
-      const fileExt = file.name.split('.').pop();
-      const isPdf = fileExt?.toLowerCase() === 'pdf';
-      const fileName = isPdf ? `alhambra-terms-${Date.now()}.pdf` : `gallery-${Date.now()}.${fileExt}`;
+    const fileExt = file.name.split('.').pop();
+    const isPdf = fileExt?.toLowerCase() === 'pdf';
+    const fileName = isPdf ? `alhambra-terms-${Date.now()}.pdf` : `gallery-${Date.now()}.${fileExt}`;
 
-      const { error } = await supabase.storage
-        .from('booking-assets')
-        .upload(fileName, file, { cacheControl: '3600', upsert: true });
-
-      if (error) throw error;
-
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (isPdf) {
+        const newPdf = { name: fileName, url: reader.result as string };
+        setPdf(newPdf);
+        localStorage.setItem('tazkia_booking_pdf', JSON.stringify(newPdf));
+      } else {
+        const newImage = { name: fileName, url: reader.result as string };
+        const updatedImages = [...images, newImage];
+        setImages(updatedImages);
+        localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
+      }
       setMessage(`Berhasil mengunggah ${file.name}`);
-      fetchAssets();
-    } catch (err: any) {
-      console.error('Upload error', err);
-      setMessage(`Gagal mengunggah: ${err.message}`);
-    } finally {
       setUploading(false);
-    }
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handleDelete = async (fileName: string) => {
+  const handleDelete = (fileName: string) => {
     if (!window.confirm(`Hapus file ${fileName}?`)) return;
 
-    const supabase = getSupabaseClient();
-    if (!supabase) return;
-
-    try {
-      const { error } = await supabase.storage.from('booking-assets').remove([fileName]);
-      if (error) throw error;
-      
-      setMessage(`Berhasil menghapus ${fileName}`);
-      fetchAssets();
-    } catch (err: any) {
-      console.error('Delete error', err);
-      setMessage(`Gagal menghapus: ${err.message}`);
+    if (pdf && pdf.name === fileName) {
+      setPdf(null);
+      localStorage.removeItem('tazkia_booking_pdf');
+    } else {
+      const updatedImages = images.filter(img => img.name !== fileName);
+      setImages(updatedImages);
+      localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
     }
+    
+    setMessage(`Berhasil menghapus ${fileName}`);
   };
 
   return (
@@ -109,7 +78,7 @@ export const SewaGedungAdmin: React.FC = () => {
           Kelola Aset Booking Gedung
         </h3>
         <p className="text-sm text-blue-200 mb-6">
-          Unggah foto galeri Alhambra Ballroom dan file PDF Syarat & Ketentuan. Foto-foto ini akan otomatis ditampilkan pada halaman Booking Gedung di sisi pengguna. Pastikan nama bucket Supabase adalah <code className="bg-blue-950 px-1 rounded">booking-assets</code> dan berstatus Public.
+          Unggah foto galeri Alhambra Ballroom dan file PDF Syarat & Ketentuan. Foto-foto ini akan otomatis ditampilkan pada halaman Booking Gedung di sisi pengguna.
         </p>
 
         {message && (
@@ -128,7 +97,7 @@ export const SewaGedungAdmin: React.FC = () => {
         </div>
 
         {loading ? (
-          <div className="text-blue-300 text-sm animate-pulse">Memuat data dari Supabase...</div>
+          <div className="text-blue-300 text-sm animate-pulse">Memuat data dari server...</div>
         ) : (
           <div className="space-y-8">
             

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMasjidStore } from '../lib/store';
 
 interface TazkiaBrandLogoProps {
   variant?: 'navbar' | 'hero' | 'footer' | 'large';
@@ -11,6 +12,9 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
   isDark = true,
   className = ''
 }) => {
+  const { state } = useMasjidStore();
+  const logoUrl = state.adminSettings?.masjidLogoUrl || "/logo.png";
+
   if (variant === 'large' || variant === 'hero') {
     return (
       <div className={`flex flex-col items-center text-center space-y-2 ${className}`}>
@@ -18,7 +22,7 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
         <div className="relative flex items-center justify-center">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-900 to-blue-950 border-2 border-amber-400/60 p-2 shadow-2xl flex items-center justify-center relative overflow-hidden group">
             {/* Custom Logo Image */}
-            <img src="/logo.png" alt="Logo Masjid Tazkia" className="w-full h-full object-contain drop-shadow-md z-10 relative" />
+            <img src={logoUrl} alt="Logo Masjid Tazkia" className="w-full h-full object-contain drop-shadow-md z-10 relative" />
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-blue-500/10 z-0" />
           </div>
         </div>
@@ -45,7 +49,7 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
     <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
       {/* Mini Mosque Emblem */}
       <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#1e3a8a] to-[#172554] border border-amber-400/50 flex items-center justify-center shadow-lg relative shrink-0">
-        <img src="/logo.png" alt="Logo Masjid Tazkia" className="w-6 h-6 sm:w-8 sm:h-8 object-contain drop-shadow-md relative z-10" />
+        <img src={logoUrl} alt="Logo Masjid Tazkia" className="w-6 h-6 sm:w-8 sm:h-8 object-contain drop-shadow-md relative z-10" />
       </div>
 
       <div className="flex flex-col justify-center">

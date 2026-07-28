@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Upload, Image as ImageIcon, QrCode, Store, Trash2, Plus, Link as LinkIcon, Download } from 'lucide-react';
-import { getSupabaseClient } from '../lib/supabaseClient';
 
 interface Sponsor {
   id: string;
@@ -53,73 +52,55 @@ export const AppManagerAdmin: React.FC = () => {
     fetchHeroImages();
   }, []);
 
-  const fetchHeroImages = async () => {
-    const supabase = getSupabaseClient();
-    if (!supabase) return;
-
+  const fetchHeroImages = () => {
     try {
-      const { data, error } = await supabase.storage.from('hero-images').list();
-      if (error) throw error;
-      
-      if (data) {
-        const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
-        const formatted = imageFiles.map(file => {
-          const { data: { publicUrl } } = supabase.storage.from('hero-images').getPublicUrl(file.name);
-          return { name: file.name, url: publicUrl };
-        });
-        setHeroImages(formatted);
+      const saved = localStorage.getItem('tazkia_hero_images');
+      if (saved) {
+        setHeroImages(JSON.parse(saved));
       }
-    } catch (err) {
-      console.error('Error fetching hero images', err);
-    }
+    } catch(e) {}
   };
 
-  const handleHeroUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleHeroUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const supabase = getSupabaseClient();
-    if (!supabase) {
-      alert("Koneksi Supabase belum diatur!");
-      return;
-    }
-
     setIsUploading(true);
     setUploadProgress(10);
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-hero.${fileExt}`;
-      
-      setUploadProgress(40);
-      const { error } = await supabase.storage.from('hero-images').upload(fileName, file);
-      
-      if (error) throw error;
-      
+    
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newImage = { name: `${Date.now()}-${file.name}`, url: reader.result as string };
+      const updated = [...heroImages, newImage];
+      setHeroImages(updated);
+      localStorage.setItem('tazkia_hero_images', JSON.stringify(updated));
       setUploadProgress(100);
-      alert('Foto berhasil diunggah!');
-      fetchHeroImages();
-    } catch (err: any) {
-      alert(`Gagal mengunggah: ${err.message}`);
-    } finally {
+      
+      // Menggunakan custom toast style yang lebih informatif
+      const msg = document.createElement('div');
+      msg.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-bounce';
+      msg.innerText = '✅ Foto berhasil diunggah dan disimpan!';
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 3000);
+      
       setIsUploading(false);
       setUploadProgress(0);
-    }
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handleDeleteHero = async (fileName: string) => {
+  const handleDeleteHero = (fileName: string) => {
     if (!window.confirm("Hapus gambar ini?")) return;
     
-    const supabase = getSupabaseClient();
-    if (!supabase) return;
-
-    try {
-      const { error } = await supabase.storage.from('hero-images').remove([fileName]);
-      if (error) throw error;
-      alert('Gambar dihapus');
-      fetchHeroImages();
-    } catch (err: any) {
-      alert(`Gagal menghapus: ${err.message}`);
-    }
+    const updated = heroImages.filter(img => img.name !== fileName);
+    setHeroImages(updated);
+    localStorage.setItem('tazkia_hero_images', JSON.stringify(updated));
+    
+    const msg = document.createElement('div');
+    msg.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50';
+    msg.innerText = '🗑️ Gambar berhasil dihapus dari sistem.';
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 3000);
   };
 
   return (

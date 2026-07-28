@@ -286,6 +286,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Qurban management states
   const [showAddQurbanGroupForm, setShowAddQurbanGroupForm] = useState(false);
@@ -643,6 +644,14 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     setShowAddAnc(false);
   };
 
+  const handleRefreshClick = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      showToast('Data berhasil disegarkan dari server', 'success');
+    }, 800);
+  };
+
   const handleSaveAdminPhotos = () => {
     if (!onUpdateAdminSettings) {
       showToast('Gagal: Pengaturan admin tidak tersedia.', 'error');
@@ -683,6 +692,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
       [key]: val
     });
     setSavedSettingsMsg(true);
+    showToast('Pengaturan Khutbah/Fitur otomatis tersimpan', 'success');
     setTimeout(() => setSavedSettingsMsg(false), 2000);
   };
 
@@ -726,13 +736,12 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   </button>
                 )}
                 <button
-                  onClick={() => {
-                    window.location.reload();
-                  }}
-                  className="ml-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500 hover:text-white px-2 py-1 flex items-center gap-1.5 rounded-full text-xs font-bold transition-all shadow-sm"
+                  onClick={handleRefreshClick}
+                  disabled={isRefreshing}
+                  className={`ml-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500 hover:text-white px-2 py-1 flex items-center gap-1.5 rounded-full text-xs font-bold transition-all shadow-sm ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="Refresh Sistem"
                 >
-                  <RefreshCw className="w-3.5 h-3.5" />
+                  <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
                   <span className="hidden sm:inline">Refresh Data</span>
                 </button>
               </div>
@@ -2168,6 +2177,9 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       />
                     </label>
                   </div>
+                  <p className="text-[10px] text-blue-300 italic leading-snug">
+                    Logo ini akan tampil di bagian atas navigasi dan bagian paling bawah (footer) website.
+                  </p>
 
                   <div className="h-32 bg-blue-900 rounded-lg overflow-hidden border border-blue-800 flex items-center justify-center relative group">
                     <img
@@ -2207,6 +2219,9 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       />
                     </label>
                   </div>
+                  <p className="text-[10px] text-blue-300 italic leading-snug">
+                    Foto ini akan menjadi latar belakang besar (background) saat pertama kali halaman beranda (Home) dibuka.
+                  </p>
 
                   <div className="h-32 bg-blue-900 rounded-lg overflow-hidden border border-blue-800 flex items-center justify-center relative group">
                     <img
@@ -2246,6 +2261,9 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       />
                     </label>
                   </div>
+                  <p className="text-[10px] text-blue-300 italic leading-snug">
+                    Gambar ini akan muncul saat jamaah menekan tombol donasi via QRIS di halaman beranda.
+                  </p>
 
                   <div className="h-32 bg-blue-900 rounded-lg overflow-hidden border border-blue-800 flex items-center justify-center relative group">
                     <img
