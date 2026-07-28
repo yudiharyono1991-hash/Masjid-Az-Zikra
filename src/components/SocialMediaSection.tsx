@@ -13,8 +13,8 @@ const YT_CHANNEL_URL = 'https://www.youtube.com/@masjidtazkia';
 export const SocialMediaSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'featured' | 'playlist'>('featured');
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
-  const [fbLoaded, setFbLoaded] = useState(false);
-  const [igLoaded, setIgLoaded] = useState(false);
+  const [fbLoaded, setFbLoaded] = useState(true);
+  const [igLoaded, setIgLoaded] = useState(true);
 
   return (
     <section className="py-16 bg-[#172554] border-t border-blue-900/50 relative overflow-hidden">
