@@ -434,7 +434,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             </div>
 
             {/* Unlimited Article Content Body */}
-            <div className="space-y-4 text-sm sm:text-base leading-relaxed font-sans opacity-95">
+            <div className="space-y-4 text-sm sm:text-base leading-relaxed font-sans opacity-95 text-justify">
               <h3 className="text-lg font-serif font-bold text-amber-400 flex items-center gap-2 border-b border-blue-800 pb-2">
                 <FileText className="w-5 h-5 text-blue-300" />
                 Ulasan & Rangkuman Artikel Lengkap

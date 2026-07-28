@@ -88,6 +88,46 @@ Tugas Anda:
     }
   });
 
+  // YouTube Latest Videos Proxy (RSS Feed - no API key needed)
+  app.get("/api/youtube/latest", async (_req, res) => {
+    try {
+      // Masjid Tazkia YouTube Channel RSS feed
+      const channelId = "UC5107eQh328s76H_mZ34Sog";
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+      
+      const response = await fetch(rssUrl);
+      if (!response.ok) {
+        throw new Error(`RSS fetch failed: ${response.status}`);
+      }
+      
+      const xml = await response.text();
+      
+      // Parse video IDs and titles from XML
+      const videoMatches = [...xml.matchAll(/<yt:videoId>([^<]+)<\/yt:videoId>/g)];
+      const titleMatches = [...xml.matchAll(/<title>([^<]+)<\/title>/g)];
+      const thumbMatches = [...xml.matchAll(/<media:thumbnail[^>]+url="([^"]+)"/g)];
+      
+      const videos = videoMatches.slice(0, 6).map((m, i) => ({
+        id: m[1],
+        title: titleMatches[i + 1]?.['1'] || `Video ${i + 1}`,
+        thumbnail: thumbMatches[i]?.['1'] || `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg`,
+      }));
+      
+      res.set('Cache-Control', 'public, max-age=1800'); // cache 30 min
+      return res.json({ videos, channelId });
+    } catch (err: any) {
+      console.error("YouTube RSS fetch error:", err.message);
+      // Return fallback hardcoded videos if fetch fails
+      return res.json({ 
+        videos: [
+          { id: "UBxFbTbs8i4", title: "Kajian Rutin Masjid Tazkia", thumbnail: `https://img.youtube.com/vi/UBxFbTbs8i4/hqdefault.jpg` },
+          { id: "UBxFbTbs8i4", title: "Video Terbaru Masjid Tazkia", thumbnail: `https://img.youtube.com/vi/UBxFbTbs8i4/maxresdefault.jpg` },
+        ],
+        fallback: true
+      });
+    }
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

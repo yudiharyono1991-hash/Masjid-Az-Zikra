@@ -109,7 +109,7 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
                 Alhambra Ballroom
               </h1>
               
-              <div className={`space-y-4 text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <div className={`space-y-4 text-sm sm:text-base leading-relaxed text-justify ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                 <p>
                   Alhambra Hall menawarkan suasana elegan dengan sentuhan arsitektur Islam modern. Dirancang khusus untuk mengakomodasi berbagai acara mulai dari resepsi pernikahan, seminar nasional, hingga kajian akbar.
                 </p>

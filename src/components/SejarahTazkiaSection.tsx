@@ -126,7 +126,7 @@ export const SejarahTazkiaSection: React.FC = () => {
               </div>
               <div className="sm:w-2/3 p-8 sm:p-10 relative">
                 <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
                   <p>Lahir di Sukabumi, 12 Mei 1965. Beliau adalah tokoh ekonomi syariah Indonesia yang memiliki latar belakang perjalanan spiritual yang unik dan inspiratif.</p>
                   <p>Tumbuh di lingkungan keluarga yang majemuk, beliau mengenal ajaran Islam melalui interaksi sosial sejak kecil. Ketertarikannya pada cara ibadah umat Islam membawanya pada pencarian kebenaran, hingga akhirnya memutuskan untuk bersyahadat.</p>
                 </div>
@@ -152,7 +152,7 @@ export const SejarahTazkiaSection: React.FC = () => {
               </div>
               <div className="sm:w-2/3 p-8 sm:p-10 relative">
                 <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
                   <p>Direktur Operasional Masjid Tazkia adalah sosok profesional yang amanah dan berpengalaman luas dalam pengelolaan keuangan, audit, dan tata kelola organisasi. Dengan pengalaman lebih dari dua dekade di berbagai perusahaan dan lembaga, beliau berperan memastikan operasional masjid berjalan secara efektif, transparan, dan sesuai prinsip syariah.</p>
                   <p>Berkomitmen menjadikan masjid sebagai pusat ibadah, pendidikan, dan pemberdayaan umat, beliau mengedepankan nilai keikhlasan, profesionalisme, serta pelayanan terbaik bagi jamaah.</p>
                 </div>
@@ -178,7 +178,7 @@ export const SejarahTazkiaSection: React.FC = () => {
               </div>
               <div className="sm:w-2/3 p-8 sm:p-10 relative">
                 <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4">
+                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
                   <p>Ketua DKM Masjid Tazkia adalah pemimpin yang amanah dan berkomitmen dalam memakmurkan masjid sebagai pusat ibadah, dakwah, dan pemberdayaan umat.</p>
                   <p>Dengan mengedepankan nilai keikhlasan, kebersamaan, dan profesionalisme, beliau membina pengelolaan masjid yang transparan, inklusif, serta berlandaskan Al-Quran dan Sunnah, demi menghadirkan pelayanan terbaik bagi jamaah dan masyarakat luas.</p>
                 </div>
