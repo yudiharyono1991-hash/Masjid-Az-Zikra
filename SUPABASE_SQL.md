@@ -284,5 +284,22 @@ create trigger update_journals_updated_at
 create trigger update_report_signatures_updated_at
   before update on report_signatures
   for each row execute function update_updated_at_column();
+
+-- Booking Gedung
+create table if not exists gedung_bookings (
+  id uuid primary key default uuid_generate_v4(),
+  date date not null,
+  name text not null,
+  whatsapp text not null,
+  email text,
+  notes text,
+  status text not null default 'pending', -- pending, approved, rejected
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create trigger update_gedung_bookings_updated_at
+  before update on gedung_bookings
+  for each row execute function update_updated_at_column();
 ```
 

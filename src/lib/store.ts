@@ -341,6 +341,9 @@ export function useMasjidStore() {
       let updatedPrograms = prev.programs;
       let newFinancials = prev.financials;
 
+      let newErpJournals = prev.erpJournals || [];
+      let newErpJournalEntries = prev.erpJournalEntries || [];
+
       if (created.status === 'berhasil') {
         // Update target collected in programs
         updatedPrograms = prev.programs.map(p => {
@@ -365,13 +368,64 @@ export function useMasjidStore() {
           description: `Penerimaan donasi dari ${created.donorName} via ${created.paymentMethod} (Ref: ${created.transactionRef})`
         };
         newFinancials = [newFinancial, ...prev.financials];
+
+        // Accounting Integration: Create ERP Journal for ZISWAF
+        let debitAccountId = 'coa-1102'; // Default Kas Bank Operasional
+        let creditAccountId = 'coa-4100'; // Default Penerimaan ZISWAF
+
+        const categoryUpper = created.category.toUpperCase();
+        if (categoryUpper.includes('ZAKAT')) {
+          debitAccountId = 'coa-1103'; // Kas Bank Zakat
+          creditAccountId = 'coa-4102'; // Penerimaan Zakat Maal
+        } else if (categoryUpper.includes('INFAQ') || categoryUpper.includes('SEDEKAH') || categoryUpper.includes('SHADAQAH')) {
+          debitAccountId = 'coa-1104'; // Kas Bank Infaq/Sedekah
+          creditAccountId = 'coa-4104'; // Penerimaan Infaq Transfer
+        } else if (categoryUpper.includes('WAKAF')) {
+          debitAccountId = 'coa-1105'; // Kas Bank Wakaf
+          creditAccountId = 'coa-4105'; // Penerimaan Wakaf Tunai
+        }
+
+        const journalId = `JRN-${Math.floor(Date.now() / 1000)}-${Math.floor(Math.random() * 100)}`;
+        const newErpJournal: ERPGeneralJournal = {
+          id: journalId,
+          journalNo: `JV-${new Date().toISOString().split('T')[0].replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`,
+          date: new Date().toISOString().split('T')[0],
+          description: `Penerimaan ${categoryUpper} - ${created.programTitle} (${created.donorName})`,
+          reference: created.transactionRef || created.id,
+          status: 'Posted',
+          createdBy: 'Sistem ZISWAF',
+          createdAt: new Date().toISOString()
+        };
+
+        const debitEntry: ERPJournalEntry = {
+          id: `JE-D-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+          journalId,
+          accountId: debitAccountId,
+          debit: created.amount,
+          credit: 0,
+          description: `Penerimaan ke Kas/Bank`
+        };
+
+        const creditEntry: ERPJournalEntry = {
+          id: `JE-C-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+          journalId,
+          accountId: creditAccountId,
+          debit: 0,
+          credit: created.amount,
+          description: `Pendapatan ${categoryUpper}`
+        };
+
+        newErpJournals = [newErpJournal, ...newErpJournals];
+        newErpJournalEntries = [debitEntry, creditEntry, ...newErpJournalEntries];
       }
 
       return {
         ...prev,
         programs: updatedPrograms,
         donations: [created, ...prev.donations],
-        financials: newFinancials
+        financials: newFinancials,
+        erpJournals: newErpJournals,
+        erpJournalEntries: newErpJournalEntries
       };
     });
 
@@ -385,6 +439,9 @@ export function useMasjidStore() {
 
       let updatedPrograms = prev.programs;
       let newFinancials = prev.financials;
+
+      let newErpJournals = prev.erpJournals || [];
+      let newErpJournalEntries = prev.erpJournalEntries || [];
 
       // If it is becoming 'berhasil' from a pending state
       if (status === 'berhasil' && donation.status !== 'berhasil') {
@@ -410,13 +467,64 @@ export function useMasjidStore() {
           proofUrl: donation.proofUrl
         };
         newFinancials = [newFinancial, ...prev.financials];
+
+        // Accounting Integration: Create ERP Journal for ZISWAF
+        let debitAccountId = 'coa-1102'; // Default Kas Bank Operasional
+        let creditAccountId = 'coa-4100'; // Default Penerimaan ZISWAF
+
+        const categoryUpper = donation.category.toUpperCase();
+        if (categoryUpper.includes('ZAKAT')) {
+          debitAccountId = 'coa-1103'; // Kas Bank Zakat
+          creditAccountId = 'coa-4102'; // Penerimaan Zakat Maal
+        } else if (categoryUpper.includes('INFAQ') || categoryUpper.includes('SEDEKAH') || categoryUpper.includes('SHADAQAH')) {
+          debitAccountId = 'coa-1104'; // Kas Bank Infaq/Sedekah
+          creditAccountId = 'coa-4104'; // Penerimaan Infaq Transfer
+        } else if (categoryUpper.includes('WAKAF')) {
+          debitAccountId = 'coa-1105'; // Kas Bank Wakaf
+          creditAccountId = 'coa-4105'; // Penerimaan Wakaf Tunai
+        }
+
+        const journalId = `JRN-${Math.floor(Date.now() / 1000)}-${Math.floor(Math.random() * 100)}`;
+        const newErpJournal: ERPGeneralJournal = {
+          id: journalId,
+          journalNo: `JV-${new Date().toISOString().split('T')[0].replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`,
+          date: new Date().toISOString().split('T')[0],
+          description: `Penerimaan ${categoryUpper} - ${donation.programTitle} (${donation.donorName})`,
+          reference: donation.transactionRef || donation.id,
+          status: 'Posted',
+          createdBy: 'Sistem ZISWAF',
+          createdAt: new Date().toISOString()
+        };
+
+        const debitEntry: ERPJournalEntry = {
+          id: `JE-D-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+          journalId,
+          accountId: debitAccountId,
+          debit: donation.amount,
+          credit: 0,
+          description: `Penerimaan ke Kas/Bank`
+        };
+
+        const creditEntry: ERPJournalEntry = {
+          id: `JE-C-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+          journalId,
+          accountId: creditAccountId,
+          debit: 0,
+          credit: donation.amount,
+          description: `Pendapatan ${categoryUpper}`
+        };
+
+        newErpJournals = [newErpJournal, ...newErpJournals];
+        newErpJournalEntries = [debitEntry, creditEntry, ...newErpJournalEntries];
       }
 
       return {
         ...prev,
         programs: updatedPrograms,
         donations: prev.donations.map(d => d.id === id ? { ...d, status } : d),
-        financials: newFinancials
+        financials: newFinancials,
+        erpJournals: newErpJournals,
+        erpJournalEntries: newErpJournalEntries
       };
     });
   };

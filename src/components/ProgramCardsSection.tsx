@@ -1,5 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Program, ProgramCategory, AppAdminSettings } from '../types';
+import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
   HeartHandshake,
@@ -57,6 +77,78 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
     return matchesCategory && matchesSearch;
   });
 
+  // Calculate statistics for the chart
+  const chartData = useMemo(() => {
+    const categories = ['zakat', 'infaq', 'wakaf'];
+    const data = categories.map(cat => {
+      return programs
+        .filter(p => p.category === cat)
+        .reduce((sum, p) => sum + p.collectedAmount, 0);
+    });
+
+    return {
+      labels: ['Zakat Maal', 'Infaq & Shadaqah', 'Wakaf Produktif'],
+      datasets: [
+        {
+          label: 'Total Perolehan (Rp)',
+          data: data,
+          backgroundColor: [
+            'rgba(59, 130, 246, 0.8)', // blue-500
+            'rgba(16, 185, 129, 0.8)', // emerald-500
+            'rgba(245, 158, 11, 0.8)', // amber-500
+          ],
+          borderColor: [
+            'rgb(37, 99, 235)',
+            'rgb(5, 150, 105)',
+            'rgb(217, 119, 6)',
+          ],
+          borderWidth: 1,
+          borderRadius: 4,
+        },
+      ],
+    };
+  }, [programs]);
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(context.parsed.y);
+            }
+            return label;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value: any) {
+            if (value >= 1000000) {
+              return 'Rp ' + (value / 1000000) + ' Jt';
+            }
+            return 'Rp ' + value;
+          }
+        }
+      }
+    }
+  };
+
   return (
     <section className={`py-16 border-b transition-colors ${isDark ? "bg-blue-950 text-blue-100 border-blue-800" : "bg-stone-50 text-blue-900 border-blue-200"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -109,6 +201,19 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
           <h2 className={`text-2xl sm:text-3xl font-serif transition-colors ${isDark ? "text-white" : "text-blue-950"}`}>
             Daftar Program
           </h2>
+        </div>
+
+        {/* ZISWAF Statistics Chart */}
+        <div className={`p-6 rounded-2xl border shadow-sm transition-colors mb-8 ${isDark ? "bg-blue-900/50 border-blue-800" : "bg-white border-blue-200"}`}>
+          <div className="flex items-center gap-2 mb-6">
+            <PieChart className={`w-5 h-5 ${isDark ? "text-amber-400" : "text-amber-600"}`} />
+            <h3 className={`font-bold font-serif ${isDark ? "text-white" : "text-blue-950"}`}>
+              Grafik Statistik Perolehan ZISWAF
+            </h3>
+          </div>
+          <div className="h-64 w-full">
+            <Bar data={chartData} options={chartOptions} />
+          </div>
         </div>
 
         {/* Search and Filter Bar */}
@@ -248,7 +353,7 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
                       className="w-full bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer mt-2 border border-blue-400/30"
                     >
                       <HeartHandshake className="w-4 h-4 text-amber-300" />
-                      <span>Wakaf / Donasi Sekarang</span>
+                      <span>Bayar Sekarang</span>
                     </button>
                   </div>
                 </div>
