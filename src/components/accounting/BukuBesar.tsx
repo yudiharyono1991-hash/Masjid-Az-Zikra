@@ -215,5 +215,3 @@ export function BukuBesar() {
     </div>
   );
 }
-  );
-}
