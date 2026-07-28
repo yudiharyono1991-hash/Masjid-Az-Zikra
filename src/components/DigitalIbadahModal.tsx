@@ -315,10 +315,9 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
         {/* Sub Tabs Navigation */}
         <div className="flex border-b border-blue-800 bg-blue-950 p-2 gap-2 overflow-x-auto">
           {[
-            { id: 'quran', label: "Al-Qur'an Digital Masjid Tazkia", icon: BookOpen },
+            { id: 'quran', label: "Al-Qur'an Tazkia", icon: BookOpen },
             { id: 'salat', label: 'Jadwal Shalat & Adzan', icon: Calendar },
-            { id: 'kiblat', label: 'Penunjuk Arah Kiblat', icon: Compass },
-            { id: 'doa', label: 'Doa & Hadis Pilihan', icon: Sparkles }
+            { id: 'kiblat', label: 'Penunjuk Arah Kiblat', icon: Compass }
           ].map(tab => {
             const IconComp = tab.icon;
             return (
@@ -342,179 +341,13 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
         <div className="p-6 max-h-[75vh] overflow-y-auto">
           {/* 1. AL-QUR'AN DIGITAL WITH AUDIO ENGINE */}
           {activeSubTab === 'quran' && (
-            <div className="bg-slate-50 text-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-              <div className="grid grid-cols-1 md:grid-cols-4 h-[75vh]">
-                
-                {/* Surahs List Sidebar (Light Theme) */}
-                <div className="bg-white border-r border-slate-200 flex flex-col h-full hidden md:flex">
-                  <div className="p-4 border-b border-slate-100 bg-slate-50/80 backdrop-blur">
-                    <h3 className="font-bold text-slate-800 font-serif flex items-center gap-2 mb-3">
-                      <BookOpen className="w-4 h-4 text-emerald-600" />
-                      Al-Qur'an Masjid Tazkia
-                    </h3>
-                    <div className="relative">
-                      <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                      <input
-                        type="text"
-                        placeholder="Cari surah..."
-                        value={quranSearch}
-                        onChange={(e) => setQuranSearch(e.target.value)}
-                        className="w-full bg-white border border-slate-200 focus:border-emerald-500 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-700 outline-none shadow-sm transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex-1 overflow-y-auto p-2 space-y-1 scrollbar-thin scrollbar-thumb-slate-200">
-                    {filteredSurahs.map(s => (
-                      <button
-                        key={s.number}
-                        onClick={() => {
-                          setSelectedSurahNumber(s.number);
-                          setActiveAyahIndex(0);
-                          setIsPlayingAudio(false);
-                        }}
-                        className={`w-full p-3 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between group ${
-                          selectedSurahNumber === s.number
-                            ? 'bg-emerald-50 border border-emerald-200 shadow-sm'
-                            : 'bg-transparent hover:bg-slate-50 border border-transparent'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-8 h-8 rounded-lg font-mono text-xs font-bold flex items-center justify-center ${selectedSurahNumber === s.number ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-emerald-100 group-hover:text-emerald-700'}`}>
-                            {s.number}
-                          </div>
-                          <div>
-                            <p className={`text-xs font-bold ${selectedSurahNumber === s.number ? 'text-emerald-800' : 'text-slate-700'}`}>{s.englishName}</p>
-                            <p className="text-[10px] text-slate-500">{s.translation} &bull; {s.ayahsCount} Ayat</p>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Ayah Reader & Audio Controls View */}
-                <div className="md:col-span-3 flex flex-col h-full bg-[#f8f9fa] relative">
-                  
-                  {/* Top Control Bar */}
-                  <div className="bg-white border-b border-slate-200 p-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm z-10">
-                    <div className="flex flex-col items-center sm:items-start">
-                      <h4 className="text-xl sm:text-2xl font-bold font-serif text-emerald-800">
-                        {currentSurah.englishName} ({currentSurah.name})
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-1">
-                        Surah ke-{currentSurah.number} &bull; {currentSurah.translation} &bull; {currentSurah.ayahsCount} Ayat
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={toggleAudioPlayer}
-                        className={`px-5 py-2.5 rounded-full text-xs font-bold flex items-center gap-2 cursor-pointer shadow-md transition-all ${
-                          isPlayingAudio
-                            ? 'bg-emerald-600 text-white shadow-emerald-600/30 ring-2 ring-emerald-600/50 ring-offset-2'
-                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
-                        }`}
-                      >
-                        {isPlayingAudio ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-slate-700" />}
-                        <span>{isPlayingAudio ? 'Jeda Murottal' : 'Putar Murottal'}</span>
-                      </button>
-
-                      <button
-                        onClick={() => setAutoScrollEnabled(!autoScrollEnabled)}
-                        className={`p-2.5 rounded-full text-xs font-bold cursor-pointer border transition-colors ${
-                          autoScrollEnabled
-                            ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                            : 'bg-white text-slate-400 border-slate-200 hover:bg-slate-50'
-                        }`}
-                        title="Auto-scroll"
-                      >
-                        <Sparkles className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Audio Progress Banner */}
-                  {isPlayingAudio && (
-                    <div className="bg-emerald-600 text-white px-6 py-2 text-xs flex items-center justify-between font-mono shadow-inner z-10">
-                      <div className="flex items-center gap-2">
-                        <Volume2 className="w-4 h-4 animate-pulse" />
-                        <span>Membaca Ayat {activeAyahIndex + 1} / {currentAyahs.length}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <button onClick={() => setActiveAyahIndex(Math.max(0, activeAyahIndex - 1))} className="hover:text-emerald-200"><SkipBack className="w-4 h-4" /></button>
-                        <button onClick={() => setActiveAyahIndex(Math.min(currentAyahs.length - 1, activeAyahIndex + 1))} className="hover:text-emerald-200"><SkipForward className="w-4 h-4" /></button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Quran Content Area */}
-                  <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 pb-24 scrollbar-thin scrollbar-thumb-emerald-200">
-                    
-                    {/* Bismillah */}
-                    {selectedSurahNumber !== 9 && (
-                      <div className="text-center py-8 mb-4">
-                        <p className="text-3xl sm:text-4xl font-serif text-slate-800 tracking-widest leading-loose">
-                          ?????? ??????? ???????????? ??????????
-                        </p>
-                      </div>
-                    )}
-
-                    {isLoadingAyahs ? (
-                      <div className="py-20 text-center text-emerald-600 space-y-4">
-                        <div className="w-10 h-10 mx-auto border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin"></div>
-                        <p className="text-sm font-mono animate-pulse">Memuat Ayat Suci...</p>
-                      </div>
-                    ) : (
-                      currentAyahs.map((a, idx) => {
-                        const isActive = isPlayingAudio && activeAyahIndex === idx;
-                        return (
-                          <div
-                            key={a.numberInSurah}
-                            ref={(el) => (ayahRefs.current[idx] = el)}
-                            className={`p-6 rounded-3xl transition-all border-b-2 sm:border-b-0 ${
-                              isActive
-                                ? 'bg-emerald-50 border-emerald-200 shadow-lg ring-1 ring-emerald-500/20 scale-[1.01]'
-                                : 'bg-white border-slate-100 hover:border-slate-300 hover:shadow-md'
-                            }`}
-                          >
-                            <div className="flex flex-col sm:flex-row gap-6 justify-between items-start">
-                              
-                              <div className="flex items-center gap-3 shrink-0 order-2 sm:order-1 w-full sm:w-auto">
-                                <button
-                                  onClick={() => handlePlaySpecificAyah(idx)}
-                                  className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-sm font-bold transition-all cursor-pointer shrink-0 ${
-                                    isActive
-                                      ? 'bg-emerald-600 text-white shadow-md'
-                                      : 'bg-slate-100 text-slate-500 hover:bg-emerald-100 hover:text-emerald-700'
-                                  }`}
-                                >
-                                  {isActive ? <Pause className="w-4 h-4 fill-white" /> : a.numberInSurah}
-                                </button>
-                              </div>
-
-                              <div className="text-right flex-1 order-1 sm:order-2 w-full">
-                                <p className="text-3xl sm:text-4xl font-serif text-slate-800 leading-[2.5] sm:leading-[2.5]">
-                                  {a.text}
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="mt-6 pt-4 border-t border-slate-100 space-y-2">
-                              <p className="text-sm text-emerald-700 font-mono tracking-wide">
-                                {a.latin}
-                              </p>
-                              <p className="text-sm text-slate-600 leading-relaxed">
-                                {a.translation}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className="bg-slate-50 text-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 h-[75vh]">
+              <iframe 
+                src="https://quran.tazkia.ac.id/" 
+                className="w-full h-full" 
+                style={{ border: 0 }} 
+                title="Al-Quran Tazkia" 
+              />
             </div>
           )}
 
@@ -613,53 +446,6 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
             </div>
           )}
 
-          {/* 4. DOA & HADIS */}
-          {activeSubTab === 'doa' && (
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row gap-3 justify-between">
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-blue-400" />
-                  <input
-                    type="text"
-                    placeholder="Cari doa harian..."
-                    value={doaSearch}
-                    onChange={(e) => setDoaSearch(e.target.value)}
-                    className="w-full bg-blue-900 border border-blue-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none"
-                  />
-                </div>
-
-                <div className="flex gap-2 overflow-x-auto pb-1">
-                  {['Semua', 'Al-Ma\'tsurat Pagi', 'Al-Ma\'tsurat Petang', 'Ibadah', 'Rezeki'].map(cat => (
-                    <button
-                      key={cat}
-                      onClick={() => setDoaCategory(cat)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-colors ${
-                        doaCategory === cat
-                          ? 'bg-amber-500 text-blue-950'
-                          : 'bg-blue-900 text-blue-400 hover:text-white'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
-                {filteredDoa.map(d => (
-                  <div key={d.id} className="p-4 rounded-2xl bg-blue-900 border border-blue-800 space-y-2">
-                    <div className="flex items-center justify-between border-b border-blue-800 pb-2">
-                      <span className="text-xs font-bold text-amber-400">{d.title}</span>
-                      <span className="text-[9px] bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded-full font-mono">{d.category}</span>
-                    </div>
-                    <p className="text-xl font-serif text-right text-amber-200 leading-relaxed pt-1">{d.arabic}</p>
-                    <p className="text-xs text-blue-300 italic font-mono">{d.latin}</p>
-                    <p className="text-xs text-blue-400 leading-relaxed">"{d.translation}"</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
