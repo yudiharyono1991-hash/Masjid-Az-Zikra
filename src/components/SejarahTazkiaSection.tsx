@@ -122,22 +122,22 @@ export const SejarahTazkiaSection: React.FC = () => {
               
               <div className="mt-8 flex flex-col gap-8 max-w-4xl mx-auto">
                 {pembina.map(member => (
-                  <div key={member.id} className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col md:flex-row text-left group hover:shadow-2xl transition-all duration-300">
-                    <div className="bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end h-[350px] md:w-2/5 relative shrink-0">
+                  <div key={member.id} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col md:flex-row text-left group hover:shadow-xl transition-all duration-300">
+                    <div className="bg-slate-100 p-6 flex flex-col justify-end h-[350px] md:w-[35%] relative shrink-0">
                       <div 
                         className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
                         style={{ backgroundImage: `url('${member.imageUrl}')` }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b3679] via-[#1b3679]/70 to-transparent h-1/2 mt-auto"></div>
                       <div className="relative z-10 text-white">
-                        <h4 className="font-bold text-lg font-serif">{member.name}</h4>
-                        <p className="text-xs text-blue-200 mt-1 font-mono">{member.position}</p>
+                        <h4 className="font-bold text-[17px] font-serif leading-tight">{member.name}</h4>
+                        <p className="text-[11px] text-blue-100 mt-1 font-sans">{member.position}</p>
                       </div>
                     </div>
                     {member.bio && (
-                      <div className="p-8 md:p-10 relative flex-grow bg-white flex flex-col justify-center">
-                        <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                        <div className="text-sm text-slate-600 leading-relaxed relative z-10 text-justify mt-2">
+                      <div className="p-8 md:p-12 relative flex-grow bg-white flex flex-col justify-center">
+                        <div className="text-7xl text-blue-100 absolute top-6 left-8 font-serif opacity-40 leading-none">"</div>
+                        <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify mt-4">
                           <p>{member.bio}</p>
                         </div>
                       </div>
@@ -153,23 +153,23 @@ export const SejarahTazkiaSection: React.FC = () => {
             <div className="text-center">
               <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Pengurus DKM Masjid Tazkia</h2>
               
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 {pengurus.map(member => (
-                  <div key={member.id} className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col text-left group hover:shadow-2xl transition-all duration-300">
-                    <div className="bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end h-[250px] relative">
+                  <div key={member.id} className="bg-white rounded-[2rem] shadow-lg border border-slate-100 overflow-hidden flex flex-col text-left group hover:shadow-xl transition-all duration-300">
+                    <div className="bg-slate-100 p-6 flex flex-col justify-end h-[280px] relative">
                       <div 
                         className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
                         style={{ backgroundImage: `url('${member.imageUrl}')` }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b3679] via-[#1b3679]/70 to-transparent h-2/3 mt-auto"></div>
                       <div className="relative z-10 text-white">
-                        <h4 className="font-bold text-lg font-serif">{member.name}</h4>
-                        <p className="text-xs text-blue-200 mt-1 font-mono">{member.position}</p>
+                        <h4 className="font-bold text-[17px] font-serif leading-tight">{member.name}</h4>
+                        <p className="text-[11px] text-blue-100 mt-1.5 font-sans tracking-wide uppercase">{member.position}</p>
                       </div>
                     </div>
                     {member.bio && (
-                      <div className="p-6 relative flex-grow bg-white">
-                        <div className="text-sm text-slate-600 leading-relaxed relative z-10 text-justify">
+                      <div className="p-7 relative flex-grow bg-white">
+                        <div className="text-[13px] text-slate-500 leading-relaxed relative z-10">
                           <p>{member.bio}</p>
                         </div>
                       </div>
