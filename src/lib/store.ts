@@ -100,7 +100,7 @@ const defaultState: AppState = {
   },
   supabaseUrl: import.meta.env.VITE_SUPABASE_URL || '',
   supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
-  erpCoa: INITIAL_ERP_COA,
+  erpCoa: INITIAL_ERP_COA as ERPChartOfAccount[],
   erpJournals: [],
   erpJournalEntries: [],
   erpSignatures: [],
