@@ -264,49 +264,97 @@ export function useMasjidStore() {
     }));
   };
 
-  const addDonation = (newDonation: Omit<DonationRecord, 'id' | 'createdAt' | 'status'>) => {
+  const addDonation = (newDonation: Omit<DonationRecord, 'id' | 'createdAt'>) => {
     const id = `DON-${Math.floor(1000 + Math.random() * 9000)}`;
     const createdAt = new Date().toISOString();
     const created: DonationRecord = {
       ...newDonation,
       id,
-      status: 'berhasil',
       createdAt
     };
 
     setState(prev => {
-      // Update target collected in programs
-      const updatedPrograms = prev.programs.map(p => {
-        if (p.id === created.programId) {
-          return {
-            ...p,
-            collectedAmount: p.collectedAmount + created.amount,
-            donorsCount: p.donorsCount + 1
-          };
-        }
-        return p;
-      });
+      let updatedPrograms = prev.programs;
+      let newFinancials = prev.financials;
 
-      // Also automatically create a financial transaction record
-      const newFinancial: FinancialTransaction = {
-        id: `FIN-${Math.floor(200 + Math.random() * 800)}`,
-        type: 'masuk',
-        title: `Donasi ${created.category.toUpperCase()} - ${created.programTitle}`,
-        category: created.category.toUpperCase(),
-        amount: created.amount,
-        date: new Date().toISOString().split('T')[0],
-        description: `Penerimaan donasi dari ${created.donorName} via ${created.paymentMethod} (Ref: ${created.transactionRef})`
-      };
+      if (created.status === 'berhasil') {
+        // Update target collected in programs
+        updatedPrograms = prev.programs.map(p => {
+          if (p.id === created.programId) {
+            return {
+              ...p,
+              collectedAmount: p.collectedAmount + created.amount,
+              donorsCount: p.donorsCount + 1
+            };
+          }
+          return p;
+        });
+
+        // Also automatically create a financial transaction record
+        const newFinancial: FinancialTransaction = {
+          id: `FIN-${Math.floor(200 + Math.random() * 800)}`,
+          type: 'masuk',
+          title: `Donasi ${created.category.toUpperCase()} - ${created.programTitle}`,
+          category: created.category.toUpperCase(),
+          amount: created.amount,
+          date: new Date().toISOString().split('T')[0],
+          description: `Penerimaan donasi dari ${created.donorName} via ${created.paymentMethod} (Ref: ${created.transactionRef})`
+        };
+        newFinancials = [newFinancial, ...prev.financials];
+      }
 
       return {
         ...prev,
         programs: updatedPrograms,
         donations: [created, ...prev.donations],
-        financials: [newFinancial, ...prev.financials]
+        financials: newFinancials
       };
     });
 
     return created;
+  };
+
+  const updateDonationStatus = (id: string, status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak') => {
+    setState(prev => {
+      const donation = prev.donations.find(d => d.id === id);
+      if (!donation || donation.status === status) return prev; // No change
+
+      let updatedPrograms = prev.programs;
+      let newFinancials = prev.financials;
+
+      // If it is becoming 'berhasil' from a pending state
+      if (status === 'berhasil' && donation.status !== 'berhasil') {
+        updatedPrograms = prev.programs.map(p => {
+          if (p.id === donation.programId) {
+            return {
+              ...p,
+              collectedAmount: p.collectedAmount + donation.amount,
+              donorsCount: p.donorsCount + 1
+            };
+          }
+          return p;
+        });
+
+        const newFinancial: FinancialTransaction = {
+          id: `FIN-${Math.floor(200 + Math.random() * 800)}`,
+          type: 'masuk',
+          title: `Donasi ${donation.category.toUpperCase()} - ${donation.programTitle}`,
+          category: donation.category.toUpperCase(),
+          amount: donation.amount,
+          date: new Date().toISOString().split('T')[0],
+          description: `Penerimaan donasi dari ${donation.donorName} via ${donation.paymentMethod} (Ref: ${donation.transactionRef}) - Diverifikasi`,
+          proofUrl: donation.proofUrl
+        };
+        newFinancials = [newFinancial, ...prev.financials];
+      }
+
+      return {
+        ...prev,
+        programs: updatedPrograms,
+        donations: prev.donations.map(d => d.id === id ? { ...d, status } : d),
+        financials: newFinancials
+      };
+    });
   };
 
   const addFinancialTransaction = (trx: Omit<FinancialTransaction, 'id'>) => {
@@ -674,6 +722,7 @@ export function useMasjidStore() {
   return {
     state,
     addDonation,
+    updateDonationStatus,
     addFinancialTransaction,
     addInventoryItem,
     updateInventoryItem,

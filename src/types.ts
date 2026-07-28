@@ -49,9 +49,10 @@ export interface DonationRecord {
   paymentMethod: string;
   isAnonymous: boolean;
   recurringPeriod?: 'none' | 'daily' | 'weekly' | 'monthly';
-  status: 'berhasil' | 'menunggu_pembayaran';
+  status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak';
   createdAt: string;
   transactionRef: string;
+  proofUrl?: string;
 }
 
 export interface FinancialTransaction {

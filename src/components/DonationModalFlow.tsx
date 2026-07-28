@@ -32,7 +32,7 @@ interface DonationModalFlowProps {
   initialCategory?: string;
   initialProgram?: Program;
   adminSettings?: AppAdminSettings;
-  onCompleteDonation: (donation: Omit<DonationRecord, 'id' | 'createdAt' | 'status'>) => DonationRecord;
+  onCompleteDonation: (donation: Omit<DonationRecord, 'id' | 'createdAt'>) => DonationRecord;
 }
 
 export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
@@ -62,8 +62,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   const [paymentMethod, setPaymentMethod] = useState<string>('QRIS Nasional');
   const [recurringPeriod, setRecurringPeriod] = useState<'none' | 'daily' | 'weekly' | 'monthly'>('none');
 
-  // Upload Bukti Real Pict
-  const [proofUrl, setProofUrl] = useState<string>('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80');
+  const [proofUrl, setProofUrl] = useState<string>('');
   const [zoomQrisModal, setZoomQrisModal] = useState<boolean>(false);
 
   // Completed State
@@ -126,11 +125,13 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
     setTimeout(() => setCopiedAccount(null), 2500);
   };
 
+
+
   const handleSubmitDonation = () => {
     if (!selectedProgram && step === 3) {
       // Create ad-hoc program object if none pre-selected
       const defaultProg = programs.find(p => p.category === selectedCategory) || programs[0];
-      setSelectedProgram(defaultProg);
+      setSelectedProgram(defaultProg || null);
     }
 
     if (amount < 10000) {
@@ -154,10 +155,11 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
       isAnonymous,
       recurringPeriod,
       transactionRef: trxRef,
-      proofUrl
+      proofUrl,
+      status: proofUrl ? 'menunggu_verifikasi' : 'menunggu_pembayaran'
     };
 
-    const record = onCompleteDonation(donationData);
+    const record = onCompleteDonation(donationData as Omit<DonationRecord, 'id' | 'createdAt'>);
     setCreatedRecord(record);
     setStep(4);
 
@@ -681,6 +683,34 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                   </p>
                 </div>
 
+                <div className="bg-blue-950 p-4 rounded-xl border border-blue-800 space-y-3 mt-4 w-full">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-semibold text-blue-300 flex items-center gap-1.5">
+                      <Camera className="w-4 h-4 text-blue-300" />
+                      <span>Upload Bukti Transfer ZISWAF</span>
+                    </label>
+                    <label className="cursor-pointer bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-blue-500/30 flex items-center gap-1 transition-colors">
+                      <Upload className="w-3 h-3" />
+                      <span>{proofUrl ? 'Ubah Bukti' : 'Upload Bukti'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleFileUpload}
+                      />
+                    </label>
+                  </div>
+                  {proofUrl && (
+                    <div className="mt-2 flex items-center gap-3 bg-blue-900/50 p-2 rounded-lg border border-blue-500/20">
+                      <img src={proofUrl} alt="Bukti Transfer" className="w-16 h-16 object-cover rounded-md border border-blue-400/50" />
+                      <div className="text-xs text-blue-300">
+                        <span className="text-emerald-400 font-bold flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Bukti Terunggah</span>
+                        <p className="mt-1">Ditunggu ya, DKM akan memverifikasi bukti ini secepatnya.</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 <button
                   onClick={handleSubmitDonation}
                   className="bg-gold-gradient hover:bg-gold-gradient-hover text-blue-950 font-bold px-6 py-3 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
@@ -742,8 +772,14 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-blue-400">Status Database:</span>
-                    <span className="bg-blue-500/20 text-blue-400 font-bold px-2 py-0.5 rounded text-[11px]">
-                      Terverifikasi Masuk Kas Masjid
+                    <span className={`font-bold px-2 py-0.5 rounded text-[11px] ${
+                      createdRecord.status === 'berhasil' ? 'bg-emerald-500/20 text-emerald-400' : 
+                      createdRecord.status === 'ditolak' ? 'bg-red-500/20 text-red-400' : 
+                      'bg-amber-500/20 text-amber-400'
+                    }`}>
+                      {createdRecord.status === 'berhasil' ? 'Terverifikasi Masuk Kas Masjid' : 
+                       createdRecord.status === 'ditolak' ? 'Bukti Ditolak / Tidak Sah' : 
+                       'Menunggu Verifikasi DKM'}
                     </span>
                   </div>
                 </div>

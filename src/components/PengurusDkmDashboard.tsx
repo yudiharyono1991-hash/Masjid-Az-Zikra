@@ -13,7 +13,8 @@ import {
   QurbanGroup,
   QurbanParticipant,
   AuditLog,
-  JamaahProfile
+  JamaahProfile,
+  DonationRecord
 } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import {
@@ -74,6 +75,8 @@ interface PengurusDkmDashboardProps {
   qurbanGroups?: QurbanGroup[];
   auditLogs?: AuditLog[];
   jamaahProfiles?: JamaahProfile[];
+  donations?: DonationRecord[];
+  onUpdateDonationStatus?: (id: string, status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak') => void;
   onAddFinancial: (trx: Omit<FinancialTransaction, 'id'>) => void;
   onAddInventory: (item: Omit<InventoryItem, 'id'>) => void;
   onDeleteInventory: (id: string) => void;
@@ -107,6 +110,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   qurbanGroups = [],
   auditLogs = [],
   jamaahProfiles = [],
+  donations = [],
+  onUpdateDonationStatus,
   onAddFinancial,
   onAddInventory,
   onDeleteInventory,
@@ -125,7 +130,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteQurbanGroup,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
 
@@ -461,6 +466,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
             { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
             { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
+            { id: 'verifikasi', label: 'Verifikasi ZISWAF', icon: CheckCircle2 },
             { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
             { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
           ].map(tab => {
@@ -781,6 +787,118 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
         {dkmTab === 'sewa' && (
           <SewaGedungAdmin />
+        )}
+
+        {/* 0. VERIFIKASI ZISWAF */}
+        {dkmTab === 'verifikasi' && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h3 className="text-xl font-bold font-serif text-white">Verifikasi Bukti Transfer ZISWAF</h3>
+                <p className="text-xs text-blue-400 mt-1">Daftar transaksi ZISWAF jamaah yang menunggu verifikasi DKM</p>
+              </div>
+            </div>
+
+            <div className="bg-blue-950/50 border border-blue-800 rounded-2xl overflow-hidden shadow-xl">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-blue-900 border-b border-blue-800 text-blue-300 text-[10px] uppercase font-bold tracking-wider">
+                      <th className="p-4 rounded-tl-2xl">Tanggal & Ref</th>
+                      <th className="p-4">Donatur</th>
+                      <th className="p-4">Kategori / Program</th>
+                      <th className="p-4 text-right">Nominal</th>
+                      <th className="p-4 text-center">Bukti Transfer</th>
+                      <th className="p-4 rounded-tr-2xl text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-blue-800/50">
+                    {donations.filter(d => d.status === 'menunggu_verifikasi').length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="p-8 text-center text-blue-400 text-xs">
+                          Alhamdulillah, tidak ada transaksi yang menunggu verifikasi.
+                        </td>
+                      </tr>
+                    ) : (
+                      donations.filter(d => d.status === 'menunggu_verifikasi').map((d) => (
+                        <tr key={d.id} className="hover:bg-blue-900/40 transition-colors">
+                          <td className="p-4">
+                            <p className="text-sm font-bold text-white">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
+                            <p className="text-[10px] font-mono text-amber-400 mt-1">{d.transactionRef}</p>
+                          </td>
+                          <td className="p-4">
+                            <p className="text-sm font-bold text-white">{d.donorName}</p>
+                            <p className="text-xs text-blue-300">{d.donorPhone}</p>
+                          </td>
+                          <td className="p-4">
+                            <p className="text-[10px] bg-blue-900 text-blue-300 font-bold px-2 py-0.5 rounded-full uppercase inline-block mb-1">{d.category}</p>
+                            <p className="text-xs text-white max-w-[200px] truncate" title={d.programTitle}>{d.programTitle}</p>
+                          </td>
+                          <td className="p-4 text-right">
+                            <p className="text-sm font-bold font-mono text-emerald-400">{formatRupiahFull(d.totalAmount)}</p>
+                            <p className="text-[10px] text-blue-400 mt-1">Via {d.paymentMethod}</p>
+                          </td>
+                          <td className="p-4 text-center">
+                            {d.proofUrl ? (
+                              <button
+                                onClick={() => setPreviewPhotoUrl(d.proofUrl!)}
+                                className="inline-flex items-center gap-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-bold transition-colors border border-blue-500/30"
+                              >
+                                <Eye className="w-3.5 h-3.5" /> Lihat Bukti
+                              </button>
+                            ) : (
+                              <span className="text-[10px] text-slate-500 italic">Tidak ada bukti</span>
+                            )}
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center justify-center gap-2">
+                              <button
+                                onClick={() => onUpdateDonationStatus?.(d.id, 'berhasil')}
+                                className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded-xl transition-colors"
+                                title="Verifikasi & Terima"
+                              >
+                                <Check className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (confirm('Tolak bukti transfer ini?')) {
+                                    onUpdateDonationStatus?.(d.id, 'ditolak');
+                                  }
+                                }}
+                                className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-xl transition-colors"
+                                title="Tolak"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            {/* Riwayat Verifikasi (Approved/Rejected) */}
+            <div className="mt-8">
+              <h4 className="text-sm font-bold text-blue-300 uppercase tracking-wider mb-4 border-b border-blue-800 pb-2">Riwayat Transaksi Terverifikasi</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {donations.filter(d => d.status === 'berhasil' || d.status === 'ditolak').slice(0, 6).map(d => (
+                  <div key={d.id} className="bg-blue-950 p-4 rounded-xl border border-blue-800">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-[10px] font-mono text-blue-400">{d.transactionRef}</span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${d.status === 'berhasil' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                        {d.status.toUpperCase()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-white font-bold">{d.donorName}</p>
+                    <p className="text-lg font-mono font-bold text-amber-400 mt-1">{formatRupiahFull(d.totalAmount)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
 
         {dkmTab === 'akuntansi' && (

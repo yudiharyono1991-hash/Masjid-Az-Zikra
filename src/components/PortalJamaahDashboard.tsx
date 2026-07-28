@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserSession, JamaahProfile } from '../types';
+import { UserSession, JamaahProfile, DonationRecord } from '../types';
 import { 
   User, 
   History, 
@@ -15,12 +15,14 @@ import { formatRupiahFull } from '../lib/islamicUtils';
 interface PortalJamaahDashboardProps {
   session: UserSession;
   jamaahProfiles: JamaahProfile[];
+  donations?: DonationRecord[];
   onUpdateProfile?: (updatedProfile: Partial<JamaahProfile>) => void;
 }
 
 export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   session,
   jamaahProfiles,
+  donations = [],
   onUpdateProfile
 }) => {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'histori' | 'pengaturan'>('ringkasan');
@@ -45,6 +47,8 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
       setTimeout(() => setToastMessage(''), 3000);
     }, 1000);
   };
+
+  const userDonations = donations.filter(d => d.donorName.toLowerCase() === session.name.toLowerCase());
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,11 +176,58 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   Histori Transaksi ZISWAF
                 </h3>
               </div>
-              <div className="bg-gray-50 rounded-2xl border border-gray-100 p-8 text-center text-gray-500">
-                <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="font-semibold text-gray-700">Belum ada riwayat transaksi</p>
-                <p className="text-sm mt-1">Mulai berdonasi untuk melihat histori transaksi Anda di sini.</p>
-              </div>
+              
+              {userDonations.length === 0 ? (
+                <div className="bg-gray-50 rounded-2xl border border-gray-100 p-8 text-center text-gray-500">
+                  <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <p className="font-semibold text-gray-700">Belum ada riwayat transaksi</p>
+                  <p className="text-sm mt-1">Mulai berdonasi untuk melihat histori transaksi Anda di sini.</p>
+                </div>
+              ) : (
+                <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse min-w-[600px]">
+                      <thead className="bg-gray-50 border-b border-gray-100">
+                        <tr>
+                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Tanggal & Ref</th>
+                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Program</th>
+                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Nominal</th>
+                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {userDonations.map(d => (
+                          <tr key={d.id} className="hover:bg-gray-50 transition-colors">
+                            <td className="p-4">
+                              <p className="text-sm font-bold text-gray-800">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
+                              <p className="text-[10px] font-mono text-gray-500 mt-1">{d.transactionRef}</p>
+                            </td>
+                            <td className="p-4">
+                              <p className="text-[10px] bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded-full uppercase inline-block mb-1">{d.category}</p>
+                              <p className="text-xs text-gray-700 max-w-[200px] truncate" title={d.programTitle}>{d.programTitle}</p>
+                            </td>
+                            <td className="p-4 text-right">
+                              <p className="text-sm font-bold font-mono text-emerald-600">{formatRupiahFull(d.totalAmount)}</p>
+                              <p className="text-[10px] text-gray-500 mt-1">Via {d.paymentMethod}</p>
+                            </td>
+                            <td className="p-4 text-center">
+                              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${
+                                d.status === 'berhasil' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' :
+                                d.status === 'ditolak' ? 'bg-red-100 text-red-700 border border-red-200' :
+                                'bg-amber-100 text-amber-700 border border-amber-200'
+                              }`}>
+                                {d.status === 'berhasil' ? 'Berhasil' :
+                                 d.status === 'ditolak' ? 'Ditolak' :
+                                 'Menunggu Verifikasi'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

@@ -31,6 +31,7 @@ export default function App() {
   const {
     state,
     addDonation,
+    updateDonationStatus,
     addFinancialTransaction,
     addInventoryItem,
     deleteInventoryItem,
@@ -263,7 +264,9 @@ export default function App() {
             qurbanGroups={state.qurbanGroups || []}
             auditLogs={state.auditLogs || []}
             jamaahProfiles={state.jamaahProfiles || []}
+            donations={state.donations}
             onAddFinancial={addFinancialTransaction}
+            onUpdateDonationStatus={updateDonationStatus}
             onAddInventory={addInventoryItem}
             onDeleteInventory={deleteInventoryItem}
             onUpdatePetugas={updatePetugasJadwal}
