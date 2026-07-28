@@ -91,10 +91,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {backgrounds.map((bg, index) => (
         <div
           key={`${bg}-${index}`}
-          className={`absolute inset-0 z-0 bg-cover bg-[center_30%] transition-all duration-1000 ease-in-out ${
+          className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
             index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
           }`}
-          style={{ backgroundImage: `url('${bg}')` }}
+          style={{ backgroundImage: `url("${bg}")` }}
         />
       ))}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/10 via-transparent to-[#172554]/90 pointer-events-none" />

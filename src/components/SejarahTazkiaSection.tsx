@@ -56,7 +56,7 @@ export const SejarahTazkiaSection: React.FC = () => {
         <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 sm:p-12 mb-12 flex flex-col lg:flex-row gap-12">
           <div className="flex-1 space-y-6">
             <h2 className="text-2xl font-bold font-serif text-slate-800 border-b-2 border-amber-500 pb-3 inline-block">Sejarah & Latar Belakang</h2>
-            <div className="text-sm text-slate-600 leading-relaxed space-y-4 whitespace-pre-wrap">
+            <div className="text-sm text-slate-600 leading-relaxed space-y-4 whitespace-pre-wrap text-justify">
               {profilData.sejarah}
             </div>
           </div>
@@ -84,9 +84,9 @@ export const SejarahTazkiaSection: React.FC = () => {
               <Info className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-4">Visi</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <div className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap text-justify">
               {profilData.visi}
-            </p>
+            </div>
           </div>
 
           <div className="bg-white rounded-3xl border border-amber-100 shadow-lg p-8 relative overflow-hidden group hover:border-amber-300 transition-colors">
@@ -95,7 +95,7 @@ export const SejarahTazkiaSection: React.FC = () => {
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-800 mb-4">Misi</h3>
-            <ul className="text-sm text-slate-600 leading-relaxed space-y-3">
+            <ul className="text-sm text-slate-600 leading-relaxed space-y-3 text-justify">
               {profilData.misi.map((m, i) => (
                 <li key={i} className="flex gap-3">
                   <span className="text-amber-500 font-bold shrink-0">&bull;</span>
