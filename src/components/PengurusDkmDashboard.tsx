@@ -20,6 +20,7 @@ import { formatRupiahFull } from '../lib/islamicUtils';
 import {
   Plus,
   Trash2,
+  Edit2,
   Check,
   Send,
   Database,
@@ -92,7 +93,11 @@ interface PengurusDkmDashboardProps {
   onAddGalleryItem?: (item: Omit<GalleryItem, 'id' | 'likesCount' | 'viewsCount'>) => void;
   onDeleteGalleryItem?: (id: string) => void;
   onAddQurbanGroup?: (group: Omit<QurbanGroup, 'id' | 'participants' | 'filledShares' | 'isCompleted'>) => void;
+  onUpdateQurbanGroup?: (id: string, updated: Partial<QurbanGroup>) => void;
   onDeleteQurbanGroup?: (id: string) => void;
+  onAddQurbanParticipant?: (groupId: string, participant: Omit<QurbanParticipant, 'id' | 'createdAt' | 'transactionRef'>) => void;
+  onDeleteQurbanParticipant?: (groupId: string, participantId: string) => void;
+  onUpdateQurbanParticipant?: (groupId: string, participantId: string, updated: Partial<QurbanParticipant>) => void;
   openTvMode?: () => void;
 }
 
@@ -127,7 +132,11 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddGalleryItem,
   onDeleteGalleryItem,
   onAddQurbanGroup,
+  onUpdateQurbanGroup,
   onDeleteQurbanGroup,
+  onAddQurbanParticipant,
+  onDeleteQurbanParticipant,
+  onUpdateQurbanParticipant,
   openTvMode
 }) => {
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi'>('akuntansi');
@@ -242,6 +251,121 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   // Settings Saved State Notification
   const [savedSettingsMsg, setSavedSettingsMsg] = useState(false);
+
+  // Qurban management states
+  const [showAddQurbanGroupForm, setShowAddQurbanGroupForm] = useState(false);
+  const [editingQurbanGroupId, setEditingQurbanGroupId] = useState<string | null>(null);
+  const [qurbanGroupTitle, setQurbanGroupTitle] = useState('');
+  const [qurbanAnimalType, setQurbanAnimalType] = useState<'SAPI' | 'KAMBING / DOMBA'>('SAPI');
+  const [qurbanWeightEstimate, setQurbanWeightEstimate] = useState('');
+  const [qurbanPricePerShare, setQurbanPricePerShare] = useState(3500000);
+  const [qurbanTotalShares, setQurbanTotalShares] = useState(7);
+  const [qurbanImageUrl, setQurbanImageUrl] = useState('https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=800&q=80');
+
+  // Shohibul Qurban states
+  const [addingParticipantGroupId, setAddingParticipantGroupId] = useState<string | null>(null);
+  const [editingParticipantData, setEditingParticipantData] = useState<{ groupId: string; participantId: string } | null>(null);
+  const [shohibulName, setShohibulName] = useState('');
+  const [shohibulSharesCount, setShohibulSharesCount] = useState(1);
+  const [shohibulTotalPaid, setShohibulTotalPaid] = useState(3500000);
+  const [shohibulPhone, setShohibulPhone] = useState('');
+
+  const handleSaveQurbanGroup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!qurbanGroupTitle) return;
+    if (editingQurbanGroupId) {
+      if (onUpdateQurbanGroup) {
+        onUpdateQurbanGroup(editingQurbanGroupId, {
+          title: qurbanGroupTitle,
+          animalType: qurbanAnimalType,
+          weightEstimate: qurbanWeightEstimate,
+          pricePerShare: Number(qurbanPricePerShare),
+          totalShares: Number(qurbanTotalShares),
+          imageUrl: qurbanImageUrl
+        });
+      }
+      setEditingQurbanGroupId(null);
+    } else {
+      if (onAddQurbanGroup) {
+        onAddQurbanGroup({
+          title: qurbanGroupTitle,
+          animalType: qurbanAnimalType,
+          weightEstimate: qurbanWeightEstimate,
+          pricePerShare: Number(qurbanPricePerShare),
+          totalShares: Number(qurbanTotalShares),
+          imageUrl: qurbanImageUrl
+        });
+      }
+    }
+    setShowAddQurbanGroupForm(false);
+    setQurbanGroupTitle('');
+    setQurbanWeightEstimate('');
+    setEditingQurbanGroupId(null);
+  };
+
+  const handleEditQurbanGroup = (group: any) => {
+    setEditingQurbanGroupId(group.id);
+    setQurbanGroupTitle(group.title);
+    setQurbanAnimalType(group.animalType);
+    setQurbanWeightEstimate(group.weightEstimate);
+    setQurbanPricePerShare(group.pricePerShare);
+    setQurbanTotalShares(group.totalShares);
+    setQurbanImageUrl(group.imageUrl);
+    setShowAddQurbanGroupForm(true);
+  };
+
+  const handleDeleteQurbanGroup = (id: string) => {
+    if (window.confirm('Hapus kelompok qurban ini beserta seluruh anggotanya?')) {
+      if (onDeleteQurbanGroup) onDeleteQurbanGroup(id);
+    }
+  };
+
+  const handleSaveParticipant = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!shohibulName) return;
+
+    if (editingParticipantData) {
+      if (onUpdateQurbanParticipant) {
+        onUpdateQurbanParticipant(editingParticipantData.groupId, editingParticipantData.participantId, {
+          mudhahhiName: shohibulName,
+          sharesCount: Number(shohibulSharesCount),
+          totalPaid: Number(shohibulTotalPaid),
+          phone: shohibulPhone
+        });
+      }
+      setEditingParticipantData(null);
+    } else if (addingParticipantGroupId) {
+      if (onAddQurbanParticipant) {
+        onAddQurbanParticipant(addingParticipantGroupId, {
+          mudhahhiName: shohibulName,
+          sharesCount: Number(shohibulSharesCount),
+          totalPaid: Number(shohibulTotalPaid),
+          phone: shohibulPhone,
+          groupTitle: qurbanGroups.find(g => g.id === addingParticipantGroupId)?.title || ''
+        });
+      }
+      setAddingParticipantGroupId(null);
+    }
+
+    setShohibulName('');
+    setShohibulPhone('');
+    setAddingParticipantGroupId(null);
+    setEditingParticipantData(null);
+  };
+
+  const handleEditParticipant = (groupId: string, p: any) => {
+    setEditingParticipantData({ groupId, participantId: p.id });
+    setShohibulName(p.mudhahhiName);
+    setShohibulSharesCount(p.sharesCount);
+    setShohibulTotalPaid(p.totalPaid);
+    setShohibulPhone(p.phone || '');
+  };
+
+  const handleDeleteParticipant = (groupId: string, participantId: string) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus shohibul qurban ini dari kelompok?')) {
+      if (onDeleteQurbanParticipant) onDeleteQurbanParticipant(groupId, participantId);
+    }
+  };
 
   // Helper file uploader
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setUrl: (url: string) => void) => {
@@ -2401,43 +2525,301 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   Kelola kelompok 1/7 Saham Sapi Qurban, Kambing Individual, dan Data Shohibul Qurban Jamaah.
                 </p>
               </div>
+              <button
+                onClick={() => {
+                  setEditingQurbanGroupId(null);
+                  setQurbanGroupTitle('');
+                  setQurbanWeightEstimate('');
+                  setQurbanPricePerShare(3500000);
+                  setQurbanTotalShares(7);
+                  setShowAddQurbanGroupForm(!showAddQurbanGroupForm);
+                }}
+                className="bg-blue-500 hover:bg-blue-400 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg self-start sm:self-auto"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Buat Kelompok Qurban Baru</span>
+              </button>
             </div>
+
+            {/* Form Add/Edit Qurban Group */}
+            {showAddQurbanGroupForm && (
+              <form onSubmit={handleSaveQurbanGroup} className="bg-blue-900 border border-blue-500/30 p-5 rounded-2xl space-y-4">
+                <h4 className="text-sm font-bold text-white border-b border-blue-800 pb-2">
+                  {editingQurbanGroupId ? 'Edit Kelompok Qurban' : 'Buat Kelompok Qurban Baru'}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Nama Kelompok:</label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: Kelompok Sapi A (Tazkia 1447H)"
+                      value={qurbanGroupTitle}
+                      onChange={(e) => setQurbanGroupTitle(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Jenis Hewan:</label>
+                    <select
+                      value={qurbanAnimalType}
+                      onChange={(e) => {
+                        setQurbanAnimalType(e.target.value as any);
+                        // Auto total shares based on type
+                        if (e.target.value === 'SAPI') {
+                          setQurbanTotalShares(7);
+                          setQurbanPricePerShare(3500000);
+                        } else {
+                          setQurbanTotalShares(1);
+                          setQurbanPricePerShare(2800000);
+                        }
+                      }}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    >
+                      <option value="SAPI">SAPI (Patungan 1/7)</option>
+                      <option value="KAMBING / DOMBA">KAMBING / DOMBA (Individual)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Estimasi Berat:</label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: 320 - 350 KG"
+                      value={qurbanWeightEstimate}
+                      onChange={(e) => setQurbanWeightEstimate(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Harga per Saham (Rp):</label>
+                    <input
+                      type="number"
+                      value={qurbanPricePerShare}
+                      onChange={(e) => setQurbanPricePerShare(Number(e.target.value))}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs font-mono rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Jumlah Kuota Saham:</label>
+                    <input
+                      type="number"
+                      value={qurbanTotalShares}
+                      onChange={(e) => setQurbanTotalShares(Number(e.target.value))}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs font-mono rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Link Gambar Banner Hewan:</label>
+                    <input
+                      type="text"
+                      value={qurbanImageUrl}
+                      onChange={(e) => setQurbanImageUrl(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2 border-t border-blue-800 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddQurbanGroupForm(false)}
+                    className="bg-blue-950 hover:bg-blue-900 border border-blue-800 text-blue-300 text-xs px-4 py-2 rounded-xl"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-400 text-blue-950 font-bold text-xs px-4 py-2 rounded-xl"
+                  >
+                    Simpan Kelompok
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Form Add/Edit Participant Shohibul Qurban */}
+            {(addingParticipantGroupId !== null || editingParticipantData !== null) && (
+              <form onSubmit={handleSaveParticipant} className="bg-blue-900 border border-amber-500/30 p-5 rounded-2xl space-y-4">
+                <h4 className="text-sm font-bold text-amber-400 border-b border-blue-800 pb-2">
+                  {editingParticipantData ? 'Koreksi Data Shohibul Qurban' : 'Tambah Shohibul Qurban'}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                  <div className="sm:col-span-2">
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Nama Shohibul (Mudhahhi):</label>
+                    <input
+                      type="text"
+                      placeholder="Nama lengkap shohibul qurban..."
+                      value={shohibulName}
+                      onChange={(e) => setShohibulName(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Jumlah Bagian / Saham:</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={shohibulSharesCount}
+                      onChange={(e) => {
+                        const count = Number(e.target.value);
+                        setShohibulSharesCount(count);
+                        // Auto calculate total paid
+                        const activeGroupId = editingParticipantData?.groupId || addingParticipantGroupId;
+                        const price = qurbanGroups.find(g => g.id === activeGroupId)?.pricePerShare || 3500000;
+                        setShohibulTotalPaid(count * price);
+                      }}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs font-mono rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Total Setoran Qurban (Rp):</label>
+                    <input
+                      type="number"
+                      value={shohibulTotalPaid}
+                      onChange={(e) => setShohibulTotalPaid(Number(e.target.value))}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs font-mono rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Nomor WA / Kontak:</label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: 08123456789"
+                      value={shohibulPhone}
+                      onChange={(e) => setShohibulPhone(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2 border-t border-blue-800 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAddingParticipantGroupId(null);
+                      setEditingParticipantData(null);
+                      setShohibulName('');
+                      setShohibulPhone('');
+                    }}
+                    className="bg-blue-950 hover:bg-blue-900 border border-blue-800 text-blue-300 text-xs px-4 py-2 rounded-xl"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs px-4 py-2 rounded-xl"
+                  >
+                    Simpan Data Shohibul
+                  </button>
+                </div>
+              </form>
+            )}
 
             {/* Qurban Groups List */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {qurbanGroups.map(group => (
-                <div key={group.id} className="bg-blue-900 border border-blue-800 rounded-2xl p-5 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <img src={group.imageUrl} alt={group.title} className="w-14 h-14 rounded-xl object-cover border border-blue-800" />
-                    <div>
-                      <span className="text-[10px] font-mono font-bold text-amber-400 uppercase">{group.animalType} ({group.weightEstimate})</span>
-                      <h4 className="font-serif font-bold text-white text-sm">{group.title}</h4>
-                      <p className="text-xs text-blue-400 font-mono font-bold mt-0.5">{formatRupiahFull(group.pricePerShare)} / Saham</p>
+                <div key={group.id} className="bg-blue-900 border border-blue-800 rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <img src={group.imageUrl} alt={group.title} className="w-14 h-14 rounded-xl object-cover border border-blue-800" />
+                        <div>
+                          <span className="text-[10px] font-mono font-bold text-amber-400 uppercase">{group.animalType} ({group.weightEstimate})</span>
+                          <h4 className="font-serif font-bold text-white text-sm leading-tight">{group.title}</h4>
+                          <p className="text-xs text-blue-400 font-mono font-bold mt-0.5">{formatRupiahFull(group.pricePerShare)} / Saham</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => handleEditQurbanGroup(group)}
+                          title="Edit Kelompok"
+                          className="p-1 text-blue-300 hover:text-blue-100 hover:bg-blue-800 rounded-lg transition"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteQurbanGroup(group.id)}
+                          title="Hapus Kelompok"
+                          className="p-1 text-red-400 hover:text-red-300 hover:bg-blue-800 rounded-lg transition"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-blue-950 p-3 rounded-xl border border-blue-800 space-y-2">
+                      <div className="flex justify-between text-xs font-mono">
+                        <span className="text-blue-400">Slot Terisi:</span>
+                        <span className="text-amber-300 font-bold">{group.filledShares} / {group.totalShares} Saham</span>
+                      </div>
+
+                      <span className="text-[10px] font-mono text-blue-300 uppercase block font-bold border-t border-blue-800 pt-2">
+                        Daftar Shohibul Qurban ({group.participants.length}):
+                      </span>
+                      {group.participants.length > 0 ? (
+                        <ul className="text-xs text-blue-300 space-y-1.5 divide-y divide-blue-900/30">
+                          {group.participants.map(p => (
+                            <li key={p.id} className="flex justify-between items-center text-[11px] font-mono pt-1.5 first:pt-0">
+                              <div className="flex flex-col truncate max-w-[150px]">
+                                <span className="text-white font-medium truncate">• {p.mudhahhiName}</span>
+                                {p.phone && <span className="text-[9px] text-blue-500">WA: {p.phone}</span>}
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-blue-400 font-bold">Ref: {p.transactionRef}</span>
+                                <div className="flex gap-0.5">
+                                  <button
+                                    onClick={() => handleEditParticipant(group.id, p)}
+                                    title="Edit Shohibul"
+                                    className="p-0.5 text-blue-400 hover:text-white"
+                                  >
+                                    <Edit2 className="w-3 h-3" />
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteParticipant(group.id, p.id)}
+                                    title="Hapus Shohibul"
+                                    className="p-0.5 text-red-400 hover:text-white"
+                                  >
+                                    <Trash2 className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-[11px] text-blue-500 italic">Belum ada peserta terdaftar.</p>
+                      )}
                     </div>
                   </div>
 
-                  <div className="bg-blue-950 p-3 rounded-xl border border-blue-800 space-y-2">
-                    <div className="flex justify-between text-xs font-mono">
-                      <span className="text-blue-400">Slot Terisi:</span>
-                      <span className="text-amber-300 font-bold">{group.filledShares} / {group.totalShares} Saham</span>
-                    </div>
-
-                    <span className="text-[10px] font-mono text-blue-300 uppercase block font-bold border-t border-blue-800 pt-2">
-                      Daftar Shohibul Qurban ({group.participants.length}):
-                    </span>
-                    {group.participants.length > 0 ? (
-                      <ul className="text-xs text-blue-300 space-y-1">
-                        {group.participants.map(p => (
-                          <li key={p.id} className="flex justify-between items-center text-[11px] font-mono">
-                            <span className="truncate max-w-[170px]">â€¢ {p.mudhahhiName}</span>
-                            <span className="text-blue-400 font-bold">Ref: {p.transactionRef}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-[11px] text-blue-500 italic">Belum ada peserta terdaftar.</p>
-                    )}
-                  </div>
+                  <button
+                    onClick={() => {
+                      setAddingParticipantGroupId(group.id);
+                      setEditingParticipantData(null);
+                      setShohibulName('');
+                      setShohibulPhone('');
+                      setShohibulSharesCount(1);
+                      setShohibulTotalPaid(group.pricePerShare);
+                    }}
+                    className="w-full mt-4 bg-blue-950 hover:bg-blue-800 border border-blue-800 text-blue-300 hover:text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1 transition"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Tambah Shohibul</span>
+                  </button>
                 </div>
               ))}
             </div>

@@ -49,6 +49,8 @@ export default function App() {
     likeGalleryItem,
     incrementGalleryViews,
     addQurbanParticipant,
+    deleteQurbanParticipant,
+    updateQurbanParticipant,
     addQurbanGroup,
     updateQurbanGroup,
     deleteQurbanGroup,
@@ -298,7 +300,11 @@ export default function App() {
             onAddGalleryItem={addGalleryItem}
             onDeleteGalleryItem={deleteGalleryItem}
             onAddQurbanGroup={addQurbanGroup}
+            onUpdateQurbanGroup={updateQurbanGroup}
             onDeleteQurbanGroup={deleteQurbanGroup}
+            onAddQurbanParticipant={addQurbanParticipant}
+            onDeleteQurbanParticipant={deleteQurbanParticipant}
+            onUpdateQurbanParticipant={updateQurbanParticipant}
             openTvMode={() => setTvModeOpen(true)}
           />
         )}

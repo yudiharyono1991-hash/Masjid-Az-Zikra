@@ -711,6 +711,55 @@ export function useMasjidStore() {
     return { id, transactionRef: txRef };
   };
 
+  const deleteQurbanParticipant = (groupId: string, participantId: string) => {
+    setState(prev => {
+      const groups = (prev.qurbanGroups || []).map(group => {
+        if (group.id === groupId) {
+          const participant = group.participants.find(p => p.id === participantId);
+          if (!participant) return group;
+          const updatedParticipants = group.participants.filter(p => p.id !== participantId);
+          const newFilled = Math.max(0, group.filledShares - participant.sharesCount);
+          return {
+            ...group,
+            filledShares: newFilled,
+            isCompleted: newFilled >= group.totalShares,
+            participants: updatedParticipants
+          };
+        }
+        return group;
+      });
+      return { ...prev, qurbanGroups: groups };
+    });
+  };
+
+  const updateQurbanParticipant = (groupId: string, participantId: string, updatedData: Partial<QurbanParticipant>) => {
+    setState(prev => {
+      const groups = (prev.qurbanGroups || []).map(group => {
+        if (group.id === groupId) {
+          let filledSharesDiff = 0;
+          const updatedParticipants = group.participants.map(p => {
+            if (p.id === participantId) {
+              if (updatedData.sharesCount !== undefined) {
+                filledSharesDiff = updatedData.sharesCount - p.sharesCount;
+              }
+              return { ...p, ...updatedData };
+            }
+            return p;
+          });
+          const newFilled = Math.min(group.totalShares, Math.max(0, group.filledShares + filledSharesDiff));
+          return {
+            ...group,
+            filledShares: newFilled,
+            isCompleted: newFilled >= group.totalShares,
+            participants: updatedParticipants
+          };
+        }
+        return group;
+      });
+      return { ...prev, qurbanGroups: groups };
+    });
+  };
+
   const addQurbanGroup = (groupData: Omit<QurbanGroup, 'id' | 'participants' | 'filledShares' | 'isCompleted'>) => {
     const newGroup: QurbanGroup = {
       ...groupData,
@@ -784,6 +833,8 @@ export function useMasjidStore() {
     likeGalleryItem,
     incrementGalleryViews,
     addQurbanParticipant,
+    deleteQurbanParticipant,
+    updateQurbanParticipant,
     addQurbanGroup,
     updateQurbanGroup,
     deleteQurbanGroup,
