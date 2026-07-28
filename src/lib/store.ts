@@ -22,8 +22,10 @@ import {
   ERPGeneralJournal,
   ERPJournalEntry,
   ReportSignature,
+  ReportSignatory,
   AuditLog,
-  JamaahProfile
+  JamaahProfile,
+  BoardMember
 } from '../types';
 import {
   INITIAL_PROGRAMS,
@@ -40,7 +42,9 @@ import {
   INITIAL_QURBAN_GROUPS,
   INITIAL_ERP_COA,
   INITIAL_JAMAAH_PROFILES,
-  INITIAL_AUDIT_LOGS
+  INITIAL_AUDIT_LOGS,
+  INITIAL_BOARD_MEMBERS,
+  INITIAL_REPORT_SIGNATORIES
 } from './initialData';
 
 const LOCAL_STORAGE_KEY = 'masjid_Tazkia_app_state_v3';
@@ -69,6 +73,8 @@ export interface AppState {
   erpSignatures: ReportSignature[];
   auditLogs: AuditLog[];
   jamaahProfiles: JamaahProfile[];
+  boardMembers: BoardMember[];
+  reportSignatories: ReportSignatory[];
 }
 
 const defaultState: AppState = {
@@ -99,7 +105,9 @@ const defaultState: AppState = {
   erpJournalEntries: [],
   erpSignatures: [],
   auditLogs: INITIAL_AUDIT_LOGS,
-  jamaahProfiles: INITIAL_JAMAAH_PROFILES
+  jamaahProfiles: INITIAL_JAMAAH_PROFILES,
+  boardMembers: INITIAL_BOARD_MEMBERS,
+  reportSignatories: INITIAL_REPORT_SIGNATORIES
 };
 
 export function getStoredState(): AppState {
@@ -133,7 +141,9 @@ export function getStoredState(): AppState {
         erpJournalEntries: parsed.erpJournalEntries || [],
         erpSignatures: parsed.erpSignatures || [],
         auditLogs: (parsed.auditLogs && parsed.auditLogs.length > 0) ? parsed.auditLogs : INITIAL_AUDIT_LOGS,
-        jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES
+        jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES,
+        boardMembers: (parsed.boardMembers && parsed.boardMembers.length > 0) ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
+        reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES
       };
     }
   } catch (e) {
@@ -832,6 +842,48 @@ export function useMasjidStore() {
     }));
   };
 
+  const addBoardMember = (member: Omit<BoardMember, 'id'>) => {
+    setState(prev => ({
+      ...prev,
+      boardMembers: [...(prev.boardMembers || []), { ...member, id: `bm-${Date.now()}` }]
+    }));
+  };
+
+  const updateBoardMember = (id: string, updated: Partial<BoardMember>) => {
+    setState(prev => ({
+      ...prev,
+      boardMembers: (prev.boardMembers || []).map(m => m.id === id ? { ...m, ...updated } : m)
+    }));
+  };
+
+  const deleteBoardMember = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      boardMembers: (prev.boardMembers || []).filter(m => m.id !== id)
+    }));
+  };
+
+  const addReportSignatory = (sig: Omit<ReportSignatory, 'id'>) => {
+    setState(prev => ({
+      ...prev,
+      reportSignatories: [...(prev.reportSignatories || []), { ...sig, id: `sig-${Date.now()}` }]
+    }));
+  };
+
+  const updateReportSignatory = (id: string, updated: Partial<ReportSignatory>) => {
+    setState(prev => ({
+      ...prev,
+      reportSignatories: (prev.reportSignatories || []).map(s => s.id === id ? { ...s, ...updated } : s)
+    }));
+  };
+
+  const deleteReportSignatory = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      reportSignatories: (prev.reportSignatories || []).filter(s => s.id !== id)
+    }));
+  };
+
   const resetToDefault = () => {
     setState(defaultState);
   };
@@ -887,6 +939,12 @@ export function useMasjidStore() {
     addJamaahProfile,
     updateJamaahProfile,
     deleteJamaahProfile,
+    addBoardMember,
+    updateBoardMember,
+    deleteBoardMember,
+    addReportSignatory,
+    updateReportSignatory,
+    deleteReportSignatory,
     resetToDefault
   };
 }

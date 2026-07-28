@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Info, CheckCircle2 } from 'lucide-react';
+import { useMasjidStore } from '../lib/store';
 
 interface ProfilData {
   youtubeUrl: string;
@@ -9,7 +10,12 @@ interface ProfilData {
 }
 
 export const SejarahTazkiaSection: React.FC = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const store = useMasjidStore();
+  
+  // Group board members by roleType
+  const pembina = store.state.boardMembers?.filter(m => m.roleType === 'pembina').sort((a,b) => a.orderIdx - b.orderIdx) || [];
+  const pengurus = store.state.boardMembers?.filter(m => m.roleType === 'pengurus').sort((a,b) => a.orderIdx - b.orderIdx) || [];
   const [profilData, setProfilData] = useState<ProfilData>({
     youtubeUrl: 'https://youtu.be/-oT4ZYK2ZjI?si=-pEBAAicepgcMVPj',
     sejarah: `Andalusia Islamic Center hadir karena kepedulian akan masalah besar bangsa dan ummat Islam Indonesia yang didominasi oleh kemiskinan, keterbelakangan Pendidikan serta rendahnya moralitas baik di tingkat birokrasi maupun swasta. Besar harapan kami dengan segala kekurangan, Andalusia Islamic Center dapat menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial ummat yang berlandaskan nilai-nilai luhur spiritual Islam.\n\nSejak pendiriannya tahun 2006 oleh Prof. Dr. Syafii Antonio, M.Ec. Andalusia Islamic Center telah berkiprah dalam bidang sosial, dakwah dan pemberdayaan ekonomi yang meliputi:\n\n1. Sarana Ibadah\n2. Kajian Ke-Islaman harian, mingguan, dan bulanan\n3. Program Tahfidz untuk berbagai umur\n4. Pemberdayaan ekonomi mikro\n5. Santunan Yatim dan dhuafa\n6. Pembinaan muallaf\n7. Peringatan hari besar Islam`,
@@ -107,85 +113,72 @@ export const SejarahTazkiaSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Row 3: Dewan Pembina & Direktur */}
+        {/* Row 3: Dewan Pembina & Pengurus */}
         <div className="space-y-16">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Dewan Pembina Yayasan</h2>
-            
-            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
-              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                {/* Photo - Prof. Dr. M. Syafii Antonio */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-top"
-                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fmsa.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
-                <div className="relative z-10 text-white">
-                  <h4 className="font-bold text-lg font-serif">Prof. Dr. M. Syafii Antonio</h4>
-                  <p className="text-xs text-blue-200 mt-1 font-mono">Ketua Dewan Pembina</p>
-                </div>
-              </div>
-              <div className="sm:w-2/3 p-8 sm:p-10 relative">
-                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
-                  <p>Lahir di Sukabumi, 12 Mei 1965. Beliau adalah tokoh ekonomi syariah Indonesia yang memiliki latar belakang perjalanan spiritual yang unik dan inspiratif.</p>
-                  <p>Tumbuh di lingkungan keluarga yang majemuk, beliau mengenal ajaran Islam melalui interaksi sosial sejak kecil. Ketertarikannya pada cara ibadah umat Islam membawanya pada pencarian kebenaran, hingga akhirnya memutuskan untuk bersyahadat.</p>
-                </div>
+          {/* Dewan Pembina */}
+          {pembina.length > 0 && (
+            <div className="text-center">
+              <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Dewan Pembina Yayasan</h2>
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {pembina.map(member => (
+                  <div key={member.id} className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col text-left group hover:shadow-2xl transition-all duration-300">
+                    <div className="bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end h-[300px] relative">
+                      <div 
+                        className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
+                        style={{ backgroundImage: `url('${member.imageUrl}')` }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
+                      <div className="relative z-10 text-white">
+                        <h4 className="font-bold text-lg font-serif">{member.name}</h4>
+                        <p className="text-xs text-blue-200 mt-1 font-mono">{member.position}</p>
+                      </div>
+                    </div>
+                    {member.bio && (
+                      <div className="p-8 relative flex-grow bg-white">
+                        <div className="text-4xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
+                        <div className="text-sm text-slate-600 leading-relaxed relative z-10 text-justify">
+                          <p>{member.bio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="text-center">
-            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Direktur Masjid Tazkia Islamic Center</h2>
-            
-            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
-              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                {/* Photo - Syaripudin Kusin */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-top"
-                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fsyarif.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
-                <div className="relative z-10 text-white">
-                  <h4 className="font-bold text-lg font-serif">Syaripudin Kusin</h4>
-                  <p className="text-xs text-blue-200 mt-1 font-mono">Direktur</p>
-                </div>
-              </div>
-              <div className="sm:w-2/3 p-8 sm:p-10 relative">
-                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
-                  <p>Direktur Operasional Masjid Tazkia adalah sosok profesional yang amanah dan berpengalaman luas dalam pengelolaan keuangan, audit, dan tata kelola organisasi. Dengan pengalaman lebih dari dua dekade di berbagai perusahaan dan lembaga, beliau berperan memastikan operasional masjid berjalan secara efektif, transparan, dan sesuai prinsip syariah.</p>
-                  <p>Berkomitmen menjadikan masjid sebagai pusat ibadah, pendidikan, dan pemberdayaan umat, beliau mengedepankan nilai keikhlasan, profesionalisme, serta pelayanan terbaik bagi jamaah.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Ketua DKM Masjid Tazkia Islamic Center</h2>
-            
-            <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
-              <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                {/* Photo - Abdul Mughni */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-top"
-                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fmughni.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
-                <div className="relative z-10 text-white">
-                  <h4 className="font-bold text-lg font-serif">Abdul Mughni</h4>
-                  <p className="text-xs text-blue-200 mt-1 font-mono">Ketua DKM</p>
-                </div>
-              </div>
-              <div className="sm:w-2/3 p-8 sm:p-10 relative">
-                <div className="text-6xl text-blue-100 absolute top-4 left-6 font-serif opacity-50">"</div>
-                <div className="text-sm text-slate-600 leading-relaxed relative z-10 space-y-4 text-justify">
-                  <p>Ketua DKM Masjid Tazkia adalah pemimpin yang amanah dan berkomitmen dalam memakmurkan masjid sebagai pusat ibadah, dakwah, dan pemberdayaan umat.</p>
-                  <p>Dengan mengedepankan nilai keikhlasan, kebersamaan, dan profesionalisme, beliau membina pengelolaan masjid yang transparan, inklusif, serta berlandaskan Al-Quran dan Sunnah, demi menghadirkan pelayanan terbaik bagi jamaah dan masyarakat luas.</p>
-                </div>
+          {/* Pengurus DKM */}
+          {pengurus.length > 0 && (
+            <div className="text-center">
+              <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Pengurus DKM Masjid Tazkia</h2>
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {pengurus.map(member => (
+                  <div key={member.id} className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col text-left group hover:shadow-2xl transition-all duration-300">
+                    <div className="bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end h-[250px] relative">
+                      <div 
+                        className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
+                        style={{ backgroundImage: `url('${member.imageUrl}')` }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
+                      <div className="relative z-10 text-white">
+                        <h4 className="font-bold text-lg font-serif">{member.name}</h4>
+                        <p className="text-xs text-blue-200 mt-1 font-mono">{member.position}</p>
+                      </div>
+                    </div>
+                    {member.bio && (
+                      <div className="p-6 relative flex-grow bg-white">
+                        <div className="text-sm text-slate-600 leading-relaxed relative z-10 text-justify">
+                          <p>{member.bio}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
         
         {/* LOKASI DAN FAQ SECTION */}

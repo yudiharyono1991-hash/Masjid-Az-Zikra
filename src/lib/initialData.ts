@@ -10,7 +10,9 @@ import {
   GalleryItem,
   QurbanGroup,
   JamaahProfile,
-  AuditLog
+  AuditLog,
+  BoardMember,
+  ReportSignatory
 } from '../types';
 
 export const INITIAL_PROGRAMS: Program[] = [
@@ -899,5 +901,66 @@ export const INITIAL_AUDIT_LOGS: AuditLog[] = [
     role: 'super_admin',
     action: 'LOGIN',
     details: 'Berhasil melakukan login sebagai Super Admin dari konsol IT.'
+  }
+];
+
+export const INITIAL_BOARD_MEMBERS: BoardMember[] = [
+  {
+    id: 'bm-1',
+    name: 'Prof. Dr. M. Syafii Antonio',
+    position: 'Dewan Pembina Yayasan',
+    roleType: 'pembina',
+    imageUrl: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80',
+    bio: 'Pakar Ekonomi Syariah Nasional & Pendiri STEI SEBI',
+    orderIdx: 1
+  },
+  {
+    id: 'bm-2',
+    name: 'Ustadz H. M. Zainuddin, SQ',
+    position: 'Ketua / Direktur DKM',
+    roleType: 'pengurus',
+    imageUrl: 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=400&q=80',
+    bio: 'Pengasuh Majelis Taklim Tazkia',
+    orderIdx: 2
+  },
+  {
+    id: 'bm-3',
+    name: 'H. Ahmad',
+    position: 'Bendahara Umum',
+    roleType: 'pengurus',
+    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    bio: 'Praktisi Akuntansi & Keuangan',
+    orderIdx: 3
+  }
+];
+
+export const INITIAL_REPORT_SIGNATORIES: ReportSignatory[] = [
+  {
+    id: 'sig-1',
+    role: 'Pembuat Laporan',
+    name: 'Staf Keuangan',
+    title: 'Akuntan Masjid',
+    orderIdx: 1
+  },
+  {
+    id: 'sig-2',
+    role: 'Diperiksa Oleh',
+    name: 'H. Ahmad',
+    title: 'Bendahara DKM',
+    orderIdx: 2
+  },
+  {
+    id: 'sig-3',
+    role: 'Disetujui Oleh',
+    name: 'Ustadz H. M. Zainuddin, SQ',
+    title: 'Ketua / Direktur DKM',
+    orderIdx: 3
+  },
+  {
+    id: 'sig-4',
+    role: 'Mengetahui',
+    name: 'Prof. Dr. M. Syafii Antonio',
+    title: 'Dewan Pembina',
+    orderIdx: 4
   }
 ];

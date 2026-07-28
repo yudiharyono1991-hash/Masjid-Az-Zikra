@@ -45,13 +45,8 @@ export function ReportPrinter() {
   const totalAsset = assets.reduce((s, a) => s + a.balance, 0);
   const totalLiabEq = liabilities.reduce((s, a) => s + a.balance, 0) + equities.reduce((s, a) => s + a.balance, 0);
 
-  // Hardcode signatures for this demo, matching the requested hierarchy
-  const hierarchy = [
-    { role: 'Dibuat Oleh', name: 'Staf Keuangan', title: 'Pembuat Laporan' },
-    { role: 'Diperiksa Oleh', name: 'H. Ahmad', title: 'Bendahara DKM' },
-    { role: 'Disetujui Oleh', name: state.adminSettings.jumatImamName || 'Syarifudin Kusin', title: 'Direktur / Ketua DKM' },
-    { role: 'Mengetahui', name: 'Prof. Dr. M. Syafii Antonio', title: 'Dewan Pembina' }
-  ];
+  // Fetch dynamic signatures from global store, sort by order index
+  const hierarchy = [...(state.reportSignatories || [])].sort((a,b) => a.orderIdx - b.orderIdx);
 
   return (
     <div className="space-y-6">

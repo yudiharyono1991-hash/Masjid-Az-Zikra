@@ -321,6 +321,24 @@ export interface ReportSignature {
   notes?: string;
 }
 
+export interface ReportSignatory {
+  id: string;
+  role: string; // e.g. "Dibuat Oleh"
+  name: string;
+  title: string; // e.g. "Bendahara DKM"
+  orderIdx: number;
+}
+
+export interface BoardMember {
+  id: string;
+  name: string;
+  position: string;
+  roleType: 'pembina' | 'pengurus' | 'pengawas' | 'staf';
+  imageUrl: string;
+  bio?: string;
+  orderIdx: number;
+}
+
 export interface AuditLog {
   id: string;
   timestamp: string;
@@ -342,4 +360,6 @@ export interface JamaahProfile {
   role: 'jamaah' | 'dkm' | 'super_admin';
   dkmPosition?: string; // e.g. "Ketua DKM", "Wakil Ketua DKM", "Bendahara", "Sekretaris", "Jamaah"
   password?: string;
+  monthlyDonationTarget?: number;
+  targetDate?: number; // Day of the month, e.g., 25
 }

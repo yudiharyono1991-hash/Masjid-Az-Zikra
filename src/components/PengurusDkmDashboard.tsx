@@ -56,14 +56,21 @@ import {
   Video,
   Play,
   Heart,
-  Tv
+  Tv,
+  Users,
+  Edit3,
+  UserPlus
 } from 'lucide-react';
+
+import { useMasjidStore } from '../lib/store';
 
 import { ChartOfAccounts } from './accounting/ChartOfAccounts';
 import { JurnalUmum } from './accounting/JurnalUmum';
 import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
 import { SewaGedungAdmin } from './SewaGedungAdmin';
+import { BoardMemberAdmin } from './BoardMemberAdmin';
+import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
 
 import { AppManagerAdmin } from './AppManagerAdmin';
 
@@ -156,9 +163,12 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
+
+  // Zustand Store
+  const store = useMasjidStore();
 
   // Toast notification state
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -751,6 +761,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               { id: 'sewa', label: 'Sewa & Booking' },
               { id: 'aplikasi', label: 'Pengaturan Aplikasi' },
               { id: 'pengaturan', label: 'Pengaturan Admin & Foto' },
+              { id: 'pengurus', label: 'Profil & Pengurus' },
+              { id: 'ttd_laporan', label: 'Tanda Tangan Laporan' },
               { id: 'inventaris', label: 'Inventaris & Foto Aset' },
               { id: 'program', label: 'Program & Campaign' },
               { id: 'pengumuman', label: 'Pengumuman & Berita' },
@@ -774,6 +786,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'sewa', label: 'Sewa & Booking', icon: Building },
             { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
             { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
+            { id: 'pengurus', label: 'Profil & Pengurus', icon: Users },
+            { id: 'ttd_laporan', label: 'Tanda Tangan Laporan', icon: Edit3 },
             { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
             { id: 'program', label: 'Program & Campaign', icon: Sparkles },
             { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
@@ -3731,6 +3745,20 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 </table>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* TAB: PROFIL & PENGURUS */}
+        {dkmTab === 'pengurus' && (
+          <div className="animate-fadeIn">
+            <BoardMemberAdmin />
+          </div>
+        )}
+
+        {/* TAB: TANDA TANGAN LAPORAN */}
+        {dkmTab === 'ttd_laporan' && (
+          <div className="animate-fadeIn">
+            <ReportSignatoryAdmin />
           </div>
         )}
 

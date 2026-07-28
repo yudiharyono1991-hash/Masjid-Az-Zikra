@@ -8,7 +8,10 @@ import {
   Heart,
   TrendingUp,
   Award,
-  RefreshCw
+  RefreshCw,
+  Bell,
+  Calendar,
+  Info
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
@@ -36,8 +39,13 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
     phone: session.phone || '-',
     joinDate: new Date().toISOString(),
     lastLogin: new Date().toISOString(),
-    totalDonation: 0
+    totalDonation: 0,
+    monthlyDonationTarget: 0,
+    targetDate: 1
   };
+
+  const [monthlyTarget, setMonthlyTarget] = useState(profile.monthlyDonationTarget || 0);
+  const [targetDate, setTargetDate] = useState(profile.targetDate || 1);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -52,7 +60,13 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    setToastMessage('Alhamdulillah, pembaruan profil berhasil disimpan!');
+    if (onUpdateProfile) {
+      onUpdateProfile(profile.id, {
+        monthlyDonationTarget: monthlyTarget,
+        targetDate: targetDate
+      });
+    }
+    setToastMessage('Alhamdulillah, pembaruan profil & target donasi berhasil disimpan!');
     setTimeout(() => setToastMessage(''), 3000);
   };
 
@@ -148,6 +162,33 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   "Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji." (Al-Baqarah: 261)
                 </p>
               </div>
+              
+              {monthlyTarget > 0 && (
+                <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 border border-amber-200 rounded-2xl p-5 flex items-start gap-4">
+                  <div className="p-3 bg-amber-200/50 text-amber-600 rounded-xl shrink-0">
+                    <Bell className="w-6 h-6 animate-pulse" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-amber-900 mb-1 flex items-center gap-2">
+                      Pengingat Target Donasi Bulanan
+                    </h4>
+                    <p className="text-sm text-amber-700/80 mb-3">
+                      Anda memiliki komitmen target donasi bulanan sebesar <strong>{formatRupiahFull(monthlyTarget)}</strong> setiap tanggal <strong>{targetDate}</strong>.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                      <div className="flex-1 w-full bg-white rounded-full h-2 overflow-hidden border border-amber-100">
+                        <div 
+                          className="bg-amber-500 h-full rounded-full"
+                          style={{ width: `${Math.min(100, (profile.totalDonation / (monthlyTarget || 1)) * 100)}%` }}
+                        ></div>
+                      </div>
+                      <div className="text-xs font-bold text-amber-700 shrink-0">
+                        Tercapai: {formatRupiahFull(profile.totalDonation)} / {formatRupiahFull(monthlyTarget)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
@@ -266,6 +307,38 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                 </div>
                 
                 <div className="pt-4 border-t border-gray-100">
+                  <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+                    <Award className="w-4 h-4 text-amber-500" />
+                    Target Donasi Bulanan
+                  </h4>
+                  <div className="space-y-3">
+                    <p className="text-xs text-gray-500 leading-relaxed mb-3">
+                      Tetapkan target sedekah bulanan Anda untuk membangun istiqomah. Kami akan memberikan pengingat di dashboard pada tanggal yang Anda tentukan.
+                    </p>
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Target Nominal (Rp)</label>
+                      <input 
+                        type="number" 
+                        value={monthlyTarget}
+                        onChange={(e) => setMonthlyTarget(Number(e.target.value))}
+                        placeholder="Contoh: 500000"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-blue-500 focus:bg-white transition-colors text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Tanggal Pengingat Rutin (1 - 31)</label>
+                      <input 
+                        type="number" 
+                        min="1" max="31"
+                        value={targetDate}
+                        onChange={(e) => setTargetDate(Number(e.target.value))}
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-blue-500 focus:bg-white transition-colors text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t border-gray-100">
                   <h4 className="text-sm font-bold text-gray-700 mb-3">Ubah Kata Sandi</h4>
                   <div className="space-y-3">
                     <div>
@@ -296,7 +369,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                 </div>
                 
                 <div className="pt-4 border-t border-gray-100">
-                  <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors cursor-pointer shadow-md">
+                  <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-6 rounded-xl transition-colors cursor-pointer w-full sm:w-auto mt-4">
                     Simpan Perubahan
                   </button>
                 </div>
