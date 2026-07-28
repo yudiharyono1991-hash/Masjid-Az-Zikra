@@ -454,8 +454,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         {/* Dashboard Navigation Tabs */}
         <div className="flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print-hidden">
           {[
-            { id: 'akuntansi', label: 'ERP Akuntansi', icon: BookOpen },
-            { id: 'keuangan', label: 'Keuangan (Lama)', icon: DollarSign },
+            { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
+            { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
             { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
             { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
             { id: 'sewa', label: 'Sewa & Booking', icon: Building },
