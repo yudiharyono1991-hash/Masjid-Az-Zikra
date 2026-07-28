@@ -78,12 +78,12 @@ export function ChartOfAccounts() {
             placeholder="Cari nama/kode..." 
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px]"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px] text-gray-900 bg-white"
           />
           <select 
             value={filterType}
             onChange={e => setFilterType(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none text-gray-900 bg-white"
           >
             <option value="All">Semua Klasifikasi</option>
             <option value="Asset">Asset</option>

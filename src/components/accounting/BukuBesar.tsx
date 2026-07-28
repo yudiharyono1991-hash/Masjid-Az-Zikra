@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useMasjidStore } from '../../lib/store';
-import { Download } from 'lucide-react';
+import { Download, Search } from 'lucide-react';
 import { exportBukuBesarToExcel } from '../../lib/excelUtils';
 
 export function BukuBesar() {
   const { state } = useMasjidStore();
   const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+  const [coaSearch, setCoaSearch] = useState<string>('');
 
   const handleExport = () => {
     // If an account is selected, export only that account's ledger
@@ -17,29 +18,64 @@ export function BukuBesar() {
 
   const account = state.erpCoa.find(a => a.id === selectedAccountId);
   
+  const filteredCoa = state.erpCoa.filter(coa => 
+    coa.accountName.toLowerCase().includes(coaSearch.toLowerCase()) ||
+    coa.accountCode.includes(coaSearch)
+  );
+
   // Calculate Ledger Entries
+  let ledgerEntries = [];
   let runningBalance = 0;
-  const ledgerEntries = account ? state.erpJournalEntries
-    .filter(e => e.accountId === account.id)
-    .sort((a, b) => {
-      const jA = state.erpJournals.find(j => j.id === a.journalId);
-      const jB = state.erpJournals.find(j => j.id === b.journalId);
-      if (!jA || !jB) return 0;
-      return new Date(jA.date).getTime() - new Date(jB.date).getTime();
-    })
-    .map(entry => {
-      const journal = state.erpJournals.find(j => j.id === entry.journalId);
-      const isDebitIncrease = account.normalBalance === 'Debit';
-      const change = isDebitIncrease ? entry.debit - entry.credit : entry.credit - entry.debit;
-      runningBalance += change;
-      return {
-        ...entry,
-        journalDate: journal?.date,
-        journalNo: journal?.journalNo,
-        journalDesc: journal?.description,
-        runningBalance
-      };
-    }) : [];
+  let totalDebitAll = 0;
+  let totalCreditAll = 0;
+
+  if (account) {
+    ledgerEntries = state.erpJournalEntries
+      .filter(e => e.accountId === account.id)
+      .sort((a, b) => {
+        const jA = state.erpJournals.find(j => j.id === a.journalId);
+        const jB = state.erpJournals.find(j => j.id === b.journalId);
+        if (!jA || !jB) return 0;
+        return new Date(jA.date).getTime() - new Date(jB.date).getTime();
+      })
+      .map(entry => {
+        const journal = state.erpJournals.find(j => j.id === entry.journalId);
+        const isDebitIncrease = account.normalBalance === 'Debit';
+        const change = isDebitIncrease ? entry.debit - entry.credit : entry.credit - entry.debit;
+        runningBalance += change;
+        return {
+          ...entry,
+          journalDate: journal?.date,
+          journalNo: journal?.journalNo,
+          journalDesc: journal?.description,
+          runningBalance
+        };
+      });
+  } else {
+    // All entries
+    ledgerEntries = [...state.erpJournalEntries]
+      .sort((a, b) => {
+        const jA = state.erpJournals.find(j => j.id === a.journalId);
+        const jB = state.erpJournals.find(j => j.id === b.journalId);
+        if (!jA || !jB) return 0;
+        return new Date(jA.date).getTime() - new Date(jB.date).getTime();
+      })
+      .map(entry => {
+        const journal = state.erpJournals.find(j => j.id === entry.journalId);
+        const coa = state.erpCoa.find(c => c.id === entry.accountId);
+        totalDebitAll += entry.debit;
+        totalCreditAll += entry.credit;
+        return {
+          ...entry,
+          journalDate: journal?.date,
+          journalNo: journal?.journalNo,
+          journalDesc: journal?.description,
+          accountCode: coa?.accountCode || entry.accountCode,
+          accountName: coa?.accountName || entry.accountName,
+          runningBalance: 0
+        };
+      });
+  }
 
   return (
     <div className="space-y-6">
@@ -51,22 +87,36 @@ export function BukuBesar() {
       </div>
 
       <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-        <div className="max-w-md">
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Pilih Akun</label>
-          <select 
-            value={selectedAccountId} 
-            onChange={e => setSelectedAccountId(e.target.value)} 
-            className="w-full p-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none focus:border-blue-500"
-          >
-            <option value="">-- Pilih Akun --</option>
-            {state.erpCoa.map(coa => (
-              <option key={coa.id} value={coa.id}>[{coa.accountCode}] {coa.accountName}</option>
-            ))}
-          </select>
+        <div className="flex flex-col sm:flex-row gap-4 items-end">
+          <div className="flex-1 w-full sm:max-w-xs">
+            <label className="block text-xs font-semibold text-gray-600 mb-1 flex items-center gap-1">
+              <Search className="w-3.5 h-3.5 text-gray-400" /> Cari/Ketik Akun
+            </label>
+            <input
+              type="text"
+              placeholder="Ketik kode atau nama..."
+              value={coaSearch}
+              onChange={e => setCoaSearch(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-white outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="flex-1 w-full">
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Pilih Akun</label>
+            <select 
+              value={selectedAccountId} 
+              onChange={e => setSelectedAccountId(e.target.value)} 
+              className="w-full p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none focus:border-blue-500"
+            >
+              <option value="">-- Semua Akun (Semua Mutasi Transaksi) --</option>
+              {filteredCoa.map(coa => (
+                <option key={coa.id} value={coa.id}>[{coa.accountCode}] {coa.accountName}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
-      {account && (
+      {account ? (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
             <div>
@@ -110,7 +160,58 @@ export function BukuBesar() {
             </tbody>
           </table>
         </div>
+      ) : (
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+            <div>
+              <div className="text-xl font-bold text-blue-900">Jurnal Transaksi (Semua Akun)</div>
+              <div className="text-sm text-gray-500 mt-1">Daftar mutasi entri jurnal keuangan komprehensif.</div>
+            </div>
+            <div className="text-right">
+              <div className="text-xs text-gray-500">Total Akumulasi Transaksi</div>
+              <div className="text-md font-bold text-gray-700">
+                Debit: Rp {totalDebitAll.toLocaleString()} | Kredit: Rp {totalCreditAll.toLocaleString()}
+              </div>
+            </div>
+          </div>
+          <table className="w-full text-left text-sm">
+            <thead className="bg-gray-100 border-b border-gray-200 text-gray-600">
+              <tr>
+                <th className="p-4 font-semibold">Tanggal</th>
+                <th className="p-4 font-semibold">No Bukti</th>
+                <th className="p-4 font-semibold">Akun</th>
+                <th className="p-4 font-semibold">Keterangan</th>
+                <th className="p-4 font-semibold text-right">Debit</th>
+                <th className="p-4 font-semibold text-right">Kredit</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {ledgerEntries.map((e, idx) => (
+                <tr key={idx} className="hover:bg-gray-50">
+                  <td className="p-4">{e.journalDate}</td>
+                  <td className="p-4 font-mono text-xs text-blue-600">{e.journalNo}</td>
+                  <td className="p-4">
+                    <span className="font-semibold text-xs bg-blue-50 text-blue-800 px-2 py-0.5 rounded mr-1">
+                      {e.accountCode}
+                    </span>
+                    {e.accountName}
+                  </td>
+                  <td className="p-4">{e.description || e.journalDesc}</td>
+                  <td className="p-4 text-right font-mono">{e.debit > 0 ? e.debit.toLocaleString() : '-'}</td>
+                  <td className="p-4 text-right font-mono">{e.credit > 0 ? e.credit.toLocaleString() : '-'}</td>
+                </tr>
+              ))}
+              {ledgerEntries.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="p-8 text-center text-gray-400">Belum ada data jurnal transaksi.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
+  );
+}
   );
 }
