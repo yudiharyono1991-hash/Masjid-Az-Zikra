@@ -296,7 +296,7 @@ export const DigitalIbadahModal: React.FC<DigitalIbadahModalProps> = ({
                 Fasilitas Ibadah Digital Masjid Tazkia
               </h3>
               <p className="text-xs text-blue-400">
-                Al-Qur'an Digital Audio Murottal, Auto-Scroll Verse, Jadwal Shalat, Kiblat &amp; Doa
+                Al-Qur'an Digital, Jadwal Shalat &amp; Arah Kiblat
               </p>
             </div>
           </div>
