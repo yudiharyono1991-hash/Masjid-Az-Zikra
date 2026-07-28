@@ -27,7 +27,8 @@ const FEATURES = [
 ];
 
 export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) => {
-  const { gedungBookings, addGedungBooking } = useMasjidStore();
+  const { state, addGedungBooking } = useMasjidStore();
+  const gedungBookings = state.gedungBookings || [];
   
   const [activeImage, setActiveImage] = useState(0);
   const [images, setImages] = useState<string[]>(DEFAULT_BALLROOM_IMAGES);

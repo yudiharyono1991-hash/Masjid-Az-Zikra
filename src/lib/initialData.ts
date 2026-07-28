@@ -530,7 +530,7 @@ export const INITIAL_ADMIN_SETTINGS = {
   bankAccountBca: '8820-1192-33 (a.n. Yayasan Tazkia Sentul)',
   qrisMerchantName: 'Masjid Tazkia QRIS NASIONAL',
   iqamahCountdownMinutes: 10,
-  masjidLogoUrl: '<https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31',
+  masjidLogoUrl: 'https://firebasestorage.googleapis.com/v0/b/tazkia-masjid.appspot.com/o/tazkia-logo-white-bg.png?alt=media&token=335472e6-45a3-489c-b1c4-332375b00e31',
   masjidHeroPhotoUrl: 'https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=1200&q=80',
   qrisCodeImageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
   heroPromoTitle: 'Pusat Peradaban Islam & Kesejahteraan Umat',

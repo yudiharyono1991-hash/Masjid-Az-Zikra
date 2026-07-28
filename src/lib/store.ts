@@ -141,7 +141,11 @@ export function getStoredState(): AppState {
         journalEntries: parsed.journalEntries || [],
         glAccounts: parsed.glAccounts?.length ? parsed.glAccounts : INITIAL_GL_ACCOUNTS,
         pettyCash: parsed.pettyCash || [],
-        adminSettings: parsed.adminSettings ? { ...INITIAL_ADMIN_SETTINGS, ...parsed.adminSettings } : INITIAL_ADMIN_SETTINGS,
+        adminSettings: parsed.adminSettings ? { 
+          ...INITIAL_ADMIN_SETTINGS, 
+          ...parsed.adminSettings,
+          masjidLogoUrl: parsed.adminSettings.masjidLogoUrl?.startsWith('<') ? parsed.adminSettings.masjidLogoUrl.substring(1) : parsed.adminSettings.masjidLogoUrl
+        } : INITIAL_ADMIN_SETTINGS,
         galleryItems: parsed.galleryItems?.length ? parsed.galleryItems : INITIAL_GALLERY,
         qurbanGroups: parsed.qurbanGroups?.length ? parsed.qurbanGroups : INITIAL_QURBAN_GROUPS,
         erpCoa: (function() {

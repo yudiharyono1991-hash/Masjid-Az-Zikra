@@ -5,7 +5,8 @@ import { useMasjidStore } from '../lib/store';
 import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
 
 export const SewaGedungAdmin: React.FC = () => {
-  const { gedungBookings, updateGedungBookingStatus } = useMasjidStore();
+  const { state, updateGedungBookingStatus } = useMasjidStore();
+  const gedungBookings = state.gedungBookings || [];
   const [activeTab, setActiveTab] = useState<'assets' | 'bookings'>('bookings');
   
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
