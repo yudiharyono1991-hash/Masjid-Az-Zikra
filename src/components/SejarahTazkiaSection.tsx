@@ -113,9 +113,12 @@ export const SejarahTazkiaSection: React.FC = () => {
             
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                {/* Photo Placeholder */}
-                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                {/* Photo - Prof. Dr. M. Syafii Antonio */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-top"
+                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fmsa.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Prof. Dr. M. Syafii Antonio</h4>
                   <p className="text-xs text-blue-200 mt-1 font-mono">Ketua Dewan Pembina</p>
@@ -136,8 +139,12 @@ export const SejarahTazkiaSection: React.FC = () => {
             
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                {/* Photo - Syaripudin Kusin */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-top"
+                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fsyarif.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Syaripudin Kusin</h4>
                   <p className="text-xs text-blue-200 mt-1 font-mono">Direktur</p>
@@ -158,8 +165,12 @@ export const SejarahTazkiaSection: React.FC = () => {
             
             <div className="mt-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row text-left">
               <div className="sm:w-1/3 bg-gradient-to-b from-slate-100 to-blue-900 p-6 flex flex-col justify-end min-h-[300px] relative">
-                <div className="absolute inset-0 bg-blue-900 bg-cover bg-center mix-blend-luminosity opacity-80"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent"></div>
+                {/* Photo - Abdul Mughni */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-top"
+                  style={{ backgroundImage: `url('https://www.masjidtazkia.com/_next/image?url=%2Fmughni.png&w=1920&q=75&dpl=dpl_52LWe9BbafS3V6pC1qph7pJgjnrx')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/30 to-transparent"></div>
                 <div className="relative z-10 text-white">
                   <h4 className="font-bold text-lg font-serif">Abdul Mughni</h4>
                   <p className="text-xs text-blue-200 mt-1 font-mono">Ketua DKM</p>
