@@ -461,7 +461,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
             { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
             { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
-            { id: 'jamaah_manage', label: 'Manajemen Jamaah', icon: Heart },
+            { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
             { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
           ].map(tab => {
             const IconComp = tab.icon;
@@ -1545,8 +1545,33 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Box 1: Sakelar Visibilitas Modul Aplikasi */}
-              <div className="bg-blue-900 border border-blue-800 rounded-2xl p-5 space-y-4">
+                {/* Box 0: Ganti Sandi Admin */}
+                <div className="bg-blue-900 border border-blue-800 rounded-2xl p-5 space-y-4">
+                  <h4 className="font-serif font-bold text-white text-sm flex items-center gap-2 border-b border-blue-800 pb-2">
+                    <Settings className="w-4 h-4 text-blue-400" />
+                    <span>Ubah Kata Sandi Akses Portal Admin</span>
+                  </h4>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Kata Sandi Lama</label>
+                      <input type="password" placeholder="Masukkan kata sandi lama" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Kata Sandi Baru</label>
+                      <input type="password" placeholder="Masukkan kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Konfirmasi Kata Sandi Baru</label>
+                      <input type="password" placeholder="Ketik ulang kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                    </div>
+                    <button className="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 rounded-xl mt-2 transition-colors" onClick={() => alert('Kata sandi berhasil diperbarui')}>
+                      Perbarui Kata Sandi
+                    </button>
+                  </div>
+                </div>
+
+                {/* Box 1: Sakelar Visibilitas Modul Aplikasi */}
+                <div className="bg-blue-900 border border-blue-800 rounded-2xl p-5 space-y-4">
                 <h4 className="font-serif font-bold text-white text-sm flex items-center gap-2 border-b border-blue-800 pb-2">
                   <Eye className="w-4 h-4 text-blue-400" />
                   <span>1. Visibilitas Modul Antarmuka Jamaah</span>
@@ -2128,7 +2153,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 onClick={() => setDkmTab('pengaturan')}
                 className="bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 font-bold px-4 py-2 rounded-xl text-xs border border-amber-500/30 flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
               >
-                <span>âš™ï¸ Pengaturan Khutbah Jumat Lengkap</span>
+                <span>âš™ï¸  Pengaturan Khutbah Jumat Lengkap</span>
               </button>
             </div>
 
@@ -2616,15 +2641,21 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </div>
           </div>
         )}
-      {/* TAB: MANAJEMEN JAMAAH */}
+      {/* TAB: MANAJEMEN AKUN & ROLE */}
         {dkmTab === 'jamaah_manage' && (
           <div className="space-y-6">
-            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl">
-              <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
-                <Heart className="w-5 h-5 text-rose-400" />
-                Rekap Data Jamaah
-              </h3>
-              <p className="text-xs text-blue-400 mt-1">Daftar jamaah yang telah mengakses portal atau berdonasi.</p>
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl flex justify-between items-start">
+              <div>
+                <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
+                  <Heart className="w-5 h-5 text-rose-400" />
+                  Manajemen Akun & Role Pengguna
+                </h3>
+                <p className="text-xs text-blue-400 mt-1">Kelola data jamaah, atur hak akses (role) pengurus, dan kelola sandi pengguna.</p>
+              </div>
+              <button className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg">
+                <Plus className="w-4 h-4" />
+                <span>Tambah Pengurus Baru</span>
+              </button>
             </div>
             <div className="bg-[#0a1128] rounded-2xl shadow-xl overflow-hidden border border-blue-800">
               <div className="overflow-x-auto">
@@ -2633,15 +2664,15 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     <tr>
                       <th className="px-4 py-3">Nama Jamaah</th>
                       <th className="px-4 py-3">Email & Kontak</th>
+                      <th className="px-4 py-3">Role Akses</th>
                       <th className="px-4 py-3">Tanggal Bergabung</th>
-                      <th className="px-4 py-3">Terakhir Login</th>
-                      <th className="px-4 py-3 text-right">Total Donasi</th>
+                      <th className="px-4 py-3 text-right">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-blue-800/50">
                     {jamaahProfiles.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada data jamaah.</td>
+                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada data pengguna.</td>
                       </tr>
                     ) : (
                       jamaahProfiles.map((j) => (
@@ -2649,16 +2680,20 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                           <td className="px-4 py-3 font-bold text-white">{j.name}</td>
                           <td className="px-4 py-3 text-blue-300">
                             <div>{j.email}</div>
-                            <div className="text-xs text-blue-400">{j.phone || '-'}</div>
+                            <div className="text-[10px] opacity-70">{j.phone}</div>
                           </td>
-                          <td className="px-4 py-3 text-blue-400 font-mono text-[11px]">
-                            {new Date(j.joinDate).toLocaleDateString('id-ID')}
+                          <td className="px-4 py-3">
+                            <select className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none">
+                              <option value="jamaah">Jamaah Biasa</option>
+                              <option value="dkm">Pengurus DKM</option>
+                              <option value="super_admin">Super Admin</option>
+                            </select>
                           </td>
-                          <td className="px-4 py-3 text-blue-400 font-mono text-[11px]">
-                            {new Date(j.lastLogin).toLocaleString('id-ID')}
-                          </td>
-                          <td className="px-4 py-3 text-right font-bold text-amber-400">
-                            {formatRupiahFull(j.totalDonation)}
+                          <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.createdAt).toLocaleDateString('id-ID')}</td>
+                          <td className="px-4 py-3 text-right">
+                            <button className="text-xs text-blue-400 hover:text-amber-300 font-bold px-3 py-1 rounded bg-blue-950/50 border border-blue-800/50">
+                              Ubah Sandi
+                            </button>
                           </td>
                         </tr>
                       ))

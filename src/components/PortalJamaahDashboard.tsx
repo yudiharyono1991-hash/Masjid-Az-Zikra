@@ -192,6 +192,36 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                 </div>
                 
                 <div className="pt-4 border-t border-gray-100">
+                  <h4 className="text-sm font-bold text-gray-700 mb-3">Ubah Kata Sandi</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Kata Sandi Lama</label>
+                      <input 
+                        type="password" 
+                        placeholder="Masukkan kata sandi lama"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-blue-500 focus:bg-white transition-colors text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Kata Sandi Baru</label>
+                      <input 
+                        type="password" 
+                        placeholder="Masukkan kata sandi baru"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-blue-500 focus:bg-white transition-colors text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Konfirmasi Kata Sandi Baru</label>
+                      <input 
+                        type="password" 
+                        placeholder="Ketik ulang kata sandi baru"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-blue-500 focus:bg-white transition-colors text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t border-gray-100">
                   <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors cursor-pointer shadow-md">
                     Simpan Perubahan
                   </button>

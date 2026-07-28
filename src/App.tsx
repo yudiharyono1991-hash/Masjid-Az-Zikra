@@ -25,6 +25,7 @@ import { BookingGedung } from './components/BookingGedung';
 import { PortalJamaahDashboard } from './components/PortalJamaahDashboard';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
+import { Bot } from 'lucide-react';
 
 export default function App() {
   const {
@@ -379,6 +380,16 @@ export default function App() {
           adminSettings={state.adminSettings}
         />
       )}
+
+      {/* Floating AI Syariah Button for Desktop */}
+      <button
+        onClick={() => setAiAssistantOpen(true)}
+        className="hidden xl:flex fixed bottom-8 right-8 z-40 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-blue-950 font-bold px-5 py-3.5 rounded-full shadow-2xl items-center gap-3 transition-transform hover:scale-105"
+      >
+        <Bot className="w-6 h-6 text-blue-900" />
+        <span>Tanya AI Syariah</span>
+      </button>
+
       {/* Floating Mobile Bottom Bar */}
       <FloatingMobileNav
         activeTab={activeTab}

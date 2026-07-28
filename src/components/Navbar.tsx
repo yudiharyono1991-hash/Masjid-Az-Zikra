@@ -300,7 +300,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Hamburger Toggle (Menu Susun Tiga) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`px-2.5 py-1.5 rounded-xl cursor-pointer flex items-center gap-1 font-bold font-mono text-[10px] uppercase tracking-wider shadow-sm transition-all ${
+              className={`px-2.5 py-1.5 rounded-xl cursor-pointer flex items-center gap-1 font-bold font-mono text-[10px] uppercase tracking-wider shadow-sm transition-all md:hidden ${
                 isDark 
                   ? 'bg-blue-800/60 text-amber-300 border border-amber-400/40 hover:bg-blue-800' 
                   : 'bg-blue-50 text-blue-900 border border-blue-300 hover:bg-blue-100'
