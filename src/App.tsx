@@ -144,6 +144,7 @@ export default function App() {
         openCatalogPdf={() => setCatalogPdfOpen(true)}
         session={state.session}
         openLoginModal={() => setLoginModalOpen(true)}
+        logout={logout}
         palette={state.colorPalette}
         setPalette={setPalette}
         themeMode={state.themeMode}
