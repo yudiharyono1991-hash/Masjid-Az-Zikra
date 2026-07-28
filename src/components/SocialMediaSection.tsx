@@ -48,15 +48,13 @@ export const SocialMediaSection: React.FC = () => {
             {/* Tab bar: Featured videos vs Full channel playlist */}
             <div className="flex border-b border-white/10 shrink-0">
               <button onClick={() => setActiveTab('featured')}
-                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${
-                  activeTab === 'featured' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
-                }`}>
+                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${activeTab === 'featured' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
+                  }`}>
                 📌 Video Pilihan
               </button>
               <button onClick={() => setActiveTab('playlist')}
-                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${
-                  activeTab === 'playlist' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
-                }`}>
+                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${activeTab === 'playlist' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
+                  }`}>
                 🔴 Semua Video Channel
               </button>
             </div>
@@ -96,11 +94,10 @@ export const SocialMediaSection: React.FC = () => {
               <div className="flex border-t border-white/10 shrink-0">
                 {YT_FEATURED.map((v, i) => (
                   <button key={v.id} onClick={() => setActiveVideoIdx(i)}
-                    className={`flex-1 py-2 px-3 text-xs transition-colors ${
-                      activeVideoIdx === i
+                    className={`flex-1 py-2 px-3 text-xs transition-colors ${activeVideoIdx === i
                         ? 'bg-red-600/20 text-red-300'
                         : 'text-blue-400 hover:text-white hover:bg-white/5'
-                    }`}>
+                      }`}>
                     {v.label}
                   </button>
                 ))}
