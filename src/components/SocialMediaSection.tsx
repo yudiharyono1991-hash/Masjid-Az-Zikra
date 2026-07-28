@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Instagram, Facebook, Youtube, ExternalLink } from 'lucide-react';
 
-// Masjid Tazkia YouTube channel uploads playlist
-// Playlist ID = "UU" + channel_id (without "UC" prefix)
-// This automatically shows the LATEST videos from the channel - no API key needed!
+// Confirmed Masjid Tazkia YouTube videos (add more IDs here as new videos come out)
+const YT_FEATURED = [
+  { id: 'TiOHkAVZhow', label: 'Video Terbaru' },
+  { id: 'UBxFbTbs8i4', label: 'Video Pilihan' },
+];
 const YT_CHANNEL_ID = 'UC5107eQh328s76H_mZ34Sog';
 const YT_UPLOADS_PLAYLIST = `UU${YT_CHANNEL_ID.replace('UC', '')}`;
 const YT_CHANNEL_URL = 'https://www.youtube.com/@masjidtazkia';
 
 export const SocialMediaSection: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'featured' | 'playlist'>('featured');
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
   const [fbLoaded, setFbLoaded] = useState(false);
   const [igLoaded, setIgLoaded] = useState(false);
 
@@ -37,21 +41,68 @@ export const SocialMediaSection: React.FC = () => {
               </a>
             </div>
 
-            {/* YouTube Channel Playlist Embed — always shows latest videos automatically */}
-            <div className="aspect-video bg-black w-full">
-              <iframe
-                src={`https://www.youtube.com/embed/videoseries?list=${YT_UPLOADS_PLAYLIST}&controls=1&rel=0&modestbranding=1`}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Video Terbaru Masjid Tazkia"
-                loading="lazy"
-              />
+            {/* Tab bar: Featured videos vs Full channel playlist */}
+            <div className="flex border-b border-white/10 shrink-0">
+              <button onClick={() => setActiveTab('featured')}
+                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${
+                  activeTab === 'featured' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
+                }`}>
+                📌 Video Pilihan
+              </button>
+              <button onClick={() => setActiveTab('playlist')}
+                className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors ${
+                  activeTab === 'playlist' ? 'bg-red-600/20 text-red-300 border-b-2 border-red-500' : 'text-blue-400 hover:text-white hover:bg-white/5'
+                }`}>
+                🔴 Semua Video Channel
+              </button>
             </div>
 
-            {/* Info bar + CTA */}
+            {/* Video Player Area */}
+            <div className="aspect-video bg-black w-full relative">
+              {activeTab === 'featured' ? (
+                /* Featured/specific confirmed videos */
+                <iframe
+                  key={YT_FEATURED[activeVideoIdx].id}
+                  src={`https://www.youtube.com/embed/${YT_FEATURED[activeVideoIdx].id}?controls=1&rel=0&modestbranding=1`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title={YT_FEATURED[activeVideoIdx].label}
+                />
+              ) : (
+                /* Full channel playlist — auto shows ALL latest videos */
+                <iframe
+                  src={`https://www.youtube.com/embed/videoseries?list=${YT_UPLOADS_PLAYLIST}&controls=1&rel=0&modestbranding=1`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Semua Video Terbaru Masjid Tazkia"
+                  loading="lazy"
+                />
+              )}
+            </div>
+
+            {/* Video selector tabs (only for featured mode) */}
+            {activeTab === 'featured' && (
+              <div className="flex border-t border-white/10 shrink-0">
+                {YT_FEATURED.map((v, i) => (
+                  <button key={v.id} onClick={() => setActiveVideoIdx(i)}
+                    className={`flex-1 py-2 px-3 text-xs transition-colors ${
+                      activeVideoIdx === i
+                        ? 'bg-red-600/20 text-red-300'
+                        : 'text-blue-400 hover:text-white hover:bg-white/5'
+                    }`}>
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Channel link */}
             <div className="px-4 py-2 bg-black/20 flex items-center justify-between gap-2 shrink-0">
-              <span className="text-[10px] text-blue-400 font-mono">🔴 Otomatis update video terbaru dari channel</span>
+              <span className="text-[10px] text-blue-400 font-mono">
+                {activeTab === 'featured' ? '📌 Video pilihan dari Masjid Tazkia' : '🔴 Otomatis update video terbaru'}
+              </span>
               <a href={YT_CHANNEL_URL} target="_blank" rel="noopener noreferrer"
                 className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-400 flex items-center gap-1.5 bg-red-500/10 px-3 py-1.5 rounded-full hover:bg-red-500/20 transition-colors shrink-0">
                 Semua Video <ExternalLink className="w-3 h-3" />
