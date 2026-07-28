@@ -35,19 +35,19 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
       if (!supabase) return;
       
       try {
-        const { data, error } = await supabase.storage.from('booking-assets').list();
+        const { data, error } = await supabase.storage.from('tazkia-media').list('booking');
         if (error) return;
         
         if (data && data.length > 0) {
           const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
           if (imageFiles.length > 0) {
-            const urls = imageFiles.map(file => supabase.storage.from('booking-assets').getPublicUrl(file.name).data.publicUrl);
+            const urls = imageFiles.map(file => supabase.storage.from('tazkia-media').getPublicUrl(`booking/${file.name}`).data.publicUrl);
             setImages(urls);
           }
           
           const pdfFile = data.find(file => file.name.match(/\.pdf$/i));
           if (pdfFile) {
-            setPdfUrl(supabase.storage.from('booking-assets').getPublicUrl(pdfFile.name).data.publicUrl);
+            setPdfUrl(supabase.storage.from('tazkia-media').getPublicUrl(`booking/${pdfFile.name}`).data.publicUrl);
           }
         }
       } catch (err) {
