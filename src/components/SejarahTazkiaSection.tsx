@@ -45,8 +45,8 @@ export const SejarahTazkiaSection: React.FC = () => {
       <div className="bg-[#1e3a8a] text-white py-16 text-center">
         <p className="text-[10px] sm:text-xs font-mono font-bold tracking-[0.2em] text-blue-300 mb-3 uppercase">Tentang Kami</p>
         <h1 className="text-3xl sm:text-4xl font-serif font-bold">Mengenal Masjid Tazkia</h1>
-        <p className="text-sm mt-3 text-blue-200 max-w-2xl mx-auto px-4">
-          Menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial umat yang berdasarkan nilai-nilai luhur Islam.
+        <p className="text-sm mt-3 text-blue-200 max-w-2xl mx-auto px-4 text-balance">
+          Menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial umat yang berdasarkan nilai-nilai luhur&nbsp;Islam.
         </p>
       </div>
 

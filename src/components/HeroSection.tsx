@@ -23,9 +23,7 @@ interface HeroSectionProps {
 }
 
 const DEFAULT_HERO_BACKGROUNDS = [
-  '/hero-1.jpg',
-  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1920&q=80',
-  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1920&q=80'
+  '/hero-1.jpg'
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -94,7 +92,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
             index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
           }`}
-          style={{ backgroundImage: `url("${bg}")` }}
+          style={{ backgroundImage: `url("${bg}"), url("/hero-1.jpg")` }}
         />
       ))}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/10 via-transparent to-[#172554]/90 pointer-events-none" />
