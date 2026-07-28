@@ -84,15 +84,28 @@
 }
 
 @media print {
-  /* Sembunyikan elemen yang tidak perlu dicetak */
-  header, nav, .print-hidden, [role="navigation"] {
-    display: none !important;
+  /* Hide all elements on the page by default */
+  body * {
+    visibility: hidden;
   }
   
-  /* Pastikan elemen cetak menggunakan warna hitam yang solid dan background putih */
-  body, .print-content, .print-content * {
+  /* Show only the print area and its children */
+  .print-area, .print-area * {
+    visibility: visible !important;
+  }
+  
+  /* Reset print area position and color for crisp look */
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 !important;
+    padding: 20px !important;
     color: #000000 !important;
-    background: transparent !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 
   /* Hilangkan bayangan dan border yang mengganggu */
