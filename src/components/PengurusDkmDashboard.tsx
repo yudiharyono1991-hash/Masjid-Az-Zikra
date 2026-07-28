@@ -445,7 +445,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 </button>
               </div>
               <p className="text-xs text-blue-400 mt-0.5">
-                Manajemen Keuangan Akuntansi PSAK 109, Jurnal Umum, Buku Besar, Kas Kecil, & Pengaturan Visibilitas Modul
+                Manajemen Keuangan Akuntansi PSAK 409, Jurnal Umum, Buku Besar, Kas Kecil, & Pengaturan Visibilitas Modul
               </p>
             </div>
           </div>
@@ -942,7 +942,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 { id: 'jurnal', label: 'Jurnal Umum (Voucher)', icon: BookOpen },
                 { id: 'bukubesar', label: 'Buku Besar (Ledger)', icon: Building },
                 { id: 'kaskecil', label: 'Kas Kecil (Petty Cash)', icon: Wallet },
-                { id: 'psak109', label: 'Laporan Keuangan PSAK 109', icon: FileText }
+                { id: 'psak109', label: 'Laporan Keuangan PSAK 409', icon: FileText }
               ].map(sub => {
                 const SubIcon = sub.icon;
                 return (
@@ -1566,14 +1566,14 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               </div>
             )}
 
-            {/* SUBTAB 1.5: LAPORAN PSAK 109 */}
+            {/* SUBTAB 1.5: LAPORAN PSAK 409 */}
             {finSubTab === 'psak109' && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-blue-800 pb-3">
                   <div>
                     <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
                       <FileText className="w-5 h-5 text-amber-400" />
-                      Laporan Keuangan Standar Akuntansi Syariah PSAK 109
+                      Laporan Keuangan Standar Akuntansi Syariah PSAK 409
                     </h3>
                     <p className="text-xs text-blue-400">
                       Format standar Ikatan Akuntan Indonesia (IAI) untuk Amil Zakat, Infaq, Shadaqah, & Wakaf.

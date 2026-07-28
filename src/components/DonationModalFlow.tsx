@@ -247,7 +247,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
                     { title: 'Infaq Operasional & Kebersihan Masjid', cat: 'infaq', desc: 'Pemeliharaan AC, Listrik PLN, Kebersihan Karpet & Sanitasi', icon: Building },
                     { title: 'Infaq Santunan Anak Yatim & Dhuafa', cat: 'shadaqah', desc: 'Bantuan Beasiswa & Bahan Pokok Keluarga Pra-sejahtera', icon: HeartHandshake },
                     { title: 'Wakaf Karpet, Sound System & Renovasi', cat: 'wakaf', desc: 'Pengembangan Fisik & Akustik Ruang Shalat Utama', icon: Sparkles },
-                    { title: 'Zakat Mal & Penghasilan (2.5%)', cat: 'zakat', desc: 'Penyucian Harta Sesuai Ketentuan Syariah PSAK 109', icon: Award },
+                    { title: 'Zakat Mal & Penghasilan (2.5%)', cat: 'zakat', desc: 'Penyucian Harta Sesuai Ketentuan Syariah PSAK 409', icon: Award },
                     { title: 'Sedekah Subuh & Berkah Jum\'at', cat: 'shadaqah', desc: 'Sarapan Gratis Jamaah & Nasi Kotak Jum\'at', icon: Calendar },
                     { title: 'Pendidikan Al-Qur\'an & Santri Tahfidz', cat: 'infaq', desc: 'Operasional TPA, Beasiswa Santri & Kitab Suci Al-Qur\'an', icon: ShieldCheck }
                   ].map((p, idx) => {

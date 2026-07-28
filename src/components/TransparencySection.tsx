@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FinancialTransaction, PetugasJadwal } from '../types';
+import { FinancialTransaction, PetugasJadwal, ERPJournalEntry } from '../types';
 import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
 import {
   TrendingUp,
@@ -10,17 +10,20 @@ import {
   Download,
   Calendar,
   Search,
-  UserCheck
+  UserCheck,
+  Wallet
 } from 'lucide-react';
 
 interface TransparencySectionProps {
   financials: FinancialTransaction[];
   petugasList: PetugasJadwal[];
+  erpJournalEntries?: ERPJournalEntry[];
 }
 
 export const TransparencySection: React.FC<TransparencySectionProps> = ({
   financials,
-  petugasList
+  petugasList,
+  erpJournalEntries = []
 }) => {
   const [filterType, setFilterType] = useState<'semua' | 'masuk' | 'keluar'>('semua');
   const [search, setSearch] = useState<string>('');
@@ -34,6 +37,16 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
     .reduce((sum, f) => sum + f.amount, 0);
 
   const saldoKas = totalMasuk - totalKeluar;
+
+  const keropakMasuk = erpJournalEntries
+    .filter(e => e.accountId === 'coa-4106' && e.type === 'Credit')
+    .reduce((sum, e) => sum + e.amount, 0);
+
+  const keropakKeluar = erpJournalEntries
+    .filter(e => e.accountId === 'coa-5105' && e.type === 'Debit')
+    .reduce((sum, e) => sum + e.amount, 0);
+
+  const saldoKeropak = keropakMasuk - keropakKeluar;
 
   const filteredFinancials = financials.filter(f => {
     const matchesType = filterType === 'semua' || f.type === filterType;
@@ -101,6 +114,48 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
             <p className="text-[11px] text-blue-100 mt-1 font-mono flex items-center gap-1">
               <CheckCircle className="w-3.5 h-3.5 text-amber-400" /> Terverifikasi Audit DKM
             </p>
+          </div>
+        </div>
+
+        {/* Keropak Infaq Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-blue-800/50">
+          <div className="bg-slate-900/60 border border-blue-900/60 rounded-2xl p-5 shadow-sm relative overflow-hidden">
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] text-blue-200/60 font-mono font-bold uppercase tracking-[0.15em]">Pemasukan Keropak Masjid</span>
+              <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-400">
+                <TrendingUp className="w-4 h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-2xl font-bold font-mono text-blue-400 mt-2">
+              {formatRupiahFull(keropakMasuk)}
+            </p>
+            <p className="text-[10px] text-blue-300/50 mt-1 font-mono">Dari Kotak Amal Harian/Jumat</p>
+          </div>
+
+          <div className="bg-slate-900/60 border border-blue-900/60 rounded-2xl p-5 shadow-sm relative overflow-hidden">
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] text-blue-200/60 font-mono font-bold uppercase tracking-[0.15em]">Penyaluran Keropak</span>
+              <div className="p-1.5 rounded-md bg-rose-500/10 text-rose-400">
+                <TrendingDown className="w-4 h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-2xl font-bold font-mono text-rose-400 mt-2">
+              {formatRupiahFull(keropakKeluar)}
+            </p>
+            <p className="text-[10px] text-blue-300/50 mt-1 font-mono">Untuk Operasional Masjid</p>
+          </div>
+
+          <div className="bg-slate-800/80 border border-amber-900/30 rounded-2xl p-5 shadow-sm relative overflow-hidden">
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] text-amber-400/80 font-mono font-bold uppercase tracking-[0.15em]">Saldo Keropak Tersedia</span>
+              <div className="p-1.5 rounded-md bg-amber-500/10 text-amber-500">
+                <Wallet className="w-4 h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-2xl font-bold font-mono text-amber-400 mt-2">
+              {formatRupiahFull(saldoKeropak)}
+            </p>
+            <p className="text-[10px] text-amber-200/50 mt-1 font-mono">Akumulasi Bersih Keropak</p>
           </div>
         </div>
 

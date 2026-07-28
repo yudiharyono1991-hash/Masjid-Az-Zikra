@@ -98,14 +98,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className={`absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-slate-950/40 via-transparent to-slate-950/90' : 'from-[#172554]/10 via-transparent to-[#172554]/90'} pointer-events-none`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* ZISWAF Center Hero Text */}
-        <div className="flex flex-col items-center justify-center mb-6 sm:mb-10 text-center drop-shadow-2xl px-4">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold font-sans text-white uppercase tracking-wider mb-4 sm:mb-6 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
-            ZISWAF CENTER
-          </h1>
-          <p className="text-sm sm:text-lg md:text-2xl font-medium text-white max-w-4xl leading-relaxed drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-            Menghimpun Kebaikan, Memberdayakan Umat melalui Zakat, Infaq, Sedekah, dan Wakaf.
-          </p>
+        {/* Official Brand Logo Banner */}
+        <div className="flex justify-center mb-6">
+          <TazkiaBrandLogo variant="large" isDark={true} />
         </div>
 
         {/* Quick Shortcut Pills Header */}

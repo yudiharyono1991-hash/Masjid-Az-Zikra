@@ -359,7 +359,7 @@ export const CatalogPdfModal: React.FC<CatalogPdfModalProps> = ({ isOpen, onClos
                     desc: 'Tampilan khusus layar TV masjid ruang shalat, running text pengumuman, jam digital besar, dan mode hitung mundur shalat.'
                   },
                   {
-                    title: 'J. Portal Pengurus DKM & Akuntansi PSAK 109',
+                    title: 'J. Portal Pengurus DKM & Akuntansi PSAK 409',
                     desc: 'Sistem kasir buku besar, jurnal keuangan, kas kecil imprest, manajemen inventaris, dan publikasi pengumuman masjid.'
                   }
                 ].map((item, index) => (

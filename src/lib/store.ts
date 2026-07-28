@@ -121,7 +121,12 @@ export function getStoredState(): AppState {
         adminSettings: parsed.adminSettings ? { ...INITIAL_ADMIN_SETTINGS, ...parsed.adminSettings } : INITIAL_ADMIN_SETTINGS,
         galleryItems: parsed.galleryItems?.length ? parsed.galleryItems : INITIAL_GALLERY,
         qurbanGroups: parsed.qurbanGroups?.length ? parsed.qurbanGroups : INITIAL_QURBAN_GROUPS,
-        erpCoa: parsed.erpCoa || [],
+        erpCoa: (function() {
+          const storedCoa = parsed.erpCoa || [];
+          if (storedCoa.length === 0) return INITIAL_ERP_COA;
+          const newCoaItems = INITIAL_ERP_COA.filter(initialItem => !storedCoa.some((storedItem: any) => storedItem.id === initialItem.id));
+          return [...storedCoa, ...newCoaItems];
+        })(),
         erpJournals: parsed.erpJournals || [],
         erpJournalEntries: parsed.erpJournalEntries || [],
         erpSignatures: parsed.erpSignatures || [],

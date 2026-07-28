@@ -180,6 +180,22 @@ export default function App() {
 
         {activeTab === 'program' && (
           <>
+            <div className="relative overflow-hidden bg-[#172554] text-white py-16 md:py-24 border-b border-blue-900 flex flex-col justify-center items-center">
+              <div
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
+                style={{ backgroundImage: `url("/hero-1.jpg")` }}
+              />
+              <div className={`absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-slate-950/60 via-transparent to-slate-950/90' : 'from-[#172554]/40 via-transparent to-[#172554]/90'} pointer-events-none`} />
+              
+              <div className="relative z-10 flex flex-col items-center justify-center text-center drop-shadow-2xl px-4 mt-8">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold font-sans text-white uppercase tracking-wider mb-4 sm:mb-6 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
+                  ZISWAF CENTER
+                </h1>
+                <p className="text-sm sm:text-lg md:text-xl font-medium text-white max-w-4xl leading-relaxed drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  Menghimpun Kebaikan, Memberdayakan Umat melalui Zakat, Infaq, Sedekah, dan Wakaf.
+                </p>
+              </div>
+            </div>
             <ProgramCardsSection
               programs={state.programs}
               openDonationForProgram={handleOpenDonationForProgram}
@@ -201,9 +217,10 @@ export default function App() {
         )}
 
         {activeTab === 'transparansi' && (
-          <TransparencySection
-            financials={state.financials}
-            petugasList={state.petugas}
+          <TransparencySection 
+            financials={state.financials} 
+            petugasList={state.petugas} 
+            erpJournalEntries={state.erpJournalEntries}
           />
         )}
 

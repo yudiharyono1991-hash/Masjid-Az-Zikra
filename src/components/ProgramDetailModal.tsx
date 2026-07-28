@@ -164,7 +164,7 @@ export const ProgramDetailModal: React.FC<ProgramDetailModalProps> = ({
             </h4>
             <ul className="text-xs text-blue-100/90 space-y-1 list-disc list-inside">
               <li>100% dana disalurkan langsung sesuai akad {program.category.toUpperCase()}.</li>
-              <li>Laporan keuangan auditable dapat diakses publik di menu Buku Besar PSAK 109.</li>
+              <li>Laporan keuangan auditable dapat diakses publik di menu Buku Besar PSAK 409.</li>
               <li>Setiap donasi terbit kwitansi digital resmi ber-QR Code transaksi.</li>
             </ul>
           </div>
