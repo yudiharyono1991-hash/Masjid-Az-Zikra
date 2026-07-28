@@ -150,8 +150,8 @@ export const AppManagerAdmin: React.FC = () => {
               <Upload className="w-10 h-10 text-blue-400 mx-auto mb-3" />
               <p className="text-sm font-bold text-white mb-4">Unggah Foto Baru</p>
               <label className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm cursor-pointer inline-block transition-colors">
-                Pilih Gambar
-                <input type="file" accept="image/*" className="hidden" onChange={handleHeroUpload} disabled={isUploading} />
+                Pilih Media (Foto/Video)
+                <input type="file" accept="image/*,video/mp4,video/webm,video/ogg" className="hidden" onChange={handleHeroUpload} disabled={isUploading} />
               </label>
               {isUploading && (
                 <div className="mt-4 max-w-xs mx-auto">
@@ -163,17 +163,31 @@ export const AppManagerAdmin: React.FC = () => {
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {heroImages.map((img, i) => (
-                <div key={i} className="relative group rounded-xl overflow-hidden border-2 border-blue-800 bg-blue-950 aspect-video">
-                  <img src={img.url} alt={`Hero ${i}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <button onClick={() => handleDeleteHero(img.name)} className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 cursor-pointer">
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {heroImages.map((img, idx) => {
+                const isVideo = img.url.match(/\.(mp4|webm|ogg)$/i) || img.name.match(/\.(mp4|webm|ogg)$/i);
+                
+                return (
+                  <div key={idx} className="relative group rounded-xl overflow-hidden border border-black/10 aspect-video bg-gray-100">
+                    {isVideo ? (
+                      <video src={img.url} className="w-full h-full object-cover" controls muted />
+                    ) : (
+                      <img src={img.url} alt={`Hero ${idx + 1}`} className="w-full h-full object-cover" />
+                    )}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                      <button 
+                        onClick={() => handleDeleteHero(img.name, img.url)}
+                        className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/80 text-white text-[10px] font-mono truncate">
+                      {img.name}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               {heroImages.length === 0 && (
                 <div className="col-span-full py-8 text-center text-blue-400 text-sm">
                   Belum ada foto yang diunggah. Foto bawaan (default) akan ditampilkan.

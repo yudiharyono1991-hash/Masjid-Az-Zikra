@@ -86,16 +86,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section className="relative overflow-hidden bg-[#172554] text-white py-12 md:py-16 border-b border-blue-900 min-h-[60vh] md:min-h-[85vh] flex flex-col justify-center">
-      {/* Background Image Carousel */}
-      {backgrounds.map((bg, index) => (
-        <div
-          key={`${bg}-${index}`}
-          className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
-            index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
-          }`}
-          style={{ backgroundImage: `url("${bg}"), url("/hero-1.jpg")` }}
-        />
-      ))}
+      {/* Background Image/Video Carousel */}
+      {backgrounds.map((bg, index) => {
+        const isVideo = bg.match(/\.(mp4|webm|ogg)$/i);
+        
+        return (
+          <div
+            key={`${bg}-${index}`}
+            className={`absolute inset-0 z-0 transition-all duration-1000 ease-in-out ${
+              index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
+            }`}
+          >
+            {isVideo ? (
+              <video
+                src={bg}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div
+                className="w-full h-full bg-cover bg-center"
+                style={{ backgroundImage: `url("${bg}"), url("/hero-1.jpg")` }}
+              />
+            )}
+          </div>
+        );
+      })}
       {/* Stronger overlay on mobile for text readability */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#172554]/70 via-[#172554]/30 to-[#172554]/85 pointer-events-none md:from-[#172554]/20 md:via-transparent md:to-[#172554]/90" />
 

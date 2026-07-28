@@ -102,7 +102,7 @@ export const SewaGedungAdmin: React.FC = () => {
           <label className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm cursor-pointer transition-colors shadow-md flex items-center gap-2">
             <Upload className="w-4 h-4" />
             <span>{uploading ? 'Mengunggah...' : 'Unggah File (Foto / PDF)'}</span>
-            <input type="file" className="hidden" accept="image/*,.pdf" onChange={handleUpload} disabled={uploading} />
+            <input type="file" className="hidden" accept="image/*,video/mp4,video/webm,video/ogg,.pdf" onChange={handleUpload} disabled={uploading} />
           </label>
         </div>
 
@@ -138,17 +138,24 @@ export const SewaGedungAdmin: React.FC = () => {
               </h4>
               {images.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {images.map(img => (
-                    <div key={img.name} className="relative group rounded-xl overflow-hidden border border-blue-800 bg-blue-950 aspect-[4/3]">
-                      <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
-                        <span className="text-[10px] text-white truncate drop-shadow-md">{img.name}</span>
-                        <button onClick={() => handleDelete(img.name)} className="self-end bg-rose-500 text-white p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                  {images.map(img => {
+                    const isVideo = img.name.match(/\.(mp4|webm|ogg)$/i) || img.url.match(/\.(mp4|webm|ogg)$/i);
+                    return (
+                      <div key={img.name} className="relative group rounded-xl overflow-hidden border border-blue-800 bg-blue-950 aspect-[4/3]">
+                        {isVideo ? (
+                          <video src={img.url} className="w-full h-full object-cover" controls muted />
+                        ) : (
+                          <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
+                        )}
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2 pointer-events-none">
+                          <span className="text-[10px] text-white truncate drop-shadow-md">{img.name}</span>
+                          <button onClick={() => handleDelete(img.name)} className="self-end bg-rose-500 text-white p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md pointer-events-auto">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="text-sm text-blue-400 italic">Belum ada foto yang diunggah. (Akan menggunakan foto default saat ini).</div>
