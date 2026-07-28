@@ -566,6 +566,25 @@ export function useMasjidStore() {
     setState(prev => ({ ...prev, erpJournals: [...prev.erpJournals, journal] }));
   };
 
+  const deleteErpJournal = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      erpJournals: prev.erpJournals.filter(j => j.id !== id),
+      erpJournalEntries: prev.erpJournalEntries.filter(e => e.journalId !== id)
+    }));
+  };
+
+  const updateErpJournal = (id: string, updatedJournal: ERPGeneralJournal, updatedEntries: ERPJournalEntry[]) => {
+    setState(prev => {
+      const filteredEntries = prev.erpJournalEntries.filter(e => e.journalId !== id);
+      return {
+        ...prev,
+        erpJournals: prev.erpJournals.map(j => j.id === id ? updatedJournal : j),
+        erpJournalEntries: [...filteredEntries, ...updatedEntries]
+      };
+    });
+  };
+
   const setErpJournalEntries = (entries: ERPJournalEntry[]) => {
     setState(prev => ({ ...prev, erpJournalEntries: entries }));
   };
@@ -752,6 +771,8 @@ export function useMasjidStore() {
     addErpCoa,
     setErpJournals,
     addErpJournal,
+    deleteErpJournal,
+    updateErpJournal,
     setErpJournalEntries,
     addErpJournalEntry,
     setErpSignatures,
