@@ -707,7 +707,37 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
         </div>
 
         {/* Dashboard Navigation Tabs */}
-        <div className="flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print-hidden">
+        {/* Mobile: Dropdown Select */}
+        <div className="sm:hidden bg-blue-950 p-3 rounded-2xl border border-blue-800 print-hidden">
+          <label className="text-[10px] font-mono text-blue-400 block mb-1.5 uppercase tracking-wider">Pilih Menu Dashboard:</label>
+          <select
+            value={dkmTab}
+            onChange={e => setDkmTab(e.target.value as any)}
+            className="w-full bg-blue-900 border border-blue-700 text-white text-sm font-bold rounded-xl px-3 py-2.5 outline-none cursor-pointer"
+          >
+            {[
+              { id: 'akuntansi', label: 'Akuntansi (PSAK 409)' },
+              { id: 'keuangan', label: 'Kas Sederhana (Lama)' },
+              { id: 'galeri', label: 'Galeri & Artikel Kajian' },
+              { id: 'qurban', label: 'Patungan Qurban' },
+              { id: 'sewa', label: 'Sewa & Booking' },
+              { id: 'aplikasi', label: 'Pengaturan Aplikasi' },
+              { id: 'pengaturan', label: 'Pengaturan Admin & Foto' },
+              { id: 'inventaris', label: 'Inventaris & Foto Aset' },
+              { id: 'program', label: 'Program & Campaign' },
+              { id: 'pengumuman', label: 'Pengumuman & Berita' },
+              { id: 'petugas', label: 'Jadwal Petugas & Jumat' },
+              { id: 'broadcast', label: 'Broadcast WhatsApp' },
+              { id: 'verifikasi', label: 'Verifikasi ZISWAF' },
+              { id: 'jamaah_manage', label: 'Manajemen Akun & Role' },
+              { id: 'audit_log', label: 'Audit Log System' }
+            ].map(tab => (
+              <option key={tab.id} value={tab.id}>{tab.label}</option>
+            ))}
+          </select>
+        </div>
+        {/* Desktop: Horizontal Tabs */}
+        <div className="hidden sm:flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print-hidden">
           {[
             { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
             { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },

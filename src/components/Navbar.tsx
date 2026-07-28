@@ -18,6 +18,7 @@ import {
   User,
   Database,
   Menu,
+  X,
   ExternalLink
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
@@ -338,8 +339,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu (Menu Susun Tiga) */}
       {mobileMenuOpen && (
-        <div className="border-t border-[#172554] px-4 pt-4 pb-8 space-y-5 animate-fadeIn shadow-2xl max-h-[85vh] overflow-y-auto bg-[#1e3a8a] text-white">
+        <div className="border-t border-[#172554] px-4 pt-2 pb-24 space-y-5 animate-fadeIn shadow-2xl max-h-[90vh] overflow-y-auto bg-[#1e3a8a] text-white relative">
           
+          {/* Close Button - Prominent X button */}
+          <div className="sticky top-0 bg-[#1e3a8a] pt-2 pb-2 z-10 flex items-center justify-between border-b border-blue-800/60">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Menu Navigasi</span>
+            </span>
+            <button
+              onClick={() => setMobileMenuOpen && setMobileMenuOpen(false)}
+              className="flex items-center gap-1.5 bg-red-500/20 hover:bg-red-500 border border-red-500/40 text-red-300 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+              title="Tutup Menu"
+            >
+              <X className="w-4 h-4" />
+              <span>Tutup Menu</span>
+            </button>
+          </div>
+
           {/* Section 1: Halaman Utama Navigasi */}
           <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-blue-800/60 pb-1.5">
