@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Program,
   DonationRecord,
   FinancialTransaction,
@@ -312,7 +312,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-1',
     title: 'Doa Memohon Kelapangan Rezeki & Keberkahan',
     category: 'Rezeki',
-    arabic: '+º+ä+ä+Ä+æ+ç+Å+à+Ä+æ +Ñ+É+å+É+æ+è +ú+Ä+¦+Æ+ú+Ä+ä+Å+â+Ä +¦+É+ä+Æ+à+ï+º +å+Ä+º+ü+É+¦+ï+º +ê+Ä+¦+É+¦+Æ+é+ï+º +++Ä+è+É+æ+¿+ï+º +ê+Ä+¦+Ä+à+Ä+ä+ï+º +à+Å+¬+Ä+é+Ä+¿+Ä+æ+ä+ï+º',
+    arabic: '+Âº+Ã¤+Ã¤+Ã„+Ã¦+Ã§+Ã…+Ã +Ã„+Ã¦ +Ã‘+Ã‰+Ã¥+Ã‰+Ã¦+Ã¨ +Ãº+Ã„+Â¦+Ã†+Ãº+Ã„+Ã¤+Ã…+Ã¢+Ã„ +Â¦+Ã‰+Ã¤+Ã†+Ã +Ã¯+Âº +Ã¥+Ã„+Âº+Ã¼+Ã‰+Â¦+Ã¯+Âº +Ãª+Ã„+Â¦+Ã‰+Â¦+Ã†+Ã©+Ã¯+Âº +++Ã„+Ã¨+Ã‰+Ã¦+Â¿+Ã¯+Âº +Ãª+Ã„+Â¦+Ã„+Ã +Ã„+Ã¤+Ã¯+Âº +Ã +Ã…+Â¬+Ã„+Ã©+Ã„+Â¿+Ã„+Ã¦+Ã¤+Ã¯+Âº',
     latin: 'Allahumma inni as-aluka \'ilman nafi\'an wa rizqan thayyiban wa \'amalan mutaqabbalan',
     translation: 'Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang baik, dan amal yang diterima. (HR. Ibn Majah)',
     source: 'HR. Ibn Majah no. 925'
@@ -321,7 +321,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-2',
     title: 'Doa Setelah Bersedekah / Menunaikan Zakat',
     category: 'Rezeki',
-    arabic: '+¦+Ä+¿+Ä+æ+å+Ä+º +¬+Ä+é+Ä+¿+Ä+æ+ä+Æ +à+É+å+Ä+æ+º +Ñ+É+å+Ä+æ+â+Ä +ú+Ä+å+Æ+¬+Ä +º+ä+¦+Ä+æ+à+É+è+¦+Å +º+ä+Æ+¦+Ä+ä+É+è+à+Å',
+    arabic: '+Â¦+Ã„+Â¿+Ã„+Ã¦+Ã¥+Ã„+Âº +Â¬+Ã„+Ã©+Ã„+Â¿+Ã„+Ã¦+Ã¤+Ã† +Ã +Ã‰+Ã¥+Ã„+Ã¦+Âº +Ã‘+Ã‰+Ã¥+Ã„+Ã¦+Ã¢+Ã„ +Ãº+Ã„+Ã¥+Ã†+Â¬+Ã„ +Âº+Ã¤+Â¦+Ã„+Ã¦+Ã +Ã‰+Ã¨+Â¦+Ã… +Âº+Ã¤+Ã†+Â¦+Ã„+Ã¤+Ã‰+Ã¨+Ã +Ã…',
     latin: 'Rabbana taqabbal minna innaka antas-sami\'ul-\'alim',
     translation: 'Ya Tuhan kami, terimalah amalan dari kami, sesungguhnya Engkaulah Yang Maha Mendengar lagi Maha Mengetahui. (QS. Al-Baqarah: 127)',
     source: 'QS. Al-Baqarah: 127'
@@ -330,7 +330,7 @@ export const INITIAL_DOA: DoaItem[] = [
     id: 'doa-3',
     title: 'Doa Memohon Perlindungan dari Kesusahan & Utang',
     category: 'Perlindungan',
-    arabic: '+º+ä+ä+Ä+æ+ç+Å+à+Ä+æ +Ñ+É+å+É+æ+è +ú+Ä+¦+Å+ê+¦+Å +¿+É+â+Ä +à+É+å+Ä +º+ä+Æ+ç+Ä+à+É+æ +ê+Ä+º+ä+Æ+¡+Ä+¦+Ä+å+É +ê+Ä+º+ä+Æ+¦+Ä+¼+Æ+¦+É +ê+Ä+º+ä+Æ+â+Ä+¦+Ä+ä+É +ê+Ä+º+ä+Æ+¿+Å+«+Æ+ä+É +ê+Ä+º+ä+Æ+¼+Å+¿+Æ+å+É +ê+Ä+¦+Ä+ä+Ä+¦+É +º+ä+»+Ä+æ+è+Æ+å+É +ê+Ä+¦+Ä+ä+Ä+¿+Ä+¬+É +º+ä+¦+É+æ+¼+Ä+º+ä+É',
+    arabic: '+Âº+Ã¤+Ã¤+Ã„+Ã¦+Ã§+Ã…+Ã +Ã„+Ã¦ +Ã‘+Ã‰+Ã¥+Ã‰+Ã¦+Ã¨ +Ãº+Ã„+Â¦+Ã…+Ãª+Â¦+Ã… +Â¿+Ã‰+Ã¢+Ã„ +Ã +Ã‰+Ã¥+Ã„ +Âº+Ã¤+Ã†+Ã§+Ã„+Ã +Ã‰+Ã¦ +Ãª+Ã„+Âº+Ã¤+Ã†+Â¡+Ã„+Â¦+Ã„+Ã¥+Ã‰ +Ãª+Ã„+Âº+Ã¤+Ã†+Â¦+Ã„+Â¼+Ã†+Â¦+Ã‰ +Ãª+Ã„+Âº+Ã¤+Ã†+Ã¢+Ã„+Â¦+Ã„+Ã¤+Ã‰ +Ãª+Ã„+Âº+Ã¤+Ã†+Â¿+Ã…+Â«+Ã†+Ã¤+Ã‰ +Ãª+Ã„+Âº+Ã¤+Ã†+Â¼+Ã…+Â¿+Ã†+Ã¥+Ã‰ +Ãª+Ã„+Â¦+Ã„+Ã¤+Ã„+Â¦+Ã‰ +Âº+Ã¤+Â»+Ã„+Ã¦+Ã¨+Ã†+Ã¥+Ã‰ +Ãª+Ã„+Â¦+Ã„+Ã¤+Ã„+Â¿+Ã„+Â¬+Ã‰ +Âº+Ã¤+Â¦+Ã‰+Ã¦+Â¼+Ã„+Âº+Ã¤+Ã‰',
     latin: 'Allahumma inni a\'udzu bika minal-hammi wal-hazani wal-\'agzi wal-kasali wal-bukhli wal-jubni wa dhala\'id-daini wa ghalabatir-rijal',
     translation: 'Ya Allah, aku berlindung kepada-Mu dari rasa sedih dan gelisah, kecemasan, kelemahan dan kemalasan, sifat kikir dan penakut, beban utang dan tekanan orang lain. (HR. Bukhari)',
     source: 'HR. Bukhari no. 2893'
@@ -338,8 +338,8 @@ export const INITIAL_DOA: DoaItem[] = [
   {
     id: 'doa-4',
     title: 'Doa Masuk Masjid',
-    category: 'Salat',
-    arabic: '+º+ä+ä+Ä+æ+ç+Å+à+Ä+æ +º+ü+Æ+¬+Ä+¡+Æ +ä+É+è +ú+Ä+¿+Æ+ê+Ä+º+¿+Ä +¦+Ä+¡+Æ+à+Ä+¬+É+â+Ä',
+    category: 'Shalat',
+    arabic: '+Âº+Ã¤+Ã¤+Ã„+Ã¦+Ã§+Ã…+Ã +Ã„+Ã¦ +Âº+Ã¼+Ã†+Â¬+Ã„+Â¡+Ã† +Ã¤+Ã‰+Ã¨ +Ãº+Ã„+Â¿+Ã†+Ãª+Ã„+Âº+Â¿+Ã„ +Â¦+Ã„+Â¡+Ã†+Ã +Ã„+Â¬+Ã‰+Ã¢+Ã„',
     latin: 'Allahummaf-tah lii abwaaba rahmatika',
     translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
     source: 'HR. Muslim'
@@ -350,7 +350,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-1',
     title: 'Sedekah Tidak Mengurangi Harta',
-    arabic: '+à+Ä+º +å+Ä+é+Ä+¦+Ä+¬+Æ +¦+Ä+»+Ä+é+Ä+¬+î +à+É+å+Æ +à+Ä+º+ä+ì',
+    arabic: '+Ã +Ã„+Âº +Ã¥+Ã„+Ã©+Ã„+Â¦+Ã„+Â¬+Ã† +Â¦+Ã„+Â»+Ã„+Ã©+Ã„+Â¬+Ã® +Ã +Ã‰+Ã¥+Ã† +Ã +Ã„+Âº+Ã¤+Ã¬',
     translation: 'Sedekah itu tidak akan mengurangi harta sedikit pun, melainkan Allah akan menambah kemuliaan bagi orang yang bersedekah.',
     narrator: 'Abu Hurairah radhiyallahu \'anhu',
     source: 'HR. Muslim no. 2588'
@@ -358,7 +358,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-2',
     title: 'Amal Jariah Yang Terus Mengalir',
-    arabic: '+Ñ+É+¦+Ä+º +à+Ä+º+¬+Ä +º+ä+Æ+Ñ+É+å+Æ+¦+Ä+º+å+Å +º+å+Æ+é+Ä+++Ä+¦+Ä +¦+Ä+å+Æ+ç+Å +¦+Ä+à+Ä+ä+Å+ç+Å +Ñ+É+ä+Ä+æ+º +à+É+å+Æ +½+Ä+ä+Ä+º+½+ì: +¦+Ä+»+Ä+é+Ä+¬+ì +¼+Ä+º+¦+É+è+Ä+¬+ì+î +ú+Ä+ê+Æ +¦+É+ä+Æ+à+ì +è+Å+å+Æ+¬+Ä+ü+Ä+¦+Å +¿+É+ç+É+î +ú+Ä+ê+Æ +ê+Ä+ä+Ä+»+ì +¦+Ä+º+ä+É+¡+ì +è+Ä+»+Æ+¦+Å+ê +ä+Ä+ç+Å',
+    arabic: '+Ã‘+Ã‰+Â¦+Ã„+Âº +Ã +Ã„+Âº+Â¬+Ã„ +Âº+Ã¤+Ã†+Ã‘+Ã‰+Ã¥+Ã†+Â¦+Ã„+Âº+Ã¥+Ã… +Âº+Ã¥+Ã†+Ã©+Ã„+++Ã„+Â¦+Ã„ +Â¦+Ã„+Ã¥+Ã†+Ã§+Ã… +Â¦+Ã„+Ã +Ã„+Ã¤+Ã…+Ã§+Ã… +Ã‘+Ã‰+Ã¤+Ã„+Ã¦+Âº +Ã +Ã‰+Ã¥+Ã† +Â½+Ã„+Ã¤+Ã„+Âº+Â½+Ã¬: +Â¦+Ã„+Â»+Ã„+Ã©+Ã„+Â¬+Ã¬ +Â¼+Ã„+Âº+Â¦+Ã‰+Ã¨+Ã„+Â¬+Ã¬+Ã® +Ãº+Ã„+Ãª+Ã† +Â¦+Ã‰+Ã¤+Ã†+Ã +Ã¬ +Ã¨+Ã…+Ã¥+Ã†+Â¬+Ã„+Ã¼+Ã„+Â¦+Ã… +Â¿+Ã‰+Ã§+Ã‰+Ã® +Ãº+Ã„+Ãª+Ã† +Ãª+Ã„+Ã¤+Ã„+Â»+Ã¬ +Â¦+Ã„+Âº+Ã¤+Ã‰+Â¡+Ã¬ +Ã¨+Ã„+Â»+Ã†+Â¦+Ã…+Ãª +Ã¤+Ã„+Ã§+Ã…',
     translation: 'Apabila manusia meninggal dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah (wakaf), ilmu yang bermanfaat, atau anak saleh yang mendoakannya.',
     narrator: 'Abu Hurairah radhiyallahu \'anhu',
     source: 'HR. Muslim no. 1631'
@@ -366,7 +366,7 @@ export const INITIAL_HADIS: HadisItem[] = [
   {
     id: 'hds-3',
     title: 'Pahala Membangun Masjid',
-    arabic: '+à+Ä+å+Æ +¿+Ä+å+Ä+ë +à+Ä+¦+Æ+¼+É+»+ï+º +ä+É+ä+Ä+æ+ç+É +¿+Ä+å+Ä+ë +º+ä+ä+Ä+æ+ç+Å +ä+Ä+ç+Å +à+É+½+Æ+ä+Ä+ç+Å +ü+É+è +º+ä+Æ+¼+Ä+å+Ä+æ+¬+É',
+    arabic: '+Ã +Ã„+Ã¥+Ã† +Â¿+Ã„+Ã¥+Ã„+Ã« +Ã +Ã„+Â¦+Ã†+Â¼+Ã‰+Â»+Ã¯+Âº +Ã¤+Ã‰+Ã¤+Ã„+Ã¦+Ã§+Ã‰ +Â¿+Ã„+Ã¥+Ã„+Ã« +Âº+Ã¤+Ã¤+Ã„+Ã¦+Ã§+Ã… +Ã¤+Ã„+Ã§+Ã… +Ã +Ã‰+Â½+Ã†+Ã¤+Ã„+Ã§+Ã… +Ã¼+Ã‰+Ã¨ +Âº+Ã¤+Ã†+Â¼+Ã„+Ã¥+Ã„+Ã¦+Â¬+Ã‰',
     translation: 'Barangsiapa membangun masjid karena Allah, maka Allah akan membangunkan baginya rumah yang serupa di dalam surga.',
     narrator: 'Utsman bin Affan radhiyallahu \'anhu',
     source: 'HR. Bukhari & Muslim'
@@ -577,7 +577,7 @@ export const INITIAL_GALLERY: GalleryItem[] = [
     ustadzName: 'Dr. KH. M. Hidayatullah, M.A.',
     location: 'Ruang Utama Masjid Az-Zikra Sentul',
     summary: 'Dokumentasi video dan artikel lengkap Tabligh Akbar yang dihadiri lebih dari 3.000 jamaah di Masjid Az-Zikra Sentul City.',
-    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern GÇö tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Az-Zikra. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
+    articleContent: `Alhamdulillah, pelaksanaan Tabligh Akbar Sentul City dengan tema "Membangun Peradaban Berbasis Al-Qur'an" berjalan dengan sangat khidmat, lancar, dan penuh keberkahan.\n\nDalam tausiyah utamanya, Dr. KH. M. Hidayatullah menegaskan pentingnya menjadikan nilai-nilai Al-Qur'an sebagai pondasi utama kehidupan modern GÃ‡Ã¶ tidak hanya dalam dimensi ibadah ritual, namun juga dalam etika bermuamalah, pendidikan generasi muda, serta penguatan kemandirian ekonomi umat melalui optimalisasi ZISWAF.\n\nAcara dimulai sejak pukul 08.00 WIB diawali pembacaan ayat suci Al-Qur'an oleh Qari Internasional, dilanjutkan sambutan hangat Ketua DKM Masjid Az-Zikra. Ribuan jamaah dari Bogor, Jakarta, dan sekitarnya memadati area dalam dan plaza outdoor masjid.\n\nSimak video dokumentasi lengkap serta foto kegiatan di atas untuk meraih ilmu serta keberkahan bersama.`,
     likesCount: 342,
     viewsCount: 2150,
     tags: ['TablighAkbar', 'KajianSentul', 'PeradabanIslam'],

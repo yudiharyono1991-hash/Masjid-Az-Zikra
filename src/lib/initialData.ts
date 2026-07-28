@@ -317,8 +317,8 @@ export const INITIAL_DOA: DoaItem[] = [
   {
     id: 'doa-4',
     title: 'Doa Masuk Masjid',
-    category: 'Salat',
-    arabic: '╪º┘ä┘ä┘Ä┘æ┘ç┘Å┘à┘Ä┘æ ╪º┘ü┘Æ╪¬┘Ä╪¡┘Æ ┘ä┘É┘è ╪ú┘Ä╪¿┘Æ┘ê┘Ä╪º╪¿┘Ä ╪▒┘Ä╪¡┘Æ┘à┘Ä╪¬┘É┘â┘Ä',
+    category: 'Shalat',
+    arabic: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
     latin: 'Allahummaf-tah lii abwaaba rahmatika',
     translation: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
     source: 'HR. Muslim'
