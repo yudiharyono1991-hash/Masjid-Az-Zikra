@@ -9,6 +9,7 @@ interface ProfilData {
 }
 
 export const SejarahTazkiaSection: React.FC = () => {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [profilData, setProfilData] = useState<ProfilData>({
     youtubeUrl: 'https://youtu.be/-oT4ZYK2ZjI?si=-pEBAAicepgcMVPj',
     sejarah: `Andalusia Islamic Center hadir karena kepedulian akan masalah besar bangsa dan ummat Islam Indonesia yang didominasi oleh kemiskinan, keterbelakangan Pendidikan serta rendahnya moralitas baik di tingkat birokrasi maupun swasta. Besar harapan kami dengan segala kekurangan, Andalusia Islamic Center dapat menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial ummat yang berlandaskan nilai-nilai luhur spiritual Islam.\n\nSejak pendiriannya tahun 2006 oleh Prof. Dr. Syafii Antonio, M.Ec. Andalusia Islamic Center telah berkiprah dalam bidang sosial, dakwah dan pemberdayaan ekonomi yang meliputi:\n\n1. Sarana Ibadah\n2. Kajian Ke-Islaman harian, mingguan, dan bulanan\n3. Program Tahfidz untuk berbagai umur\n4. Pemberdayaan ekonomi mikro\n5. Santunan Yatim dan dhuafa\n6. Pembinaan muallaf\n7. Peringatan hari besar Islam`,
@@ -186,6 +187,67 @@ export const SejarahTazkiaSection: React.FC = () => {
             </div>
           </div>
         </div>
+        
+        {/* LOKASI DAN FAQ SECTION */}
+        <div className="mt-24 pt-12 border-t border-slate-200">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto text-left">
+            
+            {/* Left: Lokasi Kami */}
+            <div>
+              <h2 className="text-2xl font-bold font-serif text-blue-900 mb-6">Lokasi Kami</h2>
+              <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-100 h-[400px] w-full overflow-hidden relative group">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.298950284065!2d106.86608931477051!3d-6.551817995277873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c1187d9039bd%3A0xc64ef72d4ecf7f18!2sMasjid%20Tazkia%20Islamic%20Center!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0, borderRadius: '0.75rem' }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Lokasi Masjid Tazkia"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Right: Pertanyaan yang sering diajukan */}
+            <div>
+              <h2 className="text-2xl font-bold font-serif text-blue-900 mb-6">Pertanyaan yang sering diajukan</h2>
+              <div className="space-y-3">
+                {[
+                  { q: "Dimana lokasi Masjid Tazkia?", a: "Masjid Tazkia berlokasi di Jl. Ir. H. Djuanda No. 78, Sentul City, Citaringgul, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810. Berlokasi di komplek Tazkia bersama dengan Kampus Universitas Tazkia, sangat strategis dan mudah diakses dari pintu tol Sentul Selatan dan pintu tol Bogor." },
+                  { q: "Apa saja fasilitasnya?", a: "Masjid Tazkia dilengkapi dengan ruang shalat utama yang luas dan ber-AC, Alhambra Ballroom untuk berbagai acara, ruang kelas/kajian, perpustakaan, area parkir yang memadai, serta fasilitas wudhu dan toilet yang representatif." },
+                  { q: "Apakah Ramah Disabilitas?", a: "Ya, Masjid Tazkia menyediakan akses khusus berupa ramp (bidang miring) untuk pengguna kursi roda, serta fasilitas untuk memberikan kenyamanan bagi jamaah lansia dan disabilitas." },
+                  { q: "Apa saja kegiatan rutin yang diselenggarakan?", a: "Kami menyelenggarakan kajian rutin Ba'da Subuh dan Maghrib, kelas Tahsin Al-Qur'an, TPA untuk anak-anak, program bahasa Arab, serta program semarak Ramadhan setiap tahunnya." },
+                  { q: "Bagaimana cara menyalurkan donasi?", a: "Donasi, Zakat, Infaq, dan Sedekah (ZISWAF) dapat disalurkan melalui menu ZISWAF di website ini, transfer ke rekening resmi Yayasan Tazkia, atau melalui QRIS yang tersedia di area masjid." }
+                ].map((faq, idx) => (
+                  <div key={idx} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:border-blue-300 transition-colors">
+                    <button 
+                      onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                      className="w-full text-left px-5 py-4 flex justify-between items-center focus:outline-none"
+                    >
+                      <span className="font-semibold text-blue-900 text-sm sm:text-base">{faq.q}</span>
+                      <svg 
+                        className={`w-5 h-5 text-blue-500 transition-transform duration-300 flex-shrink-0 ml-4 ${openFaq === idx ? 'rotate-180' : ''}`} 
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div 
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === idx ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                    >
+                      <div className="p-5 pt-0 text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 bg-slate-50/50 text-justify">
+                        {faq.a}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
   );

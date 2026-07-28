@@ -7,6 +7,8 @@ import { exportCoaToExcel, importCoaFromExcel } from '../../lib/excelUtils';
 export function ChartOfAccounts() {
   const { state, addErpCoa, setErpCoa } = useMasjidStore();
   const [isAdding, setIsAdding] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState('All');
   
   const [formData, setFormData] = useState<Partial<ERPChartOfAccount>>({
     accountCode: '',
@@ -52,26 +54,58 @@ export function ChartOfAccounts() {
         alert('Alhamdulillah, data CoA berhasil diimpor!');
       } catch (err) {
         console.error('Failed to import', err);
-        alert('Gagal mengimpor file Excel.');
+        alert('Gagal mengimpor file Excel. Pastikan format sesuai.');
       }
     }
   };
 
+  const filteredCoa = state.erpCoa.filter(acc => {
+    const matchesSearch = acc.accountName.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          acc.accountCode.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesType = filterType === 'All' || acc.accountType === filterType;
+    return matchesSearch && matchesType;
+  });
+
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm gap-4">
         <h3 className="font-bold text-lg text-blue-900">Bagan Akun (Chart of Accounts)</h3>
-        <div className="flex gap-2">
-          <button onClick={handleExport} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
-            <Download className="w-4 h-4" /> Ekspor
-          </button>
-          <label className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
-            <Upload className="w-4 h-4" /> Impor
-            <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleImport} />
-          </label>
-          <button onClick={() => setIsAdding(true)} className="px-3 py-2 bg-tazkia-primary text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-tazkia-light">
-            <Plus className="w-4 h-4" /> Tambah Akun
-          </button>
+        
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          {/* Filters */}
+          <input 
+            type="text" 
+            placeholder="Cari nama/kode..." 
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px]"
+          />
+          <select 
+            value={filterType}
+            onChange={e => setFilterType(e.target.value)}
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none"
+          >
+            <option value="All">Semua Klasifikasi</option>
+            <option value="Asset">Asset</option>
+            <option value="Liability">Liability</option>
+            <option value="Equity">Equity</option>
+            <option value="Revenue">Revenue</option>
+            <option value="Expense">Expense</option>
+          </select>
+
+          <div className="h-6 w-px bg-gray-200 hidden md:block mx-1"></div>
+          <div className="flex gap-2">
+            <button onClick={handleExport} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
+              <Download className="w-4 h-4" /> Ekspor
+            </button>
+            <label className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
+              <Upload className="w-4 h-4" /> Impor
+              <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleImport} />
+            </label>
+            <button onClick={() => setIsAdding(true)} className="px-3 py-2 bg-tazkia-primary text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-tazkia-light">
+              <Plus className="w-4 h-4" /> Tambah Akun
+            </button>
+          </div>
         </div>
       </div>
 
@@ -147,7 +181,7 @@ export function ChartOfAccounts() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {state.erpCoa.map(acc => (
+            {filteredCoa.map(acc => (
               <tr key={acc.id} className="hover:bg-gray-50">
                 <td className="p-4 font-mono text-blue-600">{acc.accountCode}</td>
                 <td className="p-4 font-medium text-gray-800">{acc.accountName}</td>
@@ -160,9 +194,11 @@ export function ChartOfAccounts() {
                 </td>
               </tr>
             ))}
-            {state.erpCoa.length === 0 && (
+            {filteredCoa.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-400">Belum ada data Chart of Accounts.</td>
+                <td colSpan={5} className="p-8 text-center text-gray-400">
+                  {state.erpCoa.length === 0 ? 'Belum ada data Chart of Accounts.' : 'Tidak ada akun yang sesuai dengan pencarian/filter.'}
+                </td>
               </tr>
             )}
           </tbody>

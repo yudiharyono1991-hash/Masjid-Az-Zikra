@@ -70,15 +70,20 @@ export const SocialMediaSection: React.FC = () => {
                   title={YT_FEATURED[activeVideoIdx].label}
                 />
               ) : (
-                /* Full channel playlist — auto shows ALL latest videos */
-                <iframe
-                  src={`https://www.youtube.com/embed/videoseries?list=${YT_UPLOADS_PLAYLIST}&controls=1&rel=0&modestbranding=1`}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  title="Semua Video Terbaru Masjid Tazkia"
-                  loading="lazy"
-                />
+                /* Full channel playlist fallback (since YouTube blocks some UU playlist embeds) */
+                <div className="w-full h-full flex flex-col items-center justify-center bg-blue-950/50 p-6 text-center border border-white/5">
+                  <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
+                    <Youtube className="w-8 h-8 text-red-500" />
+                  </div>
+                  <h3 className="text-white font-bold text-lg mb-2">Lihat Semua Video Dakwah</h3>
+                  <p className="text-blue-300 text-sm mb-6 max-w-xs">
+                    Kunjungi channel YouTube resmi Masjid Tazkia untuk melihat ratusan video kajian dan liputan kegiatan lainnya.
+                  </p>
+                  <a href={YT_CHANNEL_URL} target="_blank" rel="noopener noreferrer"
+                    className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white text-sm font-bold rounded-full shadow-lg transition-colors flex items-center gap-2">
+                    Buka YouTube Masjid Tazkia <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
               )}
             </div>
 

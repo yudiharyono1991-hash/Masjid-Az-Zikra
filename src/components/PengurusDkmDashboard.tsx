@@ -1839,7 +1839,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 {/* Section Khutbah Jumat */}
                 <div className="bg-blue-950 p-4 rounded-xl border border-blue-800 space-y-3">
                   <span className="text-xs font-bold text-amber-400 uppercase font-mono block border-b border-blue-800 pb-2">
-                    ðŸ“‹ Parameter Petugas & Khutbah Jumat
+                    📋 Parameter Petugas & Khutbah Jumat
                   </span>
 
                   <div>
@@ -1915,7 +1915,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 {/* Section Fitur & Kontak Masjid */}
                 <div className="bg-blue-950 p-4 rounded-xl border border-blue-800 space-y-3">
                   <span className="text-xs font-bold text-blue-400 uppercase font-mono block border-b border-blue-800 pb-2">
-                    ðŸ•Œ Info Fitur Aplikasi & Kontak DKM
+                    📌 Info Fitur Aplikasi & Kontak DKM
                   </span>
 
                   <div>
