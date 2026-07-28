@@ -14,8 +14,8 @@ export const SejarahTazkiaSection: React.FC = () => {
   const store = useMasjidStore();
   
   // Group board members by roleType
-  const pembina = store.state.boardMembers?.filter(m => m.roleType === 'pembina').sort((a,b) => a.orderIdx - b.orderIdx) || [];
-  const pengurus = store.state.boardMembers?.filter(m => m.roleType === 'pengurus').sort((a,b) => a.orderIdx - b.orderIdx) || [];
+  const pembina = (store.state.boardMembers || []).filter(m => m.roleType === 'pembina').sort((a,b) => a.orderIdx - b.orderIdx);
+  const pengurus = (store.state.boardMembers || []).filter(m => m.roleType === 'pengurus').sort((a,b) => a.orderIdx - b.orderIdx);
   const [profilData, setProfilData] = useState<ProfilData>({
     youtubeUrl: 'https://youtu.be/-oT4ZYK2ZjI?si=-pEBAAicepgcMVPj',
     sejarah: `Andalusia Islamic Center hadir karena kepedulian akan masalah besar bangsa dan ummat Islam Indonesia yang didominasi oleh kemiskinan, keterbelakangan Pendidikan serta rendahnya moralitas baik di tingkat birokrasi maupun swasta. Besar harapan kami dengan segala kekurangan, Andalusia Islamic Center dapat menjadi Oase Spiritual, Intelektual dan Pemberdayaan finansial ummat yang berlandaskan nilai-nilai luhur spiritual Islam.\n\nSejak pendiriannya tahun 2006 oleh Prof. Dr. Syafii Antonio, M.Ec. Andalusia Islamic Center telah berkiprah dalam bidang sosial, dakwah dan pemberdayaan ekonomi yang meliputi:\n\n1. Sarana Ibadah\n2. Kajian Ke-Islaman harian, mingguan, dan bulanan\n3. Program Tahfidz untuk berbagai umur\n4. Pemberdayaan ekonomi mikro\n5. Santunan Yatim dan dhuafa\n6. Pembinaan muallaf\n7. Peringatan hari besar Islam`,

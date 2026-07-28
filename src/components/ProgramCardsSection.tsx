@@ -93,17 +93,23 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
           label: 'Total Perolehan (Rp)',
           data: data,
           backgroundColor: [
-            'rgba(59, 130, 246, 0.8)', // blue-500
-            'rgba(16, 185, 129, 0.8)', // emerald-500
-            'rgba(245, 158, 11, 0.8)', // amber-500
+            'rgba(59, 130, 246, 0.85)', // blue-500
+            'rgba(16, 185, 129, 0.85)', // emerald-500
+            'rgba(245, 158, 11, 0.85)', // amber-500
           ],
           borderColor: [
             'rgb(37, 99, 235)',
             'rgb(5, 150, 105)',
             'rgb(217, 119, 6)',
           ],
-          borderWidth: 1,
-          borderRadius: 4,
+          borderWidth: 2,
+          borderRadius: 8,
+          barPercentage: 0.6,
+          hoverBackgroundColor: [
+            'rgba(37, 99, 235, 1)',
+            'rgba(5, 150, 105, 1)',
+            'rgba(217, 119, 6, 1)',
+          ]
         },
       ],
     };
@@ -120,14 +126,29 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
         display: false,
       },
       tooltip: {
+        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+        titleColor: isDark ? '#94a3b8' : '#64748b',
+        bodyColor: isDark ? '#f8fafc' : '#0f172a',
+        borderColor: isDark ? 'rgba(51, 65, 85, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+        borderWidth: 1,
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: false,
+        titleFont: {
+          family: "'Plus Jakarta Sans', sans-serif",
+          size: 13,
+          weight: 'normal' as const
+        },
+        bodyFont: {
+          family: "'Plus Jakarta Sans', sans-serif",
+          size: 15,
+          weight: 'bold' as const
+        },
         callbacks: {
           label: function(context: any) {
             let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
             if (context.parsed.y !== null) {
-              label += new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(context.parsed.y);
+              label = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(context.parsed.y);
             }
             return label;
           }
@@ -135,9 +156,31 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
       }
     },
     scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          color: isDark ? '#94a3b8' : '#64748b',
+          font: {
+            family: "'Plus Jakarta Sans', sans-serif",
+            weight: 'bold' as const
+          }
+        }
+      },
       y: {
         beginAtZero: true,
+        border: {
+          display: false
+        },
+        grid: {
+          color: isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(226, 232, 240, 0.6)',
+          drawTicks: false,
+        },
         ticks: {
+          color: isDark ? '#94a3b8' : '#64748b',
+          padding: 10,
           callback: function(value: any) {
             if (value >= 1000000) {
               return 'Rp ' + (value / 1000000) + ' Jt';
