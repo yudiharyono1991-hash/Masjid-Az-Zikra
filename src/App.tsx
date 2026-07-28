@@ -368,7 +368,9 @@ export default function App() {
         }}
         onLogout={() => {
           logout();
-          setActiveTab('beranda');
+          setActiveTabState('beranda');
+          window.location.hash = 'beranda';
+          setLoginModalOpen(false);
         }}
       />
 

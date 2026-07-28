@@ -308,10 +308,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {session && session.isLoggedIn ? (
               <button
                 onClick={() => {
-                  if (confirm('Apakah Anda yakin ingin keluar dari sistem?')) {
-                    logout();
-                    setActiveTab('beranda');
-                  }
+                  logout();
+                  setActiveTab('beranda');
+                  openLoginModal();
                 }}
                 className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-bold font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
                   isDark
