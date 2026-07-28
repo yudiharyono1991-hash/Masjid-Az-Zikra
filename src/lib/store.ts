@@ -156,6 +156,16 @@ export function getStoredState(): AppState {
 export function saveStoredState(state: AppState) {
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+    // Push ke Supabase di background
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      // Hilangkan data session agar tidak ter-sync ke user lain
+      const { session, ...syncState } = state;
+      supabase.from('app_sync_state').upsert({ id: 1, state_json: syncState, updated_at: new Date().toISOString() })
+        .then(({ error }) => {
+          if (error) console.error('Failed to sync state to Supabase', error);
+        });
+    }
   } catch (e) {
     console.error('Failed to save state to localStorage', e);
   }
@@ -165,9 +175,32 @@ export function saveStoredState(state: AppState) {
 export function useMasjidStore() {
   const [state, setState] = useState<AppState>(getStoredState);
 
+  // Sync state ke LocalStorage dan Supabase jika berubah (kecuali reload pertama kali)
   useEffect(() => {
     saveStoredState(state);
   }, [state]);
+
+  // Download global state dari Supabase saat aplikasi dibuka
+  useEffect(() => {
+    const fetchGlobalState = async () => {
+      const supabase = getSupabaseClient();
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase.from('app_sync_state').select('state_json').eq('id', 1).single();
+        if (data && data.state_json) {
+          setState(prev => ({
+            ...prev,
+            ...data.state_json,
+            // Jaga agar session (login admin) tidak tertimpa oleh data cloud
+            session: prev.session
+          }));
+        }
+      } catch (err) {
+        console.error('Error fetching global state from Supabase', err);
+      }
+    };
+    fetchGlobalState();
+  }, []);
 
   const fetchPrograms = useCallback(async () => {
     const supabase = getSupabaseClient();
