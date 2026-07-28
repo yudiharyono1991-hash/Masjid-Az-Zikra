@@ -55,9 +55,6 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
 
         {/* 3D Facade Style Tazkia Logo Text */}
         <div className="space-y-0.5 flex flex-col items-center">
-          <div className="inline-block px-2 py-0.5 bg-amber-500/30 border border-amber-400/50 rounded-full font-mono text-[9px] sm:text-[10px] font-bold text-amber-300 uppercase tracking-[0.2em] mb-1 shadow-sm">
-            MASJID OFFICIAL BRANDING
-          </div>
           <h1
             className="text-2xl sm:text-4xl font-serif font-black tracking-wider text-amber-300 cursor-default"
             style={{ textShadow: '0 2px 12px rgba(217,119,6,0.6), 0 0 30px rgba(217,119,6,0.3)' }}

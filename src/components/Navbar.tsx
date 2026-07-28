@@ -209,6 +209,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               Kalender Kegiatan
             </button>
 
+            <button
+              onClick={() => handleTabClick('booking')}
+              className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] ${
+                activeTab === 'booking'
+                  ? (isDark ? 'border-amber-400 text-amber-400' : 'border-blue-600 text-blue-700')
+                  : (isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700')
+              }`}
+            >
+              Booking Gedung
+            </button>
+
             {/* Tentang Kami Dropdown */}
             <div className="relative group">
               <button
@@ -448,33 +459,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-[10px] font-mono font-normal text-amber-300">Video & Foto</span>
               </button>
 
-              {/* Section: Pintasan Web Resmi */}
-              <div className="space-y-2 pt-4 border-t border-blue-800/60 mt-4 col-span-1 sm:col-span-2">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
-                  <ExternalLink className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Web Resmi Masjid Tazkia</span>
-                </span>
-                <div className="grid grid-cols-2 gap-2">
-                  <a href="https://www.masjidtazkia.com/muallaf" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    Muallaf <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                  <a href="https://www.masjidtazkia.com/booking" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    Booking <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                  <a href="https://www.masjidtazkia.com/ziswaf" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    ZISWAF <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                  <a href="https://www.masjidtazkia.com/program" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    Program <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                  <a href="https://www.masjidtazkia.com/tpa" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    TPA <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                  <a href="https://www.masjidtazkia.com/kontak" target="_blank" rel="noreferrer" className="w-full text-left px-3 py-2 rounded-xl bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 text-xs font-semibold flex items-center justify-between">
-                    Kontak <ExternalLink className="w-3 h-3 opacity-50" />
-                  </a>
-                </div>
-              </div>
+              <button
+                onClick={() => { setActiveTab('booking'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between ${
+                  activeTab === 'booking' ? 'bg-blue-700 text-white font-extrabold shadow-md' : 'bg-blue-950/40 hover:bg-blue-900/60 text-amber-300 hover:text-amber-200'
+                }`}
+              >
+                <span>9. Booking Gedung</span>
+                <span className="text-[10px] font-mono font-normal text-amber-300">Sewa Fasilitas</span>
+              </button>
 
               {session && session.isLoggedIn && hasDkmPortalAccess(session.role) && (
                 <button
