@@ -191,7 +191,8 @@ export function JurnalUmum() {
                               newSearches[idx] = e.target.value;
                               setRowSearches(newSearches);
                             }}
-                            className="w-16 p-2 border border-gray-300 rounded-lg text-xs text-gray-900 bg-white"
+                            className="w-32 p-2 border border-gray-300 rounded-lg text-xs"
+                            style={{ color: '#111827', backgroundColor: '#ffffff' }}
                           />
                           <select 
                             value={entry.accountId} 
