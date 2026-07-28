@@ -42,9 +42,9 @@ export async function uploadMediaToSupabase(
     
     onProgress?.(30);
 
-    // Upload ke bucket 'masjid-media'
+    // Upload ke bucket 'tazkia-media'
     const { data, error } = await supabase.storage
-      .from('masjid-media')
+      .from('tazkia-media')
       .upload(fileName, file, {
         cacheControl: '3600',
         upsert: true,
@@ -60,7 +60,7 @@ export async function uploadMediaToSupabase(
 
     // Ambil public URL
     const { data: { publicUrl } } = supabase.storage
-      .from('masjid-media')
+      .from('tazkia-media')
       .getPublicUrl(fileName);
 
     onProgress?.(100);

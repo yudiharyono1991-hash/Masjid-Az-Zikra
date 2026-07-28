@@ -1,81 +1,66 @@
 /**
  * imageStorage.ts
- * Menyimpan gambar/file besar menggunakan IndexedDB
- * Kapasitas jauh lebih besar dari localStorage (ratusan MB vs 5MB)
+ * Menggunakan Supabase Storage untuk upload media
  */
 
-const DB_NAME = 'tazkia_media_db';
-const DB_VERSION = 1;
-const STORE_NAME = 'images';
+import { getSupabaseClient } from './supabase';
 
-function openDB(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onupgradeneeded = (e) => {
-      const db = (e.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: 'key' });
-      }
-    };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
+const BUCKET_NAME = 'tazkia-media';
 
-export async function saveImageToStorage(key: string, dataUrl: string): Promise<void> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    const store = tx.objectStore(STORE_NAME);
-    const req = store.put({ key, dataUrl });
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(req.error);
-  });
-}
-
-export async function getImageFromStorage(key: string): Promise<string | null> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readonly');
-    const store = tx.objectStore(STORE_NAME);
-    const req = store.get(key);
-    req.onsuccess = () => resolve(req.result?.dataUrl || null);
-    req.onerror = () => reject(req.error);
-  });
-}
-
-export async function deleteImageFromStorage(key: string): Promise<void> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    const store = tx.objectStore(STORE_NAME);
-    const req = store.delete(key);
-    req.onsuccess = () => resolve();
-    req.onerror = () => reject(req.error);
-  });
-}
-
-/**
- * Mengkonversi file gambar ke data URL dan menyimpannya ke IndexedDB
- * Mengembalikan key referensi yang disimpan di store (bukan data URL langsung)
- */
 export async function uploadImageToLocal(
   file: File,
   keyPrefix: string
 ): Promise<{ key: string; dataUrl: string }> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const dataUrl = e.target?.result as string;
-      if (!dataUrl) {
-        reject(new Error('Gagal membaca file'));
-        return;
-      }
-      const key = `${keyPrefix}_${Date.now()}`;
-      await saveImageToStorage(key, dataUrl);
-      resolve({ key, dataUrl });
-    };
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new Error('Supabase client belum terkonfigurasi. Tidak dapat mengupload gambar.');
+  }
+
+  // Sanitasi nama file
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${keyPrefix}_${Date.now()}.${fileExt}`;
+  const filePath = `${fileName}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from(BUCKET_NAME)
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+
+  if (uploadError) {
+    console.error('Error uploading to Supabase:', uploadError);
+    throw new Error('Gagal mengupload gambar ke server: ' + uploadError.message);
+  }
+
+  // Ambil Public URL
+  const { data: publicUrlData } = supabase.storage
+    .from(BUCKET_NAME)
+    .getPublicUrl(filePath);
+
+  if (!publicUrlData.publicUrl) {
+    throw new Error('Gagal mendapatkan URL publik dari gambar.');
+  }
+
+  return { key: filePath, dataUrl: publicUrlData.publicUrl };
 }
+
+// Fallback logic untuk IndexedDB (jika ada file lama yang ingin dibaca)
+// Tidak lagi dipakai untuk menyimpan file baru.
+export async function saveImageToStorage(key: string, dataUrl: string): Promise<void> {
+  console.warn('saveImageToStorage is deprecated, use uploadImageToLocal directly to Supabase.');
+}
+
+export async function getImageFromStorage(key: string): Promise<string | null> {
+  // Hanya return url langsung jika key berbentuk URL (http)
+  if (key.startsWith('http')) return key;
+  return null;
+}
+
+export async function deleteImageFromStorage(key: string): Promise<void> {
+  const supabase = getSupabaseClient();
+  if (supabase && !key.startsWith('http')) {
+    await supabase.storage.from(BUCKET_NAME).remove([key]);
+  }
+}
+
