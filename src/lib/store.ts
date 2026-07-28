@@ -38,7 +38,9 @@ import {
   INITIAL_ADMIN_SETTINGS,
   INITIAL_GALLERY,
   INITIAL_QURBAN_GROUPS,
-  INITIAL_ERP_COA
+  INITIAL_ERP_COA,
+  INITIAL_JAMAAH_PROFILES,
+  INITIAL_AUDIT_LOGS
 } from './initialData';
 
 const LOCAL_STORAGE_KEY = 'masjid_Tazkia_app_state_v3';
@@ -71,7 +73,7 @@ export interface AppState {
 
 const defaultState: AppState = {
   programs: INITIAL_PROGRAMS,
-  donations: [],
+  donations: INITIAL_DONATIONS,
   financials: [],
   petugas: INITIAL_PETUGAS,
   inventories: INITIAL_INVENTORY,
@@ -96,8 +98,8 @@ const defaultState: AppState = {
   erpJournals: [],
   erpJournalEntries: [],
   erpSignatures: [],
-  auditLogs: [],
-  jamaahProfiles: []
+  auditLogs: INITIAL_AUDIT_LOGS,
+  jamaahProfiles: INITIAL_JAMAAH_PROFILES
 };
 
 export function getStoredState(): AppState {
@@ -110,7 +112,7 @@ export function getStoredState(): AppState {
         ...parsed,
         // Ensure initial fallback lists if empty
         programs: parsed.programs?.length ? parsed.programs : INITIAL_PROGRAMS,
-        donations: parsed.donations || [],
+        donations: (parsed.donations && parsed.donations.length > 0) ? parsed.donations : INITIAL_DONATIONS,
         financials: parsed.financials || [],
         petugas: parsed.petugas?.length ? parsed.petugas : INITIAL_PETUGAS,
         inventories: parsed.inventories?.length ? parsed.inventories : INITIAL_INVENTORY,
@@ -130,8 +132,8 @@ export function getStoredState(): AppState {
         erpJournals: parsed.erpJournals || [],
         erpJournalEntries: parsed.erpJournalEntries || [],
         erpSignatures: parsed.erpSignatures || [],
-        auditLogs: parsed.auditLogs || [],
-        jamaahProfiles: parsed.jamaahProfiles || []
+        auditLogs: (parsed.auditLogs && parsed.auditLogs.length > 0) ? parsed.auditLogs : INITIAL_AUDIT_LOGS,
+        jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES
       };
     }
   } catch (e) {
@@ -407,6 +409,20 @@ export function useMasjidStore() {
     setState(prev => ({
       ...prev,
       announcements: [newAnc, ...prev.announcements]
+    }));
+  };
+
+  const updateAnnouncement = (id: string, updated: Partial<Announcement>) => {
+    setState(prev => ({
+      ...prev,
+      announcements: prev.announcements.map(anc => anc.id === id ? { ...anc, ...updated } : anc)
+    }));
+  };
+
+  const deleteAnnouncement = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      announcements: prev.announcements.filter(anc => anc.id !== id)
     }));
   };
 
@@ -788,6 +804,34 @@ export function useMasjidStore() {
     }));
   };
 
+  const addJamaahProfile = (profile: Omit<JamaahProfile, 'id' | 'joinDate' | 'lastLogin' | 'totalDonation'>) => {
+    const newProfile: JamaahProfile = {
+      ...profile,
+      id: `jam-${Math.floor(100 + Math.random() * 900)}`,
+      joinDate: new Date().toISOString(),
+      lastLogin: new Date().toISOString(),
+      totalDonation: 0
+    };
+    setState(prev => ({
+      ...prev,
+      jamaahProfiles: [...(prev.jamaahProfiles || []), newProfile]
+    }));
+  };
+
+  const updateJamaahProfile = (id: string, updated: Partial<JamaahProfile>) => {
+    setState(prev => ({
+      ...prev,
+      jamaahProfiles: (prev.jamaahProfiles || []).map(j => j.id === id ? { ...j, ...updated } : j)
+    }));
+  };
+
+  const deleteJamaahProfile = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      jamaahProfiles: (prev.jamaahProfiles || []).filter(j => j.id !== id)
+    }));
+  };
+
   const resetToDefault = () => {
     setState(defaultState);
   };
@@ -801,6 +845,8 @@ export function useMasjidStore() {
     updateInventoryItem,
     deleteInventoryItem,
     addAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
     updatePetugasJadwal,
     addPetugasJadwal,
     deletePetugasJadwal,
@@ -838,6 +884,9 @@ export function useMasjidStore() {
     addQurbanGroup,
     updateQurbanGroup,
     deleteQurbanGroup,
+    addJamaahProfile,
+    updateJamaahProfile,
+    deleteJamaahProfile,
     resetToDefault
   };
 }

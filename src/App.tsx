@@ -34,11 +34,14 @@ export default function App() {
     updateDonationStatus,
     addFinancialTransaction,
     addInventoryItem,
+    updateInventoryItem,
     deleteInventoryItem,
     updatePetugasJadwal,
     addPetugasJadwal,
     deletePetugasJadwal,
     addAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
     addProgram,
     deleteProgram,
     addJournalEntry,
@@ -54,6 +57,9 @@ export default function App() {
     addQurbanGroup,
     updateQurbanGroup,
     deleteQurbanGroup,
+    addJamaahProfile,
+    updateJamaahProfile,
+    deleteJamaahProfile,
     setPalette,
     setThemeMode,
     toggleThemeMode,
@@ -287,11 +293,14 @@ export default function App() {
             onAddFinancial={addFinancialTransaction}
             onUpdateDonationStatus={updateDonationStatus}
             onAddInventory={addInventoryItem}
+            onUpdateInventory={updateInventoryItem}
             onDeleteInventory={deleteInventoryItem}
             onUpdatePetugas={updatePetugasJadwal}
             onAddPetugasJadwal={addPetugasJadwal}
             onDeletePetugasJadwal={deletePetugasJadwal}
             onAddAnnouncement={addAnnouncement}
+            onUpdateAnnouncement={updateAnnouncement}
+            onDeleteAnnouncement={deleteAnnouncement}
             onAddProgram={addProgram}
             onDeleteProgram={deleteProgram}
             onAddJournalEntry={addJournalEntry}
@@ -305,6 +314,9 @@ export default function App() {
             onAddQurbanParticipant={addQurbanParticipant}
             onDeleteQurbanParticipant={deleteQurbanParticipant}
             onUpdateQurbanParticipant={updateQurbanParticipant}
+            onAddJamaahProfile={addJamaahProfile}
+            onUpdateJamaahProfile={updateJamaahProfile}
+            onDeleteJamaahProfile={deleteJamaahProfile}
             openTvMode={() => setTvModeOpen(true)}
           />
         )}

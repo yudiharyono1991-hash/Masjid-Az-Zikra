@@ -80,11 +80,14 @@ interface PengurusDkmDashboardProps {
   onUpdateDonationStatus?: (id: string, status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak') => void;
   onAddFinancial: (trx: Omit<FinancialTransaction, 'id'>) => void;
   onAddInventory: (item: Omit<InventoryItem, 'id'>) => void;
+  onUpdateInventory?: (id: string, item: Partial<InventoryItem>) => void;
   onDeleteInventory: (id: string) => void;
   onUpdatePetugas: (petugas: PetugasJadwal) => void;
   onAddPetugasJadwal?: (p: Omit<PetugasJadwal, 'id'>) => void;
   onDeletePetugasJadwal?: (id: string) => void;
   onAddAnnouncement: (anc: Omit<Announcement, 'id' | 'date'>) => void;
+  onUpdateAnnouncement?: (id: string, anc: Partial<Announcement>) => void;
+  onDeleteAnnouncement?: (id: string) => void;
   onAddProgram: (prog: Omit<Program, 'id' | 'collectedAmount' | 'donorsCount'>) => void;
   onDeleteProgram?: (id: string) => void;
   onAddJournalEntry?: (entry: Omit<JournalEntry, 'id'>) => void;
@@ -98,6 +101,9 @@ interface PengurusDkmDashboardProps {
   onAddQurbanParticipant?: (groupId: string, participant: Omit<QurbanParticipant, 'id' | 'createdAt' | 'transactionRef'>) => void;
   onDeleteQurbanParticipant?: (groupId: string, participantId: string) => void;
   onUpdateQurbanParticipant?: (groupId: string, participantId: string, updated: Partial<QurbanParticipant>) => void;
+  onAddJamaahProfile?: (profile: Omit<JamaahProfile, 'id' | 'joinDate' | 'lastLogin' | 'totalDonation'>) => void;
+  onUpdateJamaahProfile?: (id: string, updated: Partial<JamaahProfile>) => void;
+  onDeleteJamaahProfile?: (id: string) => void;
   openTvMode?: () => void;
 }
 
@@ -119,11 +125,14 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onUpdateDonationStatus,
   onAddFinancial,
   onAddInventory,
+  onUpdateInventory,
   onDeleteInventory,
   onUpdatePetugas,
   onAddPetugasJadwal,
   onDeletePetugasJadwal,
   onAddAnnouncement,
+  onUpdateAnnouncement,
+  onDeleteAnnouncement,
   onAddProgram,
   onDeleteProgram,
   onAddJournalEntry,
@@ -137,6 +146,9 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddQurbanParticipant,
   onDeleteQurbanParticipant,
   onUpdateQurbanParticipant,
+  onAddJamaahProfile,
+  onUpdateJamaahProfile,
+  onDeleteJamaahProfile,
   openTvMode
 }) => {
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi'>('akuntansi');
@@ -215,6 +227,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   // Inventory Modal Inputs
   const [showAddInv, setShowAddInv] = useState(false);
+  const [editingInventoryId, setEditingInventoryId] = useState<string | null>(null);
   const [invName, setInvName] = useState('');
   const [invCategory, setInvCategory] = useState('Elektronik');
   const [invQty, setInvQty] = useState(1);
@@ -238,6 +251,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
   // Pengumuman Input
   const [showAddAnc, setShowAddAnc] = useState(false);
+  const [editingAnnouncementId, setEditingAnnouncementId] = useState<string | null>(null);
   const [ancTitle, setAncTitle] = useState('');
   const [ancContent, setAncContent] = useState('');
   const [ancCategory, setAncCategory] = useState<'Penting' | 'Kajian' | 'Kegiatan' | 'Keuangan'>('Kajian');
@@ -269,6 +283,18 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [shohibulSharesCount, setShohibulSharesCount] = useState(1);
   const [shohibulTotalPaid, setShohibulTotalPaid] = useState(3500000);
   const [shohibulPhone, setShohibulPhone] = useState('');
+
+  // User management states
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [editingUserProfileId, setEditingUserProfileId] = useState<string | null>(null);
+  const [userFormName, setUserFormName] = useState('');
+  const [userFormEmail, setUserFormEmail] = useState('');
+  const [userFormPhone, setUserFormPhone] = useState('');
+  const [userFormRole, setUserFormRole] = useState<'jamaah' | 'dkm' | 'super_admin'>('jamaah');
+  const [userFormPosition, setUserFormPosition] = useState('Jamaah');
+  const [userFormPassword, setUserFormPassword] = useState('');
+  const [changingPasswordUserId, setChangingPasswordUserId] = useState<string | null>(null);
+  const [newPasswordVal, setNewPasswordVal] = useState('');
 
   const handleSaveQurbanGroup = (e: React.FormEvent) => {
     e.preventDefault();
@@ -367,6 +393,77 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
     }
   };
 
+  const handleSaveUser = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!userFormName || !userFormEmail) return;
+
+    if (editingUserProfileId) {
+      if (onUpdateJamaahProfile) {
+        onUpdateJamaahProfile(editingUserProfileId, {
+          name: userFormName,
+          email: userFormEmail,
+          phone: userFormPhone,
+          role: userFormRole,
+          dkmPosition: userFormPosition,
+          ...(userFormPassword ? { password: userFormPassword } : {})
+        });
+      }
+      setEditingUserProfileId(null);
+      alert('Alhamdulillah, Akun Pengguna berhasil diperbarui!');
+    } else {
+      if (onAddJamaahProfile) {
+        onAddJamaahProfile({
+          name: userFormName,
+          email: userFormEmail,
+          phone: userFormPhone,
+          role: userFormRole,
+          dkmPosition: userFormPosition,
+          password: userFormPassword || '123456'
+        });
+      }
+      alert('Alhamdulillah, Pengurus/Jamaah baru berhasil didaftarkan!');
+    }
+
+    // Reset Form
+    setUserFormName('');
+    setUserFormEmail('');
+    setUserFormPhone('');
+    setUserFormRole('jamaah');
+    setUserFormPosition('Jamaah');
+    setUserFormPassword('');
+    setShowAddUserForm(false);
+  };
+
+  const handleEditUser = (user: JamaahProfile) => {
+    setEditingUserProfileId(user.id);
+    setUserFormName(user.name);
+    setUserFormEmail(user.email);
+    setUserFormPhone(user.phone || '');
+    setUserFormRole(user.role);
+    setUserFormPosition(user.dkmPosition || 'Jamaah');
+    setUserFormPassword(user.password || '');
+    setShowAddUserForm(true);
+  };
+
+  const handleDeleteUser = (id: string, name: string) => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus akun "${name}"?`)) {
+      if (onDeleteJamaahProfile) onDeleteJamaahProfile(id);
+    }
+  };
+
+  const handleUpdatePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!changingPasswordUserId || !newPasswordVal) return;
+    if (onUpdateJamaahProfile) {
+      onUpdateJamaahProfile(changingPasswordUserId, {
+        password: newPasswordVal
+      });
+    }
+    setChangingPasswordUserId(null);
+    setNewPasswordVal('');
+    alert('Alhamdulillah, kata sandi berhasil diubah!');
+  };
+
   // Helper file uploader
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setUrl: (url: string) => void) => {
     const file = e.target.files?.[0];
@@ -439,21 +536,38 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const handleCreateInventory = (e: React.FormEvent) => {
     e.preventDefault();
     if (!invName) return;
-    const code = `INV-${Math.floor(100 + Math.random() * 900)}`;
-    onAddInventory({
-      code,
-      name: invName,
-      category: invCategory,
-      quantity: invQty,
-      unit: invUnit,
-      condition: invCondition,
-      location: invLocation,
-      lastMaintenance: new Date().toISOString().split('T')[0],
-      imageUrl: invImageUrl
-    });
+    
+    if (editingInventoryId) {
+      if (onUpdateInventory) {
+        onUpdateInventory(editingInventoryId, {
+          name: invName,
+          category: invCategory,
+          quantity: invQty,
+          unit: invUnit,
+          condition: invCondition,
+          location: invLocation,
+          imageUrl: invImageUrl
+        });
+      }
+      setEditingInventoryId(null);
+      alert('Alhamdulillah, Inventaris Aset berhasil diperbarui!');
+    } else {
+      const code = `INV-${Math.floor(100 + Math.random() * 900)}`;
+      onAddInventory({
+        code,
+        name: invName,
+        category: invCategory,
+        quantity: invQty,
+        unit: invUnit,
+        condition: invCondition,
+        location: invLocation,
+        lastMaintenance: new Date().toISOString().split('T')[0],
+        imageUrl: invImageUrl
+      });
+      alert('Alhamdulillah, Inventaris Aset berhasil ditambah!');
+    }
     setInvName('');
     setShowAddInv(false);
-    alert('Alhamdulillah, Inventaris Aset berhasil ditambah!');
   };
 
   const handleCreateProgram = (e: React.FormEvent) => {
@@ -475,18 +589,35 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const handleCreateAnnouncement = (e: React.FormEvent) => {
     e.preventDefault();
     if (!ancTitle || !ancContent) return;
-    onAddAnnouncement({
-      title: ancTitle,
-      content: ancContent,
-      category: ancCategory,
-      author: ancAuthor || 'Pengurus DKM Tazkia',
-      imageUrl: ancImageUrl,
-      isPinned: true
-    });
+
+    if (editingAnnouncementId) {
+      if (onUpdateAnnouncement) {
+        onUpdateAnnouncement(editingAnnouncementId, {
+          title: ancTitle,
+          content: ancContent,
+          category: ancCategory,
+          author: ancAuthor || 'Pengurus DKM Tazkia',
+          imageUrl: ancImageUrl
+        });
+      }
+      setEditingAnnouncementId(null);
+      alert('Alhamdulillah, Pengumuman berhasil diperbarui!');
+    } else {
+      if (onAddAnnouncement) {
+        onAddAnnouncement({
+          title: ancTitle,
+          content: ancContent,
+          category: ancCategory,
+          author: ancAuthor || 'Pengurus DKM Tazkia',
+          imageUrl: ancImageUrl,
+          isPinned: true
+        });
+      }
+      alert('Alhamdulillah, Pengumuman berhasil dipublikasi!');
+    }
     setAncTitle('');
     setAncContent('');
     setShowAddAnc(false);
-    alert('Alhamdulillah, Pengumuman berhasil dipublikasi!');
   };
 
   const handleSaveAdminPhotos = () => {
@@ -2213,7 +2344,17 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               </h3>
 
               <button
-                onClick={() => setShowAddInv(!showAddInv)}
+                onClick={() => {
+                  setEditingInventoryId(null);
+                  setInvName('');
+                  setInvCategory('Elektronik');
+                  setInvQty(1);
+                  setInvUnit('Unit');
+                  setInvCondition('Baik');
+                  setInvLocation('Ruang Utama');
+                  setInvImageUrl('https://images.unsplash.com/photo-1589803138861-5915e8b62562?auto=format&fit=crop&w=800&q=80');
+                  setShowAddInv(!showAddInv);
+                }}
                 className="bg-blue-500 hover:bg-blue-400 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
               >
                 <Plus className="w-4 h-4" />
@@ -2308,7 +2449,11 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
-                    onClick={() => setShowAddInv(false)}
+                    onClick={() => {
+                      setEditingInventoryId(null);
+                      setInvName('');
+                      setShowAddInv(false);
+                    }}
                     className="px-4 py-2 rounded-xl text-xs text-blue-400 hover:text-white"
                   >
                     Batal
@@ -2369,12 +2514,36 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       </td>
                       <td className="p-4 text-blue-400">{inv.location}</td>
                       <td className="p-4 text-center">
-                        <button
-                          onClick={() => onDeleteInventory(inv.id)}
-                          className="text-rose-400 hover:text-rose-300 p-1 rounded cursor-pointer"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <div className="flex justify-center gap-2">
+                          <button
+                            onClick={() => {
+                              setEditingInventoryId(inv.id);
+                              setInvName(inv.name);
+                              setInvCategory(inv.category || '');
+                              setInvQty(inv.quantity);
+                              setInvUnit(inv.unit || 'Unit');
+                              setInvCondition(inv.condition || 'Baik');
+                              setInvLocation(inv.location || '');
+                              setInvImageUrl(inv.imageUrl || '');
+                              setShowAddInv(true);
+                            }}
+                            title="Edit Barang"
+                            className="text-blue-400 hover:text-blue-300 p-1 rounded cursor-pointer"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (window.confirm(`Hapus barang inventaris "${inv.name}"?`)) {
+                                onDeleteInventory(inv.id);
+                              }
+                            }}
+                            title="Hapus Barang"
+                            className="text-rose-400 hover:text-rose-300 p-1 rounded cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -2993,7 +3162,15 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               </div>
 
               <button
-                onClick={() => setShowAddAnc(!showAddAnc)}
+                onClick={() => {
+                  setEditingAnnouncementId(null);
+                  setAncTitle('');
+                  setAncContent('');
+                  setAncCategory('Kajian');
+                  setAncAuthor('Pengurus DKM Tazkia');
+                  setAncImageUrl('https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80');
+                  setShowAddAnc(!showAddAnc);
+                }}
                 className="bg-blue-500 hover:bg-blue-400 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-lg"
               >
                 <Plus className="w-4 h-4" />
@@ -3095,7 +3272,12 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
-                    onClick={() => setShowAddAnc(false)}
+                    onClick={() => {
+                      setEditingAnnouncementId(null);
+                      setAncTitle('');
+                      setAncContent('');
+                      setShowAddAnc(false);
+                    }}
                     className="px-4 py-2 rounded-xl text-xs text-blue-400 hover:text-white"
                   >
                     Batal
@@ -3104,7 +3286,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     type="submit"
                     className="bg-blue-500 text-blue-950 font-bold px-5 py-2 rounded-xl text-xs cursor-pointer"
                   >
-                    Terbitkan Pengumuman
+                    {editingAnnouncementId ? 'Simpan Perubahan' : 'Terbitkan Pengumuman'}
                   </button>
                 </div>
               </form>
@@ -3132,8 +3314,40 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       <p className="text-xs text-blue-400 mt-2 line-clamp-3">{a.content}</p>
                     </div>
                     <div className="flex items-center justify-between pt-2 border-t border-blue-800 text-[10px] font-mono text-blue-500">
-                      <span>{a.date}</span>
-                      <span>By {a.author}</span>
+                      <div className="flex flex-col">
+                        <span>{a.date}</span>
+                        <span>By {a.author}</span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingAnnouncementId(a.id);
+                            setAncTitle(a.title);
+                            setAncContent(a.content);
+                            setAncCategory(a.category);
+                            setAncAuthor(a.author);
+                            setAncImageUrl(a.imageUrl || '');
+                            setShowAddAnc(true);
+                          }}
+                          title="Edit Pengumuman"
+                          className="text-blue-400 hover:text-blue-300 p-1 rounded cursor-pointer"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (window.confirm(`Hapus pengumuman "${a.title}"?`)) {
+                              if (onDeleteAnnouncement) onDeleteAnnouncement(a.id);
+                            }
+                          }}
+                          title="Hapus Pengumuman"
+                          className="text-rose-400 hover:text-rose-300 p-1 rounded cursor-pointer"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3141,35 +3355,194 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </div>
           </div>
         )}
-      {/* TAB: MANAJEMEN AKUN & ROLE */}
+        {/* TAB: MANAJEMEN AKUN & ROLE */}
         {dkmTab === 'jamaah_manage' && (
           <div className="space-y-6">
-            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl flex justify-between items-start">
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
                   <Heart className="w-5 h-5 text-rose-400" />
                   Manajemen Akun & Role Pengguna
                 </h3>
-                <p className="text-xs text-blue-400 mt-1">Kelola data jamaah, atur hak akses (role) pengurus, dan kelola sandi pengguna.</p>
+                <p className="text-xs text-blue-400 mt-1">Kelola data jamaah, atur hak akses (role) pengurus, jabatan DKM, dan kelola sandi pengguna.</p>
               </div>
               <button 
-                onClick={() => alert('Alhamdulillah, form penambahan pengurus baru sedang disiapkan sistem.')}
+                onClick={() => {
+                  setEditingUserProfileId(null);
+                  setUserFormName('');
+                  setUserFormEmail('');
+                  setUserFormPhone('');
+                  setUserFormRole('dkm');
+                  setUserFormPosition('Anggota DKM');
+                  setUserFormPassword('');
+                  setShowAddUserForm(!showAddUserForm);
+                }}
                 className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg transition-all"
               >
                 <Plus className="w-4 h-4" />
                 <span>Tambah Pengurus Baru</span>
               </button>
             </div>
+
+            {/* Form Add/Edit User Profile */}
+            {showAddUserForm && (
+              <form onSubmit={handleSaveUser} className="bg-blue-900 border border-blue-500/30 p-5 rounded-2xl space-y-4">
+                <h4 className="text-sm font-bold text-white border-b border-blue-800 pb-2">
+                  {editingUserProfileId ? 'Edit Profil Pengguna' : 'Tambah Pengurus / Jamaah Baru'}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Nama Lengkap:</label>
+                    <input
+                      type="text"
+                      placeholder="Nama lengkap..."
+                      value={userFormName}
+                      onChange={(e) => setUserFormName(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Email:</label>
+                    <input
+                      type="email"
+                      placeholder="Email pengguna..."
+                      value={userFormEmail}
+                      onChange={(e) => setUserFormEmail(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Nomor Kontak / WA:</label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: 08123456789..."
+                      value={userFormPhone}
+                      onChange={(e) => setUserFormPhone(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Role Akses:</label>
+                    <select
+                      value={userFormRole}
+                      onChange={(e) => {
+                        const r = e.target.value as any;
+                        setUserFormRole(r);
+                        if (r === 'jamaah') setUserFormPosition('Jamaah');
+                        else if (r === 'super_admin') setUserFormPosition('Super Admin & IT');
+                      }}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    >
+                      <option value="jamaah">Jamaah Biasa</option>
+                      <option value="dkm">Pengurus DKM</option>
+                      <option value="super_admin">Super Admin / Pengurus Utama</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">Jabatan / Tingkatan DKM:</label>
+                    <select
+                      value={userFormPosition}
+                      onChange={(e) => setUserFormPosition(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    >
+                      <option value="Ketua DKM">Ketua DKM</option>
+                      <option value="Wakil Ketua DKM">Wakil Ketua DKM</option>
+                      <option value="Bendahara DKM">Bendahara DKM</option>
+                      <option value="Sekretaris DKM">Sekretaris DKM</option>
+                      <option value="Anggota DKM">Anggota DKM / Staff</option>
+                      <option value="Super Admin & IT">Super Admin & IT</option>
+                      <option value="Jamaah">Jamaah</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-blue-300 block mb-1">
+                      Kata Sandi / Password {editingUserProfileId && '(Kosongkan jika tidak diubah)'}:
+                    </label>
+                    <input
+                      type="password"
+                      placeholder={editingUserProfileId ? "Biarkan kosong..." : "Masukkan sandi..."}
+                      value={userFormPassword}
+                      onChange={(e) => setUserFormPassword(e.target.value)}
+                      className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                      required={!editingUserProfileId}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2 border-t border-blue-800 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddUserForm(false)}
+                    className="bg-blue-950 hover:bg-blue-900 border border-blue-800 text-blue-300 text-xs px-4 py-2 rounded-xl"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs px-4 py-2 rounded-xl"
+                  >
+                    Simpan Akun
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Form Change Password Form */}
+            {changingPasswordUserId !== null && (
+              <form onSubmit={handleUpdatePasswordSubmit} className="bg-blue-900 border border-amber-500/30 p-5 rounded-2xl space-y-4 max-w-md mx-auto">
+                <h4 className="text-sm font-bold text-amber-400 border-b border-blue-800 pb-2 flex items-center gap-1.5">
+                  <span>Ubah Sandi Akun</span>
+                </h4>
+                <div>
+                  <label className="text-xs font-semibold text-blue-300 block mb-1">Sandi Baru:</label>
+                  <input
+                    type="password"
+                    placeholder="Masukkan sandi baru minimal 6 karakter..."
+                    value={newPasswordVal}
+                    onChange={(e) => setNewPasswordVal(e.target.value)}
+                    className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                    required
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 border-t border-blue-800 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setChangingPasswordUserId(null);
+                      setNewPasswordVal('');
+                    }}
+                    className="bg-blue-950 hover:bg-blue-900 border border-blue-800 text-blue-300 text-xs px-4 py-2 rounded-xl"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs px-4 py-2 rounded-xl"
+                  >
+                    Simpan Sandi Baru
+                  </button>
+                </div>
+              </form>
+            )}
+
             <div className="bg-[#0a1128] rounded-2xl shadow-xl overflow-hidden border border-blue-800">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
                   <thead className="bg-blue-950 text-blue-300 font-mono text-[10px] uppercase tracking-wider border-b border-blue-800">
                     <tr>
-                      <th className="px-4 py-3">Nama Jamaah</th>
+                      <th className="px-4 py-3">Nama Jamaah & Tingkatan</th>
                       <th className="px-4 py-3">Email & Kontak</th>
                       <th className="px-4 py-3">Role Akses</th>
                       <th className="px-4 py-3">Tanggal Bergabung</th>
-                      <th className="px-4 py-3 text-right">Aksi</th>
+                      <th className="px-4 py-3 text-center">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-blue-800/50">
@@ -3180,23 +3553,59 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     ) : (
                       jamaahProfiles.map((j) => (
                         <tr key={j.id} className="hover:bg-blue-900/50 transition-colors">
-                          <td className="px-4 py-3 font-bold text-white">{j.name}</td>
-                          <td className="px-4 py-3 text-blue-300">
+                          <td className="px-4 py-3">
+                            <div className="font-bold text-white text-xs">{j.name}</div>
+                            {j.dkmPosition && (
+                              <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase">
+                                {j.dkmPosition}
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-blue-300 text-xs">
                             <div>{j.email}</div>
-                            <div className="text-[10px] opacity-70">{j.phone}</div>
+                            <div className="text-[10px] opacity-70">{j.phone || '-'}</div>
                           </td>
                           <td className="px-4 py-3">
-                            <select className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none">
+                            <select 
+                              value={j.role} 
+                              onChange={(e) => {
+                                const newRole = e.target.value as any;
+                                if (onUpdateJamaahProfile) {
+                                  onUpdateJamaahProfile(j.id, { 
+                                    role: newRole,
+                                    dkmPosition: newRole === 'jamaah' ? 'Jamaah' : j.dkmPosition 
+                                  });
+                                }
+                              }}
+                              className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none cursor-pointer"
+                            >
                               <option value="jamaah">Jamaah Biasa</option>
                               <option value="dkm">Pengurus DKM</option>
                               <option value="super_admin">Super Admin</option>
                             </select>
                           </td>
-                          <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.createdAt).toLocaleDateString('id-ID')}</td>
-                          <td className="px-4 py-3 text-right">
-                            <button className="text-xs text-blue-400 hover:text-amber-300 font-bold px-3 py-1 rounded bg-blue-950/50 border border-blue-800/50">
-                              Ubah Sandi
-                            </button>
+                          <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.joinDate || j.createdAt || new Date()).toLocaleDateString('id-ID')}</td>
+                          <td className="px-4 py-3 text-center">
+                            <div className="flex justify-center items-center gap-1.5">
+                              <button 
+                                onClick={() => handleEditUser(j)}
+                                className="text-xs text-blue-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                onClick={() => setChangingPasswordUserId(j.id)}
+                                className="text-xs text-amber-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                              >
+                                Sandi
+                              </button>
+                              <button 
+                                onClick={() => handleDeleteUser(j.id, j.name)}
+                                className="text-xs text-rose-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                              >
+                                Hapus
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))

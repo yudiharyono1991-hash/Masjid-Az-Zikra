@@ -8,7 +8,9 @@ import {
   DoaItem,
   HadisItem,
   GalleryItem,
-  QurbanGroup
+  QurbanGroup,
+  JamaahProfile,
+  AuditLog
 } from '../types';
 
 export const INITIAL_PROGRAMS: Program[] = [
@@ -781,4 +783,121 @@ export const INITIAL_ERP_COA = [
   { id: 'coa-5304', accountCode: '5304', accountName: 'Beban Administrasi Bank', accountType: 'Expense', normalBalance: 'Debit', groupName: 'Beban', isHeader: false, isActive: true },
   { id: 'coa-5305', accountCode: '5305', accountName: 'Beban Penyusutan Aset Tetap', accountType: 'Expense', normalBalance: 'Debit', groupName: 'Beban', isHeader: false, isActive: true },
   { id: 'coa-5900', accountCode: '5900', accountName: 'BEBAN LAIN-LAIN', accountType: 'Expense', normalBalance: 'Debit', groupName: 'Beban', isHeader: false, isActive: true }
+];
+
+export const INITIAL_JAMAAH_PROFILES: JamaahProfile[] = [
+  {
+    id: 'jam-1',
+    name: 'Haji Ahmad Subagja',
+    email: 'ahmad.subagja@gmail.com',
+    phone: '081298765432',
+    joinDate: '2026-01-10T08:00:00Z',
+    lastLogin: '2026-07-28T09:00:00Z',
+    totalDonation: 5400000,
+    role: 'dkm',
+    dkmPosition: 'Ketua DKM'
+  },
+  {
+    id: 'jam-2',
+    name: 'Haji Bambang Pamungkas, M.M.',
+    email: 'bambang.pamungkas@outlook.com',
+    phone: '081311223344',
+    joinDate: '2026-01-15T09:00:00Z',
+    lastLogin: '2026-07-28T10:15:00Z',
+    totalDonation: 12500000,
+    role: 'dkm',
+    dkmPosition: 'Bendahara DKM'
+  },
+  {
+    id: 'jam-3',
+    name: 'Ustadz H. M. Zainuddin, Sq',
+    email: 'zainuddin.sq@masjidtazkia.id',
+    phone: '081555667788',
+    joinDate: '2026-02-01T10:00:00Z',
+    lastLogin: '2026-07-27T18:30:00Z',
+    totalDonation: 2500000,
+    role: 'dkm',
+    dkmPosition: 'Sekretaris DKM'
+  },
+  {
+    id: 'jam-4',
+    name: 'Yudi Haryono',
+    email: 'yudi.haryono@masjidtazkia.id',
+    phone: '081234567890',
+    joinDate: '2026-03-01T08:00:00Z',
+    lastLogin: '2026-07-28T15:30:00Z',
+    totalDonation: 7500000,
+    role: 'super_admin',
+    dkmPosition: 'Super Admin & IT'
+  },
+  {
+    id: 'jam-5',
+    name: 'Ibu Siti Aisyah',
+    email: 'siti.aisyah@yahoo.com',
+    phone: '081899887766',
+    joinDate: '2026-03-15T14:20:00Z',
+    lastLogin: '2026-07-26T12:00:00Z',
+    totalDonation: 1800000,
+    role: 'jamaah',
+    dkmPosition: 'Jamaah'
+  },
+  {
+    id: 'jam-6',
+    name: 'Ibu Fatimah Azzahra',
+    email: 'fatimah.azzahra@gmail.com',
+    phone: '085211223344',
+    joinDate: '2026-04-01T11:00:00Z',
+    lastLogin: '2026-07-25T16:45:00Z',
+    totalDonation: 3200000,
+    role: 'jamaah',
+    dkmPosition: 'Jamaah'
+  }
+];
+
+export const INITIAL_AUDIT_LOGS: AuditLog[] = [
+  {
+    id: 'log-1',
+    timestamp: '2026-07-28T09:00:00Z',
+    userName: 'Haji Ahmad Subagja',
+    userEmail: 'ahmad.subagja@gmail.com',
+    role: 'dkm',
+    action: 'LOGIN',
+    details: 'Berhasil melakukan login ke dashboard Pengurus DKM dari perangkat seluler.'
+  },
+  {
+    id: 'log-2',
+    timestamp: '2026-07-28T09:15:00Z',
+    userName: 'Haji Ahmad Subagja',
+    userEmail: 'ahmad.subagja@gmail.com',
+    role: 'dkm',
+    action: 'CREATE_ANNOUNCEMENT',
+    details: 'Berhasil mempublikasikan pengumuman berita: "Kajian Subuh Fiqih Kontemporer".'
+  },
+  {
+    id: 'log-3',
+    timestamp: '2026-07-28T10:15:00Z',
+    userName: 'Haji Bambang Pamungkas, M.M.',
+    userEmail: 'bambang.pamungkas@outlook.com',
+    role: 'dkm',
+    action: 'LOGIN',
+    details: 'Berhasil melakukan login ke dashboard Pengurus Bendahara.'
+  },
+  {
+    id: 'log-4',
+    timestamp: '2026-07-28T10:30:00Z',
+    userName: 'Haji Bambang Pamungkas, M.M.',
+    userEmail: 'bambang.pamungkas@outlook.com',
+    role: 'dkm',
+    action: 'ADD_JOURNAL_ENTRY',
+    details: 'Berhasil menginput data Jurnal Umum untuk Zakat Mal Jamaah senilai Rp 12.500.000.'
+  },
+  {
+    id: 'log-5',
+    timestamp: '2026-07-28T15:30:00Z',
+    userName: 'Yudi Haryono',
+    userEmail: 'yudi.haryono@masjidtazkia.id',
+    role: 'super_admin',
+    action: 'LOGIN',
+    details: 'Berhasil melakukan login sebagai Super Admin dari konsol IT.'
+  }
 ];
