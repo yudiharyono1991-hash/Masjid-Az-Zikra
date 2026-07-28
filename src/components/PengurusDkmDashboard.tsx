@@ -999,7 +999,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                               <span className="text-[10px] text-blue-600 font-mono">-</span>
                             )}
                           </td>
-                          <td className={`p-4 text-right font-mono font-bold ${f.type === 'masuk' ? 'text-blue-400' : 'text-rose-400'}`}>
+                          <td className={`p-4 text-right font-mono font-bold whitespace-nowrap ${f.type === 'masuk' ? 'text-blue-400' : 'text-rose-400'}`}>
                             {formatRupiahFull(f.amount)}
                           </td>
                         </tr>
@@ -1162,10 +1162,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                             <span className="font-sans font-bold text-white block">{j.accountName}</span>
                             <span className="font-sans text-[11px] text-blue-400 block">{j.description}</span>
                           </td>
-                          <td className="p-3 text-right text-blue-400 font-bold">
+                          <td className="p-3 text-right text-blue-400 font-bold whitespace-nowrap">
                             {j.debit > 0 ? formatRupiahFull(j.debit) : '-'}
                           </td>
-                          <td className="p-3 text-right text-rose-400 font-bold">
+                          <td className="p-3 text-right text-rose-400 font-bold whitespace-nowrap">
                             {j.credit > 0 ? formatRupiahFull(j.credit) : '-'}
                           </td>
                         </tr>
@@ -1434,10 +1434,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                               {k.type}
                             </span>
                           </td>
-                          <td className="p-3 text-right font-bold text-white">
+                          <td className="p-3 text-right font-bold text-white whitespace-nowrap">
                             {formatRupiahFull(k.amount)}
                           </td>
-                          <td className="p-3 text-right font-bold text-blue-400">
+                          <td className="p-3 text-right font-bold text-blue-400 whitespace-nowrap">
                             {formatRupiahFull(k.remainingBalance)}
                           </td>
                         </tr>

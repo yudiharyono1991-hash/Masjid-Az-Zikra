@@ -199,7 +199,7 @@ export const TransparencySection: React.FC<TransparencySectionProps> = ({
                         <p className="text-[11px] text-[#1A1A1A]/60">{trx.description}</p>
                       </td>
                       <td className="p-4 font-mono text-[11px] font-bold text-[#1e3a8a]">{trx.category}</td>
-                      <td className={`p-4 text-right font-mono font-bold text-sm ${
+                      <td className={`p-4 text-right font-mono font-bold text-sm whitespace-nowrap ${
                         trx.type === 'masuk' ? 'text-[#1e3a8a]' : 'text-rose-600'
                       }`}>
                         {trx.type === 'masuk' ? '+' : '-'}{formatRupiahFull(trx.amount)}

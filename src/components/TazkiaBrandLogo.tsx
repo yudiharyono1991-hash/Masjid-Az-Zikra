@@ -24,13 +24,14 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
         </div>
 
         {/* 3D Facade Style Tazkia Logo Text */}
-        <div className="space-y-0.5">
-          <div className="inline-block px-3 py-0.5 bg-amber-500/20 border border-amber-400/40 rounded-full font-mono text-[10px] font-bold text-amber-300 uppercase tracking-[0.25em]">
+        <div className="space-y-0.5 flex flex-col items-center">
+          <div className="inline-block px-3 py-0.5 bg-amber-500/20 border border-amber-400/40 rounded-full font-mono text-[10px] font-bold text-amber-300 uppercase tracking-[0.25em] mb-1">
             MASJID OFFICIAL BRANDING
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-blue-300 drop-shadow-[0_2px_10px_rgba(217,119,6,0.3)] transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_15px_rgba(251,191,36,0.6)] cursor-default">
             Tazkia
           </h1>
+          <p className="font-serif italic text-[13px] sm:text-sm text-blue-200 tracking-[0.1em] mt-[-2px] pb-1">Islamic Center</p>
           <p className="font-mono text-xs font-bold text-blue-400 uppercase tracking-[0.3em]">
             SENTUL &bull; BOGOR
           </p>
@@ -59,6 +60,9 @@ export const TazkiaBrandLogo: React.FC<TazkiaBrandLogoProps> = ({
             SENTUL
           </span>
         </div>
+        <p className={`text-[9px] sm:text-[10.5px] font-serif italic tracking-wider mt-0.5 ${isDark ? 'text-blue-300' : 'text-blue-600/80'} whitespace-nowrap`}>
+          Islamic Center
+        </p>
       </div>
     </div>
   );
