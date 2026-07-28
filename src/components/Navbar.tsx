@@ -227,24 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-            {/* Layanan Resmi Dropdown */}
-            <div className="relative group">
-              <button
-                className={`px-3.5 py-6 transition-all cursor-pointer font-semibold text-sm border-b-[3px] flex items-center gap-1 ${isDark ? 'border-transparent text-slate-300 hover:text-amber-300' : 'border-transparent text-slate-600 hover:text-blue-700'}`}
-              >
-                Layanan Resmi <ChevronDown className="w-4 h-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl shadow-xl border border-[#172554] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 bg-[#1e3a8a]">
-                <div className="py-2 flex flex-col">
-                  <a href="https://www.masjidtazkia.com/ziswaf" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">ZISWAF <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                  <a href="https://www.masjidtazkia.com/program" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">Program Masjid <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                  <a href="https://www.masjidtazkia.com/muallaf" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">Pembinaan Muallaf <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                  <a href="https://www.masjidtazkia.com/tpa" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">TPA / Pendidikan <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                  <a href="https://www.masjidtazkia.com/booking" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">Booking Gedung <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                  <a href="https://www.masjidtazkia.com/kontak" target="_blank" rel="noreferrer" className="text-left px-4 py-2 hover:bg-amber-500/20 hover:text-amber-200 transition-colors text-amber-300 font-medium flex items-center justify-between">Kontak & Info <ExternalLink className="w-3 h-3 opacity-50"/></a>
-                </div>
-              </div>
-            </div>
+
 
             {session && session.isLoggedIn && hasDkmPortalAccess(session.role) && (
               <button
