@@ -39,10 +39,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0 
       ? state.adminSettings.masjidHeroCarouselUrls 
       : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
-    // If we have custom URLs from store, use them and skip Supabase fetch
+    
+    // Set initially from settings
     if (configuredUrls.length > 0) {
       setBackgrounds(configuredUrls);
-      return;
     }
 
     const fetchHeroImages = async () => {
@@ -57,7 +57,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         }
         
         if (data && data.length > 0) {
-          // Filter out .emptyFolderPlaceholder or non-image files if needed
           const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
           
           if (imageFiles.length > 0) {
@@ -65,7 +64,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               const { data: { publicUrl } } = supabase.storage.from('tazkia-media').getPublicUrl(`hero/${file.name}`);
               return publicUrl;
             });
-            setBackgrounds(urls);
+            setBackgrounds(urls); // Override settings if storage has files
           }
         }
       } catch (err) {

@@ -193,6 +193,25 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
 
   const waLink = `https://wa.me/6281298765432?text=${waReceiptText}`;
 
+  const handleDownloadQris = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(qrisImage);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = "QRIS_Masjid_Tazkia.jpg";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading image', error);
+      window.open(qrisImage, '_blank');
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blue-950/80 backdrop-blur-md overflow-y-auto">
       <div className="bg-[#0b1329] border border-amber-500/30 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative text-blue-100 my-8">
@@ -850,16 +869,13 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
             </p>
 
             <div className="flex gap-2">
-              <a
-                href={qrisImage}
-                download="QRIS_Masjid_Tazkia.jpg"
-                target="_blank"
-                rel="noreferrer"
+              <button
+                onClick={handleDownloadQris}
                 className="w-full bg-blue-500 hover:bg-blue-400 text-blue-950 font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-4 h-4" />
                 <span>Unduh Gambar QRIS</span>
-              </a>
+              </button>
               <button
                 onClick={() => setZoomQrisModal(false)}
                 className="w-full bg-blue-800 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-xs cursor-pointer"
