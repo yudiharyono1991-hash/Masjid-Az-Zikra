@@ -128,9 +128,6 @@ export const Footer: React.FC<FooterProps> = ({
                   </span>
                 </p>
               ))}
-              <p className="pl-5 pt-2 border-t border-blue-800/50 leading-relaxed opacity-90 mt-2">
-                Akses petugas: Ketua DKM, Bendahara, Bagian Penghimpunan, Bagian Penyaluran.
-              </p>
             </div>
 
             {session && ['admin_masjid', 'ketua_dkm', 'pengurus_dkm'].includes(session.role) && (
