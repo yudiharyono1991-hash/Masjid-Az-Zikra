@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CITIES_DATA, getHijriDate, CityPrayerTime } from '../lib/islamicUtils';
+import { CITIES_DATA, CityPrayerTime, SURAHS_LIST } from '../lib/islamicUtils';
 import { Announcement, PetugasJadwal, AppAdminSettings } from '../types';
 import { Tv, X, Volume2, VolumeX, Play, Pause, Calendar, MapPin, Sparkles } from 'lucide-react';
 
 const QARI_LIST = [
-  { id: 'alafasy', name: 'Mishary Rashid Alafasy', url: 'https://server8.mp3quran.net/afs/001.mp3' },
-  { id: 'abdulbasit', name: 'Abdul Basit (Murattal)', url: 'https://server7.mp3quran.net/basit/001.mp3' },
-  { id: 'sudais', name: 'Abdurrahman As-Sudais', url: 'https://server11.mp3quran.net/sds/001.mp3' }
+  { id: 'alafasy', name: 'Mishary Rashid Alafasy', baseUrl: 'https://server8.mp3quran.net/afs/' },
+  { id: 'abdulbasit', name: 'Abdul Basit', baseUrl: 'https://server7.mp3quran.net/basit/' },
+  { id: 'sudais', name: 'Abdurrahman As-Sudais', baseUrl: 'https://server11.mp3quran.net/sds/' }
 ];
 
 interface TvDisplayModeProps {
@@ -25,7 +25,8 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
   const [time, setTime] = useState<Date>(new Date());
   const [selectedCity] = useState<CityPrayerTime>(CITIES_DATA[0]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
-  const [selectedQari, setSelectedQari] = useState<string>(QARI_LIST[0].url);
+  const [selectedQari, setSelectedQari] = useState<string>(QARI_LIST[0].baseUrl);
+  const [selectedSurah, setSelectedSurah] = useState<number>(1);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -38,7 +39,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
     } else {
       audioRef.current?.pause();
     }
-  }, [isPlaying, selectedQari]);
+  }, [isPlaying, selectedQari, selectedSurah]);
 
   const getActivePrayerIndex = () => {
     const parseTime = (timeStr: string) => {
@@ -79,6 +80,20 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
 
   const timeStr = time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   const dateStr = time.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  
+  let hijriDateStr = '';
+  try {
+    const hijriFormatter = new Intl.DateTimeFormat('id-ID-u-ca-islamic', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    hijriDateStr = hijriFormatter.format(time).replace(' AH', ' H').replace(' H', ' H');
+  } catch (e) {
+    hijriDateStr = '... H'; // Fallback
+  }
+
+  const audioUrl = `${selectedQari}${String(selectedSurah).padStart(3, '0')}.mp3`;
 
   const nextFriday = petugasList.find(p => p.khatibJumat);
 
@@ -113,19 +128,30 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
             </button>
             <div className="flex flex-col text-left mr-2">
               <span className="text-[9px] font-mono text-blue-400 uppercase tracking-widest">Murottal Al-Quran</span>
-              <select 
-                value={selectedQari}
-                onChange={(e) => setSelectedQari(e.target.value)}
-                className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-32 truncate appearance-none"
-              >
-                {QARI_LIST.map(q => (
-                  <option key={q.id} value={q.url} className="bg-blue-900">{q.name}</option>
-                ))}
-              </select>
+              <div className="flex gap-2">
+                <select 
+                  value={selectedQari}
+                  onChange={(e) => setSelectedQari(e.target.value)}
+                  className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-28 truncate appearance-none"
+                >
+                  {QARI_LIST.map(q => (
+                    <option key={q.id} value={q.baseUrl} className="bg-blue-900">{q.name}</option>
+                  ))}
+                </select>
+                <select 
+                  value={selectedSurah}
+                  onChange={(e) => setSelectedSurah(Number(e.target.value))}
+                  className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-24 truncate appearance-none border-l border-blue-800 pl-2"
+                >
+                  {SURAHS_LIST.map(s => (
+                    <option key={s.number} value={s.number} className="bg-blue-900">{s.number}. {s.englishName}</option>
+                  ))}
+                </select>
+              </div>
             </div>
             <audio 
               ref={audioRef}
-              src={selectedQari} 
+              src={audioUrl} 
               loop 
               style={{ display: 'none' }}
               id="murottal-player"
@@ -137,7 +163,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
               {timeStr}
             </div>
             <p className="text-xs text-blue-300 mt-1 font-medium">
-              {dateStr} • <span className="text-amber-300 font-serif">{getHijriDate()}</span>
+              {dateStr} • <span className="text-amber-300 font-serif">{hijriDateStr}</span>
             </p>
           </div>
 
