@@ -88,7 +88,7 @@ export const AgendaAdmin = () => {
                 type="text"
                 value={formData.title || ''}
                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 placeholder="Contoh: Kajian Subuh Tematik"
                 required
               />
@@ -99,7 +99,7 @@ export const AgendaAdmin = () => {
               <select
                 value={formData.category || 'Kajian'}
                 onChange={e => setFormData({ ...formData, category: e.target.value as any })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Kajian">Kajian / Ceramah</option>
                 <option value="Rapat">Rapat Kepengurusan</option>
@@ -114,7 +114,7 @@ export const AgendaAdmin = () => {
                 type="date"
                 value={formData.date || ''}
                 onChange={e => setFormData({ ...formData, date: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -125,7 +125,7 @@ export const AgendaAdmin = () => {
                 type="text"
                 value={formData.time || ''}
                 onChange={e => setFormData({ ...formData, time: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 placeholder="Contoh: 12:00 - 13:00 WIB"
                 required
               />
@@ -137,7 +137,7 @@ export const AgendaAdmin = () => {
                 type="text"
                 value={formData.location || ''}
                 onChange={e => setFormData({ ...formData, location: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 placeholder="Contoh: Ruang Utama Masjid"
               />
             </div>
