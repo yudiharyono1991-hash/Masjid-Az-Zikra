@@ -88,7 +88,9 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
       month: 'long',
       year: 'numeric'
     });
-    hijriDateStr = hijriFormatter.format(time).replace(' AH', ' H').replace(' H', ' H');
+    // Adjust by -1 day for Indonesian local sighting (MABIMS)
+    const hijriDateObj = new Date(time.getTime() - 24 * 60 * 60 * 1000);
+    hijriDateStr = hijriFormatter.format(hijriDateObj).replace(' AH', ' H').replace(' H', ' H');
   } catch (e) {
     hijriDateStr = '... H'; // Fallback
   }
