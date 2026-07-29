@@ -323,6 +323,7 @@ export interface ERPBudgetEntry {
   accountId: string; // The ID of the ERPChartOfAccount
   year: number; // e.g. 2026
   amount: number; // The budget amount
+  description?: string;
   createdAt?: string;
 }
 

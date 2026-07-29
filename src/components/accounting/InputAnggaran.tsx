@@ -12,6 +12,7 @@ export function InputAnggaran() {
   
   const [accountId, setAccountId] = useState('');
   const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState('');
 
   // Filter out only Revenue and Expense accounts for budgeting
   const eligibleAccounts = state.erpCoa.filter(
@@ -25,7 +26,7 @@ export function InputAnggaran() {
     if (!accountId || amount <= 0) return;
 
     if (editingId) {
-      updateErpBudget(editingId, { accountId, amount });
+      updateErpBudget(editingId, { accountId, amount, description });
     } else {
       // Check if already exists
       const existing = currentBudgets.find(b => b.accountId === accountId);
@@ -38,6 +39,7 @@ export function InputAnggaran() {
         accountId,
         year: selectedYear,
         amount,
+        description,
         createdAt: new Date().toISOString()
       });
     }
@@ -49,6 +51,7 @@ export function InputAnggaran() {
     setEditingId(budget.id);
     setAccountId(budget.accountId);
     setAmount(budget.amount);
+    setDescription(budget.description || '');
     setShowAddForm(true);
   };
 
@@ -63,6 +66,7 @@ export function InputAnggaran() {
     setEditingId(null);
     setAccountId('');
     setAmount(0);
+    setDescription('');
   };
 
   return (
@@ -96,7 +100,7 @@ export function InputAnggaran() {
 
       {showAddForm && (
         <div className="bg-white p-5 rounded-2xl border border-blue-100 shadow-sm animate-fadeIn">
-          <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-1">
               <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase">Pilih Akun Beban/Pendapatan</label>
               <select
@@ -124,6 +128,17 @@ export function InputAnggaran() {
                 onChange={e => setAmount(Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 placeholder="Misal: 120000000"
+              />
+            </div>
+
+            <div className="md:col-span-1">
+              <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase">Keterangan / Catatan</label>
+              <input
+                type="text"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                placeholder="Opsional"
               />
             </div>
 
@@ -155,6 +170,7 @@ export function InputAnggaran() {
                 <th className="p-4 font-bold">Nama Akun</th>
                 <th className="p-4 font-bold">Tipe Akun</th>
                 <th className="p-4 font-bold text-right">Nilai Anggaran (Rp)</th>
+                <th className="p-4 font-bold">Keterangan</th>
                 <th className="p-4 font-bold text-center">Aksi</th>
               </tr>
             </thead>
@@ -169,6 +185,9 @@ export function InputAnggaran() {
                       <td className="p-4 text-gray-500">{acc?.accountType === 'Revenue' ? 'Pendapatan' : 'Beban'}</td>
                       <td className="p-4 font-mono font-bold text-gray-900 text-right">
                         {budget.amount.toLocaleString('id-ID')}
+                      </td>
+                      <td className="p-4 text-gray-600 italic">
+                        {budget.description || '-'}
                       </td>
                       <td className="p-4">
                         <div className="flex justify-center gap-2">
@@ -193,7 +212,7 @@ export function InputAnggaran() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-gray-500">
+                  <td colSpan={6} className="p-8 text-center text-gray-500">
                     Belum ada data anggaran untuk tahun {selectedYear}. Silakan input anggaran baru.
                   </td>
                 </tr>
@@ -206,7 +225,7 @@ export function InputAnggaran() {
                   <td className="p-4 font-mono font-bold text-blue-700 text-right">
                     {currentBudgets.reduce((sum, b) => sum + b.amount, 0).toLocaleString('id-ID')}
                   </td>
-                  <td></td>
+                  <td colSpan={2}></td>
                 </tr>
               </tfoot>
             )}
