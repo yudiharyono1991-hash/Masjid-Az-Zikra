@@ -57,13 +57,14 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
         if (error) return;
         
         if (data && data.length > 0) {
-          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
+          const deletedImages = JSON.parse(localStorage.getItem('tazkia_booking_images_deleted') || '[]');
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i) && !deletedImages.includes(file.name));
           if (imageFiles.length > 0) {
             const urls = imageFiles.map(file => supabase.storage.from('tazkia-media').getPublicUrl(`booking/${file.name}`).data.publicUrl);
             setImages(urls);
           }
           
-          const pdfFile = data.find(file => file.name.match(/\.pdf$/i));
+          const pdfFile = data.find(file => file.name.match(/\.pdf$/i) && !deletedImages.includes(file.name));
           if (pdfFile) {
             setPdfUrl(supabase.storage.from('tazkia-media').getPublicUrl(`booking/${pdfFile.name}`).data.publicUrl);
           }

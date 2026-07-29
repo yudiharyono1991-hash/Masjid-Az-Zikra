@@ -30,7 +30,7 @@ export const SewaGedungAdmin: React.FC = () => {
           }));
           setImages(newImages);
 
-          const pdfFile = data.find(file => file.name.match(/\.pdf$/i));
+          const pdfFile = data.find(file => file.name.match(/\.pdf$/i) && !deletedImages.includes(file.name));
           if (pdfFile) {
             setPdf({
               name: pdfFile.name,
@@ -107,6 +107,7 @@ export const SewaGedungAdmin: React.FC = () => {
     if (pdf && pdf.name === fileName) {
       setPdf(null);
       localStorage.removeItem('tazkia_booking_pdf');
+      localStorage.setItem('tazkia_booking_images_deleted', JSON.stringify([...(JSON.parse(localStorage.getItem('tazkia_booking_images_deleted') || '[]')), fileName]));
     } else {
       // Hapus dari state images lokal
       const newImages = images.filter(img => img.name !== fileName);
