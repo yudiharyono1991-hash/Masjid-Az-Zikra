@@ -10,6 +10,10 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// In-memory API key cache (bisa diupdate tanpa restart server)
+let cachedGeminiKey: string = process.env.GEMINI_API_KEY || '';
+let keyUpdatedAt: string = new Date().toISOString();
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -18,16 +22,32 @@ async function startServer() {
 
   // Health check endpoint
   app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok", app: "Masjid Tazkia Platform" });
+    res.json({ status: "ok", app: "Masjid Tazkia Platform", aiReady: !!cachedGeminiKey, keyUpdatedAt });
+  });
+
+  // Update Gemini API Key tanpa restart server (via Admin DKM Portal)
+  app.post("/api/admin/update-ai-key", (req, res) => {
+    const { apiKey, adminSecret } = req.body;
+    // Simple protection — harus kirim secret yang sama dengan env
+    if (adminSecret !== (process.env.ADMIN_SECRET || 'tazkia-dkm-2026')) {
+      return res.status(403).json({ error: 'Akses ditolak.' });
+    }
+    if (!apiKey || typeof apiKey !== 'string' || apiKey.length < 10) {
+      return res.status(400).json({ error: 'API key tidak valid.' });
+    }
+    cachedGeminiKey = apiKey;
+    keyUpdatedAt = new Date().toISOString();
+    console.log('[AI Key] Updated at', keyUpdatedAt);
+    return res.json({ success: true, message: 'API Key berhasil diperbarui.', updatedAt: keyUpdatedAt });
   });
 
   // Server-side Gemini AI Syariah Assistant Endpoint
   app.post("/api/ai/chat", async (req, res) => {
     try {
-      const apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = cachedGeminiKey || process.env.GEMINI_API_KEY;
       if (!apiKey) {
         return res.status(500).json({
-          error: "GEMINI_API_KEY belum dikonfigurasi. Silakan tambahkan API key di pengaturan.",
+          error: "GEMINI_API_KEY belum dikonfigurasi.",
         });
       }
 
@@ -55,26 +75,39 @@ Tugas Anda:
 
       const ai = new GoogleGenAI({ apiKey });
 
-      const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
-        contents: [
-          ...formattedHistory,
-          { role: "user", parts: [{ text: message }] },
-        ],
-        config: {
-          systemInstruction,
-          temperature: 0.7,
-        },
-      });
+      // Try gemini-2.0-flash first, fallback to 1.5-flash
+      let replyText = "";
+      for (const model of ["gemini-2.0-flash", "gemini-1.5-flash"]) {
+        try {
+          const response = await ai.models.generateContent({
+            model,
+            contents: [
+              ...formattedHistory,
+              { role: "user", parts: [{ text: message }] },
+            ],
+            config: {
+              systemInstruction,
+              temperature: 0.7,
+            },
+          });
+          replyText = response.text || "";
+          if (replyText) break;
+        } catch (modelErr: any) {
+          console.warn(`Model ${model} gagal: ${modelErr.message}`);
+        }
+      }
 
-      const replyText = response.text || "Maaf, tidak dapat memproses jawaban saat ini.";
-      return res.json({ reply: replyText });
+      if (replyText) {
+        return res.json({ reply: replyText });
+      }
+      throw new Error("Semua model gagal menghasilkan respons");
+
     } catch (error: any) {
       console.error("Gemini API Error:", error.message || error);
-      // Fall through to smart fallback below
       return res.json({ reply: buildFallbackReply(req.body.message || '', req.body.userName) });
     }
   });
+
 
   // Smart rule-based fallback (used when API key missing or API fails)
   function buildFallbackReply(msg: string, userName?: string): string {
