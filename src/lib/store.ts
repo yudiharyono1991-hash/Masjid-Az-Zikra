@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getSupabaseClient } from './supabase';
 import {
   Program,
@@ -200,9 +200,14 @@ export function saveStoredState(state: AppState) {
 // React custom hook for global state with automatic persistence
 export function useMasjidStore() {
   const [state, setState] = useState<AppState>(getStoredState);
+  const isInitialMount = useRef(true);
 
   // Sync state ke LocalStorage dan Supabase jika berubah (kecuali reload pertama kali)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     saveStoredState(state);
   }, [state]);
 
