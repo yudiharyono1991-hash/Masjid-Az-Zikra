@@ -236,7 +236,6 @@ export default function App() {
 
         {activeTab === 'jadwal_khatib' && (
           <KalenderKegiatanSection
-            petugasList={state.petugas}
             isDark={isDark}
           />
         )}

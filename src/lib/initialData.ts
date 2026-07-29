@@ -12,7 +12,8 @@ import {
   JamaahProfile,
   AuditLog,
   BoardMember,
-  ReportSignatory
+  ReportSignatory,
+  MasjidAgenda
 } from '../types';
 
 export const INITIAL_PROGRAMS: Program[] = [
@@ -967,3 +968,18 @@ export const INITIAL_REPORT_SIGNATORIES: ReportSignatory[] = [
     orderIdx: 4
   }
 ];
+
+export const INITIAL_AGENDAS: MasjidAgenda[] = [
+  {
+    id: 'agenda-1',
+    title: 'Kajian Subuh Bulanan',
+    date: '2026-08-01',
+    time: '04:30 - 06:00',
+    location: 'Ruang Utama Masjid Tazkia',
+    speaker: 'Ust. Abdul Somad',
+    description: 'Kajian rutin bulanan membahas tafsir tematik.',
+    category: 'Kajian',
+    imageUrl: 'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=300&q=80'
+  }
+];
+

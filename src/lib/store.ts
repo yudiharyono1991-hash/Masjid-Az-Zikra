@@ -27,19 +27,11 @@ import {
   ReportSignatory,
   AuditLog,
   JamaahProfile,
-  BoardMember
+  BoardMember,
+  GedungBooking,
+  MasjidAgenda
 } from '../types';
 
-export interface GedungBooking {
-  id: string;
-  date: string;
-  name: string;
-  whatsapp: string;
-  email: string;
-  notes: string;
-  status: 'pending' | 'approved' | 'rejected';
-  createdAt: string;
-}
 import {
   INITIAL_PROGRAMS,
   INITIAL_DONATIONS,
@@ -57,7 +49,8 @@ import {
   INITIAL_JAMAAH_PROFILES,
   INITIAL_AUDIT_LOGS,
   INITIAL_BOARD_MEMBERS,
-  INITIAL_REPORT_SIGNATORIES
+  INITIAL_REPORT_SIGNATORIES,
+  INITIAL_AGENDAS
 } from './initialData';
 
 const LOCAL_STORAGE_KEY = 'masjid_Tazkia_app_state_v3';
@@ -91,6 +84,7 @@ export interface AppState {
   boardMembers: BoardMember[];
   reportSignatories: ReportSignatory[];
   gedungBookings: GedungBooking[];
+  agendas: MasjidAgenda[];
 }
 
 const defaultState: AppState = {
@@ -126,7 +120,8 @@ const defaultState: AppState = {
   jamaahProfiles: INITIAL_JAMAAH_PROFILES,
   boardMembers: INITIAL_BOARD_MEMBERS,
   reportSignatories: INITIAL_REPORT_SIGNATORIES,
-  gedungBookings: []
+  gedungBookings: [],
+  agendas: INITIAL_AGENDAS
 };
 
 export function getStoredState(): AppState {
@@ -167,9 +162,10 @@ export function getStoredState(): AppState {
         erpSignatures: parsed.erpSignatures || [],
         auditLogs: (parsed.auditLogs && parsed.auditLogs.length > 0) ? parsed.auditLogs : INITIAL_AUDIT_LOGS,
         jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES,
-        boardMembers: (parsed.boardMembers && parsed.boardMembers.length > 0) ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
+        boardMembers: parsed.boardMembers?.length ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
         reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES,
-        gedungBookings: parsed.gedungBookings || []
+        gedungBookings: parsed.gedungBookings || [],
+        agendas: parsed.agendas?.length ? parsed.agendas : INITIAL_AGENDAS
       };
     }
   } catch (e) {
@@ -1115,6 +1111,31 @@ export function useMasjidStore() {
     }));
   };
 
+  const addAgenda = (agenda: Omit<MasjidAgenda, 'id'>) => {
+    const newAgenda: MasjidAgenda = {
+      ...agenda,
+      id: `agenda-${Math.floor(1000 + Math.random() * 9000)}`
+    };
+    setState(prev => ({
+      ...prev,
+      agendas: [newAgenda, ...(prev.agendas || [])]
+    }));
+  };
+
+  const updateAgenda = (id: string, updated: Partial<MasjidAgenda>) => {
+    setState(prev => ({
+      ...prev,
+      agendas: (prev.agendas || []).map(a => a.id === id ? { ...a, ...updated } : a)
+    }));
+  };
+
+  const deleteAgenda = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      agendas: (prev.agendas || []).filter(a => a.id !== id)
+    }));
+  };
+
   const resetToDefault = () => {
     setState(defaultState);
   };
@@ -1184,6 +1205,9 @@ export function useMasjidStore() {
     addGedungBooking,
     updateGedungBookingStatus,
     deleteGedungBooking,
+    addAgenda,
+    updateAgenda,
+    deleteAgenda,
     resetToDefault
   };
 }

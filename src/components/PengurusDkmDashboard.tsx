@@ -69,6 +69,8 @@ import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
 import { InputAnggaran } from './accounting/InputAnggaran';
 import { PencairanAnggaran } from './accounting/PencairanAnggaran';
+import { SejarahTazkiaSection } from './SejarahTazkiaSection';
+import { AgendaAdmin } from './AgendaAdmin';
 import { SewaGedungAdmin } from './SewaGedungAdmin';
 import { BoardMemberAdmin } from './BoardMemberAdmin';
 import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
@@ -164,7 +166,7 @@ onUpdateJamaahProfile,
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
 
@@ -785,6 +787,7 @@ onUpdateJamaahProfile,
               { id: 'galeri', label: 'Galeri & Artikel Kajian' },
               { id: 'qurban', label: 'Patungan Qurban' },
               { id: 'sewa', label: 'Sewa & Booking' },
+              { id: 'kalender', label: 'Kalender & Agenda' },
               { id: 'aplikasi', label: 'Pengaturan Aplikasi' },
               { id: 'pengaturan', label: 'Pengaturan Admin & Foto' },
               { id: 'pengurus', label: 'Profil & Pengurus' },
@@ -810,6 +813,7 @@ onUpdateJamaahProfile,
             { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
             { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
             { id: 'sewa', label: 'Sewa & Booking', icon: Building },
+            { id: 'kalender', label: 'Kalender & Agenda', icon: Calendar },
             { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
             { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
             { id: 'pengurus', label: 'Profil & Pengurus', icon: Users },
@@ -840,6 +844,12 @@ onUpdateJamaahProfile,
             );
           })}
         </div>
+
+        {dkmTab === 'kalender' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <AgendaAdmin />
+          </div>
+        )}
 
         {/* TAB 2: GALERI & ARTIKEL KAJIAN UNLIMITED */}
         {dkmTab === 'galeri' && (

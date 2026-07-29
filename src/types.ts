@@ -393,3 +393,28 @@ export interface JamaahProfile {
   monthlyDonationTarget?: number;
   targetDate?: number; // Day of the month, e.g., 25
 }
+
+export interface MasjidAgenda {
+  id: string;
+  title: string;
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm - HH:mm
+  location: string;
+  speaker?: string;
+  description: string;
+  category: 'Kajian' | 'Rapat' | 'Kegiatan' | 'Lainnya';
+  imageUrl?: string;
+}
+
+
+export interface GedungBooking {
+  id: string;
+  date: string;
+  name: string;
+  whatsapp: string;
+  email: string;
+  notes: string;
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
+}
+
