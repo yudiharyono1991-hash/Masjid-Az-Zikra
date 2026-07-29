@@ -115,11 +115,11 @@ export async function deleteMediaFromSupabase(publicUrl: string): Promise<boolea
 
   try {
     // Ekstrak path dari URL
-    const urlParts = publicUrl.split('/masjid-media/');
+    const urlParts = publicUrl.split('/tazkia-media/');
     if (urlParts.length < 2) return false;
     
     const filePath = urlParts[1];
-    const { error } = await supabase.storage.from('masjid-media').remove([filePath]);
+    const { error } = await supabase.storage.from('tazkia-media').remove([filePath]);
     return !error;
   } catch {
     return false;
