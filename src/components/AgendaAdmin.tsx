@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Edit2, Calendar as CalendarIcon, Clock, MapPin, Upload } from 'lucide-react';
+import { getSupabaseClient } from '../lib/supabase';
 import { useMasjidStore } from '../lib/store';
 import { MasjidAgenda } from '../types';
 
@@ -67,6 +68,41 @@ export const AgendaAdmin = () => {
     }
   };
 
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const supabase = getSupabaseClient();
+      if (!supabase) throw new Error('Supabase not connected');
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-agenda.${fileExt}`;
+      const filePath = `agenda/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('tazkia-media')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('tazkia-media')
+        .getPublicUrl(filePath);
+
+      setFormData({ ...formData, imageUrl: data.publicUrl });
+      alert('Foto agenda berhasil diunggah!');
+    } catch (err) {
+      console.error('Error uploading file:', err);
+      alert('Gagal mengunggah foto. Pastikan ukuran file tidak terlalu besar dan koneksi stabil.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
@@ -96,16 +132,22 @@ export const AgendaAdmin = () => {
 
             <div className="space-y-2">
               <label className="block text-sm font-bold text-slate-700">Kategori</label>
-              <select
-                value={formData.category || 'Kajian'}
+              <input
+                list="kategori-list"
+                value={formData.category || ''}
                 onChange={e => setFormData({ ...formData, category: e.target.value as any })}
                 className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="Kajian">Kajian / Ceramah</option>
-                <option value="Rapat">Rapat Kepengurusan</option>
-                <option value="Kegiatan">Kegiatan Bakti Sosial / Acara</option>
-                <option value="Lainnya">Lainnya</option>
-              </select>
+                placeholder="Pilih atau ketik kategori..."
+              />
+              <datalist id="kategori-list">
+                <option value="Kajian / Ceramah" />
+                <option value="Rapat Kepengurusan" />
+                <option value="Kegiatan Bakti Sosial / Acara" />
+                <option value="Lainnya" />
+                {Array.from(new Set(agendas.map(a => a.category))).filter(c => !['Kajian / Ceramah', 'Rapat Kepengurusan', 'Kegiatan Bakti Sosial / Acara', 'Lainnya', 'Kajian', 'Rapat', 'Kegiatan'].includes(c)).map(c => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
             </div>
 
             <div className="space-y-2">
@@ -148,7 +190,7 @@ export const AgendaAdmin = () => {
                 type="text"
                 value={formData.speaker || ''}
                 onChange={e => setFormData({ ...formData, speaker: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 placeholder="Contoh: Ust. Adi Hidayat (Kosongkan jika tidak ada)"
               />
             </div>
@@ -158,21 +200,37 @@ export const AgendaAdmin = () => {
               <textarea
                 value={formData.description || ''}
                 onChange={e => setFormData({ ...formData, description: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
                 rows={3}
                 placeholder="Jelaskan detail agenda secara singkat..."
               />
             </div>
 
             <div className="md:col-span-2 space-y-2">
-              <label className="block text-sm font-bold text-slate-700">URL Poster/Gambar (Opsional)</label>
-              <input
-                type="text"
-                value={formData.imageUrl || ''}
-                onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
-                className="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
-                placeholder="https://contoh.com/poster.jpg (Anda bisa mengunggah ke galeri dulu lalu copy linknya kesini)"
-              />
+              <label className="block text-sm font-bold text-slate-700">Poster / Gambar Agenda (Opsional)</label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={formData.imageUrl || ''}
+                  onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
+                  className="flex-1 p-3 bg-white text-slate-800 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ketik URL gambar ATAU upload file..."
+                />
+                <label className="cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 rounded-xl flex items-center justify-center font-bold border border-blue-200 transition-colors">
+                  {isUploading ? (
+                    <span className="flex items-center gap-2 text-sm"><span className="animate-spin border-2 border-blue-700 border-t-transparent rounded-full w-4 h-4"></span></span>
+                  ) : (
+                    <span className="flex items-center gap-2 text-sm"><Upload className="w-4 h-4" /> Upload</span>
+                  )}
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    disabled={isUploading}
+                  />
+                </label>
+              </div>
             </div>
           </div>
 

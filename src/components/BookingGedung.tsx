@@ -8,9 +8,7 @@ interface BookingGedungProps {
 }
 
 const DEFAULT_BALLROOM_IMAGES = [
-  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=1920&q=80',
   'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1598492212952-475ea7aeb6e2?auto=format&fit=crop&w=800&q=80',
   'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80',
 ];
 
@@ -30,7 +28,7 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
   const gedungBookings = state.gedungBookings || [];
   
   const [activeImage, setActiveImage] = useState(0);
-  const [images, setImages] = useState<string[]>(DEFAULT_BALLROOM_IMAGES);
+  const [images, setImages] = useState<string[]>([]);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
   // Form State
@@ -54,7 +52,10 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
       
       try {
         const { data, error } = await supabase.storage.from('tazkia-media').list('booking');
-        if (error) return;
+        if (error) {
+          setImages(DEFAULT_BALLROOM_IMAGES);
+          return;
+        }
         
         if (data && data.length > 0) {
           const deletedImages = JSON.parse(localStorage.getItem('tazkia_booking_images_deleted') || '[]');
@@ -62,15 +63,20 @@ export const BookingGedung: React.FC<BookingGedungProps> = ({ isDark = false }) 
           if (imageFiles.length > 0) {
             const urls = imageFiles.map(file => supabase.storage.from('tazkia-media').getPublicUrl(`booking/${file.name}`).data.publicUrl);
             setImages(urls);
+          } else {
+            setImages(DEFAULT_BALLROOM_IMAGES);
           }
           
           const pdfFile = data.find(file => file.name.match(/\.pdf$/i) && !deletedImages.includes(file.name));
           if (pdfFile) {
             setPdfUrl(supabase.storage.from('tazkia-media').getPublicUrl(`booking/${pdfFile.name}`).data.publicUrl);
           }
+        } else {
+          setImages(DEFAULT_BALLROOM_IMAGES);
         }
       } catch (err) {
         console.error('Failed to load booking assets', err);
+        setImages(DEFAULT_BALLROOM_IMAGES);
       }
     };
     fetchAssets();
