@@ -49,19 +49,25 @@ export const Footer: React.FC<FooterProps> = ({
               Pusat ibadah, ZISWAF transparan, dan pelayanan umat di Sentul City, Bogor.
             </p>
 
-            <div className="pt-2 text-xs space-y-1.5 font-mono text-blue-200">
-              <p className="flex items-start gap-2">
+            <div className="pt-2 text-xs space-y-3 font-mono text-blue-200">
+              <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                <span className="leading-snug">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>0858 1000 8899 (WA / Telp Sekretariat DKM)</span>
-              </p>
-              <p className="flex items-center gap-2">
+                <div className="flex flex-col">
+                  <span className="leading-snug">Jl. Ir. H. Djuanda No. 78 Sentul City,</span>
+                  <span className="opacity-90 mt-0.5">Bogor, Indonesia</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="flex flex-col">
+                  <span className="leading-snug">0858 1000 8899</span>
+                  <span className="opacity-90 mt-0.5">(WA / Telp Sekretariat DKM)</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span>masjidtazkia@tazkia.ac.id</span>
-              </p>
+              </div>
             </div>
           </div>
 
