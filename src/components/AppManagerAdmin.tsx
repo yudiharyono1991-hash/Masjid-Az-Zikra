@@ -16,9 +16,7 @@ export const AppManagerAdmin: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  // AI Key state
-  const [aiKeyInput, setAiKeyInput] = useState('');
-  const [isUpdatingKey, setIsUpdatingKey] = useState(false);
+
 
   // Sponsor State
   const [sponsors, setSponsors] = useState<Sponsor[]>(() => {
@@ -67,34 +65,7 @@ export const AppManagerAdmin: React.FC = () => {
     } catch(e) {}
   };
 
-  const handleUpdateAiKey = async () => {
-    if (!aiKeyInput || aiKeyInput.length < 10) {
-      alert("API Key tidak valid.");
-      return;
-    }
-    setIsUpdatingKey(true);
-    try {
-      const res = await fetch('/api/admin/update-ai-key', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          apiKey: aiKeyInput.trim(),
-          adminSecret: 'tazkia-dkm-2026' // Matches the simple env protection we set
-        })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        alert("✅ " + data.message + " (Diperbarui: " + new Date(data.updatedAt).toLocaleString() + ")");
-        setAiKeyInput('');
-      } else {
-        alert("❌ Gagal: " + (data.error || "Terjadi kesalahan"));
-      }
-    } catch (err) {
-      alert("❌ Terjadi kesalahan jaringan.");
-    } finally {
-      setIsUpdatingKey(false);
-    }
-  };
+
 
 
   const handleHeroUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,8 +123,7 @@ export const AppManagerAdmin: React.FC = () => {
           { id: 'qr', label: 'Cetak QR Aplikasi', icon: QrCode },
           { id: 'sponsor', label: 'Sponsor & Mitra', icon: Store },
           { id: 'profil', label: 'Profil & Sejarah Masjid', icon: Settings },
-          { id: 'role', label: 'Manajemen Peran & Izin', icon: Shield },
-          { id: 'ai', label: 'Pengaturan AI Syariah', icon: Bot }
+          { id: 'role', label: 'Manajemen Peran & Izin', icon: Shield }
 
         ].map(sub => {
           const SubIcon = sub.icon;
@@ -378,53 +348,7 @@ export const AppManagerAdmin: React.FC = () => {
           <RoleManagerAdmin />
         )}
 
-        {/* AI SYARIAH TAB */}
-        {activeSubTab === 'ai' && (
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-bold font-serif mb-2 flex items-center gap-2 text-amber-400">
-                <Bot className="w-6 h-6" />
-                Pengaturan API Key AI Syariah
-              </h3>
-              <p className="text-sm text-blue-300">
-                Pembaruan API Key Google Gemini (AI Studio). Token lama ('AQ.xx') biasanya expired dalam beberapa jam.
-                Gunakan fitur ini untuk memperbarui key tanpa harus mengubah file .env atau merestart server.
-                Disarankan menggunakan API Key permanen ('AIzaSy...') dari Google Cloud Console.
-              </p>
-            </div>
 
-            <div className="bg-blue-950/50 p-6 rounded-2xl border border-amber-500/30">
-              <label className="block text-sm font-bold text-blue-200 mb-2">Google Gemini API Key Baru</label>
-              <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={aiKeyInput}
-                  onChange={(e) => setAiKeyInput(e.target.value)}
-                  placeholder="Paste API Key di sini (misal: AIzaSy... atau AQ...)"
-                  className="flex-1 bg-blue-900 border border-blue-700 rounded-xl px-4 py-3 text-white placeholder:text-blue-400/50 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all font-mono text-sm"
-                />
-                <button
-                  onClick={handleUpdateAiKey}
-                  disabled={isUpdatingKey || !aiKeyInput}
-                  className="bg-amber-500 hover:bg-amber-400 disabled:bg-gray-600 disabled:cursor-not-allowed text-blue-950 font-bold px-6 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 whitespace-nowrap"
-                >
-                  {isUpdatingKey ? 'Menyimpan...' : (
-                    <>
-                      <Save className="w-5 h-5" />
-                      Simpan Key
-                    </>
-                  )}
-                </button>
-              </div>
-              <p className="text-xs text-amber-200/70 mt-3 flex items-start gap-1.5">
-                <span className="shrink-0">⚠️</span>
-                <span>
-                  Key yang disimpan di sini berlaku segera. Key lama di sistem akan langsung tergantikan di memori (tidak memodifikasi file .env secara permanen, namun akan terus aktif selama server berjalan).
-                </span>
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

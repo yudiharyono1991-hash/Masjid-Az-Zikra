@@ -6,7 +6,6 @@ interface FloatingMobileNavProps {
   setActiveTab: (tab: string) => void;
   openDonationModal: () => void;
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
-  openAiAssistant: () => void;
   toggleMobileMenu: () => void;
   isDark?: boolean;
 }
@@ -16,7 +15,6 @@ export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
   setActiveTab,
   openDonationModal,
   openDigitalIbadah,
-  openAiAssistant,
   toggleMobileMenu,
   isDark = true
 }) => {
@@ -51,15 +49,6 @@ export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
         >
           <BookOpen className="w-5 h-5 text-blue-400" />
           <span>Al-Qur'an</span>
-        </button>
-
-        {/* AI Syariah */}
-        <button
-          onClick={() => { openAiAssistant(); }}
-          className="flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition-all cursor-pointer hover:text-white"
-        >
-          <Bot className="w-5 h-5 text-amber-400" />
-          <span>AI Syariah</span>
         </button>
 
         {/* Menu Susun Tiga */}

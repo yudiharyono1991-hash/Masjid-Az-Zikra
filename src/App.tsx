@@ -10,7 +10,7 @@ import { DigitalIbadahModal } from './components/DigitalIbadahModal';
 import { TransparencySection } from './components/TransparencySection';
 import { PengurusDkmDashboard } from './components/PengurusDkmDashboard';
 import { TvDisplayMode } from './components/TvDisplayMode';
-import { TazkiaAiAssistantModal } from './components/TazkiaAiAssistantModal';
+import { DigitalIbadahModal } from './components/DigitalIbadahModal';
 import { SupabaseConfigModal } from './components/SupabaseConfigModal';
 import { LoginModal } from './components/LoginModal';
 import { CatalogPdfModal } from './components/CatalogPdfModal';
@@ -97,7 +97,6 @@ export default function App() {
   const [digitalIbadahOpen, setDigitalIbadahOpen] = useState<boolean>(false);
   const [digitalIbadahTab, setDigitalIbadahTab] = useState<'quran' | 'salat' | 'kiblat' | 'doa'>('quran');
 
-  const [aiAssistantOpen, setAiAssistantOpen] = useState<boolean>(false);
   const [supabaseModalOpen, setSupabaseModalOpen] = useState<boolean>(false);
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
   const [tvModeOpen, setTvModeOpen] = useState<boolean>(false);
@@ -151,7 +150,6 @@ export default function App() {
           openDonationModal={handleOpenDonationModal}
           openCalculator={() => setCalculatorModalOpen(true)}
           openDigitalIbadah={handleOpenDigitalIbadah}
-          openAiAssistant={() => setAiAssistantOpen(true)}
           openSupabaseModal={() => setSupabaseModalOpen(true)}
           openTvMode={() => setTvModeOpen(true)}
           openCatalogPdf={() => setCatalogPdfOpen(true)}
@@ -385,11 +383,6 @@ export default function App() {
         initialTab={digitalIbadahTab}
       />
 
-      <TazkiaAiAssistantModal
-        isOpen={aiAssistantOpen}
-        onClose={() => setAiAssistantOpen(false)}
-      />
-
       <CatalogPdfModal
         isOpen={catalogPdfOpen}
         onClose={() => setCatalogPdfOpen(false)}
@@ -433,22 +426,12 @@ export default function App() {
         />
       )}
 
-      {/* Floating AI Syariah Button — Desktop Only (Mobile sudah ada di bottom nav) */}
-      <button
-        onClick={() => setAiAssistantOpen(true)}
-        className="hidden xl:flex fixed bottom-6 left-6 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-5 py-3 rounded-2xl shadow-xl items-center gap-2 transition-all hover:-translate-y-1 z-50 print:hidden"
-      >
-        <Bot className="w-6 h-6 text-blue-900" />
-        <span>Tanya AI Syariah</span>
-      </button>
-
       {/* Floating Mobile Bottom Bar */}
       <FloatingMobileNav
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         openDonationModal={handleOpenDonationModal}
         openDigitalIbadah={handleOpenDigitalIbadah}
-        openAiAssistant={() => setAiAssistantOpen(true)}
         toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
         isDark={isDark}
       />

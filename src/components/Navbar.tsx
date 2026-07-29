@@ -28,7 +28,6 @@ interface NavbarProps {
   openDonationModal: (category?: string) => void;
   openCalculator: () => void;
   openDigitalIbadah: (subTab?: 'quran' | 'salat' | 'kiblat' | 'doa') => void;
-  openAiAssistant: () => void;
   openSupabaseModal: () => void;
   openTvMode: () => void;
   openCatalogPdf: () => void;
@@ -49,7 +48,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   openDonationModal,
   openCalculator,
   openDigitalIbadah,
-  openAiAssistant,
   openSupabaseModal,
   openTvMode,
   openCatalogPdf,
@@ -271,20 +269,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
 
-            {/* AI Syariah (Desktop Only, mobile has floating nav) */}
-            <button
-              onClick={openAiAssistant}
-              className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden md:flex items-center gap-1.5 ${
-                isDark 
-                  ? 'bg-blue-800/60 text-amber-300 border-amber-400/40 hover:bg-blue-800' 
-                  : 'bg-blue-50 text-amber-600 border-amber-300 hover:bg-amber-100'
-              }`}
-              title="Konsultasi AI Syariah"
-            >
-              <Bot className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-              <span className="hidden lg:inline text-xs font-bold font-mono">Tanya AI</span>
-            </button>
-            
             {/* Login / Logout */}
             {session && session.isLoggedIn ? (
               <button
