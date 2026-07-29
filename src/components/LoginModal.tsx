@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserSession, UserRole } from '../types';
+import { useMasjidStore, getSupabaseClient } from '../lib/store';
 import {
   UserCheck,
   X,
@@ -34,6 +35,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<UserRole>('jamaah');
   const [name, setName] = useState('');
+  const { state } = useMasjidStore();
+  const { appRoles } = state;
 
   useEffect(() => {
     if (isOpen && !session.isLoggedIn) {
@@ -174,6 +177,24 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 </div>
               </div>
 
+              {role !== 'jamaah' && (
+                <div className="text-left">
+                  <label className="text-xs font-semibold text-blue-800 block mb-1">Pilih Jabatan / Role:</label>
+                  <select
+                    value={role}
+                    onChange={(e) => {
+                      const selectedRole = appRoles.find(r => r.id === e.target.value);
+                      setRole(e.target.value as UserRole);
+                      if (selectedRole) setName(selectedRole.name);
+                    }}
+                    className="w-full bg-white border border-blue-300 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-blue-900 outline-none"
+                  >
+                    {appRoles.map(r => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               {/* Panduan Login Block */}
               {role === 'jamaah' ? (
                 <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-left">
@@ -248,7 +269,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </div>
 
               <div className="flex items-center justify-end">
-                <a href="https://wa.me/6285810008899?text=Assalamu'alaikum,%20saya%20lupa%20password%20akun%20Portal%20Masjid%20Tazkia%20saya" target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                <a href="https://wa.me/6285810008899?text=Assalamu'alaikum%20Admin,%20saya%20lupa%20password%20akun%20Aplikasi%20Masjid%20Tazkia%20saya.%20Mohon%20bantuannya." target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                   Lupa Password? Hubungi Admin
                 </a>
               </div>

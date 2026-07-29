@@ -56,7 +56,7 @@ Tugas Anda:
       const ai = new GoogleGenAI({ apiKey });
 
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-1.5-flash",
         contents: [
           ...formattedHistory,
           { role: "user", parts: [{ text: message }] },
@@ -80,6 +80,12 @@ Tugas Anda:
   function buildFallbackReply(msg: string, userName?: string): string {
     const m = msg.toLowerCase();
     const sapa = userName ? `Akhi/Ukhti **${userName}**, ` : 'Sahabat, ';
+
+    // Moderation Check (Pornography, Racism, Hate Speech)
+    const blockWords = ['porno', 'bokep', 'mesum', 'seks', 'sex', 'ngentot', 'rasis', 'kafir', 'bunuh', 'judi', 'slot', 'togel', 'mabuk', 'miras'];
+    if (blockWords.some(word => m.includes(word))) {
+      return `Astaghfirullah. Mohon maaf, sebagai Asisten Virtual Masjid Tazkia yang menjunjung nilai-nilai Syariah Islam, saya tidak dapat memproses pertanyaan atau pernyataan yang mengandung unsur tidak pantas, pornografi, kebencian, maupun pelanggaran syariat. Mari kita gunakan forum ini untuk kebaikan dan kebermanfaatan. Barakallahu fiikum.`;
+    }
 
     if (m.includes('sewa') || m.includes('gedung') || m.includes('hall') || m.includes('ballroom') || m.includes('alhambra')) {
       return `${sapa}Alhamdulillah! Untuk informasi penyewaan **Alhambra Hall / Gedung Masjid Tazkia**, silakan:\n\n📞 Hubungi: **0858 1000 8899** (Sekretariat DKM)\n📧 Email: **masjidtazkia@tazkia.ac.id**\n🖥️ Atau gunakan fitur **Booking Gedung** di menu utama aplikasi ini.\n\nJazakallahu Khairan 🤲`;

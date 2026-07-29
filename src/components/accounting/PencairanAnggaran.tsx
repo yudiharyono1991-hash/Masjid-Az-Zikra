@@ -16,7 +16,7 @@ export function PencairanAnggaran() {
   const [rejectionReason, setRejectionReason] = useState('');
   const [rejectingId, setRejectingId] = useState<string | null>(null);
 
-  const isAdminOrDirector = state.session?.role === 'ketua_dkm' || state.session?.role === 'bendahara' || state.session?.role === 'admin_masjid';
+  const isDirector = state.session?.role === 'direktur' || state.session?.role === 'ketua_dewan_pembina';
 
   // Calculate budget utilization
   const getBudgetBalance = (budgetId: string) => {
@@ -86,7 +86,7 @@ export function PencairanAnggaran() {
         >
           Form Pengajuan
         </button>
-        {isAdminOrDirector && (
+        {isDirector && (
           <button
             onClick={() => setActiveTab('approval')}
             className={`px-6 py-3 transition-colors flex items-center gap-2 ${activeTab === 'approval' ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}

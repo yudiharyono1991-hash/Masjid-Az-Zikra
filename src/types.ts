@@ -189,20 +189,17 @@ export type ColorPalette = 'emerald_green' | 'emerald_gold' | 'deep_blue' | 'sky
 
 export type ThemeMode = 'light' | 'dark';
 
-export type UserRole = 'jamaah' | 'ketua_dkm' | 'bendahara' | 'penghimpunan' | 'penyaluran' | 'admin_masjid' | 'pengurus_dkm';
+export interface AppRole {
+  id: string;
+  name: string;
+  type: string;
+}
 
-/** Role pengurus yang dapat mengakses Portal DKM */
-export const DKM_PORTAL_ROLES: UserRole[] = [
-  'ketua_dkm',
-  'bendahara',
-  'penghimpunan',
-  'penyaluran',
-  'admin_masjid',
-  'pengurus_dkm'
-];
+export type UserRole = string;
 
+/** Role pengurus yang dapat mengakses Portal DKM (akan divalidasi lebih longgar atau dinamis) */
 export function hasDkmPortalAccess(role: UserRole): boolean {
-  return DKM_PORTAL_ROLES.includes(role);
+  return role !== 'jamaah' && role !== 'user';
 }
 
 export interface UserSession {
@@ -281,6 +278,7 @@ export interface AppAdminSettings {
   jumatTimeInfo?: string;
   masjidAddressInfo?: string;
   masjidPhoneContact?: string;
+  footerPengurusIds?: string[];
   featureInfoAnnouncement?: string;
 }
 

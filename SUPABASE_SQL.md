@@ -3,10 +3,30 @@
 Gunakan query SQL berikut di Supabase SQL editor untuk membuat tabel dasar aplikasi.
 
 ```sql
+-- App Roles (Dynamic Roles)
+create table if not exists app_roles (
+  id text primary key,
+  name text not null,
+  type text not null,
+  created_at timestamptz not null default now()
+);
+
+-- Insert Default Roles
+insert into app_roles (id, name, type)
+values 
+  ('ketua_dewan_pembina', 'Ketua Dewan Pembina', 'pengurus_dkm'),
+  ('direktur', 'Direktur', 'pengurus_dkm'),
+  ('ketua_dkm', 'Ketua DKM', 'pengurus_dkm'),
+  ('bendahara', 'Bendahara', 'admin_masjid'),
+  ('penghimpunan', 'Bagian Penghimpunan', 'admin_masjid'),
+  ('penyaluran', 'Bagian Penyaluran', 'admin_masjid')
+on conflict (id) do nothing;
+
 -- Users & Roles
 create table if not exists users (
   id uuid primary key default uuid_generate_v4(),
   email text not null unique,
+  password text,
   full_name text,
   phone text,
   role text not null default 'jamaah',
@@ -14,6 +34,7 @@ create table if not exists users (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
 
 create index if not exists idx_users_role on users(role);
 

@@ -159,7 +159,14 @@ export const Footer: React.FC<FooterProps> = ({
           </p>
           <div className="grid sm:grid-cols-2 gap-3 text-[11px] font-mono text-blue-300">
             <p><span className="text-amber-400 font-bold">Nama Masjid:</span> Masjid Tazkia</p>
-            <p><span className="text-amber-400 font-bold">Pengurus Utama:</span> {((state.boardMembers || []).sort((a,b)=>a.orderIdx-b.orderIdx)[0]?.name || 'Syarifudin Kusin')}</p>
+            <p><span className="text-amber-400 font-bold">Pengurus Utama:</span> {(
+              state.adminSettings?.footerPengurusIds?.length
+                ? state.adminSettings.footerPengurusIds
+                    .map(id => state.boardMembers?.find(m => m.id === id)?.name)
+                    .filter(Boolean)
+                    .join(', ')
+                : (state.boardMembers || []).sort((a,b)=>a.orderIdx-b.orderIdx).slice(0, 3).map(m => m.name).join(', ')
+            ) || 'Syarifudin Kusin'}</p>
             <p className="sm:col-span-2"><span className="text-amber-400 font-bold">Alamat:</span> Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia</p>
             <p><span className="text-amber-400 font-bold">Email:</span> masjidtazkia@tazkia.ac.id</p>
             <p><span className="text-amber-400 font-bold">Telp / WA:</span> 0858 1000 8899</p>

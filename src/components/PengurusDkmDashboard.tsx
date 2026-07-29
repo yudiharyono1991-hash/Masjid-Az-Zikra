@@ -2485,6 +2485,41 @@ onUpdateJamaahProfile,
                       className="w-full bg-blue-900 border border-blue-800 rounded-xl p-2 text-blue-400 font-mono text-xs outline-none"
                     />
                   </div>
+
+                  <div>
+                    <label className="text-xs text-blue-300 font-semibold block mb-1">
+                      Pilih Pengurus Utama untuk Footer (Maksimal 3):
+                    </label>
+                    <div className="space-y-2 bg-blue-900 border border-blue-800 p-3 rounded-xl max-h-48 overflow-y-auto">
+                      {(state.boardMembers || []).sort((a,b)=>a.orderIdx-b.orderIdx).map(member => (
+                        <label key={member.id} className="flex items-center gap-2 text-xs text-white cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={(adminSettings?.footerPengurusIds || []).includes(member.id)}
+                            onChange={(e) => {
+                              const currentSelected = adminSettings?.footerPengurusIds || [];
+                              let newSelected = [...currentSelected];
+                              if (e.target.checked) {
+                                if (currentSelected.length < 3) {
+                                  newSelected.push(member.id);
+                                } else {
+                                  alert('Maksimal hanya 3 pengurus untuk footer.');
+                                  return;
+                                }
+                              } else {
+                                newSelected = newSelected.filter(id => id !== member.id);
+                              }
+                              if (onUpdateAdminSettings) {
+                                onUpdateAdminSettings({ footerPengurusIds: newSelected });
+                              }
+                            }}
+                            className="w-4 h-4 rounded text-blue-600 bg-blue-950 border-blue-700"
+                          />
+                          <span>{member.name} - {member.position}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

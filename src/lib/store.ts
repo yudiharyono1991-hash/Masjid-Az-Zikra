@@ -85,6 +85,7 @@ export interface AppState {
   reportSignatories: ReportSignatory[];
   gedungBookings: GedungBooking[];
   agendas: MasjidAgenda[];
+  appRoles: AppRole[];
 }
 
 const defaultState: AppState = {
@@ -121,7 +122,15 @@ const defaultState: AppState = {
   boardMembers: INITIAL_BOARD_MEMBERS,
   reportSignatories: INITIAL_REPORT_SIGNATORIES,
   gedungBookings: [],
-  agendas: INITIAL_AGENDAS
+  agendas: INITIAL_AGENDAS,
+  appRoles: [
+    { id: 'ketua_dewan_pembina', name: 'Ketua Dewan Pembina', type: 'pengurus_dkm' },
+    { id: 'direktur', name: 'Direktur', type: 'pengurus_dkm' },
+    { id: 'ketua_dkm', name: 'Ketua DKM', type: 'pengurus_dkm' },
+    { id: 'bendahara', name: 'Bendahara', type: 'admin_masjid' },
+    { id: 'penghimpunan', name: 'Bagian Penghimpunan', type: 'admin_masjid' },
+    { id: 'penyaluran', name: 'Bagian Penyaluran', type: 'admin_masjid' }
+  ]
 };
 
 export function getStoredState(): AppState {
@@ -165,7 +174,8 @@ export function getStoredState(): AppState {
         boardMembers: parsed.boardMembers?.length ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
         reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES,
         gedungBookings: parsed.gedungBookings || [],
-        agendas: parsed.agendas?.length ? parsed.agendas : INITIAL_AGENDAS
+        agendas: parsed.agendas?.length ? parsed.agendas : INITIAL_AGENDAS,
+        appRoles: parsed.appRoles?.length ? parsed.appRoles : defaultState.appRoles
       };
     }
   } catch (e) {
@@ -849,45 +859,86 @@ export function useMasjidStore() {
     });
   };
 
-  const addGalleryItem = (item: Omit<GalleryItem, 'id' | 'likesCount' | 'viewsCount'>) => {
-    const newItem: GalleryItem = {
-      ...item,
-      id: `gal-${Math.floor(100 + Math.random() * 900)}`,
-      likesCount: 0,
-      viewsCount: 1
-    };
+  const addGalleryItem = async (item: Omit<GalleryItem, 'id' | 'likesCount' | 'viewsCount'>) => {
+    const id = `gal-${Math.floor(100 + Math.random() * 900)}`;
+    const newItem: GalleryItem = { ...item, id, likesCount: 0, viewsCount: 1 };
+    
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      await supabase.from('gallery_items').insert({
+        id: newItem.id,
+        title: newItem.title,
+        type: newItem.type,
+        url: newItem.url,
+        thumbnail_url: newItem.thumbnailUrl || null,
+        description: newItem.description || null,
+        date: newItem.date,
+        category: newItem.category,
+        likes_count: newItem.likesCount,
+        views_count: newItem.viewsCount
+      });
+    }
+
     setState(prev => ({
       ...prev,
       galleryItems: [newItem, ...(prev.galleryItems || [])]
     }));
   };
 
-  const updateGalleryItem = (id: string, updated: Partial<GalleryItem>) => {
+  const updateGalleryItem = async (id: string, updated: Partial<GalleryItem>) => {
+    const supabase = getSupabaseClient();
+    if (supabase && id.length > 3) {
+      const updateData: any = {};
+      if (updated.title !== undefined) updateData.title = updated.title;
+      if (updated.type !== undefined) updateData.type = updated.type;
+      if (updated.url !== undefined) updateData.url = updated.url;
+      if (updated.thumbnailUrl !== undefined) updateData.thumbnail_url = updated.thumbnailUrl;
+      if (updated.description !== undefined) updateData.description = updated.description;
+      if (updated.date !== undefined) updateData.date = updated.date;
+      if (updated.category !== undefined) updateData.category = updated.category;
+      
+      await supabase.from('gallery_items').update(updateData).eq('id', id);
+    }
+
     setState(prev => ({
       ...prev,
       galleryItems: (prev.galleryItems || []).map(g => g.id === id ? { ...g, ...updated } : g)
     }));
   };
 
-  const deleteGalleryItem = (id: string) => {
+  const deleteGalleryItem = async (id: string) => {
+    const supabase = getSupabaseClient();
+    if (supabase && id.length > 3) {
+      await supabase.from('gallery_items').delete().eq('id', id);
+    }
     setState(prev => ({
       ...prev,
       galleryItems: (prev.galleryItems || []).filter(g => g.id !== id)
     }));
   };
 
-  const likeGalleryItem = (id: string) => {
-    setState(prev => ({
-      ...prev,
-      galleryItems: (prev.galleryItems || []).map(g => g.id === id ? { ...g, likesCount: g.likesCount + 1 } : g)
-    }));
+  const likeGalleryItem = async (id: string) => {
+    setState(prev => {
+      const newItems = (prev.galleryItems || []).map(g => g.id === id ? { ...g, likesCount: g.likesCount + 1 } : g);
+      const target = newItems.find(g => g.id === id);
+      const supabase = getSupabaseClient();
+      if (supabase && target && id.length > 3) {
+        supabase.from('gallery_items').update({ likes_count: target.likesCount }).eq('id', id);
+      }
+      return { ...prev, galleryItems: newItems };
+    });
   };
 
-  const incrementGalleryViews = (id: string) => {
-    setState(prev => ({
-      ...prev,
-      galleryItems: (prev.galleryItems || []).map(g => g.id === id ? { ...g, viewsCount: g.viewsCount + 1 } : g)
-    }));
+  const incrementGalleryViews = async (id: string) => {
+    setState(prev => {
+      const newItems = (prev.galleryItems || []).map(g => g.id === id ? { ...g, viewsCount: g.viewsCount + 1 } : g);
+      const target = newItems.find(g => g.id === id);
+      const supabase = getSupabaseClient();
+      if (supabase && target && id.length > 3) {
+        supabase.from('gallery_items').update({ views_count: target.viewsCount }).eq('id', id);
+      }
+      return { ...prev, galleryItems: newItems };
+    });
   };
 
   const addQurbanParticipant = (groupId: string, participantData: Omit<QurbanParticipant, 'id' | 'createdAt' | 'transactionRef'>) => {

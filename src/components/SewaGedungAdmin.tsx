@@ -22,7 +22,8 @@ export const SewaGedungAdmin: React.FC = () => {
       if (supabase) {
         const { data, error } = await supabase.storage.from('tazkia-media').list('booking');
         if (!error && data) {
-          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif|mp4|webm|ogg)$/i) && file.name !== '.emptyFolderPlaceholder');
+          const deletedImages = JSON.parse(localStorage.getItem('tazkia_booking_images_deleted') || '[]');
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif|mp4|webm|ogg)$/i) && file.name !== '.emptyFolderPlaceholder' && !deletedImages.includes(file.name));
           const newImages = imageFiles.map(file => ({
             name: file.name,
             url: supabase.storage.from('tazkia-media').getPublicUrl(`booking/${file.name}`).data.publicUrl
@@ -99,8 +100,7 @@ export const SewaGedungAdmin: React.FC = () => {
     if (fileUrl && (fileUrl.includes('supabase') || fileUrl.includes('supabase.co'))) {
       const success = await deleteMediaFromSupabase(fileUrl);
       if (!success) {
-        alert("Gagal menghapus file dari Supabase. Pastikan pengaturan izin/Policy (RLS) di Storage Supabase mengizinkan operasi 'DELETE'.");
-        return;
+        alert("Peringatan: Gagal menghapus file dari Supabase (Cek RLS Policy 'DELETE'). Namun, file akan disembunyikan dari tampilan Anda.");
       }
     }
 
@@ -108,6 +108,11 @@ export const SewaGedungAdmin: React.FC = () => {
       setPdf(null);
       localStorage.removeItem('tazkia_booking_pdf');
     } else {
+      // Hapus dari state images lokal
+      const newImages = images.filter(img => img.name !== fileName);
+      setImages(newImages);
+      // Simpan override ke localStorage untuk fallback jika fetch gagal / supabase tidak bisa hapus
+      localStorage.setItem('tazkia_booking_images_deleted', JSON.stringify([...(JSON.parse(localStorage.getItem('tazkia_booking_images_deleted') || '[]')), fileName]));
       await fetchAssets();
     }
     
