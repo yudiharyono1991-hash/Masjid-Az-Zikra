@@ -20,7 +20,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import { formatRupiah, formatRupiahFull } from '../lib/islamicUtils';
+
 import {
   HeartHandshake,
   Users,

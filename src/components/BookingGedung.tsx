@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { CheckCircle2, ArrowRight, FileText, Calendar as CalendarIcon, User, Phone, Mail, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
 import { getSupabaseClient } from '../lib/supabase';
 import { useMasjidStore } from '../lib/store';
-import { getSupabaseClient } from '../lib/supabase';
 
 interface BookingGedungProps {
   isDark?: boolean;
