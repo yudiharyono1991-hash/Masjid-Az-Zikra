@@ -15,7 +15,6 @@ export const AppManagerAdmin: React.FC = () => {
   const [heroImages, setHeroImages] = useState<{name: string, url: string}[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
   // AI Key state
   const [aiKeyInput, setAiKeyInput] = useState('');
