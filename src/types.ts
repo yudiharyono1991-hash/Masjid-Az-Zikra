@@ -327,6 +327,19 @@ export interface ERPBudgetEntry {
   createdAt?: string;
 }
 
+export interface ERPDisbursementRequest {
+  id: string;
+  budgetId: string; // The ID of the ERPBudgetEntry
+  amount: number;
+  purpose: string;
+  requestDate: string;
+  requestedBy: string; // User Name or Role
+  status: 'Pending' | 'Approved' | 'Rejected';
+  approvedBy?: string; // User Name or Role of Director
+  approvalDate?: string;
+  rejectionReason?: string;
+}
+
 export interface ReportSignature {
   id: string;
   reportType: string;

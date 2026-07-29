@@ -68,6 +68,7 @@ import { JurnalUmum } from './accounting/JurnalUmum';
 import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
 import { InputAnggaran } from './accounting/InputAnggaran';
+import { PencairanAnggaran } from './accounting/PencairanAnggaran';
 import { SewaGedungAdmin } from './SewaGedungAdmin';
 import { BoardMemberAdmin } from './BoardMemberAdmin';
 import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
@@ -159,14 +160,13 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddQurbanParticipant,
   onDeleteQurbanParticipant,
   onUpdateQurbanParticipant,
-  onAddJamaahProfile,
-  onUpdateJamaahProfile,
+onUpdateJamaahProfile,
   onDeleteJamaahProfile,
   openTvMode
 }) => {
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
-  const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan' | 'anggaran'>('coa');
+  const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
 
   // Zustand Store
   const store = useMasjidStore();
@@ -1262,6 +1262,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 { id: 'jurnal_umum', label: 'Jurnal Umum' },
                 { id: 'buku_besar', label: 'Buku Besar' },
                 { id: 'anggaran', label: 'Input Anggaran' },
+                { id: 'pencairan', label: 'Pencairan Anggaran' },
                 { id: 'laporan', label: 'Laporan Keuangan' }
               ].map(sub => (
                 <button
@@ -1283,6 +1284,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               {erpSubTab === 'jurnal_umum' && <JurnalUmum />}
               {erpSubTab === 'buku_besar' && <BukuBesar />}
               {erpSubTab === 'anggaran' && <InputAnggaran />}
+              {erpSubTab === 'pencairan' && <PencairanAnggaran />}
               {erpSubTab === 'laporan' && <ReportPrinter />}
             </div>
           </div>

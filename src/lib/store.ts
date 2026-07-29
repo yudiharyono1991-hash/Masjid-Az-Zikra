@@ -22,6 +22,7 @@ import {
   ERPGeneralJournal,
   ERPJournalEntry,
   ERPBudgetEntry,
+  ERPDisbursementRequest,
   ReportSignature,
   ReportSignatory,
   AuditLog,
@@ -83,6 +84,7 @@ export interface AppState {
   erpJournals: ERPGeneralJournal[];
   erpJournalEntries: ERPJournalEntry[];
   erpBudgets: ERPBudgetEntry[];
+  erpDisbursements: ERPDisbursementRequest[];
   erpSignatures: ReportSignature[];
   auditLogs: AuditLog[];
   jamaahProfiles: JamaahProfile[];
@@ -118,6 +120,7 @@ const defaultState: AppState = {
   erpJournals: [],
   erpJournalEntries: [],
   erpBudgets: [],
+  erpDisbursements: [],
   erpSignatures: [],
   auditLogs: INITIAL_AUDIT_LOGS,
   jamaahProfiles: INITIAL_JAMAAH_PROFILES,
@@ -160,6 +163,7 @@ export function getStoredState(): AppState {
         erpJournals: parsed.erpJournals || [],
         erpJournalEntries: parsed.erpJournalEntries || [],
         erpBudgets: parsed.erpBudgets || [],
+        erpDisbursements: parsed.erpDisbursements || [],
         erpSignatures: parsed.erpSignatures || [],
         auditLogs: (parsed.auditLogs && parsed.auditLogs.length > 0) ? parsed.auditLogs : INITIAL_AUDIT_LOGS,
         jamaahProfiles: (parsed.jamaahProfiles && parsed.jamaahProfiles.length > 0) ? parsed.jamaahProfiles : INITIAL_JAMAAH_PROFILES,
@@ -813,6 +817,20 @@ export function useMasjidStore() {
     }));
   };
 
+  const addErpDisbursement = (req: ERPDisbursementRequest) => {
+    setState(prev => ({
+      ...prev,
+      erpDisbursements: [...prev.erpDisbursements, req]
+    }));
+  };
+
+  const updateErpDisbursementStatus = (id: string, status: 'Approved' | 'Rejected', approvedBy: string, rejectionReason?: string) => {
+    setState(prev => ({
+      ...prev,
+      erpDisbursements: prev.erpDisbursements.map(d => d.id === id ? { ...d, status, approvedBy, rejectionReason } : d)
+    }));
+  };
+
   const addPettyCashEntry = (entry: Omit<PettyCashEntry, 'id' | 'remainingBalance'>) => {
     const id = `KC-${Math.floor(100 + Math.random() * 900)}`;
     setState(prev => {
@@ -1133,6 +1151,8 @@ export function useMasjidStore() {
     addErpBudget,
     updateErpBudget,
     deleteErpBudget,
+    addErpDisbursement,
+    updateErpDisbursementStatus,
     setErpSignatures,
     updateErpSignature,
     addPettyCashEntry,
