@@ -121,12 +121,13 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <div className="space-y-2 text-xs text-blue-200">
               {(state.boardMembers || []).sort((a, b) => a.orderIdx - b.orderIdx).slice(0, 3).map(member => (
-                <p key={member.id} className="flex items-start gap-2">
+                <div key={member.id} className="flex items-start gap-2 mb-3">
                   <UserCheck className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-blue-100">{member.groupTitle || member.position}:</strong> {member.name}
-                  </span>
-                </p>
+                  <div className="flex flex-col">
+                    <strong className="text-blue-100 leading-snug">{member.groupTitle || member.position}</strong>
+                    <span className="opacity-90 mt-0.5">{member.name}</span>
+                  </div>
+                </div>
               ))}
             </div>
 
