@@ -192,7 +192,8 @@ export type ThemeMode = 'light' | 'dark';
 export interface AppRole {
   id: string;
   name: string;
-  type: string;
+  type: string; // The role identifier, e.g. 'direktur', 'ketua_dkm', 'bendahara'
+  permissions: string[]; // List of permission keys, e.g. 'keuangan', 'approval_budget', 'galeri', 'users'
 }
 
 export type UserRole = string;
@@ -280,6 +281,13 @@ export interface AppAdminSettings {
   masjidPhoneContact?: string;
   footerPengurusIds?: string[];
   featureInfoAnnouncement?: string;
+  layananJamaahLinks?: Array<{
+    id: string;
+    title: string;
+    url?: string;
+    action?: 'donation' | 'calculator' | 'quran' | 'salat' | 'link';
+    iconName?: string;
+  }>;
 }
 
 export interface ERPChartOfAccount {
@@ -332,7 +340,9 @@ export interface ERPDisbursementRequest {
   purpose: string;
   requestDate: string;
   requestedBy: string; // User Name or Role
-  status: 'Pending' | 'Approved' | 'Rejected';
+  status: 'Pending' | 'Verified' | 'Approved' | 'Rejected';
+  verifiedBy?: string; // User Name or Role of Finance/Admin
+  verificationDate?: string;
   approvedBy?: string; // User Name or Role of Director
   approvalDate?: string;
   rejectionReason?: string;

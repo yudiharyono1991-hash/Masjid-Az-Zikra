@@ -29,6 +29,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   onUpdateProfile
 }) => {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'histori' | 'pengaturan'>('ringkasan');
+  const [visibleHistoryCount, setVisibleHistoryCount] = useState(10);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
@@ -237,7 +238,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100">
-                        {userDonations.map(d => (
+                        {userDonations.slice(0, visibleHistoryCount).map(d => (
                           <tr key={d.id} className="hover:bg-gray-50 transition-colors">
                             <td className="p-4">
                               <p className="text-sm font-bold text-gray-800">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
@@ -267,6 +268,16 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                       </tbody>
                     </table>
                   </div>
+                  {visibleHistoryCount < userDonations.length && (
+                    <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-center">
+                      <button
+                        onClick={() => setVisibleHistoryCount(prev => prev + 10)}
+                        className="px-6 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                      >
+                        Tampilkan Lebih Banyak
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

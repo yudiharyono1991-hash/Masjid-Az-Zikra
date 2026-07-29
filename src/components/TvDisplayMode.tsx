@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CITIES_DATA, CityPrayerTime, SURAHS_LIST } from '../lib/islamicUtils';
 import { Announcement, PetugasJadwal, AppAdminSettings } from '../types';
-import { Tv, X, Volume2, VolumeX, Play, Pause, Calendar, MapPin, Sparkles } from 'lucide-react';
+import { Tv, X, Volume2, VolumeX, Play, Pause, Calendar, MapPin, Sparkles, Home } from 'lucide-react';
 
 const QARI_LIST = [
   { id: 'alafasy', name: 'Mishary Rashid Alafasy', baseUrl: 'https://server8.mp3quran.net/afs/' },
@@ -100,81 +100,102 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
   const nextFriday = petugasList.find(p => p.khatibJumat);
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#070c1b] text-white flex flex-col justify-between p-6 font-sans overflow-hidden select-none">
+    <div className="fixed inset-0 z-50 bg-[#070c1b] text-white flex flex-col justify-between p-2 sm:p-6 font-sans overflow-y-auto sm:overflow-hidden select-none">
       {/* Top Header Bar */}
-      <div className="flex items-center justify-between border-b border-amber-500/30 pb-4 bg-blue-900/60 p-4 rounded-2xl">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center shadow-lg">
-            <Tv className="w-8 h-8" />
-          </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-wide">
-              Masjid Tazkia
-            </h1>
-            <p className="text-xs text-amber-400 font-medium flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>Sentul City, Bogor • {selectedCity.name}</span>
-            </p>
+      <div className="flex flex-col lg:flex-row items-center justify-between border-b border-amber-500/30 pb-4 bg-blue-900/60 p-4 rounded-2xl gap-4 lg:gap-0">
+        <div className="flex items-center justify-between w-full lg:w-auto gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center shadow-lg">
+              <Tv className="w-6 h-6 sm:w-8 sm:h-8" />
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-white tracking-wide leading-tight">
+                Masjid Tazkia
+              </h1>
+              <p className="text-[10px] sm:text-xs text-amber-400 font-medium flex items-center gap-1 sm:gap-2 mt-0.5">
+                <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                <span className="truncate max-w-[160px] sm:max-w-none">Sentul City, Bogor • {selectedCity.name}</span>
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Audio Player & Digital Clock */}
-        <div className="text-right flex items-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-4 lg:gap-6 w-full lg:w-auto justify-between lg:justify-end">
           
-          <div className="flex items-center gap-2 bg-blue-950/80 p-2 rounded-xl border border-blue-800">
-            <button 
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center text-amber-400 transition-colors"
-            >
-              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-1" />}
-            </button>
-            <div className="flex flex-col text-left mr-2">
-              <span className="text-[9px] font-mono text-blue-400 uppercase tracking-widest">Murottal Al-Quran</span>
-              <div className="flex gap-2">
-                <select 
-                  value={selectedQari}
-                  onChange={(e) => setSelectedQari(e.target.value)}
-                  className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-28 truncate appearance-none"
-                >
-                  {QARI_LIST.map(q => (
-                    <option key={q.id} value={q.baseUrl} className="bg-blue-900">{q.name}</option>
-                  ))}
-                </select>
-                <select 
-                  value={selectedSurah}
-                  onChange={(e) => setSelectedSurah(Number(e.target.value))}
-                  className="bg-transparent text-amber-300 text-xs font-bold outline-none cursor-pointer w-24 truncate appearance-none border-l border-blue-800 pl-2"
-                >
-                  {SURAHS_LIST.map(s => (
-                    <option key={s.number} value={s.number} className="bg-blue-900">{s.number}. {s.englishName}</option>
-                  ))}
-                </select>
+          <div className="flex flex-col gap-2 w-full sm:w-auto">
+            <div className="flex items-center gap-2 bg-blue-950/80 p-2 sm:p-3 rounded-xl border border-blue-800 w-full justify-between sm:justify-start overflow-hidden">
+              <button 
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center text-amber-400 transition-colors"
+              >
+                {isPlaying ? <Pause className="w-4 h-4 sm:w-5 sm:h-5" /> : <Play className="w-4 h-4 sm:w-5 sm:h-5 ml-1" />}
+              </button>
+              <div className="flex flex-col text-left min-w-0 flex-1 px-1">
+                <span className="text-[8px] sm:text-[9px] font-mono text-blue-400 uppercase tracking-widest truncate">Murottal Al-Quran</span>
+                <div className="flex gap-1 sm:gap-2 mt-0.5">
+                  <select 
+                    value={selectedQari}
+                    onChange={(e) => setSelectedQari(e.target.value)}
+                    className="bg-transparent text-amber-300 text-[10px] sm:text-xs font-bold outline-none cursor-pointer w-20 sm:w-28 truncate appearance-none"
+                  >
+                    {QARI_LIST.map(q => (
+                      <option key={q.id} value={q.baseUrl} className="bg-blue-900">{q.name}</option>
+                    ))}
+                  </select>
+                  <select 
+                    value={selectedSurah}
+                    onChange={(e) => setSelectedSurah(Number(e.target.value))}
+                    className="bg-transparent text-amber-300 text-[10px] sm:text-xs font-bold outline-none cursor-pointer w-16 sm:w-24 truncate appearance-none border-l border-blue-800 pl-1 sm:pl-2"
+                  >
+                    {SURAHS_LIST.map(s => (
+                      <option key={s.number} value={s.number} className="bg-blue-900">{s.number}. {s.englishName}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
+              <audio 
+                ref={audioRef}
+                src={audioUrl} 
+                onEnded={() => {
+                  if (selectedSurah < 114) {
+                    setSelectedSurah(prev => prev + 1);
+                  } else {
+                    setSelectedSurah(1); // loop back to Al-Fatihah
+                  }
+                }}
+                style={{ display: 'none' }}
+                id="murottal-player"
+              />
             </div>
-            <audio 
-              ref={audioRef}
-              src={audioUrl} 
-              loop 
-              style={{ display: 'none' }}
-              id="murottal-player"
-            />
+            {/* Mobile Exit Button moved here */}
+            <button
+              onClick={onExit}
+              className="lg:hidden w-full flex items-center justify-center gap-2 p-2.5 bg-blue-800 hover:bg-blue-700 text-blue-200 rounded-xl border border-blue-700 cursor-pointer transition-colors shadow-sm"
+              title="Kembali ke Beranda"
+            >
+              <Home className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase tracking-wider">Kembali ke Beranda</span>
+            </button>
           </div>
 
-          <div className="text-right">
-            <div className="text-3xl sm:text-5xl font-mono font-extrabold text-amber-400 tracking-wider">
+          <div className="text-center lg:text-right hidden sm:block">
+            <div className="text-3xl lg:text-5xl font-mono font-extrabold text-amber-400 tracking-wider">
               {timeStr}
             </div>
-            <p className="text-xs text-blue-300 mt-1 font-medium">
+            <p className="text-[10px] lg:text-xs text-blue-300 mt-1 font-medium">
               {dateStr} • <span className="text-amber-300 font-serif">{hijriDateStr}</span>
             </p>
           </div>
 
+          {/* Desktop Exit Button */}
           <button
             onClick={onExit}
-            className="p-3 bg-blue-800 hover:bg-blue-700 text-blue-300 rounded-2xl border border-blue-700 cursor-pointer"
-            title="Keluar Mode TV"
+            className="hidden lg:flex items-center gap-2 p-3 px-5 bg-blue-800 hover:bg-blue-700 text-blue-200 rounded-2xl border border-blue-700 cursor-pointer shrink-0 transition-colors shadow-lg"
+            title="Kembali ke Beranda"
           >
-            <X className="w-6 h-6" />
+            <Home className="w-5 h-5" />
+            <span className="text-sm font-bold uppercase tracking-widest">Beranda</span>
           </button>
         </div>
       </div>

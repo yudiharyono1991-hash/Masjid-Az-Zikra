@@ -717,10 +717,10 @@ onUpdateJamaahProfile,
   };
 
   return (
-    <section className="py-12 bg-[#0b1329] text-blue-100 min-h-screen">
+    <section className="py-12 bg-[#0b1329] text-blue-100 min-h-screen print:bg-white print:text-black print:p-0 print:min-h-0">
       {/* ===== TOAST NOTIFICATION ===== */}
       {toastMsg && (
-        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border text-sm font-bold transition-all animate-fadeIn ${
+        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl border text-sm font-bold transition-all animate-fadeIn print:hidden ${
           toastMsg.type === 'success'
             ? 'bg-emerald-900 border-emerald-500/50 text-emerald-200'
             : 'bg-red-900 border-red-500/50 text-red-200'
@@ -732,7 +732,7 @@ onUpdateJamaahProfile,
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header Title Bar */}
-        <div className="bg-gradient-to-r from-blue-950/80 via-blue-900 to-blue-950/80 border border-blue-500/30 p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl print-hidden">
+        <div className="bg-gradient-to-r from-blue-950/80 via-blue-900 to-blue-950/80 border border-blue-500/30 p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl print:hidden">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6" />
@@ -774,7 +774,7 @@ onUpdateJamaahProfile,
 
         {/* Dashboard Navigation Tabs */}
         {/* Mobile: Dropdown Select */}
-        <div className="sm:hidden bg-blue-950 p-3 rounded-2xl border border-blue-800 print-hidden">
+        <div className="sm:hidden bg-blue-950 p-3 rounded-2xl border border-blue-800 print:hidden">
           <label className="text-[10px] font-mono text-blue-400 block mb-1.5 uppercase tracking-wider">Pilih Menu Dashboard:</label>
           <select
             value={dkmTab}
@@ -806,7 +806,7 @@ onUpdateJamaahProfile,
           </select>
         </div>
         {/* Desktop: Horizontal Tabs */}
-        <div className="hidden sm:flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print-hidden">
+        <div className="hidden sm:flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print:hidden">
           {[
             { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
             { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
@@ -1266,7 +1266,7 @@ onUpdateJamaahProfile,
 
         {dkmTab === 'akuntansi' && (
           <div className="space-y-6">
-            <div className="flex bg-blue-900 border border-blue-800 p-1.5 rounded-2xl gap-2 overflow-x-auto text-xs font-mono">
+            <div className="flex bg-blue-900 border border-blue-800 p-1.5 rounded-2xl gap-2 overflow-x-auto text-xs font-mono print:hidden">
               {[
                 { id: 'coa', label: 'Bagan Akun (COA)' },
                 { id: 'jurnal_umum', label: 'Jurnal Umum' },
@@ -2491,7 +2491,7 @@ onUpdateJamaahProfile,
                       Pilih Pengurus Utama untuk Footer (Maksimal 3):
                     </label>
                     <div className="space-y-2 bg-blue-900 border border-blue-800 p-3 rounded-xl max-h-48 overflow-y-auto">
-                      {(state.boardMembers || []).sort((a,b)=>a.orderIdx-b.orderIdx).map(member => (
+                      {(store.state.boardMembers || []).sort((a,b)=>a.orderIdx-b.orderIdx).map(member => (
                         <label key={member.id} className="flex items-center gap-2 text-xs text-white cursor-pointer">
                           <input
                             type="checkbox"
@@ -2518,6 +2518,78 @@ onUpdateJamaahProfile,
                           <span>{member.name} - {member.position}</span>
                         </label>
                       ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-blue-800">
+                    <label className="text-xs text-blue-300 font-semibold block mb-2">
+                      Menu Khusus Layanan Jamaah (Kosongkan untuk pakai default):
+                    </label>
+                    <div className="space-y-2">
+                      {(adminSettings?.layananJamaahLinks || []).map((link, idx) => (
+                        <div key={link.id || idx} className="flex gap-2 bg-blue-900 border border-blue-800 p-2 rounded-lg items-center">
+                          <input 
+                            type="text" 
+                            value={link.title} 
+                            onChange={(e) => {
+                              const newLinks = [...(adminSettings?.layananJamaahLinks || [])];
+                              newLinks[idx] = { ...newLinks[idx], title: e.target.value };
+                              if (onUpdateAdminSettings) onUpdateAdminSettings({ layananJamaahLinks: newLinks });
+                            }}
+                            className="bg-blue-950 border border-blue-800 rounded p-1 text-xs text-white flex-1 outline-none" 
+                            placeholder="Judul Menu"
+                          />
+                          <select
+                            value={link.action || 'link'}
+                            onChange={(e) => {
+                              const newLinks = [...(adminSettings?.layananJamaahLinks || [])];
+                              newLinks[idx] = { ...newLinks[idx], action: e.target.value as any };
+                              if (onUpdateAdminSettings) onUpdateAdminSettings({ layananJamaahLinks: newLinks });
+                            }}
+                            className="bg-blue-950 border border-blue-800 rounded p-1 text-xs text-blue-200 outline-none w-28"
+                          >
+                            <option value="donation">Donasi</option>
+                            <option value="calculator">Kalkulator</option>
+                            <option value="quran">Al-Qur'an</option>
+                            <option value="salat">Jadwal Shalat</option>
+                            <option value="link">URL Link</option>
+                          </select>
+                          {link.action === 'link' && (
+                            <input 
+                              type="text" 
+                              value={link.url || ''} 
+                              onChange={(e) => {
+                                const newLinks = [...(adminSettings?.layananJamaahLinks || [])];
+                                newLinks[idx] = { ...newLinks[idx], url: e.target.value };
+                                if (onUpdateAdminSettings) onUpdateAdminSettings({ layananJamaahLinks: newLinks });
+                              }}
+                              className="bg-blue-950 border border-blue-800 rounded p-1 text-xs text-blue-200 flex-1 outline-none font-mono" 
+                              placeholder="https://..."
+                            />
+                          )}
+                          <button 
+                            onClick={() => {
+                              const newLinks = [...(adminSettings?.layananJamaahLinks || [])];
+                              newLinks.splice(idx, 1);
+                              if (onUpdateAdminSettings) onUpdateAdminSettings({ layananJamaahLinks: newLinks });
+                            }}
+                            className="p-1 text-red-400 hover:bg-red-900/30 rounded"
+                            title="Hapus Link"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                      <button 
+                        onClick={() => {
+                          const newLinks = [...(adminSettings?.layananJamaahLinks || [])];
+                          newLinks.push({ id: Date.now().toString(), title: 'Menu Baru', action: 'link', url: '' });
+                          if (onUpdateAdminSettings) onUpdateAdminSettings({ layananJamaahLinks: newLinks });
+                        }}
+                        className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 mt-2"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Tambah Menu Layanan Jamaah
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -3771,8 +3843,9 @@ onUpdateJamaahProfile,
                               className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none cursor-pointer"
                             >
                               <option value="jamaah">Jamaah Biasa</option>
-                              <option value="dkm">Pengurus DKM</option>
-                              <option value="super_admin">Super Admin</option>
+                              {store.state.appRoles.map(r => (
+                                <option key={r.id} value={r.id}>{r.name}</option>
+                              ))}
                             </select>
                           </td>
                           <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.joinDate || j.createdAt || new Date()).toLocaleDateString('id-ID')}</td>

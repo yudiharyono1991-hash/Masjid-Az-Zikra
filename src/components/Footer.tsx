@@ -9,7 +9,8 @@ import {
   Calendar,
   Sparkles,
   FileText,
-  UserCheck
+  UserCheck,
+  ExternalLink
 } from 'lucide-react';
 import { useMasjidStore } from '../lib/store';
 
@@ -77,30 +78,64 @@ export const Footer: React.FC<FooterProps> = ({
               Layanan Jamaah
             </h4>
             <ul className="space-y-2 text-xs font-medium text-blue-300">
-              <li>
-                <button onClick={openDonationModal} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <HeartHandshake className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Donasi Zakat, Infaq & Wakaf</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={openCalculator} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Kalkulator ZISWAF Syariah</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => openDigitalIbadah('quran')} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <BookOpen className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Al-Qur'an Digital Audio Murottal</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => openDigitalIbadah('salat')} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Jadwal Shalat & Adzan</span>
-                </button>
-              </li>
+              {(state.adminSettings?.layananJamaahLinks && state.adminSettings.layananJamaahLinks.length > 0) ? (
+                state.adminSettings.layananJamaahLinks.map(link => {
+                  const getIcon = () => {
+                    switch (link.action) {
+                      case 'donation': return <HeartHandshake className="w-3.5 h-3.5 text-amber-400" />;
+                      case 'calculator': return <Sparkles className="w-3.5 h-3.5 text-amber-400" />;
+                      case 'quran': return <BookOpen className="w-3.5 h-3.5 text-blue-400" />;
+                      case 'salat': return <Calendar className="w-3.5 h-3.5 text-amber-400" />;
+                      default: return <ExternalLink className="w-3.5 h-3.5 text-amber-400" />;
+                    }
+                  };
+                  const getOnClick = () => {
+                    switch (link.action) {
+                      case 'donation': return openDonationModal;
+                      case 'calculator': return openCalculator;
+                      case 'quran': return () => openDigitalIbadah('quran');
+                      case 'salat': return () => openDigitalIbadah('salat');
+                      case 'link': return () => link.url && window.open(link.url, '_blank');
+                      default: return undefined;
+                    }
+                  };
+                  return (
+                    <li key={link.id}>
+                      <button onClick={getOnClick()} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left">
+                        {getIcon()}
+                        <span>{link.title}</span>
+                      </button>
+                    </li>
+                  );
+                })
+              ) : (
+                <>
+                  <li>
+                    <button onClick={openDonationModal} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left">
+                      <HeartHandshake className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Donasi Zakat, Infaq & Wakaf</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={openCalculator} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Kalkulator ZISWAF Syariah</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => openDigitalIbadah('quran')} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left">
+                      <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+                      <span>Al-Qur'an Digital Audio Murottal</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => openDigitalIbadah('salat')} className="hover:text-blue-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left">
+                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Jadwal Shalat & Adzan</span>
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

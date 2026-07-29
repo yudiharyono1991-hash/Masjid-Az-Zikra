@@ -9,6 +9,7 @@ export function JurnalUmum() {
   const { state, addErpJournal, deleteErpJournal, updateErpJournal, addErpJournalEntry } = useMasjidStore();
   const [isAdding, setIsAdding] = useState(false);
   const [editingJournalId, setEditingJournalId] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(50);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' | 'warn' } | null>(null);
   const showToast = (text: string, type: 'success' | 'error' | 'warn' = 'success') => {
     setToastMsg({ text, type });
@@ -266,7 +267,7 @@ export function JurnalUmum() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {state.erpJournals.map(journal => {
+            {state.erpJournals.slice(0, visibleCount).map(journal => {
               const journalEntries = state.erpJournalEntries.filter(e => e.journalId === journal.id);
               const totalDebit = journalEntries.reduce((s, e) => s + e.debit, 0);
               
@@ -329,6 +330,17 @@ export function JurnalUmum() {
             )}
           </tbody>
         </table>
+        
+        {visibleCount < state.erpJournals.length && (
+          <div className="p-4 text-center border-t border-gray-100 bg-gray-50">
+            <button 
+              onClick={() => setVisibleCount(prev => prev + 50)}
+              className="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50"
+            >
+              Tampilkan Lebih Banyak ({state.erpJournals.length - visibleCount} lagi)
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

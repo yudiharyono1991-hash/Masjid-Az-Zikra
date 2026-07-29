@@ -141,26 +141,28 @@ export default function App() {
   return (
     <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-blue-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>
       {/* 1. Header Navigation */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        openDonationModal={handleOpenDonationModal}
-        openCalculator={() => setCalculatorModalOpen(true)}
-        openDigitalIbadah={handleOpenDigitalIbadah}
-        openAiAssistant={() => setAiAssistantOpen(true)}
-        openSupabaseModal={() => setSupabaseModalOpen(true)}
-        openTvMode={() => setTvModeOpen(true)}
-        openCatalogPdf={() => setCatalogPdfOpen(true)}
-        session={state.session}
-        openLoginModal={() => setLoginModalOpen(true)}
-        logout={logout}
-        palette={state.colorPalette}
-        setPalette={setPalette}
-        themeMode={state.themeMode}
-        toggleThemeMode={toggleThemeMode}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-      />
+      <div className="print:hidden">
+        <Navbar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          openDonationModal={handleOpenDonationModal}
+          openCalculator={() => setCalculatorModalOpen(true)}
+          openDigitalIbadah={handleOpenDigitalIbadah}
+          openAiAssistant={() => setAiAssistantOpen(true)}
+          openSupabaseModal={() => setSupabaseModalOpen(true)}
+          openTvMode={() => setTvModeOpen(true)}
+          openCatalogPdf={() => setCatalogPdfOpen(true)}
+          session={state.session}
+          openLoginModal={() => setLoginModalOpen(true)}
+          logout={logout}
+          palette={state.colorPalette}
+          setPalette={setPalette}
+          themeMode={state.themeMode}
+          toggleThemeMode={toggleThemeMode}
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
+      </div>
 
       {/* 2. Main Views according to activeTab */}
       <main>
@@ -332,17 +334,21 @@ export default function App() {
       </main>
 
       {/* Social Media Section */}
-      <SocialMediaSection />
+      <div className="print:hidden">
+        <SocialMediaSection />
+      </div>
 
       {/* 3. Footer */}
-      <Footer
-        openDonationModal={() => handleOpenDonationModal()}
-        openCalculator={() => setCalculatorModalOpen(true)}
-        openDigitalIbadah={handleOpenDigitalIbadah}
-        openTvMode={() => setTvModeOpen(true)}
-        session={state.session}
-        isDark={isDark}
-      />
+      <div className="print:hidden">
+        <Footer
+          openDonationModal={() => handleOpenDonationModal()}
+          openCalculator={() => setCalculatorModalOpen(true)}
+          openDigitalIbadah={handleOpenDigitalIbadah}
+          openTvMode={() => setTvModeOpen(true)}
+          session={state.session}
+          isDark={isDark}
+        />
+      </div>
 
       {/* 4. Modals & Overlays */}
       {selectedDetailProgram && (
@@ -427,7 +433,7 @@ export default function App() {
       {/* Floating AI Syariah Button for Desktop */}
       <button
         onClick={() => setAiAssistantOpen(true)}
-        className="hidden xl:flex fixed bottom-8 right-8 z-40 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-blue-950 font-bold px-5 py-3.5 rounded-full shadow-2xl items-center gap-3 transition-transform hover:scale-105"
+        className="fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-all hover:-translate-y-1 z-50 print:hidden"
       >
         <Bot className="w-6 h-6 text-blue-900" />
         <span>Tanya AI Syariah</span>

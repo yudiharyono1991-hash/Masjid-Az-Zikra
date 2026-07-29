@@ -1,37 +1,83 @@
 import React, { useRef, useState } from 'react';
 import { useMasjidStore } from '../../lib/store';
 import { Download, Printer } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import * as XLSX from 'xlsx';
 
 export function ReportPrinter() {
   const { state, addErpCoa, updateErpSignature } = useMasjidStore();
   const printRef = useRef<HTMLDivElement>(null);
   const [reportType, setReportType] = useState('Neraca');
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  
+  // Helper function to get local YYYY-MM-DD
+  const getLocalYMD = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  // Date filter (defaults to 1st of current month until today)
+  const today = new Date();
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+  const [startDate, setStartDate] = useState(getLocalYMD(firstDay));
+  const [endDate, setEndDate] = useState(getLocalYMD(today));
+  const [selectedYear, setSelectedYear] = useState(today.getFullYear());
 
   const handlePrint = () => {
     window.print();
   };
 
-  const handleDownloadPdf = async () => {
-    if (!printRef.current) return;
-    const canvas = await html2canvas(printRef.current, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`Laporan_${reportType}_Masjid_Tazkia.pdf`);
+  const handleDownloadExcel = () => {
+    let data: any[] = [];
+    if (reportType === 'Neraca') {
+      data.push({ 'Keterangan': 'ASET', 'Saldo': '' });
+      assets.forEach(a => data.push({ 'Keterangan': a.accountName, 'Saldo': a.balance }));
+      data.push({ 'Keterangan': 'TOTAL ASET', 'Saldo': totalAsset });
+      data.push({ 'Keterangan': '', 'Saldo': '' });
+      data.push({ 'Keterangan': 'KEWAJIBAN & EKUITAS', 'Saldo': '' });
+      liabilities.forEach(a => data.push({ 'Keterangan': a.accountName, 'Saldo': a.balance }));
+      equities.forEach(a => data.push({ 'Keterangan': a.accountName, 'Saldo': a.balance }));
+      data.push({ 'Keterangan': 'TOTAL KEWAJIBAN & EKUITAS', 'Saldo': totalLiabEq });
+    } else if (reportType === 'LabaRugi') {
+      data.push({ 'Keterangan': 'PENDAPATAN', 'Saldo': '' });
+      revenues.forEach(r => data.push({ 'Keterangan': r.accountName, 'Saldo': r.balance }));
+      data.push({ 'Keterangan': 'TOTAL PENDAPATAN', 'Saldo': totalRevenue });
+      data.push({ 'Keterangan': '', 'Saldo': '' });
+      data.push({ 'Keterangan': 'BEBAN', 'Saldo': '' });
+      expenses.forEach(e => data.push({ 'Keterangan': e.accountName, 'Saldo': e.balance }));
+      data.push({ 'Keterangan': 'TOTAL BEBAN', 'Saldo': totalExpense });
+      data.push({ 'Keterangan': '', 'Saldo': '' });
+      data.push({ 'Keterangan': 'SURPLUS / (DEFISIT)', 'Saldo': totalRevenue - totalExpense });
+    } else if (reportType === 'Realisasi') {
+      realisasi.forEach(r => {
+        data.push({
+          'Kode Akun': r.accountCode,
+          'Nama Akun': r.accountName,
+          'Anggaran': r.amount,
+          'Realisasi': r.actual,
+          'Sisa (Varians)': r.variance,
+          '% Realisasi': r.percentage.toFixed(2) + '%'
+        });
+      });
+    }
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, reportType);
+    XLSX.writeFile(wb, `Laporan_${reportType}_${startDate}_sd_${endDate}.xlsx`);
   };
 
   const getBalances = () => {
-    // simplified balance calculator
     const balances = state.erpCoa.map(coa => {
       let balance = 0;
       state.erpJournalEntries.filter(e => e.accountId === coa.id).forEach(entry => {
-        const isDebitIncrease = coa.normalBalance === 'Debit';
-        balance += isDebitIncrease ? entry.debit - entry.credit : entry.credit - entry.debit;
+        const journal = state.erpJournals.find(j => j.id === entry.journalId);
+        if (!journal) return;
+        // Filter by date range for all report types except maybe static balances, but we'll use period for all here.
+        if (journal.date >= startDate && journal.date <= endDate) {
+          const isDebitIncrease = coa.normalBalance === 'Debit';
+          balance += isDebitIncrease ? entry.debit - entry.credit : entry.credit - entry.debit;
+        }
       });
       return { ...coa, balance };
     });
@@ -42,6 +88,11 @@ export function ReportPrinter() {
   const assets = balances.filter(b => b.accountType === 'Asset');
   const liabilities = balances.filter(b => b.accountType === 'Liability');
   const equities = balances.filter(b => b.accountType === 'Equity');
+  const revenues = balances.filter(b => b.accountType === 'Revenue');
+  const expenses = balances.filter(b => b.accountType === 'Expense');
+
+  const totalRevenue = revenues.reduce((s, r) => s + r.balance, 0);
+  const totalExpense = expenses.reduce((s, e) => s + e.balance, 0);
 
   const getRealisasiAnggaran = () => {
     // get budgets for selected year
@@ -95,7 +146,7 @@ export function ReportPrinter() {
             <option value="LabaRugi">Laporan Aktivitas (Laba/Rugi)</option>
             <option value="Realisasi">Laporan Realisasi Anggaran</option>
           </select>
-          {reportType === 'Realisasi' && (
+          {reportType === 'Realisasi' ? (
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(Number(e.target.value))}
@@ -105,18 +156,44 @@ export function ReportPrinter() {
                 <option key={y} value={y}>Tahun {y}</option>
               ))}
             </select>
+          ) : (
+            <div className="flex items-center gap-2">
+              <input 
+                type="date" 
+                value={startDate}
+                onChange={e => setStartDate(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+              />
+              <span className="text-sm font-bold text-gray-500">s/d</span>
+              <input 
+                type="date" 
+                value={endDate}
+                onChange={e => setEndDate(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+              />
+            </div>
           )}
           <button onClick={handlePrint} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
             <Printer className="w-4 h-4" /> Print
           </button>
-          <button onClick={handleDownloadPdf} className="px-3 py-2 bg-tazkia-primary text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-tazkia-light">
-            <Download className="w-4 h-4" /> Download PDF
+          <button onClick={handleDownloadExcel} className="px-3 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-emerald-500">
+            <Download className="w-4 h-4" /> Excel
           </button>
         </div>
       </div>
 
       <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm max-w-4xl mx-auto print:border-none print:shadow-none text-gray-900 print-area" ref={printRef}>
-        <div className="text-center mb-8 border-b-4 border-double border-blue-900 pb-4">
+        <div className="text-center mb-8 border-b-4 border-double border-blue-900 pb-4 relative">
+          {state.adminSettings?.masjidLogoUrl && state.adminSettings.masjidLogoUrl.trim() !== '' && (
+            <img 
+              src={state.adminSettings.masjidLogoUrl} 
+              alt="Logo Masjid Tazkia" 
+              className="h-16 w-16 object-contain absolute left-0 top-0"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }} 
+            />
+          )}
           <h1 className="text-2xl font-bold text-blue-900 tracking-widest uppercase">MASJID TAZKIA</h1>
           <p className="text-gray-600 font-medium">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor</p>
           <h2 className="text-xl font-bold mt-4 uppercase underline">
@@ -124,7 +201,12 @@ export function ReportPrinter() {
             {reportType === 'LabaRugi' && 'Laporan Aktivitas'}
             {reportType === 'Realisasi' && `Laporan Realisasi Anggaran Tahun ${selectedYear}`}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">Per {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Periode: {reportType === 'Realisasi' ? `Tahun ${selectedYear}` : `${new Date(startDate).toLocaleDateString('id-ID')} s/d ${new Date(endDate).toLocaleDateString('id-ID')}`}
+          </p>
+          <p className="text-xs text-blue-800 font-medium mt-1 italic">
+            Dicetak pada: {today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} M / {new Intl.DateTimeFormat('id-ID-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today)}
+          </p>
         </div>
 
         {reportType === 'Neraca' && (
@@ -174,8 +256,42 @@ export function ReportPrinter() {
 
         {reportType === 'LabaRugi' && (
           <div className="text-sm">
-            <p className="italic text-gray-500 mb-4 text-center">(Contoh format Laporan Aktivitas, data diringkas untuk demo)</p>
-            {/* Omitted for brevity in this MVP, similar to Neraca */}
+            <h3 className="font-bold border-b border-gray-300 pb-1 mb-2">PENDAPATAN (PENERIMAAN)</h3>
+            <div className="space-y-1 mb-4">
+              {revenues.map(r => (
+                <div key={r.id} className="flex justify-between">
+                  <span>{r.accountName}</span>
+                  <span>Rp {r.balance.toLocaleString()}</span>
+                </div>
+              ))}
+              {revenues.length === 0 && <div className="text-gray-400 italic">Belum ada pendapatan</div>}
+              <div className="flex justify-between font-bold mt-2 pt-2 border-t border-gray-300">
+                <span>TOTAL PENDAPATAN</span>
+                <span>Rp {totalRevenue.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <h3 className="font-bold border-b border-gray-300 pb-1 mb-2 mt-6">BEBAN (PENGELUARAN)</h3>
+            <div className="space-y-1">
+              {expenses.map(e => (
+                <div key={e.id} className="flex justify-between">
+                  <span>{e.accountName}</span>
+                  <span>Rp {e.balance.toLocaleString()}</span>
+                </div>
+              ))}
+              {expenses.length === 0 && <div className="text-gray-400 italic">Belum ada pengeluaran</div>}
+              <div className="flex justify-between font-bold mt-2 pt-2 border-t border-gray-300">
+                <span>TOTAL BEBAN</span>
+                <span>Rp {totalExpense.toLocaleString()}</span>
+              </div>
+            </div>
+            
+            <div className="flex justify-between font-bold text-lg mt-8 pt-4 border-t-2 border-gray-400">
+              <span>SURPLUS / (DEFISIT) NETO</span>
+              <span className={(totalRevenue - totalExpense) < 0 ? 'text-red-600' : ''}>
+                Rp {(totalRevenue - totalExpense).toLocaleString()}
+              </span>
+            </div>
           </div>
         )}
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, Upload, Image as ImageIcon, QrCode, Store, Trash2, Plus, Link as LinkIcon, Download } from 'lucide-react';
+import { Settings, Upload, Image as ImageIcon, QrCode, Store, Trash2, Plus, Link as LinkIcon, Download, Shield } from 'lucide-react';
 import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
+import { RoleManagerAdmin } from './admin/RoleManagerAdmin';
 
 interface Sponsor {
   id: string;
@@ -10,7 +11,7 @@ interface Sponsor {
 }
 
 export const AppManagerAdmin: React.FC = () => {
-  const [activeSubTab, setActiveSubTab] = useState<'hero' | 'qr' | 'sponsor'>('hero');
+  const [activeSubTab, setActiveSubTab] = useState<'hero' | 'qr' | 'sponsor' | 'profil' | 'role'>('hero');
   const [heroImages, setHeroImages] = useState<{name: string, url: string}[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -116,7 +117,8 @@ export const AppManagerAdmin: React.FC = () => {
           { id: 'hero', label: 'Foto Animasi Beranda', icon: ImageIcon },
           { id: 'qr', label: 'Cetak QR Aplikasi', icon: QrCode },
           { id: 'sponsor', label: 'Sponsor & Mitra', icon: Store },
-          { id: 'profil', label: 'Profil & Sejarah Masjid', icon: Settings }
+          { id: 'profil', label: 'Profil & Sejarah Masjid', icon: Settings },
+          { id: 'role', label: 'Manajemen Peran & Izin', icon: Shield }
         ].map(sub => {
           const SubIcon = sub.icon;
           return (
@@ -333,6 +335,11 @@ export const AppManagerAdmin: React.FC = () => {
               </div>
             </div>
           </div>
+        )}
+
+        {/* ROLE MANAGER TAB */}
+        {activeSubTab === 'role' && (
+          <RoleManagerAdmin />
         )}
       </div>
     </div>

@@ -5,10 +5,13 @@ import { Download, Upload, Plus, Edit2, Trash2 } from 'lucide-react';
 import { exportCoaToExcel, importCoaFromExcel } from '../../lib/excelUtils';
 
 export function ChartOfAccounts() {
-  const { state, addErpCoa, setErpCoa } = useMasjidStore();
+  const { state, addErpCoa, setErpCoa, updateErpCoa, deleteErpCoa } = useMasjidStore();
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
   
   const [formData, setFormData] = useState<Partial<ERPChartOfAccount>>({
     accountCode: '',
@@ -20,20 +23,47 @@ export function ChartOfAccounts() {
 
   const handleSave = () => {
     if (!formData.accountCode || !formData.accountName) return;
-    const newAccount: ERPChartOfAccount = {
-      id: `COA-${Math.floor(1000 + Math.random() * 9000)}`,
-      accountCode: formData.accountCode,
-      accountName: formData.accountName,
-      accountType: formData.accountType as any,
-      normalBalance: formData.normalBalance as any,
-      groupName: formData.groupName || 'Uncategorized',
-      isActive: formData.isActive ?? true,
-      createdAt: new Date().toISOString()
-    };
-    addErpCoa(newAccount);
+    
+    if (editingId) {
+      updateErpCoa(editingId, {
+        accountCode: formData.accountCode,
+        accountName: formData.accountName,
+        accountType: formData.accountType as any,
+        normalBalance: formData.normalBalance as any,
+        groupName: formData.groupName || 'Uncategorized',
+        isActive: formData.isActive ?? true
+      });
+      alert('Alhamdulillah, Akun CoA berhasil diperbarui!');
+    } else {
+      const newAccount: ERPChartOfAccount = {
+        id: `COA-${Math.floor(1000 + Math.random() * 9000)}`,
+        accountCode: formData.accountCode,
+        accountName: formData.accountName,
+        accountType: formData.accountType as any,
+        normalBalance: formData.normalBalance as any,
+        groupName: formData.groupName || 'Uncategorized',
+        isActive: formData.isActive ?? true,
+        createdAt: new Date().toISOString()
+      };
+      addErpCoa(newAccount);
+      alert('Alhamdulillah, Akun CoA berhasil disimpan!');
+    }
+    
     setIsAdding(false);
+    setEditingId(null);
     setFormData({ accountCode: '', accountName: '', accountType: 'Asset', normalBalance: 'Debit', groupName: '', isActive: true });
-    alert('Alhamdulillah, Akun CoA berhasil disimpan!');
+  };
+
+  const handleEdit = (acc: ERPChartOfAccount) => {
+    setFormData(acc);
+    setEditingId(acc.id);
+    setIsAdding(true);
+  };
+
+  const handleDelete = (acc: ERPChartOfAccount) => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus akun ${acc.accountCode} - ${acc.accountName}?`)) {
+      deleteErpCoa(acc.id);
+    }
   };
 
   const handleExport = () => {
@@ -66,6 +96,9 @@ export function ChartOfAccounts() {
     return matchesSearch && matchesType;
   });
 
+  const totalPages = Math.ceil(filteredCoa.length / itemsPerPage);
+  const paginatedCoa = filteredCoa.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm gap-4">
@@ -77,13 +110,13 @@ export function ChartOfAccounts() {
             type="text" 
             placeholder="Cari nama/kode..." 
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={e => { setSearchQuery(e.target.value); setCurrentPage(1); }}
             className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none min-w-[150px]"
             style={{ color: '#111827', backgroundColor: '#ffffff' }}
           />
           <select 
             value={filterType}
-            onChange={e => setFilterType(e.target.value)}
+            onChange={e => { setFilterType(e.target.value); setCurrentPage(1); }}
             className="px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none"
             style={{ color: '#111827', backgroundColor: '#ffffff' }}
           >
@@ -164,6 +197,17 @@ export function ChartOfAccounts() {
               placeholder="e.g. Aset Lancar" 
             />
           </div>
+          <div className="flex items-center">
+            <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-gray-600">
+              <input
+                type="checkbox"
+                checked={formData.isActive}
+                onChange={e => setFormData({ ...formData, isActive: e.target.checked })}
+                className="w-4 h-4 text-blue-600"
+              />
+              Akun Aktif
+            </label>
+          </div>
           <div className="flex items-end gap-2 col-span-2 md:col-span-4">
             <button onClick={handleSave} className="flex-1 p-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700">Simpan</button>
             <button onClick={() => setIsAdding(false)} className="flex-1 p-2 bg-gray-100 text-gray-600 rounded-lg text-sm font-semibold hover:bg-gray-200">Batal</button>
@@ -180,10 +224,11 @@ export function ChartOfAccounts() {
               <th className="p-4 font-semibold">Tipe Akun</th>
               <th className="p-4 font-semibold">Saldo Normal</th>
               <th className="p-4 font-semibold text-center">Status</th>
+              <th className="p-4 font-semibold text-center">Aksi</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {filteredCoa.map(acc => (
+            {paginatedCoa.map(acc => (
               <tr key={acc.id} className="hover:bg-gray-50">
                 <td className="p-4 font-mono text-blue-600">{acc.accountCode}</td>
                 <td className="p-4 font-medium text-gray-800">{acc.accountName}</td>
@@ -194,17 +239,55 @@ export function ChartOfAccounts() {
                     {acc.isActive ? 'Aktif' : 'Non-Aktif'}
                   </span>
                 </td>
+                <td className="p-4 text-center">
+                  <div className="flex items-center justify-center gap-2">
+                    <button onClick={() => handleEdit(acc)} className="p-1 text-blue-600 hover:bg-blue-50 rounded" title="Edit">
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => handleDelete(acc)} className="p-1 text-red-600 hover:bg-red-50 rounded" title="Hapus">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
             {filteredCoa.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-400">
+                <td colSpan={6} className="p-8 text-center text-gray-400">
                   {state.erpCoa.length === 0 ? 'Belum ada data Chart of Accounts.' : 'Tidak ada akun yang sesuai dengan pencarian/filter.'}
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+        
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between p-4 border-t border-gray-100 bg-gray-50">
+            <span className="text-sm text-gray-600">
+              Menampilkan {((currentPage - 1) * itemsPerPage) + 1} hingga {Math.min(currentPage * itemsPerPage, filteredCoa.length)} dari {filteredCoa.length} akun
+            </span>
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 bg-white border border-gray-200 rounded text-sm hover:bg-gray-50 disabled:opacity-50"
+              >
+                Sebelumnya
+              </button>
+              <span className="px-3 py-1 bg-blue-50 text-blue-700 font-bold rounded text-sm">
+                {currentPage} / {totalPages}
+              </span>
+              <button 
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 bg-white border border-gray-200 rounded text-sm hover:bg-gray-50 disabled:opacity-50"
+              >
+                Selanjutnya
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

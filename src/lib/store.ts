@@ -86,6 +86,7 @@ export interface AppState {
   gedungBookings: GedungBooking[];
   agendas: MasjidAgenda[];
   appRoles: AppRole[];
+  unreadDonationsCount: number;
 }
 
 const defaultState: AppState = {
@@ -124,13 +125,14 @@ const defaultState: AppState = {
   gedungBookings: [],
   agendas: INITIAL_AGENDAS,
   appRoles: [
-    { id: 'ketua_dewan_pembina', name: 'Ketua Dewan Pembina', type: 'pengurus_dkm' },
-    { id: 'direktur', name: 'Direktur', type: 'pengurus_dkm' },
-    { id: 'ketua_dkm', name: 'Ketua DKM', type: 'pengurus_dkm' },
-    { id: 'bendahara', name: 'Bendahara', type: 'admin_masjid' },
-    { id: 'penghimpunan', name: 'Bagian Penghimpunan', type: 'admin_masjid' },
-    { id: 'penyaluran', name: 'Bagian Penyaluran', type: 'admin_masjid' }
-  ]
+    { id: 'ketua_dewan_pembina', name: 'Ketua Dewan Pembina', type: 'pengurus_dkm', permissions: ['keuangan', 'laporan', 'approval_direktur', 'master_data', 'semua'] },
+    { id: 'direktur', name: 'Direktur', type: 'pengurus_dkm', permissions: ['keuangan', 'laporan', 'approval_direktur', 'master_data', 'semua'] },
+    { id: 'ketua_dkm', name: 'Ketua DKM', type: 'pengurus_dkm', permissions: ['keuangan', 'laporan', 'approval_direktur', 'master_data', 'semua'] },
+    { id: 'bendahara', name: 'Bendahara', type: 'admin_masjid', permissions: ['keuangan', 'approval_bendahara', 'laporan', 'inventaris'] },
+    { id: 'penghimpunan', name: 'Bagian Penghimpunan', type: 'admin_masjid', permissions: ['donasi', 'ziswaf'] },
+    { id: 'penyaluran', name: 'Bagian Penyaluran', type: 'admin_masjid', permissions: ['program', 'agenda'] }
+  ],
+  unreadDonationsCount: 0
 };
 
 export function getStoredState(): AppState {
@@ -448,11 +450,16 @@ export function useMasjidStore() {
         donations: [created, ...prev.donations],
         financials: newFinancials,
         erpJournals: newErpJournals,
-        erpJournalEntries: newErpJournalEntries
+        erpJournalEntries: newErpJournalEntries,
+        unreadDonationsCount: prev.unreadDonationsCount + 1
       };
     });
 
     return created;
+  };
+
+  const clearUnreadDonations = () => {
+    setState(prev => ({ ...prev, unreadDonationsCount: 0 }));
   };
 
   const updateDonationStatus = (id: string, status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak') => {
@@ -762,6 +769,20 @@ export function useMasjidStore() {
     setState(prev => ({ ...prev, erpCoa: [...prev.erpCoa, account] }));
   };
 
+  const updateErpCoa = (id: string, updated: Partial<ERPChartOfAccount>) => {
+    setState(prev => ({
+      ...prev,
+      erpCoa: prev.erpCoa.map(c => c.id === id ? { ...c, ...updated } : c)
+    }));
+  };
+
+  const deleteErpCoa = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      erpCoa: prev.erpCoa.filter(c => c.id !== id)
+    }));
+  };
+
   const setErpJournals = (journals: ERPGeneralJournal[]) => {
     setState(prev => ({ ...prev, erpJournals: journals }));
   };
@@ -835,10 +856,24 @@ export function useMasjidStore() {
     }));
   };
 
-  const updateErpDisbursementStatus = (id: string, status: 'Approved' | 'Rejected', approvedBy: string, rejectionReason?: string) => {
+  const updateErpDisbursementStatus = (
+    id: string, 
+    status: 'Verified' | 'Approved' | 'Rejected', 
+    processedBy: string, 
+    rejectionReason?: string
+  ) => {
     setState(prev => ({
       ...prev,
-      erpDisbursements: prev.erpDisbursements.map(d => d.id === id ? { ...d, status, approvedBy, rejectionReason } : d)
+      erpDisbursements: prev.erpDisbursements.map(d => {
+        if (d.id !== id) return d;
+        if (status === 'Verified') {
+          return { ...d, status, verifiedBy: processedBy, verificationDate: new Date().toISOString() };
+        } else if (status === 'Approved') {
+          return { ...d, status, approvedBy: processedBy, approvalDate: new Date().toISOString() };
+        } else {
+          return { ...d, status, rejectionReason };
+        }
+      })
     }));
   };
 
@@ -1194,6 +1229,7 @@ export function useMasjidStore() {
   return {
     state,
     addDonation,
+    clearUnreadDonations,
     updateDonationStatus,
     addFinancialTransaction,
     addInventoryItem,
@@ -1219,6 +1255,8 @@ export function useMasjidStore() {
     addJournalEntry,
     setErpCoa,
     addErpCoa,
+    updateErpCoa,
+    deleteErpCoa,
     setErpJournals,
     addErpJournal,
     deleteErpJournal,

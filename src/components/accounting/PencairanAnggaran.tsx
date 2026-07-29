@@ -16,7 +16,12 @@ export function PencairanAnggaran() {
   const [rejectionReason, setRejectionReason] = useState('');
   const [rejectingId, setRejectingId] = useState<string | null>(null);
 
-  const isDirector = state.session?.role === 'direktur' || state.session?.role === 'ketua_dewan_pembina';
+  const currentRole = state.appRoles.find(r => r.id === state.session?.role);
+  const permissions = currentRole?.permissions || [];
+  
+  const canApproveBendahara = permissions.includes('approval_bendahara') || permissions.includes('semua');
+  const canApproveDirektur = permissions.includes('approval_direktur') || permissions.includes('semua');
+  const canApprove = canApproveBendahara || canApproveDirektur;
 
   // Calculate budget utilization
   const getBudgetBalance = (budgetId: string) => {
@@ -54,9 +59,10 @@ export function PencairanAnggaran() {
     setPurpose('');
   };
 
-  const handleApprove = (id: string) => {
+  const handleApprove = (id: string, currentStatus: string) => {
     if (window.confirm('Setujui pengajuan ini?')) {
-      updateErpDisbursementStatus(id, 'Approved', state.session?.name || 'Direktur');
+      const nextStatus = currentStatus === 'Pending' && canApproveBendahara && !canApproveDirektur ? 'Verified' : 'Approved';
+      updateErpDisbursementStatus(id, nextStatus, state.session?.name || 'Approver');
     }
   };
 
@@ -65,7 +71,7 @@ export function PencairanAnggaran() {
       alert('Alasan penolakan wajib diisi.');
       return;
     }
-    updateErpDisbursementStatus(id, 'Rejected', state.session?.name || 'Direktur', rejectionReason);
+    updateErpDisbursementStatus(id, 'Rejected', state.session?.name || 'Approver', rejectionReason);
     setRejectingId(null);
     setRejectionReason('');
   };
@@ -86,15 +92,15 @@ export function PencairanAnggaran() {
         >
           Form Pengajuan
         </button>
-        {isDirector && (
+        {canApprove && (
           <button
             onClick={() => setActiveTab('approval')}
             className={`px-6 py-3 transition-colors flex items-center gap-2 ${activeTab === 'approval' ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             Persetujuan (Approval)
-            {state.erpDisbursements.filter(d => d.status === 'Pending').length > 0 && (
+            {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 && (
               <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-                {state.erpDisbursements.filter(d => d.status === 'Pending').length}
+                {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length}
               </span>
             )}
           </button>
@@ -187,7 +193,8 @@ export function PencairanAnggaran() {
                           <td className="p-4 text-right font-mono font-bold text-gray-900">{d.amount.toLocaleString('id-ID')}</td>
                           <td className="p-4 text-gray-600 max-w-[200px] truncate" title={d.purpose}>{d.purpose}</td>
                           <td className="p-4 text-center">
-                            {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Pending</span>}
+                            {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Pending Review Bendahara</span>}
+                            {d.status === 'Verified' && <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold"><CheckCircle className="w-3 h-3" /> Menunggu Direktur</span>}
                             {d.status === 'Approved' && <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-bold"><CheckCircle className="w-3 h-3" /> Disetujui</span>}
                             {d.status === 'Rejected' && <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-bold" title={d.rejectionReason}><XCircle className="w-3 h-3" /> Ditolak</span>}
                           </td>
@@ -206,7 +213,7 @@ export function PencairanAnggaran() {
         </div>
       )}
 
-      {activeTab === 'approval' && isAdminOrDirector && (
+      {activeTab === 'approval' && canApprove && (
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="p-5 border-b border-gray-200 bg-emerald-50">
             <h3 className="font-bold text-lg text-emerald-900 flex items-center gap-2">
@@ -228,8 +235,8 @@ export function PencairanAnggaran() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {state.erpDisbursements.filter(d => d.status === 'Pending').length > 0 ? (
-                  state.erpDisbursements.filter(d => d.status === 'Pending').map(d => {
+                {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 ? (
+                  state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).map(d => {
                     const budget = state.erpBudgets.find(b => b.id === d.budgetId);
                     const coa = state.erpCoa.find(c => c.id === budget?.accountId);
                     
@@ -267,10 +274,10 @@ export function PencairanAnggaran() {
                           ) : (
                             <div className="flex justify-center gap-2">
                               <button
-                                onClick={() => handleApprove(d.id)}
+                                onClick={() => handleApprove(d.id, d.status)}
                                 className="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-600 hover:text-white rounded-lg font-bold text-xs transition-colors flex items-center gap-1"
                               >
-                                <CheckCircle className="w-3 h-3" /> Approve
+                                <CheckCircle className="w-3 h-3" /> {canApproveDirektur ? 'Approve Direktur' : 'Verifikasi'}
                               </button>
                               <button
                                 onClick={() => setRejectingId(d.id)}

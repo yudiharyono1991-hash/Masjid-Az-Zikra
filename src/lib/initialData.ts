@@ -800,7 +800,7 @@ export const INITIAL_JAMAAH_PROFILES: JamaahProfile[] = [
     joinDate: '2026-01-10T08:00:00Z',
     lastLogin: '2026-07-28T09:00:00Z',
     totalDonation: 5400000,
-    role: 'dkm',
+    role: 'ketua_dkm',
     dkmPosition: 'Ketua DKM'
   },
   {
@@ -811,7 +811,7 @@ export const INITIAL_JAMAAH_PROFILES: JamaahProfile[] = [
     joinDate: '2026-01-15T09:00:00Z',
     lastLogin: '2026-07-28T10:15:00Z',
     totalDonation: 12500000,
-    role: 'dkm',
+    role: 'bendahara',
     dkmPosition: 'Bendahara DKM'
   },
   {
@@ -833,8 +833,8 @@ export const INITIAL_JAMAAH_PROFILES: JamaahProfile[] = [
     joinDate: '2026-03-01T08:00:00Z',
     lastLogin: '2026-07-28T15:30:00Z',
     totalDonation: 7500000,
-    role: 'super_admin',
-    dkmPosition: 'Super Admin & IT'
+    role: 'direktur',
+    dkmPosition: 'Direktur'
   },
   {
     id: 'jam-5',

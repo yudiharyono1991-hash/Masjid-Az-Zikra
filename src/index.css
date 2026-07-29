@@ -84,33 +84,23 @@
 }
 
 @media print {
-  /* Hide all elements on the page by default */
-  body * {
-    visibility: hidden;
-  }
-  
-  /* Show only the print area and its children */
-  .print-area, .print-area * {
-    visibility: visible !important;
-  }
-  
-  /* Reset print area position and color for crisp look */
-  .print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0 !important;
-    padding: 20px !important;
-    color: #000000 !important;
-    background: #ffffff !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /* Hilangkan bayangan dan border yang mengganggu */
+  /* Prevent background colors/images from being stripped */
   * {
-    box-shadow: none !important;
-    text-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force white background for the whole page during print */
+  body, html, #root {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  .print-area {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
   }
 }
