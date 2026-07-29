@@ -179,9 +179,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-left">
                   <h5 className="text-xs font-bold text-amber-800 mb-1">Panduan Login Khusus Jamaah:</h5>
                   <ul className="text-[10px] text-amber-700 space-y-1 list-disc pl-4">
-                    <li>Jamaah cukup memasukkan <strong>No. Handphone (WhatsApp)</strong> yang aktif, tidak wajib email.</li>
-                    <li>Sistem akan secara otomatis menyinkronkan data donasi dan riwayat jamaah ke Dashboard Anda.</li>
-                    <li>Jika Anda Petugas Masjid, pastikan memilih akses peran yang sesuai di atas.</li>
+                    <li><strong className="text-amber-900">Pendaftaran Otomatis:</strong> Anda tidak perlu mendaftar terpisah. Cukup isi formulir di bawah, akun akan terdaftar dan langsung masuk secara otomatis!</li>
+                    <li>Gunakan <strong>Email atau No. Handphone (WhatsApp)</strong> yang aktif.</li>
+                    <li>Sistem akan menyinkronkan riwayat donasi dan layanan Anda secara otomatis.</li>
                   </ul>
                 </div>
               ) : (
@@ -248,7 +248,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </div>
 
               <div className="flex items-center justify-end">
-                <a href="https://wa.me/6281234567890?text=Assalamu'alaikum,%20saya%20lupa%20password%20akun%20Portal%20Masjid%20Tazkia%20saya" target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                <a href="https://wa.me/6285810008899?text=Assalamu'alaikum,%20saya%20lupa%20password%20akun%20Portal%20Masjid%20Tazkia%20saya" target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                   Lupa Password? Hubungi Admin
                 </a>
               </div>
@@ -257,7 +257,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 type="submit"
                 className="w-full bg-amber-400 hover:bg-amber-500 text-blue-950 font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-amber-500/20"
               >
-                <span>Masuk Portal Keanggotaan</span>
+                <span>Masuk / Daftar Otomatis</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 

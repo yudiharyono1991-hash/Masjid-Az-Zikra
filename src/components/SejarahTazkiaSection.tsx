@@ -115,70 +115,42 @@ export const SejarahTazkiaSection: React.FC = () => {
 
         {/* Row 3: Dewan Pembina & Pengurus */}
         <div className="space-y-16">
-          {/* Dewan Pembina */}
-          {pembina.length > 0 && (
-            <div className="text-center">
-              <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Dewan Pembina Yayasan</h2>
-              
-              <div className="mt-8 flex flex-col gap-8 max-w-4xl mx-auto">
-                {pembina.map(member => (
-                  <div key={member.id} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col md:flex-row text-left group hover:shadow-xl transition-all duration-300">
-                    <div className="bg-slate-100 p-6 flex flex-col justify-end h-[350px] md:w-[35%] relative shrink-0">
-                      <div 
-                        className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
-                        style={{ backgroundImage: `url('${member.imageUrl}')` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b3679] via-[#1b3679]/70 to-transparent h-1/2 mt-auto"></div>
-                      <div className="relative z-10 text-white">
-                        <h4 className="font-bold text-[17px] font-serif leading-tight">{member.name}</h4>
-                        <p className="text-[11px] text-blue-100 mt-1 font-sans">{member.position}</p>
-                      </div>
-                    </div>
-                    {member.bio && (
-                      <div className="p-8 md:p-12 relative flex-grow bg-white flex flex-col justify-center">
-                        <div className="text-7xl text-blue-100 absolute top-6 left-8 font-serif opacity-40 leading-none">"</div>
-                        <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify mt-4 whitespace-pre-wrap break-words">
-                          {member.bio}
+          {/* Dynamic Board Member Sections */}
+          <div className="space-y-16">
+            {orderedGroupKeys.map(groupTitle => (
+              <div key={groupTitle} className="text-center">
+                <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">
+                  {groupTitle}
+                </h2>
+                
+                <div className="mt-8 flex flex-col gap-8 max-w-4xl mx-auto">
+                  {groupedMembers[groupTitle].sort((a, b) => a.orderIdx - b.orderIdx).map(member => (
+                    <div key={member.id} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col md:flex-row text-left group hover:shadow-xl transition-all duration-300">
+                      <div className="bg-slate-100 p-6 flex flex-col justify-end h-[350px] md:w-[35%] relative shrink-0">
+                        <div 
+                          className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
+                          style={{ backgroundImage: `url('${member.imageUrl}')` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#1b3679] via-[#1b3679]/70 to-transparent h-1/2 mt-auto"></div>
+                        <div className="relative z-10 text-white">
+                          <h4 className="font-bold text-[17px] font-serif leading-tight">{member.name}</h4>
+                          <p className="text-[11px] text-blue-100 mt-1 font-sans">{member.position}</p>
                         </div>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Pengurus DKM */}
-          {pengurus.length > 0 && (
-            <div className="text-center">
-              <h2 className="text-2xl font-bold font-serif text-blue-900 border-b-2 border-blue-500 pb-2 inline-block">Pengurus DKM Masjid Tazkia</h2>
-              
-              <div className="mt-8 flex flex-col gap-8 max-w-4xl mx-auto">
-                {pengurus.map(member => (
-                  <div key={member.id} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col md:flex-row text-left group hover:shadow-xl transition-all duration-300">
-                    <div className="bg-slate-100 p-6 flex flex-col justify-end h-[350px] md:w-[35%] relative shrink-0">
-                      <div 
-                        className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
-                        style={{ backgroundImage: `url('${member.imageUrl}')` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b3679] via-[#1b3679]/70 to-transparent h-1/2 mt-auto"></div>
-                      <div className="relative z-10 text-white">
-                        <h4 className="font-bold text-[17px] font-serif leading-tight">{member.name}</h4>
-                        <p className="text-[11px] text-blue-100 mt-1 font-sans">{member.position}</p>
-                      </div>
-                    </div>
-                    {member.bio && (
-                      <div className="p-8 md:p-12 relative flex-grow bg-white flex flex-col justify-center">
-                        <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify whitespace-pre-wrap break-words">
-                          {member.bio}
+                      {member.bio && (
+                        <div className="p-8 md:p-12 relative flex-grow bg-white flex flex-col justify-center">
+                          <div className="text-7xl text-blue-100 absolute top-6 left-8 font-serif opacity-40 leading-none">"</div>
+                          <div className="text-[13px] text-slate-500 leading-[1.8] relative z-10 text-justify mt-4 whitespace-pre-wrap break-words">
+                            {member.bio}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
         
         {/* LOKASI DAN FAQ SECTION */}

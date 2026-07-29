@@ -363,6 +363,7 @@ export interface BoardMember {
   id: string;
   name: string;
   position: string;
+  groupTitle?: string;
   roleType: 'pembina' | 'pengurus' | 'pengawas' | 'staf';
   imageUrl: string;
   bio?: string;

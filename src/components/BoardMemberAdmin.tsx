@@ -13,6 +13,7 @@ export const BoardMemberAdmin: React.FC = () => {
   const [formData, setFormData] = useState<Omit<BoardMember, 'id'>>({
     name: '',
     position: '',
+    groupTitle: '',
     roleType: 'pengurus',
     imageUrl: '',
     bio: '',
@@ -23,6 +24,7 @@ export const BoardMemberAdmin: React.FC = () => {
     setFormData({
       name: '',
       position: '',
+      groupTitle: '',
       roleType: 'pengurus',
       imageUrl: '',
       bio: '',
@@ -36,6 +38,7 @@ export const BoardMemberAdmin: React.FC = () => {
     setFormData({
       name: member.name,
       position: member.position,
+      groupTitle: member.groupTitle || '',
       roleType: member.roleType,
       imageUrl: member.imageUrl,
       bio: member.bio || '',
@@ -139,6 +142,16 @@ export const BoardMemberAdmin: React.FC = () => {
             </div>
 
             <div>
+              <label className="text-xs font-semibold text-blue-300 block mb-1">Judul Grup (Opsional):</label>
+              <input
+                type="text"
+                value={formData.groupTitle || ''}
+                onChange={(e) => setFormData({ ...formData, groupTitle: e.target.value })}
+                placeholder="Contoh: Dewan Pembina Yayasan"
+                className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+              />
+            </div>
+            <div>
               <label className="text-xs font-semibold text-blue-300 block mb-1">Tipe Role:</label>
               <select
                 value={formData.roleType}
@@ -227,7 +240,7 @@ export const BoardMemberAdmin: React.FC = () => {
               </div>
               <p className="text-xs text-blue-300 truncate">{member.position}</p>
               <span className="inline-block mt-1.5 px-2 py-0.5 bg-blue-800 text-blue-200 text-[10px] rounded-md font-mono uppercase tracking-wider">
-                {member.roleType}
+                {member.groupTitle || member.roleType}
               </span>
             </div>
           </div>
