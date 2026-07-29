@@ -8,6 +8,7 @@ export function ReportPrinter() {
   const { state, addErpCoa, updateErpSignature } = useMasjidStore();
   const printRef = useRef<HTMLDivElement>(null);
   const [reportType, setReportType] = useState('Neraca');
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   const handlePrint = () => {
     window.print();
@@ -42,6 +43,38 @@ export function ReportPrinter() {
   const liabilities = balances.filter(b => b.accountType === 'Liability');
   const equities = balances.filter(b => b.accountType === 'Equity');
 
+  const getRealisasiAnggaran = () => {
+    // get budgets for selected year
+    const budgets = state.erpBudgets.filter(b => b.year === selectedYear);
+    
+    return budgets.map(budget => {
+      const coa = state.erpCoa.find(c => c.id === budget.accountId);
+      let actual = 0;
+      // sum actuals based on year (very simplified, usually need date parsing)
+      state.erpJournalEntries.filter(e => e.accountId === budget.accountId).forEach(entry => {
+        const journal = state.erpJournals.find(j => j.id === entry.journalId);
+        if (journal && journal.date.startsWith(selectedYear.toString())) {
+          // If Revenue, credit is positive. If Expense, debit is positive.
+          if (coa?.accountType === 'Revenue') {
+            actual += entry.credit - entry.debit;
+          } else {
+            actual += entry.debit - entry.credit;
+          }
+        }
+      });
+      return {
+        ...budget,
+        accountCode: coa?.accountCode || '-',
+        accountName: coa?.accountName || 'Unknown',
+        accountType: coa?.accountType || 'Unknown',
+        actual,
+        variance: budget.amount - actual,
+        percentage: budget.amount > 0 ? (actual / budget.amount) * 100 : 0
+      };
+    }).sort((a, b) => a.accountType.localeCompare(b.accountType));
+  };
+  const realisasi = getRealisasiAnggaran();
+
   const totalAsset = assets.reduce((s, a) => s + a.balance, 0);
   const totalLiabEq = liabilities.reduce((s, a) => s + a.balance, 0) + equities.reduce((s, a) => s + a.balance, 0);
 
@@ -60,7 +93,19 @@ export function ReportPrinter() {
           >
             <option value="Neraca">Laporan Posisi Keuangan (Neraca)</option>
             <option value="LabaRugi">Laporan Aktivitas (Laba/Rugi)</option>
+            <option value="Realisasi">Laporan Realisasi Anggaran</option>
           </select>
+          {reportType === 'Realisasi' && (
+            <select
+              value={selectedYear}
+              onChange={e => setSelectedYear(Number(e.target.value))}
+              className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+            >
+              {[selectedYear - 1, selectedYear, selectedYear + 1].map(y => (
+                <option key={y} value={y}>Tahun {y}</option>
+              ))}
+            </select>
+          )}
           <button onClick={handlePrint} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
             <Printer className="w-4 h-4" /> Print
           </button>
@@ -74,7 +119,11 @@ export function ReportPrinter() {
         <div className="text-center mb-8 border-b-4 border-double border-blue-900 pb-4">
           <h1 className="text-2xl font-bold text-blue-900 tracking-widest uppercase">MASJID TAZKIA</h1>
           <p className="text-gray-600 font-medium">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor</p>
-          <h2 className="text-xl font-bold mt-4 uppercase underline">{reportType === 'Neraca' ? 'Laporan Posisi Keuangan' : 'Laporan Aktivitas'}</h2>
+          <h2 className="text-xl font-bold mt-4 uppercase underline">
+            {reportType === 'Neraca' && 'Laporan Posisi Keuangan'}
+            {reportType === 'LabaRugi' && 'Laporan Aktivitas'}
+            {reportType === 'Realisasi' && `Laporan Realisasi Anggaran Tahun ${selectedYear}`}
+          </h2>
           <p className="text-sm text-gray-500 mt-1">Per {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
         </div>
 
@@ -127,6 +176,47 @@ export function ReportPrinter() {
           <div className="text-sm">
             <p className="italic text-gray-500 mb-4 text-center">(Contoh format Laporan Aktivitas, data diringkas untuk demo)</p>
             {/* Omitted for brevity in this MVP, similar to Neraca */}
+          </div>
+        )}
+
+        {reportType === 'Realisasi' && (
+          <div className="text-sm">
+            <table className="w-full text-left border-collapse border border-gray-300">
+              <thead>
+                <tr className="bg-gray-100 border-b border-gray-300">
+                  <th className="p-2 border-r border-gray-300">Kode Akun</th>
+                  <th className="p-2 border-r border-gray-300">Nama Akun</th>
+                  <th className="p-2 border-r border-gray-300 text-right">Anggaran</th>
+                  <th className="p-2 border-r border-gray-300 text-right">Realisasi</th>
+                  <th className="p-2 border-r border-gray-300 text-right">Sisa (Varians)</th>
+                  <th className="p-2 text-center">% Realisasi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {realisasi.map(r => (
+                  <tr key={r.id} className="border-b border-gray-200">
+                    <td className="p-2 border-r border-gray-300">{r.accountCode}</td>
+                    <td className="p-2 border-r border-gray-300">
+                      <div className="font-medium">{r.accountName}</div>
+                      <div className="text-xs text-gray-500">{r.accountType === 'Revenue' ? 'Pendapatan' : 'Beban'}</div>
+                    </td>
+                    <td className="p-2 border-r border-gray-300 text-right font-mono">Rp {r.amount.toLocaleString('id-ID')}</td>
+                    <td className="p-2 border-r border-gray-300 text-right font-mono">Rp {r.actual.toLocaleString('id-ID')}</td>
+                    <td className={`p-2 border-r border-gray-300 text-right font-mono ${r.variance < 0 && r.accountType === 'Expense' ? 'text-red-600 font-bold' : ''}`}>
+                      Rp {r.variance.toLocaleString('id-ID')}
+                    </td>
+                    <td className={`p-2 text-center font-mono ${r.percentage > 100 && r.accountType === 'Expense' ? 'text-red-600 font-bold' : 'text-emerald-600'}`}>
+                      {r.percentage.toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+                {realisasi.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="p-4 text-center text-gray-500 italic">Belum ada anggaran di tahun {selectedYear}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         )}
 

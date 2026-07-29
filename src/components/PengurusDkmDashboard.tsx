@@ -67,6 +67,7 @@ import { ChartOfAccounts } from './accounting/ChartOfAccounts';
 import { JurnalUmum } from './accounting/JurnalUmum';
 import { BukuBesar } from './accounting/BukuBesar';
 import { ReportPrinter } from './accounting/ReportPrinter';
+import { InputAnggaran } from './accounting/InputAnggaran';
 import { SewaGedungAdmin } from './SewaGedungAdmin';
 import { BoardMemberAdmin } from './BoardMemberAdmin';
 import { ReportSignatoryAdmin } from './ReportSignatoryAdmin';
@@ -165,7 +166,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 }) => {
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
-  const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan'>('coa');
+  const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'laporan' | 'anggaran'>('coa');
 
   // Zustand Store
   const store = useMasjidStore();
@@ -1260,6 +1261,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 { id: 'coa', label: 'Bagan Akun (COA)' },
                 { id: 'jurnal_umum', label: 'Jurnal Umum' },
                 { id: 'buku_besar', label: 'Buku Besar' },
+                { id: 'anggaran', label: 'Input Anggaran' },
                 { id: 'laporan', label: 'Laporan Keuangan' }
               ].map(sub => (
                 <button
@@ -1280,6 +1282,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               {erpSubTab === 'coa' && <ChartOfAccounts />}
               {erpSubTab === 'jurnal_umum' && <JurnalUmum />}
               {erpSubTab === 'buku_besar' && <BukuBesar />}
+              {erpSubTab === 'anggaran' && <InputAnggaran />}
               {erpSubTab === 'laporan' && <ReportPrinter />}
             </div>
           </div>

@@ -318,6 +318,14 @@ export interface ERPJournalEntry {
   description?: string;
 }
 
+export interface ERPBudgetEntry {
+  id: string;
+  accountId: string; // The ID of the ERPChartOfAccount
+  year: number; // e.g. 2026
+  amount: number; // The budget amount
+  createdAt?: string;
+}
+
 export interface ReportSignature {
   id: string;
   reportType: string;
