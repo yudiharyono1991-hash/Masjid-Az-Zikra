@@ -239,7 +239,7 @@ export function useMasjidStore() {
         return;
       }
       
-      if (data && data.length > 0) {
+      if (data) {
         // Map Supabase snake_case to camelCase
         const mappedPrograms = data.map(p => ({
           id: p.id,
