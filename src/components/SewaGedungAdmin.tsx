@@ -98,7 +98,11 @@ export const SewaGedungAdmin: React.FC = () => {
 
     // Hapus dari Supabase Storage jika URL adalah dari Supabase
     if (fileUrl && (fileUrl.includes('supabase') || fileUrl.includes('supabase.co'))) {
-      await deleteMediaFromSupabase(fileUrl);
+      const success = await deleteMediaFromSupabase(fileUrl);
+      if (!success) {
+        alert("Gagal menghapus file dari Supabase. Pastikan pengaturan izin/Policy (RLS) di Storage Supabase mengizinkan operasi 'DELETE'.");
+        return;
+      }
     }
 
     if (pdf && pdf.name === fileName) {
