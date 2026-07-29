@@ -114,8 +114,8 @@ export const TazkiaAiAssistantModal: React.FC<TazkiaAiAssistantModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end p-4 bg-blue-950/70 backdrop-blur-sm">
-      <div className="bg-[#172554] border border-amber-500/40 rounded-3xl w-full max-w-lg h-[85vh] flex flex-col shadow-2xl overflow-hidden relative text-blue-100 my-auto">
+    <div className="fixed inset-0 z-[9990] flex items-end sm:items-center justify-center sm:justify-end sm:p-4 bg-blue-950/70 backdrop-blur-sm">
+      <div className="bg-[#172554] border border-amber-500/40 rounded-t-3xl sm:rounded-3xl w-full max-w-lg h-[85vh] sm:h-[85vh] pb-16 sm:pb-0 flex flex-col shadow-2xl overflow-hidden relative text-blue-100">
         {/* Header Bar */}
         <div className="bg-[#1e3a8a] px-6 py-4 border-b border-blue-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
