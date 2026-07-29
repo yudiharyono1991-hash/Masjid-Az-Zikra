@@ -62,7 +62,7 @@ export const AgendaAdmin = () => {
   };
 
   const handleDelete = (id: string, title: string) => {
-    if (window.confirm(\Apakah Anda yakin ingin menghapus agenda "\"?\)) {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus agenda "${title}"?`)) {
       deleteAgenda(id);
     }
   };
@@ -259,4 +259,3 @@ export const AgendaAdmin = () => {
     </div>
   );
 };
-

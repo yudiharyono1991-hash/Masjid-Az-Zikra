@@ -49,16 +49,16 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
     const currentDay = today.getDate();
 
     return (
-      <div className={\p-6 rounded-3xl shadow-lg border \\}>
+      <div className={`p-6 rounded-3xl shadow-lg border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
         <div className="flex items-center justify-between mb-6">
-          <h3 className={\ont-bold text-lg \\}>
+          <h3 className={`font-bold text-lg ${isDark ? 'text-white' : 'text-slate-800'}`}>
             {monthNames[month]} {year}
           </h3>
           <div className="flex gap-2">
-            <button onClick={prevMonth} className={\p-2 rounded-lg \\}>
+            <button onClick={prevMonth} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
               <ArrowLeft className="w-4 h-4" />
             </button>
-            <button onClick={nextMonth} className={\p-2 rounded-lg \\}>
+            <button onClick={nextMonth} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -72,7 +72,7 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
 
         <div className="grid grid-cols-7 gap-1 text-center">
           {Array.from({ length: firstDayOffset }).map((_, i) => (
-            <div key={\empty-\\} className="p-2"></div>
+            <div key={`empty-${i}`} className="p-2"></div>
           ))}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
@@ -85,14 +85,14 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
                 onClick={() => {
                   const dayAgendas = currentMonthAgendas.filter(a => new Date(a.date).getDate() === day);
                   if (dayAgendas.length > 0) {
-                    alert(\Terdapat \ agenda pada tanggal \ \ \\);
+                    alert(`Terdapat ${dayAgendas.length} agenda pada tanggal ${day} ${monthNames[month]} ${year}`);
                   }
                 }}
-                className={\w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-medium transition-colors cursor-pointer hover:scale-105 active:scale-95
-                  \
-                  \
-                  \
-                \}
+                className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-medium transition-colors cursor-pointer hover:scale-105 active:scale-95
+                  ${isToday ? 'bg-blue-600 text-white shadow-md font-bold' : ''}
+                  ${hasEvent && !isToday ? (isDark ? 'bg-blue-900/40 text-blue-300 border border-blue-700/50' : 'bg-blue-100 text-blue-700 border border-blue-200') : ''}
+                  ${!isToday && !hasEvent ? (isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100') : ''}
+                `}
               >
                 {day}
               </button>
@@ -112,7 +112,7 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
   };
 
   return (
-    <section className={\min-h-screen \ py-12\}>
+    <section className={`min-h-screen ${isDark ? 'bg-[#0a1128]' : 'bg-slate-50'} py-12`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
@@ -123,13 +123,13 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
 
           {/* Agenda List Side */}
           <div className="lg:col-span-8 space-y-6">
-            <h2 className={\	ext-xl font-bold font-serif mb-6 \\}>
+            <h2 className={`text-xl font-bold font-serif mb-6 ${isDark ? 'text-white' : 'text-[#1e3a8a]'}`}>
               Agenda Mendatang ({monthNames[month]} {year})
             </h2>
 
             <div className="space-y-4">
               {currentMonthAgendas.map((agenda) => (
-                <div key={agenda.id} className={\p-5 rounded-2xl border transition-all hover:shadow-lg \\}>
+                <div key={agenda.id} className={`p-5 rounded-2xl border transition-all hover:shadow-lg ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 hover:border-blue-300'}`}>
                   <div className="flex flex-col sm:flex-row gap-5 items-start">
                     
                     {/* Image / Date Badge */}
@@ -156,8 +156,8 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
                       <div className="inline-flex items-center px-2 py-1 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider">
                         {agenda.category}
                       </div>
-                      <h3 className={\ont-bold text-lg leading-tight \\}>
-                        {agenda.title} {agenda.speaker ? \| \\ : ''}
+                      <h3 className={`font-bold text-lg leading-tight ${isDark ? 'text-white' : 'text-[#1e3a8a]'}`}>
+                        {agenda.title} {agenda.speaker ? `| ${agenda.speaker}` : ''}
                       </h3>
                       
                       <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-medium text-slate-500">
@@ -171,7 +171,7 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
                         </div>
                       </div>
 
-                      <p className={\	ext-sm \\}>
+                      <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                         {agenda.description}
                       </p>
                     </div>
@@ -193,4 +193,3 @@ export const KalenderKegiatanSection: React.FC<KalenderKegiatanSectionProps> = (
     </section>
   );
 };
-
