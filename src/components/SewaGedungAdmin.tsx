@@ -15,13 +15,38 @@ export const SewaGedungAdmin: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const fetchAssets = () => {
+  const fetchAssets = async () => {
     try {
-      const savedImages = localStorage.getItem('tazkia_booking_images');
-      if (savedImages) setImages(JSON.parse(savedImages));
+      const { getSupabaseClient } = await import('../lib/supabase');
+      const supabase = getSupabaseClient();
+      
+      if (supabase) {
+        const { data, error } = await supabase.storage.from('tazkia-media').list('booking');
+        if (!error && data) {
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif|mp4|webm|ogg)$/i) && file.name !== '.emptyFolderPlaceholder');
+          const newImages = imageFiles.map(file => ({
+            name: file.name,
+            url: supabase.storage.from('tazkia-media').getPublicUrl(`booking/${file.name}`).data.publicUrl
+          }));
+          setImages(newImages);
 
-      const savedPdf = localStorage.getItem('tazkia_booking_pdf');
-      if (savedPdf) setPdf(JSON.parse(savedPdf));
+          const pdfFile = data.find(file => file.name.match(/\.pdf$/i));
+          if (pdfFile) {
+            setPdf({
+              name: pdfFile.name,
+              url: supabase.storage.from('tazkia-media').getPublicUrl(`booking/${pdfFile.name}`).data.publicUrl
+            });
+          } else {
+            setPdf(null);
+          }
+        }
+      } else {
+        const savedImages = localStorage.getItem('tazkia_booking_images');
+        if (savedImages) setImages(JSON.parse(savedImages));
+
+        const savedPdf = localStorage.getItem('tazkia_booking_pdf');
+        if (savedPdf) setPdf(JSON.parse(savedPdf));
+      }
     } catch (err) {
       console.error('Error fetching assets', err);
     } finally {
@@ -52,10 +77,8 @@ export const SewaGedungAdmin: React.FC = () => {
       setPdf(newPdf);
       localStorage.setItem('tazkia_booking_pdf', JSON.stringify(newPdf));
     } else {
-      const newImage = { name: `${Date.now()}-${file.name}`, url: result.url };
-      const updatedImages = [...images, newImage];
-      setImages(updatedImages);
-      localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
+      // Just re-fetch from supabase to get the correct list
+      await fetchAssets();
     }
     
     if (result.isLocal) {
@@ -78,9 +101,7 @@ export const SewaGedungAdmin: React.FC = () => {
       setPdf(null);
       localStorage.removeItem('tazkia_booking_pdf');
     } else {
-      const updatedImages = images.filter(img => img.name !== fileName);
-      setImages(updatedImages);
-      localStorage.setItem('tazkia_booking_images', JSON.stringify(updatedImages));
+      await fetchAssets();
     }
     
     setMessage(`Berhasil menghapus ${fileName}`);
