@@ -361,6 +361,7 @@ export default function App() {
         initialProgram={selectedDonationProgram}
         adminSettings={state.adminSettings}
         onCompleteDonation={addDonation}
+        session={state.session}
       />
 
       <ZiswafCalculatorModal

@@ -32,6 +32,7 @@ interface DonationModalFlowProps {
   initialCategory?: string;
   initialProgram?: Program;
   adminSettings?: AppAdminSettings;
+  session?: UserSession | null;
   onCompleteDonation: (donation: Omit<DonationRecord, 'id' | 'createdAt'>) => DonationRecord;
 }
 
@@ -42,6 +43,7 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   initialCategory,
   initialProgram,
   adminSettings,
+  session,
   onCompleteDonation
 }) => {
   const [step, setStep] = useState<number>(1);
@@ -56,9 +58,9 @@ export const DonationModalFlow: React.FC<DonationModalFlowProps> = ({
   // Form Inputs
   const [amount, setAmount] = useState<number>(100000);
   const [customAmountText, setCustomAmountText] = useState<string>('100.000');
-  const [donorName, setDonorName] = useState<string>('');
+  const [donorName, setDonorName] = useState<string>(session?.name || '');
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
-  const [donorPhone, setDonorPhone] = useState<string>('081234567890');
+  const [donorPhone, setDonorPhone] = useState<string>(session?.phone || '');
   const [paymentMethod, setPaymentMethod] = useState<string>('QRIS Nasional');
   const [recurringPeriod, setRecurringPeriod] = useState<'none' | 'daily' | 'weekly' | 'monthly'>('none');
 
