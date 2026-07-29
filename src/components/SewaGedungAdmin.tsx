@@ -89,11 +89,15 @@ export const SewaGedungAdmin: React.FC = () => {
     setUploading(false);
   };
 
-  const handleDelete = async (fileName: string, fileUrl?: string) => {
-    if (!window.confirm(`Hapus file ${fileName}?`)) return;
+  const handleDelete = async (fileName: string, fileUrl?: string, isPdfItem = false) => {
+    const confirmMessage = isPdfItem 
+      ? 'Apakah Anda yakin akan menghapus file PDF Syarat & Ketentuan ini?' 
+      : 'Apakah Anda yakin akan menghapus foto ini?';
+      
+    if (!window.confirm(confirmMessage)) return;
 
     // Hapus dari Supabase Storage jika URL adalah dari Supabase
-    if (fileUrl && fileUrl.includes('supabase')) {
+    if (fileUrl && (fileUrl.includes('supabase') || fileUrl.includes('supabase.co'))) {
       await deleteMediaFromSupabase(fileUrl);
     }
 
@@ -275,7 +279,7 @@ export const SewaGedungAdmin: React.FC = () => {
                     <FileText className="w-4 h-4 text-rose-400" />
                     {pdf.name}
                   </a>
-                  <button onClick={() => handleDelete(pdf.name)} className="text-rose-400 hover:bg-rose-500/20 p-2 rounded-lg transition-colors cursor-pointer" title="Hapus PDF">
+                  <button onClick={() => handleDelete(pdf.name, pdf.url, true)} className="text-rose-400 hover:bg-rose-500/20 p-2 rounded-lg transition-colors cursor-pointer" title="Hapus PDF">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
@@ -302,7 +306,7 @@ export const SewaGedungAdmin: React.FC = () => {
                         )}
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2 pointer-events-none">
                           <span className="text-[10px] text-white truncate drop-shadow-md">{img.name}</span>
-                          <button onClick={() => handleDelete(img.name)} className="self-end bg-rose-500 text-white p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md pointer-events-auto">
+                          <button onClick={() => handleDelete(img.name, img.url, false)} className="self-end bg-rose-500 text-white p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md pointer-events-auto">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
