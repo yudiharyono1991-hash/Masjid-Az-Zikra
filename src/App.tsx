@@ -433,10 +433,10 @@ export default function App() {
         />
       )}
 
-      {/* Floating AI Syariah Button for Desktop */}
+      {/* Floating AI Syariah Button — Desktop Only (Mobile sudah ada di bottom nav) */}
       <button
         onClick={() => setAiAssistantOpen(true)}
-        className="fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-all hover:-translate-y-1 z-50 print:hidden"
+        className="hidden xl:flex fixed bottom-6 left-6 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-5 py-3 rounded-2xl shadow-xl items-center gap-2 transition-all hover:-translate-y-1 z-50 print:hidden"
       >
         <Bot className="w-6 h-6 text-blue-900" />
         <span>Tanya AI Syariah</span>
