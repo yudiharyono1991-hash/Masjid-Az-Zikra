@@ -47,19 +47,23 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    
     const roleNames: Record<UserRole, string> = {
-      jamaah: 'Jamaah Setia Tazkia',
-      ketua_dkm: 'Syaripudin Kusin',
-      bendahara: 'Bendahara DKM',
-      penghimpunan: 'Bagian Penghimpunan',
-      penyaluran: 'Bagian Penyaluran',
-      admin_masjid: 'Admin Masjid Tazkia',
+      jamaah: 'Jamaah Tazkia',
+      admin_masjid: 'Admin Masjid',
+      bendahara: 'Bendahara',
+      ketua_dkm: 'Ketua DKM',
+      penghimpunan: 'Staf Penghimpunan',
+      penyaluran: 'Staf Penyaluran',
       pengurus_dkm: 'Pengurus DKM Tazkia'
     };
+    
     const finalName = name || roleNames[role];
     onLogin(email, finalName, role);
+    
+    alert(`Assalamualaikum, selamat datang di aplikasi Masjid Tazkia${finalName ? ', ' + finalName : ''}!`);
     onClose();
   };
 
@@ -133,7 +137,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2 text-left">
                 <label className="text-xs font-semibold text-blue-800 block">
                   Pilih Akses Peran (Role):
