@@ -25,6 +25,7 @@ import { BookingGedung } from './components/BookingGedung';
 import { PortalJamaahDashboard } from './components/PortalJamaahDashboard';
 import { FloatingMobileNav } from './components/FloatingMobileNav';
 import { Footer } from './components/Footer';
+import { RoleSwitcherWidget } from './components/admin/RoleSwitcherWidget';
 import { Bot } from 'lucide-react';
 
 export default function App() {
@@ -140,6 +141,8 @@ export default function App() {
 
   return (
     <div className={`min-h-screen ${themeContainerBg} font-sans selection:bg-blue-600 selection:text-white transition-colors duration-300 pb-16 xl:pb-0`}>
+      <RoleSwitcherWidget />
+      
       {/* 1. Header Navigation */}
       <div className="print:hidden">
         <Navbar

@@ -60,8 +60,17 @@ export function PencairanAnggaran() {
   };
 
   const handleApprove = (id: string, currentStatus: string) => {
-    if (window.confirm('Setujui pengajuan ini?')) {
-      const nextStatus = currentStatus === 'Pending' && canApproveBendahara && !canApproveDirektur ? 'Verified' : 'Approved';
+    if (canApproveBendahara && !canApproveDirektur && currentStatus !== 'Pending') {
+      alert('Sebagai Bendahara, Anda hanya dapat memverifikasi pengajuan yang berstatus Pending.');
+      return;
+    }
+    if (canApproveDirektur && !canApproveBendahara && currentStatus !== 'Verified') {
+      alert('Sebagai Direktur, Anda hanya dapat menyetujui pengajuan yang sudah diverifikasi Bendahara (status: Menunggu Direktur).');
+      return;
+    }
+    const actionLabel = (canApproveBendahara && !canApproveDirektur) ? 'verifikasi' : 'setujui';
+    if (window.confirm(`Yakin ingin ${actionLabel} pengajuan ini?`)) {
+      const nextStatus = (canApproveBendahara && !canApproveDirektur) ? 'Verified' : 'Approved';
       updateErpDisbursementStatus(id, nextStatus, state.session?.name || 'Approver');
     }
   };
@@ -231,6 +240,7 @@ export function PencairanAnggaran() {
                   <th className="p-4 font-bold">Pos Anggaran</th>
                   <th className="p-4 font-bold text-right">Nominal (Rp)</th>
                   <th className="p-4 font-bold">Tujuan Penggunaan</th>
+                  <th className="p-4 font-bold text-center">Status</th>
                   <th className="p-4 font-bold text-center">Aksi</th>
                 </tr>
               </thead>
@@ -239,7 +249,11 @@ export function PencairanAnggaran() {
                   state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).map(d => {
                     const budget = state.erpBudgets.find(b => b.id === d.budgetId);
                     const coa = state.erpCoa.find(c => c.id === budget?.accountId);
-                    
+                    const canActOnThis =
+                      (canApproveBendahara && !canApproveDirektur && d.status === 'Pending') ||
+                      (canApproveDirektur && d.status === 'Verified') ||
+                      (canApproveDirektur && canApproveBendahara && (d.status === 'Pending' || d.status === 'Verified'));
+
                     return (
                       <tr key={d.id} className="hover:bg-blue-50/50">
                         <td className="p-4">
@@ -256,6 +270,10 @@ export function PencairanAnggaran() {
                         <td className="p-4 text-gray-700">
                           {d.purpose}
                         </td>
+                        <td className="p-4 text-center">
+                          {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Menunggu Bendahara</span>}
+                          {d.status === 'Verified' && <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold"><AlertCircle className="w-3 h-3" /> Menunggu Direktur</span>}
+                        </td>
                         <td className="p-4">
                           {rejectingId === d.id ? (
                             <div className="flex flex-col gap-2 min-w-[200px]">
@@ -271,21 +289,26 @@ export function PencairanAnggaran() {
                                 <button onClick={() => setRejectingId(null)} className="flex-1 bg-gray-200 text-gray-700 text-xs font-bold py-1.5 rounded">Batal</button>
                               </div>
                             </div>
-                          ) : (
+                          ) : canActOnThis ? (
                             <div className="flex justify-center gap-2">
                               <button
                                 onClick={() => handleApprove(d.id, d.status)}
                                 className="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-600 hover:text-white rounded-lg font-bold text-xs transition-colors flex items-center gap-1"
                               >
-                                <CheckCircle className="w-3 h-3" /> {canApproveDirektur ? 'Approve Direktur' : 'Verifikasi'}
+                                <CheckCircle className="w-3 h-3" />
+                                {canApproveDirektur && d.status === 'Verified' ? 'Setujui (Direktur)' : canApproveDirektur ? 'Approve Direktur' : 'Verifikasi'}
                               </button>
                               <button
                                 onClick={() => setRejectingId(d.id)}
                                 className="px-3 py-1.5 bg-red-100 text-red-700 hover:bg-red-600 hover:text-white rounded-lg font-bold text-xs transition-colors flex items-center gap-1"
                               >
-                                <XCircle className="w-3 h-3" /> Reject
+                                <XCircle className="w-3 h-3" /> Tolak
                               </button>
                             </div>
+                          ) : (
+                            <span className="text-xs text-gray-400 italic">
+                              {d.status === 'Pending' ? 'Menunggu Bendahara' : 'Menunggu Direktur'}
+                            </span>
                           )}
                         </td>
                       </tr>
