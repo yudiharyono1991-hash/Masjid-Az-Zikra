@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useMasjidStore } from '../lib/store';
 import { BoardMember } from '../types';
-import { Users, Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { Users, Plus, Edit2, Trash2, Save, X, Upload } from 'lucide-react';
+import { uploadMedia } from '../lib/mediaUpload';
 
 export const BoardMemberAdmin: React.FC = () => {
   const store = useMasjidStore();
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   
   const [formData, setFormData] = useState<Omit<BoardMember, 'id'>>({
     name: '',
@@ -46,6 +48,25 @@ export const BoardMemberAdmin: React.FC = () => {
   const handleDelete = (id: string) => {
     if (window.confirm('Yakin ingin menghapus pengurus ini?')) {
       store.deleteBoardMember(id);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const url = await uploadMedia(file);
+      if (url) {
+        setFormData({ ...formData, imageUrl: url });
+      } else {
+        alert('Gagal mengunggah gambar.');
+      }
+    } catch (error) {
+      alert('Terjadi kesalahan saat mengunggah gambar.');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -143,15 +164,34 @@ export const BoardMemberAdmin: React.FC = () => {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="text-xs font-semibold text-blue-300 block mb-1">Link Foto Profil (URL):</label>
-              <input
-                type="url"
-                required
-                value={formData.imageUrl}
-                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                placeholder="https://images.unsplash.com/photo-..."
-                className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
-              />
+              <label className="text-xs font-semibold text-blue-300 block mb-1">Link Foto Profil (URL) atau Upload:</label>
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  required
+                  value={formData.imageUrl}
+                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="https://images.unsplash.com/photo-..."
+                  className="flex-1 bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
+                />
+                <label className="bg-blue-800 hover:bg-blue-700 text-blue-100 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors flex items-center justify-center min-w-[100px]">
+                  {isUploading ? (
+                    'Loading...'
+                  ) : (
+                    <>
+                      <Upload className="w-3.5 h-3.5 mr-1.5" />
+                      Upload
+                    </>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    disabled={isUploading}
+                    className="hidden"
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="sm:col-span-2">

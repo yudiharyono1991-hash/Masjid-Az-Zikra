@@ -16,7 +16,6 @@ import {
   ChevronDown,
   Clock,
   User,
-  Database,
   Menu,
   X,
   ExternalLink
@@ -271,21 +270,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-
-            {/* Supabase & Settings (Only for Admin/Ketua DKM) */}
-            {session && session.isLoggedIn && ['admin_masjid', 'ketua_dkm'].includes(session.role) && (
-              <button
-                onClick={openSupabaseModal}
-                className={`p-1.5 sm:p-2 rounded-xl border transition-colors cursor-pointer shadow-sm hidden sm:block ${
-                  isDark 
-                    ? 'bg-blue-800/60 text-amber-300 border-amber-400/40 hover:bg-blue-800' 
-                    : 'bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100'
-                }`}
-                title="Database Settings (Admin Only)"
-              >
-                <Database className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
-              </button>
-            )}
 
             {/* AI Syariah (Desktop Only, mobile has floating nav) */}
             <button
