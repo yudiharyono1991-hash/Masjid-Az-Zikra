@@ -77,7 +77,7 @@ export function InputAnggaran() {
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(Number(e.target.value))}
-            className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-800 outline-none w-full sm:w-auto"
+            className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 outline-none w-full sm:w-auto"
           >
             {[selectedYear - 1, selectedYear, selectedYear + 1].map(y => (
               <option key={y} value={y}>Tahun {y}</option>
@@ -103,7 +103,7 @@ export function InputAnggaran() {
                 required
                 value={accountId}
                 onChange={e => setAccountId(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               >
                 <option value="">-- Pilih Akun --</option>
                 {eligibleAccounts.map(acc => (
@@ -122,7 +122,7 @@ export function InputAnggaran() {
                 min="0"
                 value={amount || ''}
                 onChange={e => setAmount(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                className="w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 text-sm font-medium outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 placeholder="Misal: 120000000"
               />
             </div>
