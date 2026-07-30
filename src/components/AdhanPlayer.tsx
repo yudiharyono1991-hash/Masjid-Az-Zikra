@@ -27,9 +27,9 @@ export const AdhanPlayer: React.FC<AdhanPlayerProps> = ({ profile, onUpdateSetti
   const settings = profile.adhanSettings || defaultSettings;
 
   const audioSources = {
-    makkah: 'https://www.islamcan.com/audio/adhan/azan1.mp3',
-    madinah: 'https://www.islamcan.com/audio/adhan/azan2.mp3',
-    local: 'https://www.islamcan.com/audio/adhan/azan3.mp3',
+    makkah: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Azan.ogg',
+    madinah: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Adhan_in_Egypt.ogg',
+    local: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Adhan_Istanbul.ogg',
     beep: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg'
   };
 
