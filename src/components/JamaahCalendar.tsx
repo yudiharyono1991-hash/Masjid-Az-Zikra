@@ -169,6 +169,13 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
           })}
         </div>
 
+        {!selectedDate && (
+          <div className="mt-6 text-center text-sm text-gray-500 bg-blue-50/50 py-4 rounded-xl border border-blue-100">
+            <Info className="w-4 h-4 inline-block mr-1 text-blue-400" />
+            Klik tanggal pada kalender untuk melihat atau menambahkan catatan pribadi, kajian, dll.
+          </div>
+        )}
+
         {selectedDate && (
           <div className="mt-6 border-t border-gray-100 pt-6 animate-fade-in">
             <div className="flex justify-between items-start mb-4">
@@ -215,7 +222,10 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
 
             <div className="space-y-2">
               {notes.filter(n => n.date === toISODate(selectedDate) && n.jamaahId === jamaahId).length === 0 ? (
-                <p className="text-sm text-gray-400 italic text-center py-4">Belum ada catatan pada tanggal ini.</p>
+                <div className="bg-gray-50 rounded-lg p-6 text-center border border-gray-100">
+                  <p className="text-sm text-gray-500 font-medium">Belum ada catatan.</p>
+                  <p className="text-xs text-gray-400 mt-1">Anda dapat menambahkan jadwal kajian, puasa, atau aktivitas pribadi di sini.</p>
+                </div>
               ) : (
                 notes.filter(n => n.date === toISODate(selectedDate) && n.jamaahId === jamaahId).map(n => (
                   <div key={n.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 p-3 rounded-lg">

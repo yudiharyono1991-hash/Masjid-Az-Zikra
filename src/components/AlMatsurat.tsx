@@ -3,7 +3,10 @@ import { AL_MATSURAT_DATA, AlMatsuratItem } from '../data/alMatsuratData';
 import { BookOpen, Sun, Moon, CheckCircle2, RotateCcw } from 'lucide-react';
 
 export const AlMatsurat: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'pagi' | 'petang'>('pagi');
+  const [activeTab, setActiveTab] = useState<'pagi' | 'petang' | null>(null);
+  const [lastDzikir, setLastDzikir] = useState<string | null>(() => {
+    return localStorage.getItem('lastDzikirDate');
+  });
   
   // Initialize counters for all items based on their required count
   const [counters, setCounters] = useState<Record<string, number>>(() => {
@@ -47,6 +50,16 @@ export const AlMatsurat: React.FC = () => {
 
   const progress = calculateProgress();
 
+  // Save last dzikir when progress reaches 100%
+  React.useEffect(() => {
+    if (progress === 100 && activeTab) {
+      const now = new Date();
+      const dateString = `${now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} pukul ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+      localStorage.setItem('lastDzikirDate', dateString);
+      setLastDzikir(dateString);
+    }
+  }, [progress, activeTab]);
+
   return (
     <div className="space-y-6">
       {/* Header & Progress */}
@@ -59,11 +72,16 @@ export const AlMatsurat: React.FC = () => {
           <div>
             <h2 className="text-2xl font-bold font-serif flex items-center gap-2 mb-2">
               <BookOpen className="w-6 h-6 text-amber-400" />
-              Al-Ma'tsurat
+              Dzikir Harian
             </h2>
             <p className="text-emerald-100/80 text-sm max-w-md leading-relaxed">
-              Kumpulan doa dan dzikir pagi & petang yang diamalkan oleh Rasulullah SAW untuk ketenangan dan perlindungan diri.
+              Kumpulan doa dan dzikir pagi & petang harian untuk ketenangan dan perlindungan diri. Rutinkan membacanya setiap hari.
             </p>
+            {lastDzikir && (
+              <div className="mt-3 inline-block bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-xs text-white">
+                <span className="opacity-80">Terakhir Dzikir:</span> <strong className="text-amber-300">{lastDzikir}</strong>
+              </div>
+            )}
           </div>
           
           <div className="bg-white/10 p-4 rounded-2xl border border-white/10 backdrop-blur-md w-full md:w-auto md:min-w-[200px]">
@@ -109,9 +127,16 @@ export const AlMatsurat: React.FC = () => {
 
       {/* List Dzikir */}
       <div className="space-y-6">
-        {getFilteredData().map((item, index) => {
-          const currentCount = counters[item.id] || 0;
-          const isDone = currentCount >= item.count;
+        {!activeTab ? (
+          <div className="bg-white/50 border border-gray-100 rounded-3xl p-12 text-center shadow-sm">
+            <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-gray-600 mb-2">Pilih Waktu Dzikir</h3>
+            <p className="text-gray-500 text-sm">Klik tombol Dzikir Pagi atau Dzikir Petang di atas untuk mulai membaca.</p>
+          </div>
+        ) : (
+          getFilteredData().map((item, index) => {
+            const currentCount = counters[item.id] || 0;
+            const isDone = currentCount >= item.count;
           
           return (
             <div key={item.id} className={`bg-white p-6 sm:p-8 rounded-3xl border transition-all duration-300 ${
@@ -194,7 +219,8 @@ export const AlMatsurat: React.FC = () => {
               
             </div>
           );
-        })}
+          })
+        )}
       </div>
     </div>
   );
