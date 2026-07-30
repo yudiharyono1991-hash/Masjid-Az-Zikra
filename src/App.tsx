@@ -277,9 +277,24 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'dkm_portal' && hasDkmPortalAccess(state.session.role) && (
-          <PengurusDkmDashboard
-            financials={state.financials}
+        {activeTab === 'dkm_portal' && hasDkmPortalAccess(state.session.role) && (() => {
+          let initialRoleTab: any = 'akuntansi';
+          const r = state.session.role;
+          if (['direktur', 'ketua_dkm', 'ketua_dewan_pembina', 'pembina'].includes(r)) {
+            initialRoleTab = 'dashboard_utama'; // We will create this or use an overview tab. Wait, currently it's "akuntansi". Let's use 'akuntansi' or 'keuangan' for them, or add a 'dashboard_utama' tab. Let's see what tabs exist: 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'
+            initialRoleTab = 'keuangan'; // For now they see keuangan (Ringkasan Ziswaf).
+          } else if (r === 'bendahara') {
+            initialRoleTab = 'akuntansi';
+          } else if (r === 'penghimpunan') {
+            initialRoleTab = 'keuangan'; // Tab Donasi is inside keuangan
+          } else if (r === 'penyaluran') {
+            initialRoleTab = 'program';
+          }
+          
+          return (
+            <PengurusDkmDashboard
+              initialTab={initialRoleTab}
+              financials={state.financials}
             inventories={state.inventories}
             petugasList={state.petugas}
             announcements={state.announcements}
@@ -322,7 +337,7 @@ export default function App() {
             onDeleteJamaahProfile={deleteJamaahProfile}
             openTvMode={() => setTvModeOpen(true)}
           />
-        )}
+        )()}
 
         {activeTab === 'jamaah_portal' && state.session.role === 'jamaah' && (
           <PortalJamaahDashboard 
@@ -433,6 +448,7 @@ export default function App() {
         openDigitalIbadah={handleOpenDigitalIbadah}
         toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
         isDark={isDark}
+        session={state.session}
       />
     </div>
   );

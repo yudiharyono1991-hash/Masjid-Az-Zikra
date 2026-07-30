@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, HeartHandshake, BookOpen, Bot, Menu } from 'lucide-react';
+import { UserSession, hasDkmPortalAccess } from '../types';
 
 interface FloatingMobileNavProps {
   activeTab: string;
@@ -8,6 +9,7 @@ interface FloatingMobileNavProps {
   openDigitalIbadah: (tab?: 'quran' | 'salat' | 'kiblat') => void;
   toggleMobileMenu: () => void;
   isDark?: boolean;
+  session?: UserSession | null;
 }
 
 export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
@@ -16,7 +18,8 @@ export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
   openDonationModal,
   openDigitalIbadah,
   toggleMobileMenu,
-  isDark = true
+  isDark = true,
+  session
 }) => {
   return (
     <nav className="xl:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#172554]/95 border-t border-blue-800/80 backdrop-blur-md px-2 py-1.5 shadow-2xl transition-all">
@@ -59,6 +62,31 @@ export const FloatingMobileNav: React.FC<FloatingMobileNavProps> = ({
           <Menu className="w-5 h-5" />
           <span>Menu</span>
         </button>
+
+        {/* Portal (Jika Login) */}
+        {session && session.isLoggedIn && session.role === 'jamaah' && (
+          <button
+            onClick={() => { setActiveTab('jamaah_portal'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'jamaah_portal' ? 'text-amber-300 font-black scale-105' : 'text-emerald-400 hover:text-emerald-300'
+            }`}
+          >
+            <Bot className="w-5 h-5" />
+            <span>Portal</span>
+          </button>
+        )}
+        
+        {session && session.isLoggedIn && hasDkmPortalAccess(session.role) && (
+          <button
+            onClick={() => { setActiveTab('dkm_portal'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'dkm_portal' ? 'text-amber-300 font-black scale-105' : 'text-blue-400 hover:text-white'
+            }`}
+          >
+            <Bot className="w-5 h-5" />
+            <span>DKM</span>
+          </button>
+        )}
 
       </div>
     </nav>

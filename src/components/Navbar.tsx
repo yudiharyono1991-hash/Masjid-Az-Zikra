@@ -280,6 +280,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Action Buttons Right */}
           <div className="flex items-center gap-1.5 sm:gap-2">
 
+            {session && session.isLoggedIn && session.role === 'jamaah' && (
+              <div className="hidden xl:flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest mr-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Mode Jamaah
+              </div>
+            )}
+
             {/* Login / Logout */}
             {session && session.isLoggedIn ? (
               <button
@@ -459,6 +466,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>9. Portal Pengurus DKM</span>
                   </span>
                   <span className="text-[10px] font-mono bg-amber-400 text-blue-950 font-black px-2 py-0.5 rounded">DKM ACCESS</span>
+                </button>
+              )}
+
+              {session && session.isLoggedIn && session.role === 'jamaah' && (
+                <button
+                  onClick={() => { setActiveTab('jamaah_portal'); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="w-full text-left px-3.5 py-2.5 rounded-xl text-emerald-300 bg-emerald-500/20 hover:bg-emerald-500/30 font-bold uppercase tracking-wider flex items-center justify-between border border-emerald-500/40 col-span-1 sm:col-span-2"
+                >
+                  <span className="flex items-center gap-2">
+                    <Bot className="w-4 h-4 text-emerald-300" />
+                    <span>9. Portal Saya (Jamaah)</span>
+                  </span>
+                  <span className="text-[10px] font-mono bg-emerald-400 text-blue-950 font-black px-2 py-0.5 rounded">JAMAAH</span>
                 </button>
               )}
             </div>

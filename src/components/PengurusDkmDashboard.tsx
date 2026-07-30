@@ -124,9 +124,11 @@ interface PengurusDkmDashboardProps {
   onUpdateJamaahProfile?: (id: string, updated: Partial<JamaahProfile>) => void;
   onDeleteJamaahProfile?: (id: string) => void;
   openTvMode?: () => void;
+  initialTab?: 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender';
 }
 
 export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
+  initialTab,
   financials,
   inventories,
   petugasList,
@@ -170,7 +172,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'>('akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'>(initialTab || 'akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
   const [tabSearchQuery, setTabSearchQuery] = useState('');
@@ -2683,8 +2685,30 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                       >
                         <Plus className="w-3.5 h-3.5" /> Tambah Menu Layanan Jamaah
                       </button>
-                    </div>
                   </div>
+                </div>
+
+                {/* Danger Zone: Hard Reset Data */}
+                <div className="bg-red-950/30 p-4 rounded-xl border border-red-900/50 space-y-3 mt-6">
+                  <span className="text-xs font-bold text-red-400 uppercase font-mono block border-b border-red-900/50 pb-2 flex items-center gap-2">
+                    <Trash2 className="w-4 h-4" /> Danger Zone (Pembersihan Data Browser)
+                  </span>
+                  <p className="text-xs text-red-200/80">
+                    Perhatian: Tombol di bawah ini akan menghapus SELURUH data lokal (Local Storage) di browser ini, termasuk sesi login Anda. Gunakan fitur ini jika Anda ingin melakukan reset sebelum aplikasi Go-Live atau jika terjadi error sinkronisasi yang parah.
+                  </p>
+                  <button
+                    onClick={() => {
+                      if (window.confirm('PERINGATAN KERAS!\n\nApakah Anda YAKIN ingin menghapus seluruh data lokal Masjid Tazkia di browser ini?\nAnda akan otomatis ter-logout.')) {
+                        localStorage.clear();
+                        alert('Data lokal berhasil dibersihkan. Aplikasi akan dimuat ulang.');
+                        window.location.href = '/';
+                      }
+                    }}
+                    className="bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors w-full sm:w-auto"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span>Hapus Seluruh Data Local Storage</span>
+                  </button>
                 </div>
               </div>
             </div>

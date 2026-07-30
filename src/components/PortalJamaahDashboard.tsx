@@ -11,7 +11,9 @@ import {
   RefreshCw,
   Bell,
   Calendar,
-  Info
+  Info,
+  BookOpen,
+  HeartHandshake
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
@@ -206,6 +208,54 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                     </h4>
                   </div>
                 ))}
+              </div>
+
+              {/* Tambahan Fitur Modern: Rekomendasi Kajian & Program */}
+              <div className="mt-8 pt-8 border-t border-gray-100">
+                <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2 mb-6">
+                  <Info className="w-6 h-6 text-emerald-600" />
+                  Rekomendasi Untuk Anda
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Card Kajian */}
+                  <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
+                    <div className="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform">
+                      <BookOpen className="w-40 h-40" />
+                    </div>
+                    <span className="bg-emerald-500/30 text-emerald-100 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-400/30">
+                      Kajian Terdekat
+                    </span>
+                    <h4 className="text-2xl font-bold font-serif mt-4 mb-2 leading-tight">
+                      Kajian Ahad Pagi: Tafsir Al-Baqarah
+                    </h4>
+                    <p className="text-emerald-100 text-sm mb-4">
+                      Bersama Ustadz H. M. Zainuddin, SQ. <br/>
+                      Ruang Utama Masjid Tazkia, Ahad 08:00 WIB.
+                    </p>
+                    <button className="bg-white text-emerald-900 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-emerald-50 transition-colors">
+                      Lihat Jadwal Lengkap
+                    </button>
+                  </div>
+
+                  {/* Card Program Pilihan */}
+                  <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
+                    <div className="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform">
+                      <HeartHandshake className="w-40 h-40" />
+                    </div>
+                    <span className="bg-blue-500/30 text-blue-100 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-400/30">
+                      Program Pilihan
+                    </span>
+                    <h4 className="text-2xl font-bold font-serif mt-4 mb-2 leading-tight">
+                      Beasiswa Santri Tahfidz Qur'an
+                    </h4>
+                    <p className="text-blue-100 text-sm mb-4">
+                      Mari bersama mencetak generasi penghafal Qur'an. Salurkan infaq terbaik Anda mulai Rp 50.000.
+                    </p>
+                    <button className="bg-amber-400 text-blue-950 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-amber-300 transition-colors">
+                      Donasi Sekarang
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
