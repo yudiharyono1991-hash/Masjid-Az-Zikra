@@ -22,13 +22,17 @@ interface PortalJamaahDashboardProps {
   jamaahProfiles: JamaahProfile[];
   donations?: DonationRecord[];
   onUpdateProfile?: (id: string, updatedProfile: Partial<JamaahProfile>) => void;
+  openDonationModal?: () => void;
+  onNavigateToHome?: () => void;
 }
 
 export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   session,
   jamaahProfiles,
   donations = [],
-  onUpdateProfile
+  onUpdateProfile,
+  openDonationModal,
+  onNavigateToHome
 }) => {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'histori' | 'pengaturan'>('ringkasan');
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(10);
@@ -262,13 +266,16 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                       Bersama Ustadz H. M. Zainuddin, SQ. <br/>
                       Ruang Utama Masjid Tazkia, Ahad 08:00 WIB.
                     </p>
-                    <button className="bg-white text-emerald-900 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-emerald-50 transition-colors">
+                    <button 
+                      onClick={() => onNavigateToHome && onNavigateToHome()}
+                      className="bg-white text-emerald-900 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-emerald-50 transition-colors relative z-10"
+                    >
                       Lihat Jadwal Lengkap
                     </button>
                   </div>
 
                   {/* Card Program Pilihan */}
-                  <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
+                  <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group hover:shadow-xl transition-all">
                     <div className="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform">
                       <HeartHandshake className="w-40 h-40" />
                     </div>
@@ -281,7 +288,10 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                     <p className="text-blue-100 text-sm mb-4">
                       Mari bersama mencetak generasi penghafal Qur'an. Salurkan infaq terbaik Anda mulai Rp 50.000.
                     </p>
-                    <button className="bg-amber-400 text-blue-950 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-amber-300 transition-colors">
+                    <button 
+                      onClick={() => openDonationModal && openDonationModal()}
+                      className="bg-amber-400 text-blue-950 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-amber-300 transition-colors relative z-10"
+                    >
                       Donasi Sekarang
                     </button>
                   </div>

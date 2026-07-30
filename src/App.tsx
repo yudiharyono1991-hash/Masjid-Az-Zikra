@@ -345,7 +345,12 @@ export default function App() {
             session={state.session}
             jamaahProfiles={state.jamaahProfiles || []}
             donations={state.donations}
-            onUpdateProfile={updateJamaahProfile} 
+            onUpdateProfile={updateJamaahProfile}
+            openDonationModal={() => handleOpenDonationModal()}
+            onNavigateToHome={() => {
+              setActiveTab('beranda');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           />
         )}
       </main>
