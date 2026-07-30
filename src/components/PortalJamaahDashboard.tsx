@@ -22,7 +22,8 @@ import {
   CalendarDays,
   Wallet,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ChevronDown
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import { JamaahCalendar } from './JamaahCalendar';
@@ -267,8 +268,19 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                       <Clock className="w-4 h-4 text-emerald-300" />
                       Jadwal Shalat Hari Ini
                     </h3>
-                    <div className="text-[10px] bg-white/10 px-2 py-1 rounded border border-white/20 flex items-center gap-1 font-mono">
-                      <MapPin className="w-3 h-3" /> Bogor, ID
+                    <div className="relative text-[10px] bg-white/10 rounded border border-white/20 flex items-center gap-1 font-mono hover:bg-white/20 transition-colors w-32">
+                      <MapPin className="w-3 h-3 ml-2 shrink-0" />
+                      <select className="appearance-none bg-transparent outline-none w-full py-1.5 pl-1 pr-6 text-white font-mono cursor-pointer [&>option]:text-gray-900" defaultValue="Bogor, ID">
+                        <option value="Jakarta, ID">Jakarta, ID</option>
+                        <option value="Bogor, ID">Bogor, ID</option>
+                        <option value="Depok, ID">Depok, ID</option>
+                        <option value="Tangerang, ID">Tangerang, ID</option>
+                        <option value="Bekasi, ID">Bekasi, ID</option>
+                        <option value="Bandung, ID">Bandung, ID</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-white/70">
+                        <ChevronDown className="w-3 h-3" />
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2 text-center">
@@ -311,7 +323,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <Award className="w-5 h-5 text-amber-500" />
                   Capaian Ibadah Maliyah Anda
                 </h3>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-700 mt-1 font-medium leading-relaxed">
                   "Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji." (Al-Baqarah: 261)
                 </p>
               </div>
@@ -345,15 +357,15 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Total Zakat', amount: 0, color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-                  { label: 'Total Infaq', amount: profile.totalDonation, color: 'bg-blue-50 text-blue-700 border-blue-200' },
-                  { label: 'Total Wakaf', amount: 0, color: 'bg-amber-50 text-amber-700 border-amber-200' },
-                  { label: 'Partisipasi Qurban', amount: 0, color: 'bg-rose-50 text-rose-700 border-rose-200', prefix: ' Kali' }
+                  { label: 'Total Zakat', amount: 0, color: 'bg-emerald-50 text-emerald-900 border-emerald-300 shadow-sm' },
+                  { label: 'Total Infaq', amount: profile.totalDonation, color: 'bg-blue-50 text-blue-900 border-blue-300 shadow-sm' },
+                  { label: 'Total Wakaf', amount: 0, color: 'bg-amber-50 text-amber-900 border-amber-300 shadow-sm' },
+                  { label: 'Partisipasi Qurban', amount: 0, color: 'bg-rose-50 text-rose-900 border-rose-300 shadow-sm', prefix: ' Kali' }
                 ].map((item, idx) => (
                   <div key={idx} className={`${item.color} border rounded-xl p-4 relative overflow-hidden group hover:scale-[1.02] transition-transform`}>
                     <Heart className={`absolute -right-3 -bottom-3 w-16 h-16 opacity-10 group-hover:scale-110 transition-transform`} />
-                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider mb-1 opacity-80">{item.label}</p>
-                    <h4 className="text-xl font-bold font-serif">
+                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider mb-1 opacity-90">{item.label}</p>
+                    <h4 className="text-xl font-bold font-serif opacity-100">
                       {item.prefix ? `${item.amount}${item.prefix}` : formatRupiahFull(item.amount)}
                     </h4>
                   </div>
