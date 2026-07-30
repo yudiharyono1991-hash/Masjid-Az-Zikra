@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX, Bell, Settings } from 'lucide-react';
 import { JamaahProfile } from '../types';
+import adhanMp3 from '../assets/adhan.mp3';
 
 interface AdhanPlayerProps {
   profile: JamaahProfile;
@@ -13,6 +14,7 @@ export const AdhanPlayer: React.FC<AdhanPlayerProps> = ({ profile, onUpdateSetti
   const [showSettings, setShowSettings] = useState(false);
   const [currentPrayer, setCurrentPrayer] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const synth = window.speechSynthesis;
 
   const defaultSettings = {
     enabled: true,
@@ -26,12 +28,7 @@ export const AdhanPlayer: React.FC<AdhanPlayerProps> = ({ profile, onUpdateSetti
 
   const settings = profile.adhanSettings || defaultSettings;
 
-  const audioSources = {
-    makkah: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Azan.ogg',
-    madinah: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Adhan_in_Egypt.ogg',
-    local: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Adhan_Istanbul.ogg',
-    beep: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg'
-  };
+  const adhanText = "Allahu Akbar. Allahu Akbar. Allahu Akbar. Allahu Akbar.";
 
   useEffect(() => {
     // Check prayer times every minute
@@ -59,30 +56,35 @@ export const AdhanPlayer: React.FC<AdhanPlayerProps> = ({ profile, onUpdateSetti
 
   const playAdhan = (prayerName: string) => {
     setCurrentPrayer(prayerName);
-    if (audioRef.current) {
-      audioRef.current.src = audioSources[settings.soundType];
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(err => {
-        console.warn('Autoplay prevented by browser', err);
-        // Autoplay policy prevents audio from playing without user interaction
-        // Could show a "Click to play Adhan" toast here
-      });
-    }
+    setIsPlaying(true);
+    
+    // Gunakan Web Speech API sebagai pengganti berkas MP3 yang diblokir CORS/Captcha
+    const utterance = new SpeechSynthesisUtterance(adhanText);
+    utterance.lang = 'ar-SA'; // Aksen arab jika didukung
+    utterance.rate = 0.8;
+    
+    utterance.onend = () => {
+      setIsPlaying(false);
+      setCurrentPrayer(null);
+    };
+
+    utterance.onerror = () => {
+      setIsPlaying(false);
+      setCurrentPrayer(null);
+    };
+
+    synth.cancel(); // Stop anything playing
+    synth.speak(utterance);
   };
 
   const stopAdhan = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setIsPlaying(false);
-      setCurrentPrayer(null);
-    }
+    synth.cancel();
+    setIsPlaying(false);
+    setCurrentPrayer(null);
   };
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-      <audio ref={audioRef} onEnded={() => setIsPlaying(false)} />
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
