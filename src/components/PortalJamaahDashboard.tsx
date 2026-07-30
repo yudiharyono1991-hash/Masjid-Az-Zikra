@@ -19,7 +19,10 @@ import {
   QrCode,
   Compass,
   MessageCircle,
-  CalendarDays
+  CalendarDays,
+  Wallet,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import { JamaahCalendar } from './JamaahCalendar';
@@ -27,6 +30,7 @@ import { QiblaCompass } from './QiblaCompass';
 import { AdhanPlayer } from './AdhanPlayer';
 import { ChatDkm } from './ChatDkm';
 import { AlMatsurat } from './AlMatsurat';
+import { LaporanKeuanganPribadi } from './LaporanKeuanganPribadi';
 
 interface PortalJamaahDashboardProps {
   session: UserSession;
@@ -55,10 +59,18 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   onAddNote,
   onRemoveNote
 }) => {
-  const [activeTab, setActiveTab] = useState<'ringkasan' | 'kalender' | 'kompas' | 'almatsurat' | 'chat' | 'histori' | 'pengaturan'>('ringkasan');
+  const [activeTab, setActiveTab] = useState<'ringkasan' | 'keuangan' | 'kalender' | 'kompas' | 'almatsurat' | 'chat' | 'histori' | 'pengaturan'>('ringkasan');
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(10);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const handleScroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 200;
+      scrollContainerRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   const profile = jamaahProfiles.find(p => p.email === session.email) || {
     id: 'unknown',
@@ -204,33 +216,50 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2">
-          {[
-            { id: 'ringkasan', label: 'Ringkasan ZISWAF', icon: TrendingUp },
-            { id: 'kalender', label: 'Kalender Pintar', icon: CalendarDays },
-            { id: 'kompas', label: 'Arah Kiblat', icon: Compass },
-            { id: 'almatsurat', label: 'Al-Ma\'tsurat', icon: BookOpen },
-            { id: 'chat', label: 'Layanan DKM', icon: MessageCircle },
-            { id: 'histori', label: 'Histori Transaksi', icon: History },
-            { id: 'pengaturan', label: 'Pengaturan Profil', icon: Settings },
-          ].map((tab) => {
-            const isActive = activeTab === tab.id;
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`whitespace-nowrap px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all ${
-                  isActive 
-                    ? 'bg-blue-600 text-white shadow-md' 
-                    : 'bg-white text-gray-500 hover:bg-blue-50 hover:text-blue-600'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            )
-          })}
+        <div className="relative group flex items-center bg-white rounded-2xl shadow-sm border border-gray-100 p-1 mb-2">
+          <button 
+            onClick={() => handleScroll('left')}
+            className="absolute left-1 z-20 p-2 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 text-blue-600 hover:bg-blue-50 sm:hidden group-hover:flex"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          
+          <div ref={scrollContainerRef} className="flex overflow-x-auto hide-scrollbar gap-1.5 px-8 w-full">
+            {[
+              { id: 'ringkasan', label: 'Ringkasan ZISWAF', icon: TrendingUp },
+              { id: 'keuangan', label: 'Keuangan Pribadi', icon: Wallet },
+              { id: 'kalender', label: 'Kalender Pintar', icon: CalendarDays },
+              { id: 'kompas', label: 'Arah Kiblat', icon: Compass },
+              { id: 'almatsurat', label: 'Dzikir Harian', icon: BookOpen },
+              { id: 'chat', label: 'Layanan DKM', icon: MessageCircle },
+              { id: 'histori', label: 'Histori Transaksi', icon: History },
+              { id: 'pengaturan', label: 'Pengaturan Profil', icon: Settings },
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`whitespace-nowrap px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 transition-all ${
+                    isActive 
+                      ? 'bg-blue-600 text-white shadow-md' 
+                      : 'bg-transparent text-gray-500 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
+
+          <button 
+            onClick={() => handleScroll('right')}
+            className="absolute right-1 z-20 p-2 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 text-blue-600 hover:bg-blue-50 sm:hidden group-hover:flex"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Content Area */}
@@ -252,18 +281,36 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2 text-center">
-                    {[
-                      { name: 'Subuh', time: '04:35' },
-                      { name: 'Dzuhur', time: '11:58' },
-                      { name: 'Ashar', time: '15:15' },
-                      { name: 'Maghrib', time: '17:55', active: true },
-                      { name: 'Isya', time: '19:08' },
-                    ].map((waktu, idx) => (
-                      <div key={idx} className={`rounded-lg p-2 ${waktu.active ? 'bg-emerald-500 shadow-lg scale-105 border border-emerald-400' : 'bg-white/5 border border-white/10'}`}>
-                        <p className={`text-[9px] font-bold uppercase tracking-wider mb-1 ${waktu.active ? 'text-white' : 'text-emerald-200'}`}>{waktu.name}</p>
-                        <p className={`font-mono text-xs sm:text-sm font-bold ${waktu.active ? 'text-white' : 'text-emerald-100'}`}>{waktu.time}</p>
-                      </div>
-                    ))}
+                    {(() => {
+                      const now = new Date();
+                      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                      
+                      const prayerTimes = [
+                        { name: 'Subuh', time: '04:35', minutes: 4 * 60 + 35 },
+                        { name: 'Dzuhur', time: '11:58', minutes: 11 * 60 + 58 },
+                        { name: 'Ashar', time: '15:15', minutes: 15 * 60 + 15 },
+                        { name: 'Maghrib', time: '17:55', minutes: 17 * 60 + 55 },
+                        { name: 'Isya', time: '19:08', minutes: 19 * 60 + 8 },
+                      ];
+                      
+                      let activeIdx = 4; // Default Isya
+                      for (let i = 0; i < prayerTimes.length; i++) {
+                        if (currentMinutes < prayerTimes[i].minutes) {
+                          activeIdx = i === 0 ? 4 : i - 1;
+                          break;
+                        }
+                      }
+
+                      return prayerTimes.map((waktu, idx) => {
+                        const active = idx === activeIdx;
+                        return (
+                          <div key={idx} className={`rounded-lg p-2 ${active ? 'bg-emerald-500 shadow-lg scale-105 border border-emerald-400' : 'bg-white/5 border border-white/10'}`}>
+                            <p className={`text-[9px] font-bold uppercase tracking-wider mb-1 ${active ? 'text-white' : 'text-emerald-200'}`}>{waktu.name}</p>
+                            <p className={`font-mono text-xs sm:text-sm font-bold ${active ? 'text-white' : 'text-emerald-100'}`}>{waktu.time}</p>
+                          </div>
+                        );
+                      });
+                    })()}
                   </div>
                 </div>
               </div>
@@ -375,6 +422,12 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {activeTab === 'keuangan' && (
+            <div className="animate-fade-in max-w-4xl mx-auto">
+              <LaporanKeuanganPribadi />
             </div>
           )}
 
