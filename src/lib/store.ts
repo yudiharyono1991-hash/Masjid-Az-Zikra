@@ -198,7 +198,7 @@ export function saveStoredState(state: AppState) {
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
     // Push ke Supabase di background
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase) {
       // Hilangkan data session agar tidak ter-sync ke user lain
       const { session, ...syncState } = state;
@@ -229,7 +229,7 @@ export function useMasjidStore() {
   // Download global state dari Supabase saat aplikasi dibuka
   useEffect(() => {
     const fetchGlobalState = async () => {
-      const supabase = getSupabaseClient();
+      const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
       if (!supabase) return;
       try {
         const { data, error } = await supabase.from('app_sync_state').select('state_json').eq('id', 1).single();
@@ -249,7 +249,7 @@ export function useMasjidStore() {
   }, []);
 
   const fetchPrograms = useCallback(async () => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (!supabase) return;
 
     try {
@@ -286,7 +286,7 @@ export function useMasjidStore() {
   }, [fetchPrograms]);
 
   const addProgram = async (program: Omit<Program, 'id'>) => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase) {
       const { data, error } = await supabase.from('programs').insert([{
         title: program.title,
@@ -315,7 +315,7 @@ export function useMasjidStore() {
   };
 
   const updateProgram = async (id: string, updated: Partial<Program>) => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase && id.length > 10) { // Supabase UUID is > 10 chars
       const updateData: any = {};
       if (updated.title !== undefined) updateData.title = updated.title;
@@ -344,7 +344,7 @@ export function useMasjidStore() {
   };
 
   const deleteProgram = async (id: string) => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase && id.length > 10) {
       const { error } = await supabase.from('programs').delete().eq('id', id);
       if (!error) {
@@ -978,7 +978,7 @@ export function useMasjidStore() {
     const id = `gal-${Math.floor(100 + Math.random() * 900)}`;
     const newItem: GalleryItem = { ...item, id, likesCount: 0, viewsCount: 1 };
     
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase) {
       await supabase.from('gallery_items').insert({
         id: newItem.id,
@@ -1001,7 +1001,7 @@ export function useMasjidStore() {
   };
 
   const updateGalleryItem = async (id: string, updated: Partial<GalleryItem>) => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase && id.length > 3) {
       const updateData: any = {};
       if (updated.title !== undefined) updateData.title = updated.title;
@@ -1022,7 +1022,7 @@ export function useMasjidStore() {
   };
 
   const deleteGalleryItem = async (id: string) => {
-    const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
     if (supabase && id.length > 3) {
       await supabase.from('gallery_items').delete().eq('id', id);
     }
@@ -1036,7 +1036,7 @@ export function useMasjidStore() {
     setState(prev => {
       const newItems = (prev.galleryItems || []).map(g => g.id === id ? { ...g, likesCount: g.likesCount + 1 } : g);
       const target = newItems.find(g => g.id === id);
-      const supabase = getSupabaseClient();
+      const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
       if (supabase && target && id.length > 3) {
         supabase.from('gallery_items').update({ likes_count: target.likesCount }).eq('id', id);
       }
@@ -1048,7 +1048,7 @@ export function useMasjidStore() {
     setState(prev => {
       const newItems = (prev.galleryItems || []).map(g => g.id === id ? { ...g, viewsCount: g.viewsCount + 1 } : g);
       const target = newItems.find(g => g.id === id);
-      const supabase = getSupabaseClient();
+      const supabase = getSupabaseClient(state.supabaseUrl, state.supabaseAnonKey);
       if (supabase && target && id.length > 3) {
         supabase.from('gallery_items').update({ views_count: target.viewsCount }).eq('id', id);
       }
