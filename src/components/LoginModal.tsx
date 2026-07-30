@@ -69,11 +69,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
     if (role !== 'jamaah') {
       if (email === 'admin@tazkia.id' && password === 'admin123') {
-        if (role !== 'pengurus_dkm' && role !== 'admin_masjid') {
-          alert("Akun admin@tazkia.id hanya dapat digunakan untuk akses Pengurus Utama/Admin Masjid. Silakan pilih role akses yang sesuai.");
-          return;
-        }
-        finalName = 'Super Admin Tazkia';
+        finalName = name || 'Super Admin Tazkia';
       } else {
         const user = state.jamaahProfiles?.find(u => 
           (u.email === email || u.name === email) && 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Video,
   Image as ImageIcon,
@@ -14,7 +14,9 @@ import {
   Sparkles,
   Tag,
   PlusCircle,
-  Clock
+  Clock,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { GalleryItem } from '../types';
 
@@ -38,6 +40,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalItem, setActiveModalItem] = useState<GalleryItem | null>(null);
   const [likedMap, setLikedMap] = useState<Record<string, boolean>>({});
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollCategory = (direction: 'left' | 'right') => {
+    if (categoryScrollRef.current) {
+      const scrollAmount = 150;
+      categoryScrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   // Filter items
   const filteredItems = galleryItems.filter(item => {
@@ -198,24 +208,41 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             </div>
           </div>
 
-          {/* Bottom Row: Category Horizontal Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider opacity-60 shrink-0 mr-1">
+          {/* Bottom Row: Category Horizontal Chips with Scroll Arrows */}
+          <div className="flex items-center gap-1.5 w-full">
+            <span className="font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider opacity-60 shrink-0 mr-1 hidden sm:block">
               Kategori:
             </span>
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1 rounded-full whitespace-nowrap transition-all font-medium cursor-pointer text-xs ${
-                  selectedCategory === cat
-                    ? 'bg-amber-500 text-blue-950 font-bold shadow-sm'
-                    : isDark ? 'bg-blue-800/80 text-blue-300 hover:bg-blue-700' : 'bg-blue-200/80 text-blue-700 hover:bg-blue-300'
-                }`}
-              >
-                {cat === 'all' ? 'Semua Kategori' : cat}
-              </button>
-            ))}
+            <button
+              onClick={() => scrollCategory('left')}
+              className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 shadow-sm shrink-0 md:hidden"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <div 
+              ref={categoryScrollRef}
+              className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs flex-1 scroll-smooth"
+            >
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full whitespace-nowrap transition-all font-medium cursor-pointer text-[10px] sm:text-xs ${
+                    selectedCategory === cat
+                      ? 'bg-amber-500 text-blue-950 font-bold shadow-sm'
+                      : isDark ? 'bg-blue-800/80 text-blue-300 hover:bg-blue-700' : 'bg-blue-200/80 text-blue-700 hover:bg-blue-300'
+                  }`}
+                >
+                  {cat === 'all' ? 'Semua Kategori' : cat}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => scrollCategory('right')}
+              className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 shadow-sm shrink-0 md:hidden"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
