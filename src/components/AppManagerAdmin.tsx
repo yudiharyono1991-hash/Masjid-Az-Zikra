@@ -13,7 +13,7 @@ interface Sponsor {
 }
 
 export const AppManagerAdmin: React.FC = () => {
-  const { state } = useMasjidStore();
+  const { state, updateAdminSettings } = useMasjidStore();
   const [activeSubTab, setActiveSubTab] = useState<'hero' | 'qr' | 'sponsor' | 'profil' | 'role' | 'ai'>('hero');
   const [heroImages, setHeroImages] = useState<{name: string, url: string}[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -183,7 +183,7 @@ export const AppManagerAdmin: React.FC = () => {
         ? '' 
         : state.adminSettings.masjidHeroPhotoUrl;
         
-      useMasjidStore.getState().updateAdminSettings({
+      updateAdminSettings({
         masjidHeroCarouselUrls: newCarousel,
         masjidHeroPhotoUrl: newPhotoUrl
       });

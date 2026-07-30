@@ -134,8 +134,8 @@ export const AgendaAdmin = () => {
                 <option value="Rapat Kepengurusan" />
                 <option value="Kegiatan Bakti Sosial / Acara" />
                 <option value="Lainnya" />
-                {Array.from(new Set(agendas.map(a => a.category))).filter(c => !['Kajian / Ceramah', 'Rapat Kepengurusan', 'Kegiatan Bakti Sosial / Acara', 'Lainnya', 'Kajian', 'Rapat', 'Kegiatan'].includes(c)).map(c => (
-                  <option key={c} value={c} />
+                {Array.from(new Set(agendas.map(a => a.category))).filter(c => !['Kajian / Ceramah', 'Rapat Kepengurusan', 'Kegiatan Bakti Sosial / Acara', 'Lainnya', 'Kajian', 'Rapat', 'Kegiatan'].includes(c as string)).map(c => (
+                  <option key={c as string} value={c as string} />
                 ))}
               </datalist>
             </div>

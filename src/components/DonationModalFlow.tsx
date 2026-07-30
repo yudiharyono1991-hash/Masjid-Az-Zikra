@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Program, ProgramCategory, DonationRecord, AppAdminSettings } from '../types';
+import { Program, ProgramCategory, DonationRecord, AppAdminSettings, UserSession } from '../types';
 import { formatRupiahFull } from '../lib/islamicUtils';
 import confetti from 'canvas-confetti';
 import {

@@ -4,7 +4,7 @@ import { Shield, Plus, X, Edit, Trash2, CheckCircle } from 'lucide-react';
 import { AppRole } from '../../types';
 
 export function RoleManagerAdmin() {
-  const { state, setState } = useMasjidStore();
+  const { state, setAppRoles } = useMasjidStore();
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [formData, setFormData] = useState<AppRole | null>(null);
 
@@ -44,20 +44,12 @@ export function RoleManagerAdmin() {
   const handleSave = () => {
     if (!formData || !formData.name) return;
 
-    setState(prev => {
-      const isExisting = prev.appRoles.some(r => r.id === formData.id);
-      if (isExisting) {
-        return {
-          ...prev,
-          appRoles: prev.appRoles.map(r => r.id === formData.id ? formData : r)
-        };
-      } else {
-        return {
-          ...prev,
-          appRoles: [...prev.appRoles, formData]
-        };
-      }
-    });
+    const isExisting = state.appRoles.some(r => r.id === formData.id);
+    if (isExisting) {
+      setAppRoles(state.appRoles.map(r => r.id === formData.id ? formData : r));
+    } else {
+      setAppRoles([...state.appRoles, formData]);
+    }
 
     setIsEditing(null);
     setFormData(null);
@@ -69,10 +61,7 @@ export function RoleManagerAdmin() {
       return;
     }
     if (window.confirm('Hapus role ini?')) {
-      setState(prev => ({
-        ...prev,
-        appRoles: prev.appRoles.filter(r => r.id !== id)
-      }));
+      setAppRoles(state.appRoles.filter(r => r.id !== id));
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserSession, UserRole } from '../types';
-import { useMasjidStore, getSupabaseClient } from '../lib/store';
+import { useMasjidStore } from '../lib/store';
+import { getSupabaseClient } from '../lib/supabase';
 import {
   UserCheck,
   X,

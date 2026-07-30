@@ -396,7 +396,7 @@ export interface JamaahProfile {
   joinDate: string;
   lastLogin: string;
   totalDonation: number;
-  role: 'jamaah' | 'dkm' | 'super_admin';
+  role: string;
   dkmPosition?: string; // e.g. "Ketua DKM", "Wakil Ketua DKM", "Bendahara", "Sekretaris", "Jamaah"
   password?: string;
   monthlyDonationTarget?: number;

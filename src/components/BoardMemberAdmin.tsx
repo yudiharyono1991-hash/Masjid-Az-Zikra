@@ -60,9 +60,9 @@ export const BoardMemberAdmin: React.FC = () => {
 
     setIsUploading(true);
     try {
-      const url = await uploadMedia(file);
-      if (url) {
-        setFormData({ ...formData, imageUrl: url });
+      const result = await uploadMedia(file, 'pengurus');
+      if (result && result.url) {
+        setFormData({ ...formData, imageUrl: result.url });
       } else {
         alert('Gagal mengunggah gambar.');
       }

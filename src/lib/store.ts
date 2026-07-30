@@ -29,7 +29,8 @@ import {
   JamaahProfile,
   BoardMember,
   GedungBooking,
-  MasjidAgenda
+  MasjidAgenda,
+  AppRole
 } from '../types';
 
 import {
@@ -903,10 +904,10 @@ export function useMasjidStore() {
       await supabase.from('gallery_items').insert({
         id: newItem.id,
         title: newItem.title,
-        type: newItem.type,
-        url: newItem.url,
+        type: newItem.mediaType,
+        url: newItem.mediaUrl,
         thumbnail_url: newItem.thumbnailUrl || null,
-        description: newItem.description || null,
+        description: newItem.summary || null,
         date: newItem.date,
         category: newItem.category,
         likes_count: newItem.likesCount,
@@ -925,10 +926,10 @@ export function useMasjidStore() {
     if (supabase && id.length > 3) {
       const updateData: any = {};
       if (updated.title !== undefined) updateData.title = updated.title;
-      if (updated.type !== undefined) updateData.type = updated.type;
-      if (updated.url !== undefined) updateData.url = updated.url;
+      if (updated.mediaType !== undefined) updateData.type = updated.mediaType;
+      if (updated.mediaUrl !== undefined) updateData.url = updated.mediaUrl;
       if (updated.thumbnailUrl !== undefined) updateData.thumbnail_url = updated.thumbnailUrl;
-      if (updated.description !== undefined) updateData.description = updated.description;
+      if (updated.summary !== undefined) updateData.description = updated.summary;
       if (updated.date !== undefined) updateData.date = updated.date;
       if (updated.category !== undefined) updateData.category = updated.category;
       
@@ -1226,8 +1227,13 @@ export function useMasjidStore() {
     setState(defaultState);
   };
 
+  const setAppRoles = (roles: AppRole[]) => {
+    setState(prev => ({ ...prev, appRoles: roles }));
+  };
+
   return {
     state,
+    setAppRoles,
     addDonation,
     clearUnreadDonations,
     updateDonationStatus,

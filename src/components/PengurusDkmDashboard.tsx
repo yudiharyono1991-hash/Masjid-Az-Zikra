@@ -165,7 +165,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onAddQurbanParticipant,
   onDeleteQurbanParticipant,
   onUpdateQurbanParticipant,
-onUpdateJamaahProfile,
+  onAddJamaahProfile,
+  onUpdateJamaahProfile,
   onDeleteJamaahProfile,
   openTvMode
 }) => {
