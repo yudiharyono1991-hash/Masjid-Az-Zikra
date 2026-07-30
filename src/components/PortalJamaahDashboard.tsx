@@ -120,62 +120,62 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
         )}
 
         {/* Header Profile Section */}
-        <div className="bg-gradient-to-r from-blue-900 via-[#172554] to-blue-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
-          <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white/10 border-4 border-amber-400/50 flex items-center justify-center text-4xl sm:text-5xl font-bold text-amber-300 font-serif shadow-inner backdrop-blur-sm">
+        <div className="bg-gradient-to-r from-blue-900 via-[#172554] to-blue-900 rounded-2xl p-4 sm:p-6 text-white shadow-lg relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+          <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/10 border-2 border-amber-400/50 flex items-center justify-center text-2xl sm:text-3xl font-bold text-amber-300 font-serif shadow-inner backdrop-blur-sm">
               {profile.name.charAt(0)}
             </div>
-            <div className="flex-1 text-center md:text-left space-y-2">
-              <span className="bg-amber-500 text-blue-950 font-bold font-mono text-[10px] px-3 py-1 rounded-full uppercase tracking-widest inline-block shadow-sm">
+            <div className="flex-1 text-center sm:text-left space-y-1">
+              <span className="bg-amber-500 text-blue-950 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
                 Anggota Terverifikasi
               </span>
-              <h2 className="text-2xl sm:text-4xl font-serif font-bold text-white tracking-wide">
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">
                 {profile.name}
               </h2>
-              <p className="text-blue-200 font-mono text-sm">{profile.email} • {profile.phone}</p>
-              
-              <div className="flex items-center justify-center md:justify-start gap-4 pt-3">
-                <div className="bg-white/10 px-4 py-2 rounded-xl backdrop-blur-sm border border-white/10">
-                  <p className="text-[10px] text-blue-300 font-mono uppercase">Total Kebaikan</p>
-                  <p className="font-bold text-amber-300 text-lg">{formatRupiahFull(profile.totalDonation)}</p>
+              <p className="text-blue-200 font-mono text-xs">{profile.email} • {profile.phone}</p>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 pt-2">
+                <div className="bg-white/10 px-3 py-1.5 rounded-lg backdrop-blur-sm border border-white/10">
+                  <p className="text-[9px] text-blue-300 font-mono uppercase">Total Kebaikan</p>
+                  <p className="font-bold text-amber-300 text-sm sm:text-base">{formatRupiahFull(profile.totalDonation)}</p>
                 </div>
-                <div className="bg-white/10 px-4 py-2 rounded-xl backdrop-blur-sm border border-white/10 hidden sm:block">
-                  <p className="text-[10px] text-blue-300 font-mono uppercase">Bergabung Sejak</p>
-                  <p className="font-bold text-white text-sm mt-1">{new Date(profile.joinDate).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                <div className="bg-white/10 px-3 py-1.5 rounded-lg backdrop-blur-sm border border-white/10 hidden sm:block">
+                  <p className="text-[9px] text-blue-300 font-mono uppercase">Bergabung Sejak</p>
+                  <p className="font-bold text-white text-xs sm:text-sm mt-0.5">{new Date(profile.joinDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                 </div>
                 <button
                   onClick={() => {
                     alert('Alhamdulillah, sistem berhasil direfresh.');
                     window.location.reload();
                   }}
-                  className="bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 border border-amber-500/40 px-4 py-2 rounded-xl backdrop-blur-sm transition-all flex flex-col items-center justify-center cursor-pointer"
-                  title="Refresh Dashboard"
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-blue-100 flex flex-col items-center justify-center px-3 py-1.5 rounded-lg transition-colors"
+                  title="Refresh Data"
                 >
                   <RefreshCw className="w-4 h-4 mb-0.5" />
-                  <span className="text-[10px] font-mono uppercase font-bold">Refresh</span>
+                  <span className="text-[8px] font-mono font-bold uppercase">Refresh</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Dashboard Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {/* Tab Navigation */}
+        <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2">
           {[
             { id: 'ringkasan', label: 'Ringkasan ZISWAF', icon: TrendingUp },
             { id: 'histori', label: 'Histori Transaksi', icon: History },
             { id: 'pengaturan', label: 'Pengaturan Profil', icon: Settings },
-          ].map(tab => {
+          ].map((tab) => {
+            const isActive = activeTab === tab.id;
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl whitespace-nowrap text-sm font-bold transition-all cursor-pointer ${
-                  activeTab === tab.id
-                    ? 'bg-blue-700 text-white shadow-lg'
-                    : 'bg-white text-blue-900 border border-blue-100 hover:bg-blue-50'
+                className={`whitespace-nowrap px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all ${
+                  isActive 
+                    ? 'bg-blue-600 text-white shadow-md' 
+                    : 'bg-white text-gray-500 hover:bg-blue-50 hover:text-blue-600'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -186,30 +186,30 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
         </div>
 
         {/* Content Area */}
-        <div className="bg-white border border-black/5 shadow-xl rounded-3xl p-6 sm:p-8 min-h-[400px]">
+        <div className="bg-white border border-black/5 shadow-xl rounded-2xl p-4 sm:p-6 min-h-[400px]">
           
           {activeTab === 'ringkasan' && (
-            <div className="space-y-8 animate-fade-in">
+            <div className="space-y-6 animate-fade-in">
               <div>
-                <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2">
-                  <Award className="w-6 h-6 text-amber-500" />
+                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2">
+                  <Award className="w-5 h-5 text-amber-500" />
                   Capaian Ibadah Maliyah Anda
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1">
                   "Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji." (Al-Baqarah: 261)
                 </p>
               </div>
               
               {monthlyTarget > 0 && (
-                <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 border border-amber-200 rounded-2xl p-5 flex items-start gap-4">
-                  <div className="p-3 bg-amber-200/50 text-amber-600 rounded-xl shrink-0">
-                    <Bell className="w-6 h-6 animate-pulse" />
+                <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+                  <div className="p-2 bg-amber-200/50 text-amber-600 rounded-lg shrink-0">
+                    <Bell className="w-5 h-5 animate-pulse" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-amber-900 mb-1 flex items-center gap-2">
+                    <h4 className="text-sm font-bold text-amber-900 mb-1 flex items-center gap-2">
                       Pengingat Target Donasi Bulanan
                     </h4>
-                    <p className="text-sm text-amber-700/80 mb-3">
+                    <p className="text-xs text-amber-700/80 mb-2">
                       Anda memiliki komitmen target donasi bulanan sebesar <strong>{formatRupiahFull(monthlyTarget)}</strong> setiap tanggal <strong>{targetDate}</strong>.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -234,10 +234,10 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   { label: 'Total Wakaf', amount: 0, color: 'bg-amber-50 text-amber-700 border-amber-200' },
                   { label: 'Partisipasi Qurban', amount: 0, color: 'bg-rose-50 text-rose-700 border-rose-200', prefix: ' Kali' }
                 ].map((item, idx) => (
-                  <div key={idx} className={`${item.color} border rounded-2xl p-5 relative overflow-hidden group hover:scale-[1.02] transition-transform`}>
-                    <Heart className={`absolute -right-4 -bottom-4 w-20 h-20 opacity-10 group-hover:scale-110 transition-transform`} />
-                    <p className="text-[11px] font-bold font-mono uppercase tracking-wider mb-2 opacity-80">{item.label}</p>
-                    <h4 className="text-2xl font-bold font-serif">
+                  <div key={idx} className={`${item.color} border rounded-xl p-4 relative overflow-hidden group hover:scale-[1.02] transition-transform`}>
+                    <Heart className={`absolute -right-3 -bottom-3 w-16 h-16 opacity-10 group-hover:scale-110 transition-transform`} />
+                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider mb-1 opacity-80">{item.label}</p>
+                    <h4 className="text-xl font-bold font-serif">
                       {item.prefix ? `${item.amount}${item.prefix}` : formatRupiahFull(item.amount)}
                     </h4>
                   </div>
@@ -245,52 +245,52 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
               </div>
 
               {/* Tambahan Fitur Modern: Rekomendasi Kajian & Program */}
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2 mb-6">
-                  <Info className="w-6 h-6 text-emerald-600" />
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2 mb-4">
+                  <Info className="w-5 h-5 text-emerald-600" />
                   Rekomendasi Untuk Anda
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Card Kajian */}
-                  <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
-                    <div className="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform">
-                      <BookOpen className="w-40 h-40" />
+                  <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 rounded-2xl p-5 text-white shadow-md relative overflow-hidden group hover:shadow-lg transition-all">
+                    <div className="absolute -right-8 -bottom-8 opacity-20 group-hover:scale-110 transition-transform">
+                      <BookOpen className="w-32 h-32" />
                     </div>
-                    <span className="bg-emerald-500/30 text-emerald-100 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-400/30">
+                    <span className="bg-emerald-500/30 text-emerald-100 text-[9px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border border-emerald-400/30">
                       Kajian Terdekat
                     </span>
-                    <h4 className="text-2xl font-bold font-serif mt-4 mb-2 leading-tight">
+                    <h4 className="text-lg font-bold font-serif mt-3 mb-1.5 leading-tight">
                       Kajian Ahad Pagi: Tafsir Al-Baqarah
                     </h4>
-                    <p className="text-emerald-100 text-sm mb-4">
+                    <p className="text-emerald-100 text-xs mb-3">
                       Bersama Ustadz H. M. Zainuddin, SQ. <br/>
                       Ruang Utama Masjid Tazkia, Ahad 08:00 WIB.
                     </p>
                     <button 
                       onClick={() => onNavigateToHome && onNavigateToHome()}
-                      className="bg-white text-emerald-900 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-emerald-50 transition-colors relative z-10"
+                      className="bg-white text-emerald-900 px-4 py-1.5 rounded-lg text-[11px] font-bold w-full sm:w-auto shadow-sm hover:bg-emerald-50 transition-colors relative z-10"
                     >
                       Lihat Jadwal Lengkap
                     </button>
                   </div>
 
                   {/* Card Program Pilihan */}
-                  <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden group hover:shadow-xl transition-all">
-                    <div className="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform">
-                      <HeartHandshake className="w-40 h-40" />
+                  <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-5 text-white shadow-md relative overflow-hidden group hover:shadow-lg transition-all">
+                    <div className="absolute -right-8 -bottom-8 opacity-20 group-hover:scale-110 transition-transform">
+                      <HeartHandshake className="w-32 h-32" />
                     </div>
-                    <span className="bg-blue-500/30 text-blue-100 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-400/30">
+                    <span className="bg-blue-500/30 text-blue-100 text-[9px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border border-blue-400/30">
                       Program Pilihan
                     </span>
-                    <h4 className="text-2xl font-bold font-serif mt-4 mb-2 leading-tight">
+                    <h4 className="text-lg font-bold font-serif mt-3 mb-1.5 leading-tight">
                       Beasiswa Santri Tahfidz Qur'an
                     </h4>
-                    <p className="text-blue-100 text-sm mb-4">
+                    <p className="text-blue-100 text-xs mb-3">
                       Mari bersama mencetak generasi penghafal Qur'an. Salurkan infaq terbaik Anda mulai Rp 50.000.
                     </p>
                     <button 
                       onClick={() => openDonationModal && openDonationModal()}
-                      className="bg-amber-400 text-blue-950 px-5 py-2 rounded-xl text-xs font-bold w-full sm:w-auto shadow-md hover:bg-amber-300 transition-colors relative z-10"
+                      className="bg-amber-400 text-blue-950 px-4 py-1.5 rounded-lg text-[11px] font-bold w-full sm:w-auto shadow-sm hover:bg-amber-300 transition-colors relative z-10"
                     >
                       Donasi Sekarang
                     </button>
@@ -303,24 +303,24 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
           {activeTab === 'histori' && (
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2">
-                  <History className="w-6 h-6 text-blue-600" />
+                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2">
+                  <History className="w-5 h-5 text-blue-600" />
                   Histori Transaksi ZISWAF
                 </h3>
                 
-                <div className="flex items-center gap-2 text-sm bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
+                <div className="flex items-center gap-2 text-xs bg-white p-1.5 rounded-lg border border-gray-200 shadow-sm">
                   <input 
                     type="date" 
                     value={filterStartDate}
                     onChange={(e) => setFilterStartDate(e.target.value)}
-                    className="outline-none text-gray-700 bg-transparent font-medium"
+                    className="outline-none text-gray-700 bg-transparent font-medium w-[100px] sm:w-auto"
                   />
                   <span className="text-gray-400 font-bold">s/d</span>
                   <input 
                     type="date" 
                     value={filterEndDate}
                     onChange={(e) => setFilterEndDate(e.target.value)}
-                    className="outline-none text-gray-700 bg-transparent font-medium"
+                    className="outline-none text-gray-700 bg-transparent font-medium w-[100px] sm:w-auto"
                   />
                 </div>
               </div>
@@ -337,29 +337,29 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                     <table className="w-full text-left border-collapse min-w-[600px]">
                       <thead className="bg-gray-50 border-b border-gray-100">
                         <tr>
-                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Tanggal & Ref</th>
-                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Program</th>
-                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Nominal</th>
-                          <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
+                          <th className="p-3 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Tanggal & Ref</th>
+                          <th className="p-3 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Program</th>
+                          <th className="p-3 text-[10px] font-bold text-gray-500 uppercase tracking-wider text-right">Nominal</th>
+                          <th className="p-3 text-[10px] font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {filteredDonations.slice(0, visibleHistoryCount).map(d => (
                           <tr key={d.id} className="hover:bg-gray-50 transition-colors">
-                            <td className="p-4">
-                              <p className="text-sm font-bold text-gray-800">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
-                              <p className="text-[10px] font-mono text-gray-500 mt-1">{d.transactionRef}</p>
+                            <td className="p-3">
+                              <p className="text-xs font-bold text-gray-800">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
+                              <p className="text-[9px] font-mono text-gray-500 mt-0.5">{d.transactionRef}</p>
                             </td>
-                            <td className="p-4">
-                              <p className="text-[10px] bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded-full uppercase inline-block mb-1">{d.category}</p>
-                              <p className="text-xs text-gray-700 max-w-[200px] truncate" title={d.programTitle}>{d.programTitle}</p>
+                            <td className="p-3">
+                              <p className="text-[9px] bg-blue-50 text-blue-600 font-bold px-1.5 py-0.5 rounded-full uppercase inline-block mb-1">{d.category}</p>
+                              <p className="text-[11px] text-gray-700 max-w-[150px] truncate" title={d.programTitle}>{d.programTitle}</p>
                             </td>
-                            <td className="p-4 text-right">
-                              <p className="text-sm font-bold font-mono text-emerald-600">{formatRupiahFull(d.totalAmount)}</p>
-                              <p className="text-[10px] text-gray-500 mt-1">Via {d.paymentMethod}</p>
+                            <td className="p-3 text-right">
+                              <p className="text-xs font-bold font-mono text-emerald-600">{formatRupiahFull(d.totalAmount)}</p>
+                              <p className="text-[9px] text-gray-500 mt-0.5">Via {d.paymentMethod}</p>
                             </td>
-                            <td className="p-4 text-center">
-                              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${
+                            <td className="p-3 text-center">
+                              <span className={`text-[9px] font-bold px-2 py-0.5 rounded-lg ${
                                 d.status === 'berhasil' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' :
                                 d.status === 'ditolak' ? 'bg-red-100 text-red-700 border border-red-200' :
                                 'bg-amber-100 text-amber-700 border border-amber-200'
@@ -390,38 +390,38 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
           )}
 
           {activeTab === 'pengaturan' && (
-            <div className="space-y-6 animate-fade-in max-w-2xl">
-              <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2">
-                <Settings className="w-6 h-6 text-slate-500" />
+            <div className="space-y-4 animate-fade-in max-w-2xl">
+              <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2">
+                <Settings className="w-5 h-5 text-slate-500" />
                 Pengaturan Akun & Profil
               </h3>
               
               <form className="space-y-4" onSubmit={handleSaveProfile}>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
                   <input 
                     type="text" 
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-white transition-colors"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Email / User Name Saat Ini</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Email / User Name Saat Ini</label>
                   <input 
                     type="text" 
                     value={profile.email}
                     disabled
-                    className="w-full bg-gray-100 border border-gray-200 text-gray-500 rounded-xl px-4 py-2.5 outline-none cursor-not-allowed"
+                    className="w-full bg-gray-100 border border-gray-200 text-gray-500 rounded-xl px-3 py-2 text-sm outline-none cursor-not-allowed"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nomor WhatsApp</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Nomor WhatsApp</label>
                   <input 
                     type="text" 
                     value={editPhone}
                     onChange={(e) => setEditPhone(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-white transition-colors"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors"
                   />
                 </div>
                 
