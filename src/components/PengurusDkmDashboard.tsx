@@ -62,7 +62,8 @@ import {
   UserPlus,
   Search,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  MessageCircle
 } from 'lucide-react';
 
 import { useMasjidStore } from '../lib/store';
