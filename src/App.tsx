@@ -285,8 +285,7 @@ export default function App() {
           let initialRoleTab: any = 'akuntansi';
           const r = state.session.role;
           if (['direktur', 'ketua_dkm', 'ketua_dewan_pembina', 'pembina'].includes(r)) {
-            initialRoleTab = 'dashboard_utama'; // We will create this or use an overview tab. Wait, currently it's "akuntansi". Let's use 'akuntansi' or 'keuangan' for them, or add a 'dashboard_utama' tab. Let's see what tabs exist: 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'
-            initialRoleTab = 'keuangan'; // For now they see keuangan (Ringkasan Ziswaf).
+            initialRoleTab = 'dashboard_utama';
           } else if (r === 'bendahara') {
             initialRoleTab = 'akuntansi';
           } else if (r === 'penghimpunan') {

@@ -63,7 +63,8 @@ import {
   Search,
   ChevronLeft,
   ChevronRight,
-  MessageCircle
+  MessageCircle,
+  LayoutDashboard
 } from 'lucide-react';
 
 import { useMasjidStore } from '../lib/store';
@@ -178,7 +179,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan'>(initialTab || 'akuntansi');
+  const [dkmTab, setDkmTab] = useState<'dashboard_utama' | 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan'>(initialTab || 'dashboard_utama');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
   const [tabSearchQuery, setTabSearchQuery] = useState('');
@@ -834,6 +835,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             className="w-full bg-blue-900 border border-blue-700 text-white text-sm font-bold rounded-xl px-3 py-2.5 outline-none cursor-pointer"
           >
             {[
+              { id: 'dashboard_utama', label: 'Ringkasan Utama' },
               { id: 'akuntansi', label: 'Akuntansi (PSAK 409)' },
               { id: 'keuangan', label: 'Kas Sederhana (Lama)' },
               { id: 'galeri', label: 'Galeri & Artikel Kajian' },
@@ -882,6 +884,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </button>
             <div ref={tabsRef} className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth w-full px-6">
             {[
+              { id: 'dashboard_utama', label: 'Ringkasan Utama', icon: LayoutDashboard },
               { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
               { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
               { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
@@ -1406,6 +1409,52 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               {erpSubTab === 'anggaran' && <InputAnggaran />}
               {erpSubTab === 'pencairan' && <PencairanAnggaran />}
               {erpSubTab === 'laporan' && <ReportPrinter />}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 mb-12">
+        {dkmTab === 'dashboard_utama' && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/40 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3" />
+              <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <h3 className="text-3xl font-serif font-bold text-gray-900 mb-2">Ahlan wa Sahlan, {store.state.session?.name}</h3>
+                  <p className="text-gray-500">Anda login sebagai <strong className="text-blue-600">{store.state.appRoles.find(r => r.id === store.state.session?.role)?.name}</strong>.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h4 className="text-gray-500 text-sm font-bold mb-1">Total Jamaah Terdaftar</h4>
+                <p className="text-2xl font-black text-gray-900">{jamaahProfiles.length}</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
+                  <Heart className="w-6 h-6" />
+                </div>
+                <h4 className="text-gray-500 text-sm font-bold mb-1">Total Program Donasi</h4>
+                <p className="text-2xl font-black text-gray-900">{programs.length}</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <h4 className="text-gray-500 text-sm font-bold mb-1">Jadwal Petugas</h4>
+                <p className="text-2xl font-black text-gray-900">{petugasList.length}</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-3">
+                  <Building className="w-6 h-6" />
+                </div>
+                <h4 className="text-gray-500 text-sm font-bold mb-1">Aset & Inventaris</h4>
+                <p className="text-2xl font-black text-gray-900">{inventories.length}</p>
+              </div>
             </div>
           </div>
         )}
