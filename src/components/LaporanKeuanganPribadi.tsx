@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wallet, ArrowDownRight, ArrowUpRight, Calendar, ChevronLeft, ChevronRight, FileText, Download, Edit2, Trash2 } from 'lucide-react';
+import { Wallet, ArrowDownRight, ArrowUpRight, Calendar, ChevronLeft, ChevronRight, FileText, Download, Edit2, Trash2, Sparkles } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
 interface Transaction {
@@ -28,6 +28,12 @@ export const LaporanKeuanganPribadi: React.FC = () => {
 
   const totalPemasukan = DUMMY_TRANSACTIONS.filter(t => t.type === 'kredit').reduce((acc, curr) => acc + curr.amount, 0);
   const totalPengeluaran = DUMMY_TRANSACTIONS.filter(t => t.type === 'debit').reduce((acc, curr) => acc + curr.amount, 0);
+
+  const getPreviousMonthName = () => {
+    const now = new Date();
+    now.setMonth(now.getMonth() - 1);
+    return now.toLocaleDateString('id-ID', { month: 'long' });
+  };
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('id-ID', {
@@ -69,7 +75,7 @@ export const LaporanKeuanganPribadi: React.FC = () => {
           <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-xl translate-x-1/2 -translate-y-1/2" />
           <div className="relative z-10 flex flex-col justify-center h-full">
             <h3 className="text-emerald-100 text-[11px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" /> Estimasi Saldo Akhir Bulan
+              <Calendar className="w-3.5 h-3.5" /> Saldo Final Bulan Lalu ({getPreviousMonthName()})
             </h3>
             <p className="text-2xl font-bold">{formatRupiahFull(saldoAkhirBulan)}</p>
           </div>
@@ -95,6 +101,19 @@ export const LaporanKeuanganPribadi: React.FC = () => {
             <p className="text-[10px] font-bold text-gray-400 uppercase">Total Pengeluaran</p>
             <p className="text-sm font-bold text-gray-800 mt-0.5">{formatRupiahFull(totalPengeluaran)}</p>
           </div>
+        </div>
+      </div>
+
+      {/* AI Analysis Notification */}
+      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-4 flex gap-3 shadow-sm">
+        <div className="bg-indigo-100 text-indigo-600 p-2 rounded-xl shrink-0 h-min">
+          <Sparkles className="w-5 h-5" />
+        </div>
+        <div>
+          <h4 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">Analisis Otomatis AI</h4>
+          <p className="text-xs text-indigo-800 leading-relaxed">
+            Berdasarkan riwayat transaksi Anda, pengeluaran bulan ini masih dalam batas aman. Pertimbangkan untuk menyisihkan sebagian saldo untuk tabungan masa depan dan target ZISWAF Anda. Anda bisa mulai dengan menambah infaq pekan ini.
+          </p>
         </div>
       </div>
 
