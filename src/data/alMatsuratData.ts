@@ -343,4 +343,4 @@ export const AL_MATSURAT_DATA: AlMatsuratItem[] = [
     "count": 1,
     "type": "keduanya"
   }
-];\n
+];
