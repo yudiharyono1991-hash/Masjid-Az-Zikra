@@ -15,15 +15,9 @@ export const SejarahTazkiaSection: React.FC = () => {
   
   
     const boardMembers = store.state.boardMembers || [];
-    const roleTypeMap: Record<string, string> = {
-      pembina: 'Dewan Pembina Yayasan',
-      pengawas: 'Dewan Pengawas',
-      pengurus: 'Pengurus DKM Masjid Tazkia Islamic Center',
-      staf: 'Staf Operasional'
-    };
-
     const groupedMembers = boardMembers.reduce((acc, member) => {
-      const groupKey = member.groupTitle && member.groupTitle.trim() !== '' ? member.groupTitle : roleTypeMap[member.roleType];
+      const roleName = store.state.appRoles?.find(r => r.id === member.roleType)?.name || member.roleType;
+      const groupKey = member.groupTitle && member.groupTitle.trim() !== '' ? member.groupTitle : roleName;
       if (!acc[groupKey]) acc[groupKey] = [];
       acc[groupKey].push(member);
       return acc;

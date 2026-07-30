@@ -372,7 +372,7 @@ export interface BoardMember {
   name: string;
   position: string;
   groupTitle?: string;
-  roleType: 'pembina' | 'pengurus' | 'pengawas' | 'staf';
+  roleType: string;
   imageUrl: string;
   bio?: string;
   orderIdx: number;

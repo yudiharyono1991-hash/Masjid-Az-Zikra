@@ -158,10 +158,10 @@ export const BoardMemberAdmin: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, roleType: e.target.value as any })}
                 className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
               >
-                <option value="pembina">Dewan Pembina</option>
-                <option value="pengurus">Pengurus Harian DKM</option>
-                <option value="pengawas">Dewan Pengawas</option>
-                <option value="staf">Staf Operasional</option>
+                <option value="">-- Pilih Tipe Role --</option>
+                {store.appRoles.map(role => (
+                  <option key={role.id} value={role.id}>{role.name}</option>
+                ))}
               </select>
             </div>
 
