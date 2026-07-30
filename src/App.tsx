@@ -65,7 +65,11 @@ export default function App() {
     toggleThemeMode,
     login,
     logout,
-    saveSupabaseKeys
+    saveSupabaseKeys,
+    addFeedback,
+    updateFeedback,
+    addCalendarNote,
+    removeCalendarNote
   } = useMasjidStore();
 
   // Tab State
