@@ -74,7 +74,7 @@ export const AlMatsurat: React.FC = () => {
             <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-amber-400 to-amber-300 rounded-full transition-all duration-500 ease-out"
-                style={{ width: \`\${progress}%\` }}
+                style={{ width: `${progress}%` }}
               />
             </div>
           </div>
@@ -85,24 +85,24 @@ export const AlMatsurat: React.FC = () => {
       <div className="flex p-1.5 bg-gray-100 rounded-2xl">
         <button
           onClick={() => setActiveTab('pagi')}
-          className={\`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all \${
+          className={`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all ${
             activeTab === 'pagi' 
               ? 'bg-white text-emerald-700 shadow-sm' 
               : 'text-gray-500 hover:text-gray-700'
-          }\`}
+          }`}
         >
-          <Sun className={\`w-4 h-4 \${activeTab === 'pagi' ? 'text-amber-500' : ''}\`} />
+          <Sun className={`w-4 h-4 ${activeTab === 'pagi' ? 'text-amber-500' : ''}`} />
           Dzikir Pagi
         </button>
         <button
           onClick={() => setActiveTab('petang')}
-          className={\`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all \${
+          className={`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all ${
             activeTab === 'petang' 
               ? 'bg-slate-800 text-white shadow-sm' 
               : 'text-gray-500 hover:text-gray-700'
-          }\`}
+          }`}
         >
-          <Moon className={\`w-4 h-4 \${activeTab === 'petang' ? 'text-blue-300' : ''}\`} />
+          <Moon className={`w-4 h-4 ${activeTab === 'petang' ? 'text-blue-300' : ''}`} />
           Dzikir Petang
         </button>
       </div>
@@ -114,9 +114,9 @@ export const AlMatsurat: React.FC = () => {
           const isDone = currentCount >= item.count;
           
           return (
-            <div key={item.id} className={\`bg-white p-6 sm:p-8 rounded-3xl border transition-all duration-300 \${
+            <div key={item.id} className={`bg-white p-6 sm:p-8 rounded-3xl border transition-all duration-300 ${
               isDone ? 'border-emerald-200 shadow-emerald-100/50 shadow-lg' : 'border-gray-100 shadow-sm hover:shadow-md'
-            }\`}>
+            }`}>
               
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
@@ -176,11 +176,11 @@ export const AlMatsurat: React.FC = () => {
                   <button
                     onClick={() => handleIncrement(item.id, item.count)}
                     disabled={isDone}
-                    className={\`px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-sm active:scale-95 \${
+                    className={`px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-sm active:scale-95 ${
                       isDone 
                         ? 'bg-emerald-100 text-emerald-500 cursor-not-allowed opacity-50' 
                         : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
-                    }\`}
+                    }`}
                   >
                     {isDone ? 'Selesai' : 'Hitung (+1)'}
                   </button>
