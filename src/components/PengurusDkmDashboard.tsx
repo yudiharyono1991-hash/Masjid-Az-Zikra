@@ -1413,7 +1413,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           </div>
         )}
 
-        <div className="mt-6 mb-12">
         {dkmTab === 'dashboard_utama' && (
           <div className="space-y-6 animate-fade-in">
             <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/40 relative overflow-hidden">

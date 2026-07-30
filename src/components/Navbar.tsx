@@ -21,7 +21,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { ColorPalette, UserSession, ThemeMode, hasDkmPortalAccess } from '../types';
-
+import { useMasjidStore } from '../lib/store';
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -67,6 +67,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = themeMode === 'dark';
 
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { state } = useMasjidStore();
+  
+  const roleName = session ? (state.appRoles.find(r => r.id === session.role)?.name || 'DKM') : 'DKM';
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
@@ -259,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <UserCheck className="w-4 h-4" />
-                Portal DKM
+                Portal {roleName}
               </button>
             )}
 
