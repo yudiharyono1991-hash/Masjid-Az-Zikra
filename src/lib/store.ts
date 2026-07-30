@@ -369,6 +369,36 @@ export function useMasjidStore() {
 
       let newErpJournals = prev.erpJournals || [];
       let newErpJournalEntries = prev.erpJournalEntries || [];
+      let newJamaahProfiles = prev.jamaahProfiles || [];
+
+      // Auto-create/sync Jamaah Profile
+      const existingJamaahIdx = newJamaahProfiles.findIndex(j => 
+        (created.donorEmail && j.email && j.email.toLowerCase() === created.donorEmail.toLowerCase()) ||
+        (created.donorPhone && j.phone === created.donorPhone)
+      );
+
+      if (existingJamaahIdx >= 0) {
+        // Update total donation if successful
+        if (created.status === 'berhasil') {
+          newJamaahProfiles[existingJamaahIdx] = {
+            ...newJamaahProfiles[existingJamaahIdx],
+            totalDonation: (newJamaahProfiles[existingJamaahIdx].totalDonation || 0) + created.amount
+          };
+        }
+      } else {
+        // Create new
+        const newProfile: JamaahProfile = {
+          id: `JM-${Math.floor(1000 + Math.random() * 9000)}`,
+          name: created.donorName,
+          email: created.donorEmail || `jamaah${Math.floor(1000+Math.random()*9000)}@tazkia.id`,
+          phone: created.donorPhone || '',
+          totalDonation: created.status === 'berhasil' ? created.amount : 0,
+          joinDate: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+          role: 'jamaah'
+        };
+        newJamaahProfiles = [...newJamaahProfiles, newProfile];
+      }
 
       if (created.status === 'berhasil') {
         // Update target collected in programs
@@ -452,6 +482,7 @@ export function useMasjidStore() {
         financials: newFinancials,
         erpJournals: newErpJournals,
         erpJournalEntries: newErpJournalEntries,
+        jamaahProfiles: newJamaahProfiles,
         unreadDonationsCount: prev.unreadDonationsCount + 1
       };
     });
@@ -473,9 +504,34 @@ export function useMasjidStore() {
 
       let newErpJournals = prev.erpJournals || [];
       let newErpJournalEntries = prev.erpJournalEntries || [];
+      let newJamaahProfiles = prev.jamaahProfiles || [];
 
       // If it is becoming 'berhasil' from a pending state
       if (status === 'berhasil' && donation.status !== 'berhasil') {
+        const existingJamaahIdx = newJamaahProfiles.findIndex(j => 
+          (donation.donorEmail && j.email && j.email.toLowerCase() === donation.donorEmail.toLowerCase()) ||
+          (donation.donorPhone && j.phone === donation.donorPhone)
+        );
+
+        if (existingJamaahIdx >= 0) {
+          newJamaahProfiles[existingJamaahIdx] = {
+            ...newJamaahProfiles[existingJamaahIdx],
+            totalDonation: (newJamaahProfiles[existingJamaahIdx].totalDonation || 0) + donation.amount
+          };
+        } else {
+          // Create new profile if it didn't exist
+          const newProfile: JamaahProfile = {
+            id: `JM-${Math.floor(1000 + Math.random() * 9000)}`,
+            name: donation.donorName,
+            email: donation.donorEmail || `jamaah${Math.floor(1000+Math.random()*9000)}@tazkia.id`,
+            phone: donation.donorPhone || '',
+            totalDonation: donation.amount,
+            joinDate: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+            role: 'jamaah'
+          };
+          newJamaahProfiles = [...newJamaahProfiles, newProfile];
+        }
         updatedPrograms = prev.programs.map(p => {
           if (p.id === donation.programId) {
             return {
@@ -555,7 +611,8 @@ export function useMasjidStore() {
         donations: prev.donations.map(d => d.id === id ? { ...d, status } : d),
         financials: newFinancials,
         erpJournals: newErpJournals,
-        erpJournalEntries: newErpJournalEntries
+        erpJournalEntries: newErpJournalEntries,
+        jamaahProfiles: newJamaahProfiles
       };
     });
   };

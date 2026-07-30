@@ -13,7 +13,10 @@ import {
   Calendar,
   Info,
   BookOpen,
-  HeartHandshake
+  HeartHandshake,
+  Clock,
+  MapPin,
+  QrCode
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
@@ -127,10 +130,25 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
               {profile.name.charAt(0)}
             </div>
             <div className="flex-1 text-center sm:text-left space-y-1">
-              <span className="bg-amber-500 text-blue-950 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
-                Anggota Terverifikasi
-              </span>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                <span className="bg-amber-500 text-blue-950 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
+                  Anggota Terverifikasi
+                </span>
+                {profile.totalDonation >= 5000000 ? (
+                  <span className="bg-yellow-400/20 text-yellow-300 border border-yellow-400/30 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1 shadow-sm">
+                    <Award className="w-3 h-3" /> Gold Muhsinin
+                  </span>
+                ) : profile.totalDonation >= 1000000 ? (
+                  <span className="bg-slate-300/20 text-slate-300 border border-slate-300/30 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1 shadow-sm">
+                    <Award className="w-3 h-3" /> Silver Muhsinin
+                  </span>
+                ) : (
+                  <span className="bg-amber-700/20 text-amber-500 border border-amber-700/30 font-bold font-mono text-[9px] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1 shadow-sm">
+                    <Award className="w-3 h-3" /> Bronze Muhsinin
+                  </span>
+                )}
+              </div>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide mt-1">
                 {profile.name}
               </h2>
               <p className="text-blue-200 font-mono text-xs">{profile.email} • {profile.phone}</p>
@@ -143,6 +161,14 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <p className="text-[9px] text-blue-300 font-mono uppercase">Bergabung Sejak</p>
                   <p className="font-bold text-white text-xs sm:text-sm mt-0.5">{new Date(profile.joinDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                 </div>
+                <button
+                  onClick={() => alert('Fitur Kartu Jamaah Digital sedang dalam pengembangan.')}
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-blue-100 flex flex-col items-center justify-center px-3 py-1.5 rounded-lg transition-colors"
+                  title="Kartu Jamaah"
+                >
+                  <QrCode className="w-4 h-4 mb-0.5" />
+                  <span className="text-[8px] font-mono font-bold uppercase">Kartu ID</span>
+                </button>
                 <button
                   onClick={() => {
                     alert('Alhamdulillah, sistem berhasil direfresh.');
@@ -190,6 +216,36 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
           
           {activeTab === 'ringkasan' && (
             <div className="space-y-6 animate-fade-in">
+              {/* Jadwal Shalat Widget */}
+              <div className="bg-gradient-to-r from-emerald-900 to-teal-900 rounded-xl p-4 sm:p-5 text-white shadow-md relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2"></div>
+                <div className="relative z-10">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-sm font-bold font-serif flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-emerald-300" />
+                      Jadwal Shalat Hari Ini
+                    </h3>
+                    <div className="text-[10px] bg-white/10 px-2 py-1 rounded border border-white/20 flex items-center gap-1 font-mono">
+                      <MapPin className="w-3 h-3" /> Bogor, ID
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 gap-2 text-center">
+                    {[
+                      { name: 'Subuh', time: '04:35' },
+                      { name: 'Dzuhur', time: '11:58' },
+                      { name: 'Ashar', time: '15:15' },
+                      { name: 'Maghrib', time: '17:55', active: true },
+                      { name: 'Isya', time: '19:08' },
+                    ].map((waktu, idx) => (
+                      <div key={idx} className={`rounded-lg p-2 ${waktu.active ? 'bg-emerald-500 shadow-lg scale-105 border border-emerald-400' : 'bg-white/5 border border-white/10'}`}>
+                        <p className={`text-[9px] font-bold uppercase tracking-wider mb-1 ${waktu.active ? 'text-white' : 'text-emerald-200'}`}>{waktu.name}</p>
+                        <p className={`font-mono text-xs sm:text-sm font-bold ${waktu.active ? 'text-white' : 'text-emerald-100'}`}>{waktu.time}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2">
                   <Award className="w-5 h-5 text-amber-500" />
