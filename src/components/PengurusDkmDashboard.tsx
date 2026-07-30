@@ -1420,7 +1420,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                   <h3 className="text-3xl font-serif font-bold text-gray-900 mb-2">Ahlan wa Sahlan, {store.state.session?.name}</h3>
-                  <p className="text-gray-500">Anda login sebagai <strong className="text-blue-600">{store.state.appRoles.find(r => r.id === store.state.session?.role)?.name}</strong>.</p>
                 </div>
               </div>
             </div>
