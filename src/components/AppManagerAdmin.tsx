@@ -263,12 +263,12 @@ export const AppManagerAdmin: React.FC = () => {
                     ) : (
                       <img src={img.url} alt={`Hero ${idx + 1}`} className="w-full h-full object-cover" />
                     )}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                    <div className="absolute inset-0 bg-black/40 sm:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 pointer-events-none sm:pointer-events-auto">
                       <button 
                         onClick={() => handleDeleteHero(img.name, img.url)}
-                        className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors"
+                        className="p-2.5 sm:p-2 bg-red-600/90 sm:bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors pointer-events-auto shadow-lg"
                       >
-                        <Trash2 className="w-5 h-5" />
+                        <Trash2 className="w-6 h-6 sm:w-5 sm:h-5" />
                       </button>
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/80 text-white text-[10px] font-mono truncate">

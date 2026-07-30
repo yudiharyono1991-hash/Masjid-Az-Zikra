@@ -331,10 +331,10 @@ export const SewaGedungAdmin: React.FC = () => {
                         ) : (
                           <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
                         )}
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2 pointer-events-none">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 sm:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2 pointer-events-none">
                           <span className="text-[10px] text-white truncate drop-shadow-md">{img.name}</span>
-                          <button onClick={() => handleDelete(img.name, img.url, false)} className="self-end bg-rose-500 text-white p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md pointer-events-auto">
-                            <Trash2 className="w-4 h-4" />
+                          <button onClick={() => handleDelete(img.name, img.url, false)} className="self-end bg-rose-500/90 sm:bg-rose-500 text-white p-2 sm:p-1.5 rounded-lg hover:bg-rose-600 cursor-pointer shadow-md pointer-events-auto">
+                            <Trash2 className="w-5 h-5 sm:w-4 sm:h-4" />
                           </button>
                         </div>
                       </div>

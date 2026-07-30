@@ -703,9 +703,8 @@ onUpdateJamaahProfile,
   const handleRefreshClick = () => {
     setIsRefreshing(true);
     setTimeout(() => {
-      setIsRefreshing(false);
-      showToast('Data berhasil disegarkan dari server', 'success');
-    }, 800);
+      window.location.reload();
+    }, 500);
   };
 
   const handleSaveAdminPhotos = () => {
@@ -849,6 +848,8 @@ onUpdateJamaahProfile,
             </div>
             <input
               type="text"
+              name="tab_search_query"
+              autoComplete="off"
               placeholder="Cari fitur atau pengaturan (misal: 'sewa', 'galeri', 'pengguna')..."
               value={tabSearchQuery}
               onChange={(e) => setTabSearchQuery(e.target.value)}
@@ -2127,15 +2128,15 @@ onUpdateJamaahProfile,
                   <div className="space-y-3">
                     <div>
                       <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Kata Sandi Lama</label>
-                      <input type="password" placeholder="Masukkan kata sandi lama" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                      <input type="password" autoComplete="new-password" placeholder="Masukkan kata sandi lama" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
                     </div>
                     <div>
                       <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Kata Sandi Baru</label>
-                      <input type="password" placeholder="Masukkan kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                      <input type="password" autoComplete="new-password" placeholder="Masukkan kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
                     </div>
                     <div>
                       <label className="text-[10px] font-bold text-blue-300 uppercase tracking-wider block mb-1">Konfirmasi Kata Sandi Baru</label>
-                      <input type="password" placeholder="Ketik ulang kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
+                      <input type="password" autoComplete="new-password" placeholder="Ketik ulang kata sandi baru" className="w-full bg-blue-950 border border-blue-800 text-white rounded-xl px-3 py-2 outline-none text-xs" />
                     </div>
                     <button className="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 rounded-xl mt-2 transition-colors" onClick={() => alert('Kata sandi berhasil diperbarui')}>
                       Perbarui Kata Sandi
