@@ -161,7 +161,12 @@ export const Footer: React.FC<FooterProps> = ({
               Pengurus DKM
             </h4>
             <div className="space-y-2 text-xs text-blue-200">
-              {(state.boardMembers || []).sort((a, b) => a.orderIdx - b.orderIdx).slice(0, 3).map(member => (
+              {(state.adminSettings?.footerPengurusIds?.length 
+                ? state.adminSettings.footerPengurusIds
+                    .map(id => state.boardMembers?.find(m => m.id === id))
+                    .filter((m): m is NonNullable<typeof m> => !!m)
+                : (state.boardMembers || []).sort((a, b) => a.orderIdx - b.orderIdx).slice(0, 3)
+              ).map(member => (
                 <div key={member.id} className="flex items-start gap-2 mb-3">
                   <UserCheck className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                   <div className="flex flex-col">
