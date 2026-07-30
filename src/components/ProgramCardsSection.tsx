@@ -163,9 +163,12 @@ export const ProgramCardsSection: React.FC<ProgramCardsSectionProps> = ({
         },
         ticks: {
           color: isDark ? '#94a3b8' : '#64748b',
+          maxRotation: 0,
+          minRotation: 0,
           font: {
             family: "'Plus Jakarta Sans', sans-serif",
-            weight: 'bold' as const
+            weight: 'bold' as const,
+            size: 10
           }
         }
       },

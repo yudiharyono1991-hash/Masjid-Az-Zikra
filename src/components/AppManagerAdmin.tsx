@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Upload, Image as ImageIcon, QrCode, Store, Trash2, Plus, Link as LinkIcon, Download, Shield, Bot, Save } from 'lucide-react';
 import { uploadMedia, deleteMediaFromSupabase } from '../lib/mediaUpload';
+import { getSupabaseClient } from '../lib/supabase';
+import { useMasjidStore } from '../lib/store';
 import { RoleManagerAdmin } from './admin/RoleManagerAdmin';
 
 interface Sponsor {
@@ -11,12 +13,11 @@ interface Sponsor {
 }
 
 export const AppManagerAdmin: React.FC = () => {
+  const { state } = useMasjidStore();
   const [activeSubTab, setActiveSubTab] = useState<'hero' | 'qr' | 'sponsor' | 'profil' | 'role' | 'ai'>('hero');
   const [heroImages, setHeroImages] = useState<{name: string, url: string}[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-
-
 
   // Sponsor State
   const [sponsors, setSponsors] = useState<Sponsor[]>(() => {
@@ -56,13 +57,64 @@ export const AppManagerAdmin: React.FC = () => {
     fetchHeroImages();
   }, []);
 
-  const fetchHeroImages = () => {
+  const fetchHeroImages = async () => {
+    let supabaseImages: any[] = [];
     try {
-      const saved = localStorage.getItem('tazkia_hero_images');
-      if (saved) {
-        setHeroImages(JSON.parse(saved));
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { data, error } = await supabase.storage.from('tazkia-media').list('hero');
+        if (!error && data && data.length > 0) {
+          // Check local deleted list
+          let deletedList: string[] = [];
+          try {
+            const savedDeleted = localStorage.getItem('tazkia_hero_deleted');
+            if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+          } catch(e) {}
+
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i) && !deletedList.includes(file.name));
+          
+          supabaseImages = imageFiles.map(file => {
+            const { data: { publicUrl } } = supabase.storage.from('tazkia-media').getPublicUrl(`hero/${file.name}`);
+            return { name: file.name, url: publicUrl };
+          });
+        }
       }
-    } catch(e) {}
+    } catch(e) {
+      console.warn("Supabase fetch failed, falling back to local storage", e);
+    }
+
+    // Merge in configured URLs from state
+    const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0
+      ? state.adminSettings.masjidHeroCarouselUrls
+      : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
+
+    configuredUrls.forEach((url, i) => {
+      if (!supabaseImages.find(img => img.url === url)) {
+        supabaseImages.push({ name: `system-config-${i+1}`, url });
+      }
+    });
+
+    if (supabaseImages.length > 0) {
+      setHeroImages(supabaseImages);
+      localStorage.setItem('tazkia_hero_images', JSON.stringify(supabaseImages));
+    } else {
+      const defaultImages = [
+        { name: 'default-masjid-1.jpg', url: '/hero-1.jpg' },
+        { name: 'default-masjid-2.jpg', url: '/hero-2.jpg' }
+      ];
+      
+      const initialized = localStorage.getItem('tazkia_hero_images_init_v4');
+      if (!initialized) {
+        setHeroImages(defaultImages);
+        localStorage.setItem('tazkia_hero_images', JSON.stringify(defaultImages));
+        localStorage.setItem('tazkia_hero_images_init_v4', 'true');
+      } else {
+        const saved = localStorage.getItem('tazkia_hero_images');
+        if (saved) {
+          setHeroImages(JSON.parse(saved));
+        }
+      }
+    }
   };
 
 
@@ -100,13 +152,42 @@ export const AppManagerAdmin: React.FC = () => {
   const handleDeleteHero = async (fileName: string, fileUrl?: string) => {
     if (!window.confirm("Hapus gambar ini?")) return;
     
-    if (fileUrl && fileUrl.includes('supabase')) {
-      await deleteMediaFromSupabase(fileUrl);
+    // Add to local blocklist so it never comes back even if Supabase delete fails
+    try {
+      const savedDeleted = localStorage.getItem('tazkia_hero_deleted');
+      const deletedList = savedDeleted ? JSON.parse(savedDeleted) : [];
+      if (!deletedList.includes(fileName)) {
+        deletedList.push(fileName);
+        localStorage.setItem('tazkia_hero_deleted', JSON.stringify(deletedList));
+      }
+    } catch(e) {}
+
+    if (fileUrl && !fileUrl.startsWith('data:')) {
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        // file.name does not include 'hero/' prefix since it was fetched via list('hero')
+        await supabase.storage.from('tazkia-media').remove([`hero/${fileName}`]);
+      }
     }
     
     const updated = heroImages.filter(img => img.name !== fileName);
     setHeroImages(updated);
     localStorage.setItem('tazkia_hero_images', JSON.stringify(updated));
+
+    // Also remove from global store if it was a system-configured image
+    if (fileUrl) {
+      const currentCarousel = state.adminSettings.masjidHeroCarouselUrls || [];
+      const newCarousel = currentCarousel.filter(url => url !== fileUrl);
+      
+      const newPhotoUrl = state.adminSettings.masjidHeroPhotoUrl === fileUrl 
+        ? '' 
+        : state.adminSettings.masjidHeroPhotoUrl;
+        
+      useMasjidStore.getState().updateAdminSettings({
+        masjidHeroCarouselUrls: newCarousel,
+        masjidHeroPhotoUrl: newPhotoUrl
+      });
+    }
     
     const msg = document.createElement('div');
     msg.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50';
@@ -117,7 +198,7 @@ export const AppManagerAdmin: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex bg-blue-900 border border-blue-800 p-1.5 rounded-2xl gap-2 overflow-x-auto text-xs font-mono">
+      <div className="flex bg-blue-900 border border-blue-800 p-1.5 rounded-2xl gap-1 sm:gap-2 overflow-x-auto text-[10px] sm:text-xs font-mono">
         {[
           { id: 'hero', label: 'Foto Animasi Beranda', icon: ImageIcon },
           { id: 'qr', label: 'Cetak QR Aplikasi', icon: QrCode },
@@ -131,13 +212,13 @@ export const AppManagerAdmin: React.FC = () => {
             <button
               key={sub.id}
               onClick={() => setActiveSubTab(sub.id as any)}
-              className={`px-4 py-2.5 rounded-xl cursor-pointer font-bold transition-all flex items-center gap-2 ${
+              className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl cursor-pointer font-bold transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap ${
                 activeSubTab === sub.id
                   ? 'bg-amber-400 text-blue-950 shadow'
                   : 'text-blue-400 hover:text-white hover:bg-blue-800'
               }`}
             >
-              <SubIcon className="w-4 h-4" />
+              <SubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               {sub.label}
             </button>
           );
@@ -150,8 +231,8 @@ export const AppManagerAdmin: React.FC = () => {
         {activeSubTab === 'hero' && (
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-bold font-serif mb-2">Manajemen Foto Animasi Beranda (Hero Slider)</h3>
-              <p className="text-sm text-blue-300">Unggah beberapa foto lebar (resolusi tinggi) untuk ditampilkan berputar secara otomatis di bagian paling atas halaman Beranda Aplikasi.</p>
+              <h3 className="text-lg sm:text-xl font-bold font-serif mb-1 sm:mb-2">Manajemen Foto Animasi Beranda (Hero Slider)</h3>
+              <p className="text-[11px] sm:text-sm text-blue-300 leading-relaxed">Unggah beberapa foto lebar (resolusi tinggi) untuk ditampilkan berputar secara otomatis di bagian paling atas halaman Beranda Aplikasi.</p>
             </div>
 
             <div className="p-6 border-2 border-dashed border-blue-600/50 rounded-2xl text-center bg-blue-900/30">

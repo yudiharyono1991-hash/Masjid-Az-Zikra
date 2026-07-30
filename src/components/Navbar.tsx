@@ -73,6 +73,17 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const getNextPrayer = () => {
     const hour = currentTime.getHours();
     const minute = currentTime.getMinutes();
@@ -319,7 +330,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu (Menu Susun Tiga) */}
       {mobileMenuOpen && (
-        <div className="border-t border-[#172554] px-4 pt-2 pb-24 space-y-5 animate-fadeIn shadow-2xl max-h-[90vh] overflow-y-auto bg-[#1e3a8a] text-white relative">
+        <div className="absolute top-full left-0 w-full h-[calc(100vh-100%)] border-t border-[#172554] px-4 pt-2 pb-[80px] space-y-5 animate-fadeIn shadow-2xl overflow-y-auto bg-[#1e3a8a] text-white">
           
           {/* Close Button - Prominent X button */}
           <div className="sticky top-0 bg-[#1e3a8a] pt-2 pb-2 z-10 flex items-center justify-between border-b border-blue-800/60">
@@ -496,6 +507,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Footer Area */}
+          <div className="pt-6 pb-2 text-center mt-6">
+            <p className="text-[9px] sm:text-[10px] text-blue-400 font-medium">
+              &copy; 2026 Masjid Tazkia. All Rights Reserved.
+            </p>
+            <p className="text-[8px] sm:text-[9px] text-blue-500 mt-1">
+              Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor Indonesia
+            </p>
           </div>
 
         </div>

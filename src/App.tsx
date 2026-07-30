@@ -10,7 +10,6 @@ import { DigitalIbadahModal } from './components/DigitalIbadahModal';
 import { TransparencySection } from './components/TransparencySection';
 import { PengurusDkmDashboard } from './components/PengurusDkmDashboard';
 import { TvDisplayMode } from './components/TvDisplayMode';
-import { DigitalIbadahModal } from './components/DigitalIbadahModal';
 import { SupabaseConfigModal } from './components/SupabaseConfigModal';
 import { LoginModal } from './components/LoginModal';
 import { CatalogPdfModal } from './components/CatalogPdfModal';

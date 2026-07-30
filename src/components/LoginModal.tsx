@@ -53,7 +53,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const roleNames: Record<UserRole, string> = {
+    const roleNames: Record<string, string> = {
       jamaah: 'Jamaah Tazkia',
       admin_masjid: 'Admin Masjid',
       bendahara: 'Bendahara',
@@ -63,8 +63,31 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       pengurus_dkm: 'Pengurus DKM Tazkia'
     };
     
-    const finalName = name || roleNames[role];
-    onLogin(email, finalName, role);
+    let finalName = name || roleNames[role] || 'Pengurus';
+    let finalRole = role;
+
+    if (role !== 'jamaah') {
+      if (email === 'admin@tazkia.id' && password === 'admin123') {
+        if (role !== 'pengurus_dkm' && role !== 'admin_masjid') {
+          alert("Akun admin@tazkia.id hanya dapat digunakan untuk akses Pengurus Utama/Admin Masjid. Silakan pilih role akses yang sesuai.");
+          return;
+        }
+        finalName = 'Super Admin Tazkia';
+      } else {
+        const user = state.jamaahProfiles?.find(u => 
+          (u.email === email || u.name === email) && 
+          (u.password === password || (!u.password && password === '123456'))
+        );
+        
+        if (!user) {
+          alert("Maaf, Email/Username atau Kata Sandi Anda salah atau tidak terdaftar.");
+          return;
+        }
+        finalName = user.name;
+      }
+    }
+    
+    onLogin(email, finalName, finalRole);
     
     alert(`Assalamualaikum, selamat datang di aplikasi Masjid Tazkia${finalName ? ', ' + finalName : ''}!`);
     onClose();

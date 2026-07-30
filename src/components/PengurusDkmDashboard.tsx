@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   FinancialTransaction,
   InventoryItem,
@@ -58,7 +58,10 @@ import {
   Tv,
   Users,
   Edit3,
-  UserPlus
+  UserPlus,
+  Search,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 import { useMasjidStore } from '../lib/store';
@@ -169,6 +172,39 @@ onUpdateJamaahProfile,
   const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'>('akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
+  const [tabSearchQuery, setTabSearchQuery] = useState('');
+
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const erpTabsRef = useRef<HTMLDivElement>(null);
+  
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      const scrollAmount = direction === 'left' ? -300 : 300;
+      tabsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const scrollErpTabs = (direction: 'left' | 'right') => {
+    if (erpTabsRef.current) {
+      const scrollAmount = direction === 'left' ? -200 : 200;
+      erpTabsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  // Date utils
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  // Audit Log State
+  const [auditStartDate, setAuditStartDate] = useState(getFirstDayOfMonth());
+  const [auditEndDate, setAuditEndDate] = useState(getToday());
+  const [auditPage, setAuditPage] = useState(1);
+  const auditPerPage = 10;
 
   // Zustand Store
   const store = useMasjidStore();
@@ -805,44 +841,83 @@ onUpdateJamaahProfile,
             ))}
           </select>
         </div>
-        {/* Desktop: Horizontal Tabs */}
-        <div className="hidden sm:flex border-b border-blue-800 bg-blue-950 p-2 rounded-2xl gap-2 overflow-x-auto print:hidden">
-          {[
-            { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
-            { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
-            { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
-            { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
-            { id: 'sewa', label: 'Sewa & Booking', icon: Building },
-            { id: 'kalender', label: 'Kalender & Agenda', icon: Calendar },
-            { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
-            { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
-            { id: 'pengurus', label: 'Profil & Pengurus', icon: Users },
-            { id: 'ttd_laporan', label: 'Tanda Tangan Laporan', icon: Edit3 },
-            { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
-            { id: 'program', label: 'Program & Campaign', icon: Sparkles },
-            { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
-            { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
-            { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
-            { id: 'verifikasi', label: 'Verifikasi ZISWAF', icon: CheckCircle2 },
-            { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
-            { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
-          ].map(tab => {
-            const IconComp = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setDkmTab(tab.id as any)}
-                className={`flex-1 min-w-[150px] py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                  dkmTab === tab.id
-                    ? 'bg-blue-500 text-blue-950 shadow-md shadow-blue-500/20 font-extrabold'
-                    : 'text-blue-400 hover:text-blue-200 hover:bg-blue-900'
-                }`}
-              >
-                <IconComp className="w-4 h-4" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        {/* Desktop: Horizontal Tabs with Search */}
+        <div className="hidden sm:flex flex-col gap-3 print:hidden">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="w-4 h-4 text-blue-400" />
+            </div>
+            <input
+              type="text"
+              placeholder="Cari fitur atau pengaturan (misal: 'sewa', 'galeri', 'pengguna')..."
+              value={tabSearchQuery}
+              onChange={(e) => setTabSearchQuery(e.target.value)}
+              className="w-full bg-blue-900 border border-blue-700 text-white text-sm rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-blue-500 transition-colors shadow-inner"
+            />
+          </div>
+          
+          <div className="relative group bg-blue-950 p-2 rounded-2xl border-b border-blue-800 flex items-center">
+            <button
+              onClick={() => scrollTabs('left')}
+              className="absolute left-0 z-10 p-2 bg-gradient-to-r from-blue-950 via-blue-950 to-transparent text-blue-300 hover:text-white h-full flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div ref={tabsRef} className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth w-full px-6">
+            {[
+              { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
+              { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
+              { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
+              { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
+              { id: 'sewa', label: 'Sewa & Booking', icon: Building },
+              { id: 'kalender', label: 'Kalender & Agenda', icon: Calendar },
+              { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
+              { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
+              { id: 'pengurus', label: 'Profil & Pengurus', icon: Users },
+              { id: 'ttd_laporan', label: 'Tanda Tangan Laporan', icon: Edit3 },
+              { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
+              { id: 'program', label: 'Program & Campaign', icon: Sparkles },
+              { id: 'pengumuman', label: 'Pengumuman & Berita', icon: Image },
+              { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
+              { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
+              { id: 'verifikasi', label: 'Verifikasi ZISWAF', icon: CheckCircle2 },
+              { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
+              { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
+            ]
+            .filter(tab => tab.label.toLowerCase().includes(tabSearchQuery.toLowerCase()))
+            .map(tab => {
+              const IconComp = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setDkmTab(tab.id as any)}
+                  className={`shrink-0 py-3.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                    dkmTab === tab.id
+                      ? 'bg-blue-500 text-blue-950 shadow-md shadow-blue-500/20 font-extrabold'
+                      : 'text-white hover:text-orange-400 hover:bg-blue-900'
+                  }`}
+                >
+                  <IconComp className="w-4 h-4 shrink-0" />
+                  <span className="whitespace-nowrap">{tab.label}</span>
+                </button>
+              );
+            })}
+            
+            {tabSearchQuery && [
+              { id: 'akuntansi', label: 'Akuntansi (PSAK 409)' },
+            ].filter(tab => tab.label.toLowerCase().includes(tabSearchQuery.toLowerCase())).length === 0 && (
+              <div className="flex-1 py-2 text-center text-blue-400 text-xs italic">
+                Fitur tidak ditemukan
+              </div>
+            )}
+            </div>
+            <button
+              onClick={() => scrollTabs('right')}
+              className="absolute right-0 z-10 p-2 bg-gradient-to-l from-blue-950 via-blue-950 to-transparent text-blue-300 hover:text-white h-full flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {dkmTab === 'kalender' && (
@@ -1266,27 +1341,43 @@ onUpdateJamaahProfile,
 
         {dkmTab === 'akuntansi' && (
           <div className="space-y-6">
-            <div className="flex bg-blue-900 border border-blue-800 p-1.5 rounded-2xl gap-2 overflow-x-auto text-xs font-mono print:hidden">
-              {[
-                { id: 'coa', label: 'Bagan Akun (COA)' },
-                { id: 'jurnal_umum', label: 'Jurnal Umum' },
-                { id: 'buku_besar', label: 'Buku Besar' },
-                { id: 'anggaran', label: 'Input Anggaran' },
-                { id: 'pencairan', label: 'Pencairan Anggaran' },
-                { id: 'laporan', label: 'Laporan Keuangan' }
-              ].map(sub => (
-                <button
-                  key={sub.id}
-                  onClick={() => setErpSubTab(sub.id as any)}
-                  className={`px-4 py-2.5 rounded-xl cursor-pointer font-bold transition-all ${
-                    erpSubTab === sub.id
-                      ? 'bg-amber-400 text-blue-950 shadow'
-                      : 'text-blue-400 hover:text-white hover:bg-blue-800'
-                  }`}
-                >
-                  {sub.label}
-                </button>
-              ))}
+            <div className="relative group flex items-center bg-blue-900 border border-blue-800 p-1.5 rounded-2xl print:hidden">
+              <button
+                onClick={() => scrollErpTabs('left')}
+                className="absolute left-0 z-10 p-2 bg-gradient-to-r from-blue-900 via-blue-900 to-transparent text-blue-300 hover:text-white h-full flex items-center opacity-0 group-hover:opacity-100 transition-opacity rounded-l-2xl"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              
+              <div ref={erpTabsRef} className="flex gap-2 overflow-x-auto text-xs font-mono scrollbar-hide scroll-smooth w-full px-6">
+                {[
+                  { id: 'coa', label: 'Bagan Akun (COA)' },
+                  { id: 'jurnal_umum', label: 'Jurnal Umum' },
+                  { id: 'buku_besar', label: 'Buku Besar' },
+                  { id: 'anggaran', label: 'Input Anggaran' },
+                  { id: 'pencairan', label: 'Pencairan Anggaran' },
+                  { id: 'laporan', label: 'Laporan Keuangan' }
+                ].map(sub => (
+                  <button
+                    key={sub.id}
+                    onClick={() => setErpSubTab(sub.id as any)}
+                    className={`shrink-0 whitespace-nowrap px-4 py-2.5 rounded-xl cursor-pointer font-bold transition-all ${
+                      erpSubTab === sub.id
+                        ? 'bg-amber-400 text-blue-950 shadow'
+                        : 'text-blue-400 hover:text-white hover:bg-blue-800'
+                    }`}
+                  >
+                    {sub.label}
+                  </button>
+                ))}
+              </div>
+              
+              <button
+                onClick={() => scrollErpTabs('right')}
+                className="absolute right-0 z-10 p-2 bg-gradient-to-l from-blue-900 via-blue-900 to-transparent text-blue-300 hover:text-white h-full flex items-center opacity-0 group-hover:opacity-100 transition-opacity rounded-r-2xl"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
 
             <div className="bg-white/5 p-4 rounded-2xl border border-blue-800">
@@ -1446,8 +1537,8 @@ onUpdateJamaahProfile,
                 )}
 
                 {/* Financial Stream Table */}
-                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left text-xs text-blue-300">
+                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-left text-xs text-blue-300 min-w-[700px]">
                     <thead className="bg-blue-950 text-blue-400 uppercase font-mono text-[10px]">
                       <tr>
                         <th className="p-4">ID</th>
@@ -1622,8 +1713,8 @@ onUpdateJamaahProfile,
                 )}
 
                 {/* Journal Entries Table */}
-                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left text-xs text-blue-300">
+                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-left text-xs text-blue-300 min-w-[800px]">
                     <thead className="bg-blue-950 text-blue-400 uppercase font-mono text-[10px]">
                       <tr>
                         <th className="p-3">Tanggal</th>
@@ -1875,8 +1966,8 @@ onUpdateJamaahProfile,
                 )}
 
                 {/* Petty Cash Table */}
-                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left text-xs text-blue-300">
+                <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-left text-xs text-blue-300 min-w-[800px]">
                     <thead className="bg-blue-950 text-blue-400 uppercase font-mono text-[10px]">
                       <tr>
                         <th className="p-3">Ref No</th>
@@ -2731,8 +2822,8 @@ onUpdateJamaahProfile,
               </form>
             )}
 
-            <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-hidden">
-              <table className="w-full text-left text-xs text-blue-300">
+            <div className="bg-blue-900 border border-blue-800 rounded-2xl overflow-x-auto custom-scrollbar">
+              <table className="w-full text-left text-xs text-blue-300 min-w-[800px]">
                 <thead className="bg-blue-950 text-blue-400 uppercase font-mono text-[10px]">
                   <tr>
                     <th className="p-4">Foto Aset</th>
@@ -2820,14 +2911,14 @@ onUpdateJamaahProfile,
         {dkmTab === 'petugas' && (
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <h3 className="text-lg font-bold font-serif text-white">
+              <h3 className="text-base sm:text-lg font-bold font-serif text-white">
                 Penjadwalan Imam, Muadzin, & Khatib Jumat
               </h3>
               <button
                 onClick={() => setDkmTab('pengaturan')}
                 className="bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 font-bold px-4 py-2 rounded-xl text-xs border border-amber-500/30 flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
               >
-                <span>âš™ï¸  Pengaturan Khutbah Jumat Lengkap</span>
+                <Settings className="w-4 h-4" /> <span>Pengaturan Khutbah Jumat Lengkap</span>
               </button>
             </div>
 
@@ -2841,21 +2932,21 @@ onUpdateJamaahProfile,
                   {adminSettings?.jumatTimeInfo || 'Jumat Ini, 11:55 WIB'}
                 </span>
               </div>
-              <h4 className="text-base sm:text-lg font-serif font-bold text-amber-300">
+              <h4 className="text-sm sm:text-lg font-serif font-bold text-amber-300 leading-snug">
                 "{adminSettings?.jumatTopicTitle || 'Memperkokoh Ukhuwah & Transparansi Pengelolaan Aset Umat'}"
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-blue-200 font-sans pt-1">
                 <div className="bg-blue-950/80 p-2.5 rounded-xl border border-blue-800">
                   <span className="text-[10px] text-blue-400 block font-mono">Khatib Jumat:</span>
-                  <p className="font-serif font-bold text-white text-sm">{adminSettings?.jumatKhatibName || 'Prof. Dr. KH. Nasaruddin Umar, MA'}</p>
+                  <p className="font-serif font-bold text-white text-xs sm:text-sm">{adminSettings?.jumatKhatibName || 'Prof. Dr. KH. Nasaruddin Umar, MA'}</p>
                 </div>
                 <div className="bg-blue-950/80 p-2.5 rounded-xl border border-blue-800">
                   <span className="text-[10px] text-blue-400 block font-mono">Imam Jumat:</span>
-                  <p className="font-serif font-bold text-white text-sm">{adminSettings?.jumatImamName || 'Ustadz H. M. Zainuddin, Sq'}</p>
+                  <p className="font-serif font-bold text-white text-xs sm:text-sm">{adminSettings?.jumatImamName || 'Ustadz H. M. Zainuddin, Sq'}</p>
                 </div>
                 <div className="bg-blue-950/80 p-2.5 rounded-xl border border-blue-800">
                   <span className="text-[10px] text-blue-400 block font-mono">Muadzin Jumat:</span>
-                  <p className="font-serif font-bold text-white text-sm">{adminSettings?.jumatMuadzinName || 'Ustadz Bilal Al-Hafiz'}</p>
+                  <p className="font-serif font-bold text-white text-xs sm:text-sm">{adminSettings?.jumatMuadzinName || 'Ustadz Bilal Al-Hafiz'}</p>
                 </div>
               </div>
             </div>
@@ -2890,7 +2981,7 @@ onUpdateJamaahProfile,
                   {p.khatibJumat && (
                     <div className="bg-blue-950 p-3 rounded-xl border border-blue-500/30 text-xs">
                       <span className="text-[10px] text-amber-400 font-bold uppercase block">Khatib & Imam Shalat Jumat</span>
-                      <p className="font-serif font-bold text-white text-sm mt-0.5">{p.khatibJumat}</p>
+                      <p className="font-serif font-bold text-white text-xs sm:text-sm mt-0.5">{p.khatibJumat}</p>
                       <p className="text-[11px] text-blue-400 mt-1 italic">"{p.topikJumat || 'Kutbah Keutamaan Ketaatan'}"</p>
                     </div>
                   )}
@@ -3714,10 +3805,11 @@ onUpdateJamaahProfile,
                       onChange={(e) => setUserFormPosition(e.target.value)}
                       className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
                     >
-                      <option value="Ketua DKM">Ketua DKM</option>
-                      <option value="Wakil Ketua DKM">Wakil Ketua DKM</option>
-                      <option value="Bendahara DKM">Bendahara DKM</option>
-                      <option value="Sekretaris DKM">Sekretaris DKM</option>
+                      <option value="Ketua Dewan Pembina / Dewan Pembina Yayasan">Ketua Dewan Pembina / Dewan Pembina Yayasan</option>
+                      <option value="Direktur / Direktur Masjid Tazkia Islamic Center">Direktur / Direktur Masjid Tazkia Islamic Center</option>
+                      <option value="Ketua DKM Masjid Tazkia Islamic Center">Ketua DKM Masjid Tazkia Islamic Center</option>
+                      <option value="Bendahara">Bendahara</option>
+                      <option value="Bagian Penghimpunan">Bagian Penghimpunan</option>
                       <option value="Anggota DKM">Anggota DKM / Staff</option>
                       <option value="Super Admin & IT">Super Admin & IT</option>
                       <option value="Jamaah">Jamaah</option>
@@ -3890,7 +3982,25 @@ onUpdateJamaahProfile,
                 Sistem Audit Log Petugas
               </h3>
               <p className="text-xs text-blue-400 mt-1">Rekam jejak aktivitas login dan logout seluruh pengguna sistem.</p>
+              
+              {/* Date Filter */}
+              <div className="mt-4 flex items-center gap-2">
+                <input 
+                  type="date" 
+                  value={auditStartDate} 
+                  onChange={(e) => { setAuditStartDate(e.target.value); setAuditPage(1); }}
+                  className="bg-blue-950 border border-blue-700 text-white text-sm rounded-lg px-3 py-1.5 outline-none"
+                />
+                <span className="text-blue-400 text-sm font-bold">s/d</span>
+                <input 
+                  type="date" 
+                  value={auditEndDate} 
+                  onChange={(e) => { setAuditEndDate(e.target.value); setAuditPage(1); }}
+                  className="bg-blue-950 border border-blue-700 text-white text-sm rounded-lg px-3 py-1.5 outline-none"
+                />
+              </div>
             </div>
+            
             <div className="bg-[#0a1128] rounded-2xl shadow-xl overflow-hidden border border-blue-800">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
@@ -3904,41 +4014,93 @@ onUpdateJamaahProfile,
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-blue-800/50">
-                    {auditLogs.length === 0 ? (
-                      <tr>
-                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada rekaman audit log.</td>
-                      </tr>
-                    ) : (
-                      auditLogs.map((log) => (
-                        <tr key={log.id} className="hover:bg-blue-900/50 transition-colors">
-                          <td className="px-4 py-3 font-mono text-[11px] text-blue-400 whitespace-nowrap">
-                            {new Date(log.timestamp).toLocaleString('id-ID')}
-                          </td>
-                          <td className="px-4 py-3 text-white">
-                            <span className="font-bold block">{log.userName}</span>
-                            <span className="text-[10px] text-blue-400">{log.userEmail}</span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span className="bg-blue-800 text-blue-200 font-mono text-[10px] px-2 py-0.5 rounded-full uppercase">
-                              {log.role.replace('_', ' ')}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span className={`font-mono text-[10px] px-2 py-0.5 rounded-full uppercase ${
-                              log.action === 'LOGIN' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
-                            }`}>
-                              {log.action}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 text-blue-300 text-xs">
-                            {log.details}
-                          </td>
-                        </tr>
-                      ))
-                    )}
+                    {(() => {
+                      const filteredAudit = auditLogs.filter(log => {
+                        const logDate = log.timestamp.split('T')[0];
+                        return logDate >= auditStartDate && logDate <= auditEndDate;
+                      });
+                      
+                      const totalPages = Math.ceil(filteredAudit.length / auditPerPage);
+                      const paginatedAudit = filteredAudit.slice((auditPage - 1) * auditPerPage, auditPage * auditPerPage);
+                      
+                      if (filteredAudit.length === 0) {
+                        return (
+                          <tr>
+                            <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada rekaman audit log pada periode ini.</td>
+                          </tr>
+                        );
+                      }
+                      
+                      return (
+                        <>
+                          {paginatedAudit.map((log) => (
+                            <tr key={log.id} className="hover:bg-blue-900/50 transition-colors">
+                              <td className="px-4 py-3 font-mono text-[11px] text-blue-400 whitespace-nowrap">
+                                {new Date(log.timestamp).toLocaleString('id-ID')}
+                              </td>
+                              <td className="px-4 py-3 text-white">
+                                <span className="font-bold block">{log.userName}</span>
+                                <span className="text-[10px] text-blue-400">{log.userEmail}</span>
+                              </td>
+                              <td className="px-4 py-3">
+                                <span className="bg-blue-800 text-blue-200 font-mono text-[10px] px-2 py-0.5 rounded-full uppercase">
+                                  {log.role.replace('_', ' ')}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3">
+                                <span className={`font-mono text-[10px] px-2 py-0.5 rounded-full uppercase ${
+                                  log.action === 'LOGIN' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                                }`}>
+                                  {log.action}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3 text-blue-300 text-xs">
+                                {log.details}
+                              </td>
+                            </tr>
+                          ))}
+                        </>
+                      );
+                    })()}
                   </tbody>
                 </table>
               </div>
+              
+              {/* Pagination Controls */}
+              {(() => {
+                const filteredAudit = auditLogs.filter(log => {
+                  const logDate = log.timestamp.split('T')[0];
+                  return logDate >= auditStartDate && logDate <= auditEndDate;
+                });
+                const totalPages = Math.ceil(filteredAudit.length / auditPerPage);
+                
+                if (totalPages > 1) {
+                  return (
+                    <div className="flex items-center justify-between p-4 bg-blue-950/50 border-t border-blue-800">
+                      <span className="text-xs text-blue-400">
+                        Halaman {auditPage} dari {totalPages} (Total {filteredAudit.length} data)
+                      </span>
+                      <div className="flex gap-1">
+                        <button 
+                          onClick={() => setAuditPage(p => Math.max(1, p - 1))}
+                          disabled={auditPage === 1}
+                          className="px-3 py-1 bg-blue-900 border border-blue-700 rounded-lg text-xs font-bold text-white disabled:opacity-50"
+                        >
+                          Sebelumnya
+                        </button>
+                        <button 
+                          onClick={() => setAuditPage(p => Math.min(totalPages, p + 1))}
+                          disabled={auditPage === totalPages}
+                          className="px-3 py-1 bg-blue-900 border border-blue-700 rounded-lg text-xs font-bold text-white disabled:opacity-50"
+                        >
+                          Selanjutnya
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
           </div>
         )}

@@ -8,6 +8,18 @@ export function BukuBesar() {
   const [selectedAccountId, setSelectedAccountId] = useState<string>('');
   const [coaSearch, setCoaSearch] = useState<string>('');
 
+  // Date utils
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  const [startDate, setStartDate] = useState(getFirstDayOfMonth());
+  const [endDate, setEndDate] = useState(getToday());
+
   const handleExport = () => {
     // If an account is selected, export only that account's ledger
     const accountsToExport = selectedAccountId 
@@ -31,6 +43,10 @@ export function BukuBesar() {
 
   if (account) {
     ledgerEntries = state.erpJournalEntries
+      .filter(e => {
+        const j = state.erpJournals.find(jrn => jrn.id === e.journalId);
+        return j && j.date >= startDate && j.date <= endDate;
+      })
       .filter(e => e.accountId === account.id)
       .sort((a, b) => {
         const jA = state.erpJournals.find(j => j.id === a.journalId);
@@ -54,6 +70,10 @@ export function BukuBesar() {
   } else {
     // All entries
     ledgerEntries = [...state.erpJournalEntries]
+      .filter(e => {
+        const j = state.erpJournals.find(jrn => jrn.id === e.journalId);
+        return j && j.date >= startDate && j.date <= endDate;
+      })
       .sort((a, b) => {
         const jA = state.erpJournals.find(j => j.id === a.journalId);
         const jB = state.erpJournals.find(j => j.id === b.journalId);
@@ -79,9 +99,16 @@ export function BukuBesar() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm gap-4">
         <h3 className="font-bold text-lg text-blue-900">Buku Besar (General Ledger)</h3>
-        <button onClick={handleExport} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
+        
+        <div className="flex items-center gap-2">
+          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+          <span className="text-gray-500 font-bold text-sm">s/d</span>
+          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <button onClick={handleExport} className="w-full md:w-auto px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100">
           <Download className="w-4 h-4" /> Ekspor Buku Besar
         </button>
       </div>
@@ -132,7 +159,8 @@ export function BukuBesar() {
               </div>
             </div>
           </div>
-          <table className="w-full text-left text-sm">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left text-xs sm:text-sm min-w-[600px]">
             <thead className="bg-gray-100 border-b border-gray-200 text-gray-600">
               <tr>
                 <th className="p-4 font-semibold">Tanggal</th>
@@ -161,6 +189,7 @@ export function BukuBesar() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
       ) : (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -176,7 +205,8 @@ export function BukuBesar() {
               </div>
             </div>
           </div>
-          <table className="w-full text-left text-sm">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left text-xs sm:text-sm min-w-[700px]">
             <thead className="bg-gray-100 border-b border-gray-200 text-gray-600">
               <tr>
                 <th className="p-4 font-semibold">Tanggal</th>
@@ -210,6 +240,7 @@ export function BukuBesar() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>

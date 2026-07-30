@@ -162,8 +162,8 @@ export function InputAnggaran() {
       )}
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full text-left border-collapse min-w-[700px]">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500">
                 <th className="p-4 font-bold">Kode Akun</th>
@@ -174,7 +174,7 @@ export function InputAnggaran() {
                 <th className="p-4 font-bold text-center">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-gray-100 text-xs sm:text-sm">
               {currentBudgets.length > 0 ? (
                 currentBudgets.map(budget => {
                   const acc = state.erpCoa.find(a => a.id === budget.accountId);

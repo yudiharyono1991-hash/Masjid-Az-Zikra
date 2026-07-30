@@ -78,7 +78,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
     return () => clearInterval(slideTimer);
   }, []);
 
-  const timeStr = time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const timeStr = time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).replace(/\./g, ':');
   const dateStr = time.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   
   let hijriDateStr = '';
@@ -203,7 +203,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
       {/* Center Dynamic Rotating Banner Slides */}
       <div className="my-auto py-8">
         {currentSlideIndex === 0 && (
-          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-4 sm:p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
             <div className="flex items-center justify-center gap-2">
               <span className="bg-amber-500 text-blue-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
                 INFORMASI KHUTBAH JUMAT
@@ -214,10 +214,10 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
                 </span>
               )}
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-amber-300 leading-snug">
+            <h2 className="text-lg sm:text-4xl font-serif font-bold text-amber-300 leading-snug">
               "{adminSettings?.jumatTopicTitle || nextFriday?.topikJumat || 'Optimalisasi ZISWAF untuk Kesejahteraan Umat'}"
             </h2>
-            <div className="flex flex-wrap justify-center gap-6 text-base sm:text-lg pt-2 text-blue-200 font-sans">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-6 text-sm sm:text-lg pt-2 text-blue-200 font-sans">
               <p>Khatib: <strong className="text-white font-serif">{adminSettings?.jumatKhatibName || nextFriday?.khatibJumat || 'Prof. Dr. KH. Nasaruddin Umar, MA'}</strong></p>
               <p>Imam: <strong className="text-white font-serif">{adminSettings?.jumatImamName || nextFriday?.imamJumat || 'Ustadz H. M. Zainuddin, Sq'}</strong></p>
               {adminSettings?.jumatMuadzinName && (
@@ -228,14 +228,14 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
         )}
 
         {currentSlideIndex === 1 && (
-          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-4 sm:p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
             <span className="bg-blue-500 text-blue-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
               HADIS SHAHIH HARI INI
             </span>
-            <p className="text-3xl sm:text-4xl font-serif text-amber-300 leading-relaxed font-arabic" dir="rtl">
+            <p className="text-2xl sm:text-4xl font-serif text-amber-300 leading-relaxed font-arabic" dir="rtl">
               مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ
             </p>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto font-serif italic">
+            <p className="text-sm sm:text-xl text-blue-200 max-w-3xl mx-auto font-serif italic">
               "Sedekah itu tidak akan pernah mengurangi harta sedikit pun, melainkan Allah akan menambah kemuliaan."
             </p>
             <p className="text-xs text-amber-400 font-mono">(HR. Muslim no. 2588)</p>
@@ -243,17 +243,17 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
         )}
 
         {currentSlideIndex === 2 && (
-          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
+          <div className="bg-gradient-to-r from-blue-900 via-[#0f1d3a] to-blue-900 border-2 border-amber-500/40 rounded-3xl p-4 sm:p-8 max-w-5xl mx-auto shadow-2xl text-center space-y-4 animate-fade-in">
             <span className="bg-amber-500 text-blue-950 font-bold font-mono text-xs px-3 py-1 rounded-full uppercase tracking-widest inline-block">
               PROGRAM WAKAF UTAMA
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
+            <h2 className="text-xl sm:text-4xl font-serif font-bold text-white">
               Wakaf Tunai Sound System & Akustik Ruang Shalat Utama
             </h2>
-            <p className="text-blue-300 text-base max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-blue-300 max-w-2xl mx-auto">
               Dukung pengadaan tata suara jernih kristal untuk kekhusyu'an ibadah jamaah Masjid Tazkia.
             </p>
-            <p className="text-amber-400 font-mono font-bold text-xl">
+            <p className="text-sm sm:text-xl text-amber-400 font-mono font-bold">
               Terkumpul: Rp 8.25M / Target: Rp 15M
             </p>
           </div>
@@ -262,7 +262,7 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
 
       {/* Bottom Prayer Times Bar */}
       <div className="space-y-4">
-        <div className="grid grid-cols-6 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
           {[
             { name: 'SUBUH', time: selectedCity.fajr },
             { name: 'TERBIT', time: selectedCity.sunrise },
@@ -273,18 +273,18 @@ export const TvDisplayMode: React.FC<TvDisplayModeProps> = ({
           ].map((item, idx) => {
             const isActive = idx === activePrayerIdx;
             return (
-            <div
+              <div
               key={idx}
-              className={`p-4 rounded-2xl border text-center transition-all ${
+              className={`p-2 sm:p-4 rounded-2xl border text-center transition-all ${
                 isActive
                   ? 'bg-amber-500 text-blue-950 border-amber-300 shadow-2xl scale-105'
                   : 'bg-blue-900/90 border-blue-800 text-blue-200'
               }`}
             >
-              <p className={`text-xs font-bold font-mono ${isActive ? 'text-blue-950' : 'text-blue-400'}`}>
+              <p className={`text-[10px] sm:text-xs font-bold font-mono ${isActive ? 'text-blue-950' : 'text-blue-400'}`}>
                 {item.name}
               </p>
-              <p className={`text-2xl sm:text-3xl font-extrabold font-mono mt-1 ${isActive ? 'text-blue-950' : 'text-amber-400'}`}>
+              <p className={`text-lg sm:text-3xl font-extrabold font-mono mt-1 ${isActive ? 'text-blue-950' : 'text-amber-400'}`}>
                 {item.time}
               </p>
             </div>

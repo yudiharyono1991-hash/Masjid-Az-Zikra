@@ -7,6 +7,18 @@ export function PencairanAnggaran() {
   const { state, addErpDisbursement, updateErpDisbursementStatus } = useMasjidStore();
   const [activeTab, setActiveTab] = useState<'ajukan' | 'approval'>('ajukan');
 
+  // Date utils
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  const [startDate, setStartDate] = useState(getFirstDayOfMonth());
+  const [endDate, setEndDate] = useState(getToday());
+
   // Staf Form State
   const [selectedBudgetId, setSelectedBudgetId] = useState('');
   const [amount, setAmount] = useState<number | ''>('');
@@ -94,8 +106,9 @@ export function PencairanAnggaran() {
 
   return (
     <div className="space-y-6">
-      <div className="flex bg-white rounded-xl border border-gray-200 overflow-hidden text-sm font-semibold w-full sm:w-max shadow-sm">
-        <button
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+        <div className="flex bg-white rounded-xl border border-gray-200 overflow-hidden text-sm font-semibold w-full sm:w-max shadow-sm">
+          <button
           onClick={() => setActiveTab('ajukan')}
           className={`px-6 py-3 transition-colors ${activeTab === 'ajukan' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
         >
@@ -114,6 +127,13 @@ export function PencairanAnggaran() {
             )}
           </button>
         )}
+      </div>
+
+        <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm">
+          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+          <span className="text-gray-500 font-bold text-sm">s/d</span>
+          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+        </div>
       </div>
 
       {activeTab === 'ajukan' && (
@@ -179,8 +199,8 @@ export function PencairanAnggaran() {
             <div className="p-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
               <h3 className="font-bold text-gray-800">Riwayat Pengajuan Saya</h3>
             </div>
-            <div className="overflow-x-auto flex-1">
-              <table className="w-full text-left border-collapse text-sm">
+            <div className="overflow-x-auto flex-1 custom-scrollbar">
+              <table className="w-full text-left border-collapse text-xs sm:text-sm min-w-[600px]">
                 <thead>
                   <tr className="bg-white border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500">
                     <th className="p-4 font-bold">Tgl Pengajuan</th>
@@ -191,8 +211,8 @@ export function PencairanAnggaran() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {state.erpDisbursements.length > 0 ? (
-                    state.erpDisbursements.map(d => {
+                  {state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).length > 0 ? (
+                    state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).map(d => {
                       const budget = state.erpBudgets.find(b => b.id === d.budgetId);
                       const coa = state.erpCoa.find(c => c.id === budget?.accountId);
                       return (
@@ -245,8 +265,8 @@ export function PencairanAnggaran() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 ? (
-                  state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).map(d => {
+                {state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 ? (
+                  state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).map(d => {
                     const budget = state.erpBudgets.find(b => b.id === d.budgetId);
                     const coa = state.erpCoa.find(c => c.id === budget?.accountId);
                     const canActOnThis =

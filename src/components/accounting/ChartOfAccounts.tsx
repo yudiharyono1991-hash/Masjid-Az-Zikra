@@ -215,8 +215,8 @@ export function ChartOfAccounts() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto custom-scrollbar">
+        <table className="w-full text-left text-xs sm:text-sm min-w-[500px]">
           <thead className="bg-gray-50 border-b border-gray-100 text-gray-600">
             <tr>
               <th className="p-4 font-semibold">Kode Akun</th>
@@ -263,25 +263,25 @@ export function ChartOfAccounts() {
         
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between p-4 border-t border-gray-100 bg-gray-50">
-            <span className="text-sm text-gray-600">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-gray-100 bg-gray-50">
+            <span className="text-xs sm:text-sm text-gray-600 text-center">
               Menampilkan {((currentPage - 1) * itemsPerPage) + 1} hingga {Math.min(currentPage * itemsPerPage, filteredCoa.length)} dari {filteredCoa.length} akun
             </span>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto justify-center">
               <button 
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1 bg-white border border-gray-200 rounded text-sm hover:bg-gray-50 disabled:opacity-50"
+                className="flex-1 sm:flex-none px-3 py-2 bg-white border border-gray-300 rounded text-xs sm:text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-60 disabled:text-gray-400 disabled:bg-gray-100 disabled:border-gray-200 transition-colors"
               >
                 Sebelumnya
               </button>
-              <span className="px-3 py-1 bg-blue-50 text-blue-700 font-bold rounded text-sm">
+              <span className="px-4 py-2 bg-blue-100 text-blue-800 font-bold rounded text-xs sm:text-sm flex items-center justify-center">
                 {currentPage} / {totalPages}
               </span>
               <button 
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 bg-white border border-gray-200 rounded text-sm hover:bg-gray-50 disabled:opacity-50"
+                className="flex-1 sm:flex-none px-3 py-2 bg-white border border-gray-300 rounded text-xs sm:text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-60 disabled:text-gray-400 disabled:bg-gray-100 disabled:border-gray-200 transition-colors"
               >
                 Selanjutnya
               </button>

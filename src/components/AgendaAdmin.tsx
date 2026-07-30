@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Trash2, Edit2, Calendar as CalendarIcon, Clock, MapPin, Upload } from 'lucide-react';
 import { getSupabaseClient } from '../lib/supabase';
 import { useMasjidStore } from '../lib/store';
+import { uploadMedia } from '../lib/mediaUpload';
 import { MasjidAgenda } from '../types';
 
 export const AgendaAdmin = () => {
@@ -76,25 +77,14 @@ export const AgendaAdmin = () => {
 
     setIsUploading(true);
     try {
-      const supabase = getSupabaseClient();
-      if (!supabase) throw new Error('Supabase not connected');
-
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-agenda.${fileExt}`;
-      const filePath = `agenda/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('tazkia-media')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage
-        .from('tazkia-media')
-        .getPublicUrl(filePath);
-
-      setFormData({ ...formData, imageUrl: data.publicUrl });
-      alert('Foto agenda berhasil diunggah!');
+      const result = await uploadMedia(file, 'gallery');
+      setFormData({ ...formData, imageUrl: result.url });
+      
+      if (result.isLocal) {
+        alert(`⚠️ Foto tersimpan lokal. Buat bucket 'tazkia-media' di Supabase agar bisa diakses semua orang.`);
+      } else {
+        alert('Foto agenda berhasil diunggah ke server!');
+      }
     } catch (err) {
       console.error('Error uploading file:', err);
       alert('Gagal mengunggah foto. Pastikan ukuran file tidak terlalu besar dan koneksi stabil.');
@@ -224,7 +214,7 @@ export const AgendaAdmin = () => {
                   )}
                   <input 
                     type="file" 
-                    accept="image/*"
+                    accept="*/*"
                     onChange={handleFileUpload}
                     className="hidden"
                     disabled={isUploading}

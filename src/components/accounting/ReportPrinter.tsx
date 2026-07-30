@@ -134,13 +134,13 @@ export function ReportPrinter() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm print:hidden">
-        <h3 className="font-bold text-lg text-blue-900">Cetak Laporan Keuangan</h3>
-        <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm print:hidden gap-4">
+        <h3 className="font-bold text-lg text-blue-900 shrink-0">Cetak Laporan Keuangan</h3>
+        <div className="flex flex-wrap gap-2">
           <select 
             value={reportType} 
             onChange={e => setReportType(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+            className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none w-full sm:w-auto"
           >
             <option value="Neraca">Laporan Posisi Keuangan (Neraca)</option>
             <option value="LabaRugi">Laporan Aktivitas (Laba/Rugi)</option>
@@ -150,55 +150,53 @@ export function ReportPrinter() {
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(Number(e.target.value))}
-              className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+              className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none w-full sm:w-auto"
             >
               {[selectedYear - 1, selectedYear, selectedYear + 1].map(y => (
                 <option key={y} value={y}>Tahun {y}</option>
               ))}
             </select>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto">
               <input 
                 type="date" 
                 value={startDate}
                 onChange={e => setStartDate(e.target.value)}
-                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none flex-1 sm:flex-none"
               />
-              <span className="text-sm font-bold text-gray-500">s/d</span>
+              <span className="text-sm font-bold text-gray-500 shrink-0">s/d</span>
               <input 
                 type="date" 
                 value={endDate}
                 onChange={e => setEndDate(e.target.value)}
-                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none"
+                className="p-2 border border-gray-300 rounded-lg text-sm text-gray-900 bg-gray-50 outline-none flex-1 sm:flex-none"
               />
             </div>
           )}
-          <button onClick={handlePrint} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
+          <button onClick={handlePrint} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 flex-1 sm:flex-none">
             <Printer className="w-4 h-4" /> Print
           </button>
-          <button onClick={handleDownloadExcel} className="px-3 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-emerald-500">
+          <button onClick={handleDownloadExcel} className="px-3 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2 hover:bg-emerald-500 flex-1 sm:flex-none">
             <Download className="w-4 h-4" /> Excel
           </button>
         </div>
       </div>
 
-      <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm max-w-4xl mx-auto print:border-none print:shadow-none text-gray-900 print-area" ref={printRef}>
+      <div className="bg-white p-4 sm:p-8 rounded-xl border border-gray-200 shadow-sm max-w-4xl mx-auto print:border-none print:shadow-none text-gray-900 print-area print:p-0" ref={printRef}>
         <div className="text-center mb-8 border-b-4 border-double border-blue-900 pb-4 relative">
-          {state.adminSettings?.masjidLogoUrl && state.adminSettings.masjidLogoUrl.trim() !== '' && (
-            <img 
-              src={state.adminSettings.masjidLogoUrl} 
-              alt="Logo Masjid Tazkia" 
-              className="h-16 w-16 object-contain absolute left-0 top-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }} 
-            />
-          )}
-          <h1 className="text-2xl font-bold text-blue-900 tracking-widest uppercase">MASJID TAZKIA</h1>
-          <p className="text-gray-600 font-medium">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor</p>
-          <h2 className="text-xl font-bold mt-4 uppercase underline">
-            {reportType === 'Neraca' && 'Laporan Posisi Keuangan'}
-            {reportType === 'LabaRugi' && 'Laporan Aktivitas'}
+          <img 
+            src={state.adminSettings?.masjidLogoUrl || '/logo.png'} 
+            alt="Logo Masjid Tazkia" 
+            className="h-16 w-16 mx-auto mb-4 sm:mb-0 sm:h-20 sm:w-20 object-contain sm:absolute sm:left-0 sm:top-0 print:absolute print:left-0 print:top-0 print:h-20 print:w-20 print:m-0"
+            onError={(e) => {
+              e.currentTarget.src = '/logo.png';
+            }} 
+          />
+          <h1 className="text-xl sm:text-2xl font-bold text-blue-900 tracking-widest uppercase">MASJID TAZKIA</h1>
+          <p className="text-xs sm:text-base text-gray-600 font-medium">Jl. Ir. H. Djuanda No. 78 Sentul City, Bogor</p>
+          <h2 className="text-base sm:text-lg font-bold mt-4 uppercase underline">
+            {reportType === 'Neraca' && 'Laporan Posisi Keuangan (Neraca)'}
+            {reportType === 'LabaRugi' && 'Laporan Aktivitas (Laba Rugi)'}
             {reportType === 'Realisasi' && `Laporan Realisasi Anggaran Tahun ${selectedYear}`}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
@@ -206,24 +204,26 @@ export function ReportPrinter() {
           </p>
           <p className="text-xs text-blue-800 font-medium mt-1 italic">
             Dicetak pada: {today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} M / {new Intl.DateTimeFormat('id-ID-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today)}
+            <br />
+            Dicetak oleh: {state.session?.name || state.session?.email || 'Administrator'}
           </p>
         </div>
 
         {reportType === 'Neraca' && (
-          <div className="grid grid-cols-2 gap-8 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-6 sm:gap-8 text-xs sm:text-sm">
             <div>
               <h3 className="font-bold border-b border-gray-300 pb-1 mb-2">ASET</h3>
               <div className="space-y-1">
                 {assets.map(a => (
                   <div key={a.id} className="flex justify-between">
                     <span>{a.accountName}</span>
-                    <span>Rp {a.balance.toLocaleString()}</span>
+                    <span>Rp {a.balance.toLocaleString('id-ID')}</span>
                   </div>
                 ))}
               </div>
               <div className="flex justify-between font-bold mt-4 pt-2 border-t border-gray-300">
                 <span>TOTAL ASET</span>
-                <span>Rp {totalAsset.toLocaleString()}</span>
+                <span>Rp {totalAsset.toLocaleString('id-ID')}</span>
               </div>
             </div>
             
@@ -233,7 +233,7 @@ export function ReportPrinter() {
                 {liabilities.map(a => (
                   <div key={a.id} className="flex justify-between">
                     <span>{a.accountName}</span>
-                    <span>Rp {a.balance.toLocaleString()}</span>
+                    <span>Rp {a.balance.toLocaleString('id-ID')}</span>
                   </div>
                 ))}
               </div>
@@ -242,32 +242,32 @@ export function ReportPrinter() {
                 {equities.map(a => (
                   <div key={a.id} className="flex justify-between">
                     <span>{a.accountName}</span>
-                    <span>Rp {a.balance.toLocaleString()}</span>
+                    <span>Rp {a.balance.toLocaleString('id-ID')}</span>
                   </div>
                 ))}
               </div>
               <div className="flex justify-between font-bold mt-4 pt-2 border-t border-gray-300">
                 <span>TOTAL KEWAJIBAN & EKUITAS</span>
-                <span>Rp {totalLiabEq.toLocaleString()}</span>
+                <span>Rp {totalLiabEq.toLocaleString('id-ID')}</span>
               </div>
             </div>
           </div>
         )}
 
         {reportType === 'LabaRugi' && (
-          <div className="text-sm">
+          <div className="text-xs sm:text-sm">
             <h3 className="font-bold border-b border-gray-300 pb-1 mb-2">PENDAPATAN (PENERIMAAN)</h3>
             <div className="space-y-1 mb-4">
               {revenues.map(r => (
                 <div key={r.id} className="flex justify-between">
                   <span>{r.accountName}</span>
-                  <span>Rp {r.balance.toLocaleString()}</span>
+                  <span>Rp {r.balance.toLocaleString('id-ID')}</span>
                 </div>
               ))}
               {revenues.length === 0 && <div className="text-gray-400 italic">Belum ada pendapatan</div>}
               <div className="flex justify-between font-bold mt-2 pt-2 border-t border-gray-300">
                 <span>TOTAL PENDAPATAN</span>
-                <span>Rp {totalRevenue.toLocaleString()}</span>
+                <span>Rp {totalRevenue.toLocaleString('id-ID')}</span>
               </div>
             </div>
 
@@ -276,28 +276,28 @@ export function ReportPrinter() {
               {expenses.map(e => (
                 <div key={e.id} className="flex justify-between">
                   <span>{e.accountName}</span>
-                  <span>Rp {e.balance.toLocaleString()}</span>
+                  <span>Rp {e.balance.toLocaleString('id-ID')}</span>
                 </div>
               ))}
               {expenses.length === 0 && <div className="text-gray-400 italic">Belum ada pengeluaran</div>}
               <div className="flex justify-between font-bold mt-2 pt-2 border-t border-gray-300">
                 <span>TOTAL BEBAN</span>
-                <span>Rp {totalExpense.toLocaleString()}</span>
+                <span>Rp {totalExpense.toLocaleString('id-ID')}</span>
               </div>
             </div>
             
             <div className="flex justify-between font-bold text-lg mt-8 pt-4 border-t-2 border-gray-400">
-              <span>SURPLUS / (DEFISIT) NETO</span>
+              <span>SURPLUS / (DEFISIT) NETO <span className="text-gray-500 font-normal text-sm ml-2 hidden print:inline-block md:inline-block">(Laba / Rugi Bersih)</span></span>
               <span className={(totalRevenue - totalExpense) < 0 ? 'text-red-600' : ''}>
-                Rp {(totalRevenue - totalExpense).toLocaleString()}
+                Rp {(totalRevenue - totalExpense).toLocaleString('id-ID')}
               </span>
             </div>
           </div>
         )}
 
         {reportType === 'Realisasi' && (
-          <div className="text-sm">
-            <table className="w-full text-left border-collapse border border-gray-300">
+          <div className="text-xs sm:text-sm overflow-x-auto pb-4 custom-scrollbar">
+            <table className="w-full text-left border-collapse border border-gray-300 min-w-[600px]">
               <thead>
                 <tr className="bg-gray-100 border-b border-gray-300">
                   <th className="p-2 border-r border-gray-300">Kode Akun</th>

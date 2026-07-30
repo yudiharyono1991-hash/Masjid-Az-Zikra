@@ -81,6 +81,17 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #1E40AF;
   }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 }
 
 @media print {
@@ -97,10 +108,26 @@
     height: auto !important;
     overflow: visible !important;
   }
+
+  body * {
+    visibility: hidden;
+  }
+  
+  .print-area, .print-area * {
+    visibility: visible;
+  }
   
   .print-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
+  }
+
+  /* Specific overrides to ensure navigation and toolbars disappear */
+  .no-print, nav, header, footer {
+    display: none !important;
   }
 }

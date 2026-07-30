@@ -23,7 +23,8 @@ interface HeroSectionProps {
 }
 
 const DEFAULT_HERO_BACKGROUNDS = [
-  '/hero-1.jpg'
+  '/hero-1.jpg',
+  '/hero-2.jpg'
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -32,39 +33,59 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const { state } = useMasjidStore();
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
-  
+
   const [backgrounds, setBackgrounds] = useState<string[]>(DEFAULT_HERO_BACKGROUNDS);
 
   useEffect(() => {
-    const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0 
-      ? state.adminSettings.masjidHeroCarouselUrls 
+    const configuredUrls = state.adminSettings.masjidHeroCarouselUrls && state.adminSettings.masjidHeroCarouselUrls.length > 0
+      ? state.adminSettings.masjidHeroCarouselUrls
       : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
-    
-    // Set initially from settings
-    if (configuredUrls.length > 0) {
-      setBackgrounds(configuredUrls);
-    }
+
+    // Load from local storage first (Sync with AppManagerAdmin)
+    try {
+      const saved = localStorage.getItem('tazkia_hero_images');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && Array.isArray(parsed)) {
+          setBackgrounds(parsed.map((img: any) => img.url));
+        }
+      } else if (configuredUrls.length > 0) {
+        setBackgrounds(configuredUrls);
+      }
+    } catch (e) {}
 
     const fetchHeroImages = async () => {
       const supabase = getSupabaseClient();
       if (!supabase) return;
-      
+
       try {
         const { data, error } = await supabase.storage.from('tazkia-media').list('hero');
         if (error) {
           console.error('Error fetching hero images from Supabase:', error);
           return;
         }
-        
+
         if (data && data.length > 0) {
-          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i));
-          
+          let deletedList: string[] = [];
+          try {
+            const savedDeleted = localStorage.getItem('tazkia_hero_deleted');
+            if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+          } catch(e) {}
+
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i) && !deletedList.includes(file.name));
+
           if (imageFiles.length > 0) {
             const urls = imageFiles.map(file => {
               const { data: { publicUrl } } = supabase.storage.from('tazkia-media').getPublicUrl(`hero/${file.name}`);
               return publicUrl;
             });
-            setBackgrounds(urls); // Override settings if storage has files
+            setBackgrounds(urls);
+          } else {
+            // Jika semuanya terhapus atau diblokir
+            const saved = localStorage.getItem('tazkia_hero_images');
+            if (!saved) {
+              setBackgrounds(DEFAULT_HERO_BACKGROUNDS);
+            }
           }
         }
       } catch (err) {
@@ -88,13 +109,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Background Image/Video Carousel */}
       {backgrounds.map((bg, index) => {
         const isVideo = bg.match(/\.(mp4|webm|ogg)$/i);
-        
+
         return (
           <div
             key={`${bg}-${index}`}
-            className={`absolute inset-0 z-0 transition-all duration-1000 ease-in-out ${
-              index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
-            }`}
+            className={`absolute inset-0 z-0 transition-all duration-1000 ease-in-out ${index === currentBgIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
+              }`}
           >
             {isVideo ? (
               <video
@@ -127,33 +147,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-2 mb-6 font-sans text-xs font-medium">
           <button
             onClick={() => openDigitalIbadah('quran')}
-            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
-              isDark 
-                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
-            }`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${isDark
+              ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40'
+              : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
+              }`}
           >
             <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
             <span>Al-Qur'an Digital</span>
           </button>
           <button
             onClick={() => openDigitalIbadah('salat')}
-            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
-              isDark 
-                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
-            }`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${isDark
+              ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40'
+              : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
+              }`}
           >
             <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
             <span>Jadwal Shalat & Adzan</span>
           </button>
           <button
             onClick={() => openDigitalIbadah('kiblat')}
-            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${
-              isDark 
-                ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40' 
-                : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
-            }`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all shadow-md cursor-pointer flex items-center gap-1.5 border ${isDark
+              ? 'bg-blue-950/90 hover:bg-blue-600 hover:text-white text-blue-100 border-blue-500/40'
+              : 'bg-white/90 backdrop-blur hover:bg-blue-50 text-blue-900 border-blue-200'
+              }`}
           >
             <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />
             <span>Arah Kiblat</span>
@@ -168,11 +185,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <button
               key={idx}
               onClick={() => setCurrentBgIndex(idx)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                idx === currentBgIndex 
-                  ? 'w-8 bg-amber-400' 
-                  : 'w-4 bg-white/40 hover:bg-white/70'
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentBgIndex
+                ? 'w-8 bg-amber-400'
+                : 'w-4 bg-white/40 hover:bg-white/70'
+                }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}

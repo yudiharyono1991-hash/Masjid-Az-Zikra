@@ -8,6 +8,18 @@ export const SewaGedungAdmin: React.FC = () => {
   const gedungBookings = state.gedungBookings || [];
   const [activeTab, setActiveTab] = useState<'assets' | 'bookings'>('bookings');
   
+  // Date utils
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  const [startDate, setStartDate] = useState(getFirstDayOfMonth());
+  const [endDate, setEndDate] = useState(getToday());
+
   const [images, setImages] = useState<{name: string, url: string}[]>([]);
   const [pdf, setPdf] = useState<{name: string, url: string} | null>(null);
   const [loading, setLoading] = useState(true);
@@ -156,6 +168,12 @@ export const SewaGedungAdmin: React.FC = () => {
             Kelola permintaan pemesanan Alhambra Ballroom. Setujui permintaan untuk menandai tanggal sebagai "Penuh" di kalender pengunjung.
           </p>
 
+          <div className="flex items-center gap-2 mb-6">
+            <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="bg-blue-950 border border-blue-700 text-white text-sm rounded-lg px-3 py-1.5 outline-none focus:border-amber-500" />
+            <span className="text-blue-400 font-bold text-sm">s/d</span>
+            <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="bg-blue-950 border border-blue-700 text-white text-sm rounded-lg px-3 py-1.5 outline-none focus:border-amber-500" />
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
@@ -169,14 +187,14 @@ export const SewaGedungAdmin: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-blue-800/50 text-sm">
-                {gedungBookings.length === 0 ? (
+                {gedungBookings.filter(b => b.date >= startDate && b.date <= endDate).length === 0 ? (
                   <tr>
                     <td colSpan={6} className="p-8 text-center text-blue-400 italic">
-                      Belum ada permintaan booking.
+                      Belum ada permintaan booking pada rentang tanggal ini.
                     </td>
                   </tr>
                 ) : (
-                  gedungBookings.map(booking => (
+                  gedungBookings.filter(b => b.date >= startDate && b.date <= endDate).map(booking => (
                     <tr key={booking.id} className="hover:bg-blue-800/20 transition-colors">
                       <td className="p-4 font-medium text-white whitespace-nowrap">
                         {new Date(booking.date).toLocaleDateString('id-ID', { dateStyle: 'medium' })}

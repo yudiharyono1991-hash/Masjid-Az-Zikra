@@ -16,6 +16,18 @@ export function JurnalUmum() {
     setTimeout(() => setToastMsg(null), 3500);
   };
   
+  // Date utils
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  const [startDate, setStartDate] = useState(getFirstDayOfMonth());
+  const [endDate, setEndDate] = useState(getToday());
+
   const [journalData, setJournalData] = useState<Partial<ERPGeneralJournal>>({
     journalNo: `JU-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`,
     date: new Date().toISOString().split('T')[0],
@@ -145,10 +157,17 @@ export function JurnalUmum() {
           <span>{toastMsg.text}</span>
         </div>
       )}
-      <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <h3 className="font-bold text-lg text-blue-900">Jurnal Umum</h3>
-        <div className="flex gap-2">
-          <button onClick={handleExport} className="px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-100">
+        
+        <div className="flex items-center gap-2">
+          <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+          <span className="text-gray-500 font-bold text-sm">s/d</span>
+          <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="border border-gray-300 bg-white text-gray-900 rounded-lg px-2 py-1.5 text-sm font-medium focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <div className="flex gap-2 w-full md:w-auto">
+          <button onClick={handleExport} className="flex-1 md:flex-none px-3 py-2 bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100">
             <Download className="w-4 h-4" /> Ekspor
           </button>
           <button onClick={() => { setEditingJournalId(null); setIsAdding(true); }} className="px-3 py-2 bg-tazkia-primary text-white text-sm font-semibold rounded-lg flex items-center gap-2 hover:bg-tazkia-light">
@@ -255,8 +274,8 @@ export function JurnalUmum() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto custom-scrollbar">
+        <table className="w-full text-left text-xs sm:text-sm min-w-[700px]">
           <thead className="bg-gray-50 border-b border-gray-100 text-gray-600">
             <tr>
               <th className="p-4 font-semibold">Tanggal & No</th>
@@ -267,7 +286,10 @@ export function JurnalUmum() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {state.erpJournals.slice(0, visibleCount).map(journal => {
+            {state.erpJournals
+              .filter(j => j.date >= startDate && j.date <= endDate)
+              .slice(0, visibleCount)
+              .map(journal => {
               const journalEntries = state.erpJournalEntries.filter(e => e.journalId === journal.id);
               const totalDebit = journalEntries.reduce((s, e) => s + e.debit, 0);
               
