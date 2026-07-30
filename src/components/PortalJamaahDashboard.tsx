@@ -27,7 +27,6 @@ import {
 import { formatRupiahFull } from '../lib/islamicUtils';
 import { JamaahCalendar } from './JamaahCalendar';
 import { QiblaCompass } from './QiblaCompass';
-import { AdhanPlayer } from './AdhanPlayer';
 import { ChatDkm } from './ChatDkm';
 import { AlMatsurat } from './AlMatsurat';
 import { LaporanKeuanganPribadi } from './LaporanKeuanganPribadi';
@@ -548,32 +547,8 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
           {activeTab === 'pengaturan' && (
             <div className="max-w-2xl animate-fade-in space-y-6">
-              
-              {/* Adhan Settings */}
-              <div>
-                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2 mb-4">
-                  <Bell className="w-5 h-5 text-emerald-500" />
-                  Pengaturan Adzan & Notifikasi
-                </h3>
-                <AdhanPlayer 
-                  profile={profile}
-                  onUpdateSettings={(settings) => {
-                    if (onUpdateProfile) {
-                      onUpdateProfile(profile.id, { adhanSettings: settings });
-                    }
-                  }}
-                  prayerTimes={[
-                    { name: 'Fajr', time: '04:35' },
-                    { name: 'Sunrise', time: '05:50' },
-                    { name: 'Dhuhr', time: '11:58' },
-                    { name: 'Asr', time: '15:15' },
-                    { name: 'Maghrib', time: '17:55' },
-                    { name: 'Isha', time: '19:08' }
-                  ]}
-                />
-              </div>
-
-              <div className="pt-6 border-t border-gray-100">
+              {/* Informasi Profil */}
+              <div className="pt-2">
                 <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2 mb-4">
                   <Settings className="w-5 h-5 text-blue-600" />
                   Informasi Profil
