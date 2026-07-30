@@ -2168,7 +2168,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 
                 <div className="space-y-3 text-xs">
                   {[
-                    { key: 'showAiAssistant', label: 'Modul Tazkia AI Syariah Assistant (Gemini 2.5)', desc: 'Menampilkan tombol asisten konsultasi fiqih AI di navigasi.' },
                     { key: 'showTvSignageOption', label: 'Modul Mode Display TV Signage Masjid', desc: 'Menampilkan opsi layar penuh jadwal jam shalat TV masjid.' },
                     { key: 'showQuranModule', label: 'Modul Digital Ibadah (Al-Qur\'an, Shalat, Doa)', desc: 'Menyediakan fitur membaca surah mp3 & jadwal shalat.' },
                     { key: 'showLiveMutations', label: 'Stream Live Mutasi Kas Transparansi', desc: 'Menampilkan tabel live pencatatan keuangan ke publik.' },
