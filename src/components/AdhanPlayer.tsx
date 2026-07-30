@@ -27,10 +27,10 @@ export const AdhanPlayer: React.FC<AdhanPlayerProps> = ({ profile, onUpdateSetti
   const settings = profile.adhanSettings || defaultSettings;
 
   const audioSources = {
-    makkah: 'https://download.quranicaudio.com/adhan/makkah.mp3', // Example URL
-    madinah: 'https://download.quranicaudio.com/adhan/madinah.mp3', // Example URL
-    local: 'https://download.quranicaudio.com/adhan/mishary.mp3', // Example URL
-    beep: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg' // Example beep
+    makkah: 'https://www.islamcan.com/audio/adhan/azan1.mp3',
+    madinah: 'https://www.islamcan.com/audio/adhan/azan2.mp3',
+    local: 'https://www.islamcan.com/audio/adhan/azan3.mp3',
+    beep: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg'
   };
 
   useEffect(() => {
