@@ -14,7 +14,8 @@ import {
   QurbanParticipant,
   AuditLog,
   JamaahProfile,
-  DonationRecord
+  DonationRecord,
+  JamaahFeedback
 } from '../types';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { AccountCombobox } from './AccountCombobox';
@@ -96,6 +97,8 @@ interface PengurusDkmDashboardProps {
   auditLogs?: AuditLog[];
   jamaahProfiles?: JamaahProfile[];
   donations?: DonationRecord[];
+  feedbacks?: JamaahFeedback[];
+  onUpdateFeedback?: (id: string, updates: Partial<JamaahFeedback>) => void;
   onUpdateDonationStatus?: (id: string, status: 'berhasil' | 'menunggu_pembayaran' | 'menunggu_verifikasi' | 'ditolak') => void;
   onAddFinancial: (trx: Omit<FinancialTransaction, 'id'>) => void;
   onAddInventory: (item: Omit<InventoryItem, 'id'>) => void;
@@ -124,7 +127,7 @@ interface PengurusDkmDashboardProps {
   onUpdateJamaahProfile?: (id: string, updated: Partial<JamaahProfile>) => void;
   onDeleteJamaahProfile?: (id: string) => void;
   openTvMode?: () => void;
-  initialTab?: 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender';
+  initialTab?: 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan';
 }
 
 export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
@@ -143,6 +146,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   auditLogs = [],
   jamaahProfiles = [],
   donations = [],
+  feedbacks = [],
+  onUpdateFeedback,
   onUpdateDonationStatus,
   onAddFinancial,
   onAddInventory,
@@ -172,7 +177,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender'>(initialTab || 'akuntansi');
+  const [dkmTab, setDkmTab] = useState<'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan'>(initialTab || 'akuntansi');
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
   const [tabSearchQuery, setTabSearchQuery] = useState('');
@@ -841,7 +846,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               { id: 'petugas', label: 'Jadwal Petugas & Jumat' },
               { id: 'broadcast', label: 'Broadcast WhatsApp' },
               { id: 'verifikasi', label: 'Verifikasi ZISWAF' },
-              { id: 'jamaah_manage', label: 'Manajemen Akun & Role' },
               { id: 'audit_log', label: 'Audit Log System' }
             ].map(tab => (
               <option key={tab.id} value={tab.id}>{tab.label}</option>
@@ -881,7 +885,10 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               { id: 'sewa', label: 'Sewa & Booking', icon: Building },
               { id: 'kalender', label: 'Kalender & Agenda', icon: Calendar },
               { id: 'aplikasi', label: 'Pengaturan Aplikasi', icon: Settings },
-              { id: 'pengaturan', label: 'Pengaturan Admin & Foto Profil', icon: Settings },
+              { id: 'pengaturan', label: 'Pengaturan Dasar', icon: Settings },
+              { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
+              { id: 'layanan_aduan', label: 'Layanan Aduan', icon: MessageCircle },
+              { id: 'supabase', label: 'Konfigurasi Supabase', icon: Database },
               { id: 'pengurus', label: 'Profil & Pengurus', icon: Users },
               { id: 'ttd_laporan', label: 'Tanda Tangan Laporan', icon: Edit3 },
               { id: 'inventaris', label: 'Inventaris & Foto Aset', icon: Package },
@@ -890,7 +897,6 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               { id: 'petugas', label: 'Jadwal Petugas & Jumat', icon: Calendar },
               { id: 'broadcast', label: 'Broadcast WhatsApp', icon: Megaphone },
               { id: 'verifikasi', label: 'Verifikasi ZISWAF', icon: CheckCircle2 },
-              { id: 'jamaah_manage', label: 'Manajemen Akun & Role', icon: Heart },
               { id: 'audit_log', label: 'Audit Log System', icon: BookOpen }
             ]
             .filter(tab => tab.label.toLowerCase().includes(tabSearchQuery.toLowerCase()))
@@ -3741,6 +3747,100 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             </div>
           </div>
         )}
+        {/* TAB: LAYANAN ADUAN */}
+        {dkmTab === 'layanan_aduan' && (
+          <div className="space-y-6">
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h3 className="text-lg font-bold font-serif text-white flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-amber-400" />
+                  Layanan Aduan & Pesan Jamaah
+                </h3>
+                <p className="text-xs text-blue-400 mt-1">Kelola dan tanggapi masukan, pertanyaan, atau testimoni dari jamaah.</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-[800px]">
+                  <thead className="bg-gray-50 border-b border-gray-100">
+                    <tr>
+                      <th className="p-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider w-1/4">Pengirim & Waktu</th>
+                      <th className="p-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider w-1/2">Pesan & Balasan</th>
+                      <th className="p-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider text-center w-1/4">Status & Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {feedbacks.length === 0 ? (
+                      <tr>
+                        <td colSpan={3} className="p-8 text-center text-gray-400">
+                          <MessageCircle className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                          <p className="text-sm">Belum ada pesan dari jamaah.</p>
+                        </td>
+                      </tr>
+                    ) : (
+                      feedbacks.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map(f => (
+                        <tr key={f.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="p-4 align-top">
+                            <p className="text-sm font-bold text-gray-800">{f.senderName}</p>
+                            <p className="text-[10px] text-gray-500 mt-1">{new Date(f.createdAt).toLocaleString('id-ID')}</p>
+                          </td>
+                          <td className="p-4 align-top">
+                            <div className="bg-blue-50 text-blue-900 p-3 rounded-xl rounded-tl-sm text-sm mb-2 shadow-sm border border-blue-100">
+                              {f.message}
+                            </div>
+                            {f.reply ? (
+                              <div className="ml-4 mt-2">
+                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Balasan DKM:</span>
+                                <div className="bg-white border border-gray-200 text-gray-700 p-3 rounded-xl rounded-tl-sm text-sm shadow-sm relative">
+                                  {f.reply}
+                                </div>
+                                <span className="text-[9px] text-gray-400 mt-1 pl-1 block">
+                                  {f.repliedAt ? new Date(f.repliedAt).toLocaleString('id-ID') : ''}
+                                </span>
+                              </div>
+                            ) : (
+                              <div className="mt-2 text-[10px] text-amber-500 italic flex items-center gap-1">
+                                <Clock className="w-3 h-3" /> Menunggu Balasan
+                              </div>
+                            )}
+                          </td>
+                          <td className="p-4 align-top">
+                            <div className="flex flex-col items-center gap-2">
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase w-24 text-center ${
+                                f.status === 'replied' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                              }`}>
+                                {f.status === 'replied' ? 'Dijawab' : 'Tertunda'}
+                              </span>
+                              {!f.reply && (
+                                <button
+                                  onClick={() => {
+                                    const replyMsg = prompt('Masukkan balasan untuk ' + f.senderName + ':');
+                                    if (replyMsg && replyMsg.trim() && onUpdateFeedback) {
+                                      onUpdateFeedback(f.id, {
+                                        reply: replyMsg.trim(),
+                                        status: 'replied',
+                                        repliedAt: new Date().toISOString()
+                                      });
+                                    }
+                                  }}
+                                  className="w-24 mt-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm"
+                                >
+                                  <Send className="w-3 h-3" /> Balas
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+        
         {/* TAB: MANAJEMEN AKUN & ROLE */}
         {dkmTab === 'jamaah_manage' && (
           <div className="space-y-6">

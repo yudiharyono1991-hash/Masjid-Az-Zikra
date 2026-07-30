@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserSession, JamaahProfile, DonationRecord } from '../types';
+import { UserSession, JamaahProfile, DonationRecord, JamaahCalendarNote, JamaahFeedback } from '../types';
 import { 
   User, 
   History, 
@@ -16,9 +16,16 @@ import {
   HeartHandshake,
   Clock,
   MapPin,
-  QrCode
+  QrCode,
+  Compass,
+  MessageCircle,
+  CalendarDays
 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
+import { JamaahCalendar } from './JamaahCalendar';
+import { QiblaCompass } from './QiblaCompass';
+import { AdhanPlayer } from './AdhanPlayer';
+import { ChatDkm } from './ChatDkm';
 
 interface PortalJamaahDashboardProps {
   session: UserSession;
@@ -27,6 +34,11 @@ interface PortalJamaahDashboardProps {
   onUpdateProfile?: (id: string, updatedProfile: Partial<JamaahProfile>) => void;
   openDonationModal?: () => void;
   onNavigateToHome?: () => void;
+  feedbacks?: JamaahFeedback[];
+  calendarNotes?: JamaahCalendarNote[];
+  onSendMessage?: (feedback: Omit<JamaahFeedback, 'id' | 'createdAt' | 'status'>) => void;
+  onAddNote?: (note: Omit<JamaahCalendarNote, 'id'>) => void;
+  onRemoveNote?: (id: string) => void;
 }
 
 export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
@@ -35,9 +47,14 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   donations = [],
   onUpdateProfile,
   openDonationModal,
-  onNavigateToHome
+  onNavigateToHome,
+  feedbacks = [],
+  calendarNotes = [],
+  onSendMessage,
+  onAddNote,
+  onRemoveNote
 }) => {
-  const [activeTab, setActiveTab] = useState<'ringkasan' | 'histori' | 'pengaturan'>('ringkasan');
+  const [activeTab, setActiveTab] = useState<'ringkasan' | 'kalender' | 'kompas' | 'chat' | 'histori' | 'pengaturan'>('ringkasan');
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(10);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -189,6 +206,9 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
         <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2">
           {[
             { id: 'ringkasan', label: 'Ringkasan ZISWAF', icon: TrendingUp },
+            { id: 'kalender', label: 'Kalender Pintar', icon: CalendarDays },
+            { id: 'kompas', label: 'Arah Kiblat', icon: Compass },
+            { id: 'chat', label: 'Layanan DKM', icon: MessageCircle },
             { id: 'histori', label: 'Histori Transaksi', icon: History },
             { id: 'pengaturan', label: 'Pengaturan Profil', icon: Settings },
           ].map((tab) => {
@@ -356,6 +376,34 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
             </div>
           )}
 
+          {activeTab === 'kalender' && (
+            <div className="animate-fade-in">
+              <JamaahCalendar 
+                notes={calendarNotes} 
+                onAddNote={onAddNote || (() => {})} 
+                onRemoveNote={onRemoveNote || (() => {})} 
+                jamaahId={profile.id} 
+              />
+            </div>
+          )}
+
+          {activeTab === 'kompas' && (
+            <div className="animate-fade-in max-w-md mx-auto">
+              <QiblaCompass />
+            </div>
+          )}
+
+          {activeTab === 'chat' && (
+            <div className="animate-fade-in max-w-2xl mx-auto">
+              <ChatDkm 
+                jamaahId={profile.id}
+                jamaahName={profile.name}
+                feedbacks={feedbacks}
+                onSendMessage={onSendMessage || (() => {})}
+              />
+            </div>
+          )}
+
           {activeTab === 'histori' && (
             <div className="space-y-6 animate-fade-in">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -446,22 +494,47 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
           )}
 
           {activeTab === 'pengaturan' && (
-            <div className="space-y-4 animate-fade-in max-w-2xl">
-              <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2">
-                <Settings className="w-5 h-5 text-slate-500" />
-                Pengaturan Akun & Profil
-              </h3>
+            <div className="max-w-2xl animate-fade-in space-y-6">
               
-              <form className="space-y-4" onSubmit={handleSaveProfile}>
-                <div>
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
-                  <input 
-                    type="text" 
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors"
-                  />
-                </div>
+              {/* Adhan Settings */}
+              <div>
+                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2 mb-4">
+                  <Bell className="w-5 h-5 text-emerald-500" />
+                  Pengaturan Adzan & Notifikasi
+                </h3>
+                <AdhanPlayer 
+                  profile={profile}
+                  onUpdateSettings={(settings) => {
+                    if (onUpdateProfile) {
+                      onUpdateProfile(profile.id, { adhanSettings: settings });
+                    }
+                  }}
+                  prayerTimes={[
+                    { name: 'Fajr', time: '04:35' },
+                    { name: 'Sunrise', time: '05:50' },
+                    { name: 'Dhuhr', time: '11:58' },
+                    { name: 'Asr', time: '15:15' },
+                    { name: 'Maghrib', time: '17:55' },
+                    { name: 'Isha', time: '19:08' }
+                  ]}
+                />
+              </div>
+
+              <div className="pt-6 border-t border-gray-100">
+                <h3 className="text-lg font-bold font-serif text-blue-950 flex items-center gap-2 mb-4">
+                  <Settings className="w-5 h-5 text-blue-600" />
+                  Informasi Profil
+                </h3>
+                <form onSubmit={handleSaveProfile} className="space-y-4">
+                  <div>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
+                    <input 
+                      type="text" 
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors"
+                    />
+                  </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Email / User Name Saat Ini</label>
                   <input 

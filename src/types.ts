@@ -401,6 +401,35 @@ export interface JamaahProfile {
   password?: string;
   monthlyDonationTarget?: number;
   targetDate?: number; // Day of the month, e.g., 25
+  adhanSettings?: {
+    enabled: boolean;
+    fajr: boolean;
+    dhuhr: boolean;
+    asr: boolean;
+    maghrib: boolean;
+    isha: boolean;
+    soundType: 'makkah' | 'madinah' | 'local' | 'beep';
+  };
+}
+
+export interface JamaahFeedback {
+  id: string;
+  senderId: string;
+  senderName: string;
+  message: string;
+  reply?: string;
+  status: 'unread' | 'read' | 'replied';
+  createdAt: string;
+  repliedAt?: string;
+}
+
+export interface JamaahCalendarNote {
+  id: string;
+  jamaahId: string;
+  date: string; // YYYY-MM-DD
+  title: string;
+  description?: string;
+  type: 'puasa' | 'kajian' | 'pribadi' | 'lainnya';
 }
 
 export interface MasjidAgenda {

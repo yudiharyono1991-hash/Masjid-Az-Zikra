@@ -336,6 +336,8 @@ export default function App() {
             onUpdateJamaahProfile={updateJamaahProfile}
             onDeleteJamaahProfile={deleteJamaahProfile}
             openTvMode={() => setTvModeOpen(true)}
+            feedbacks={state.feedbacks}
+            onUpdateFeedback={updateFeedback}
           />
           );
         })()}
@@ -351,6 +353,11 @@ export default function App() {
               setActiveTab('beranda');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
+            feedbacks={state.feedbacks}
+            calendarNotes={state.calendarNotes}
+            onSendMessage={addFeedback}
+            onAddNote={addCalendarNote}
+            onRemoveNote={removeCalendarNote}
           />
         )}
       </main>

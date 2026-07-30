@@ -86,8 +86,9 @@ export interface AppState {
   reportSignatories: ReportSignatory[];
   gedungBookings: GedungBooking[];
   agendas: MasjidAgenda[];
-  appRoles: AppRole[];
   unreadDonationsCount: number;
+  feedbacks: JamaahFeedback[];
+  calendarNotes: JamaahCalendarNote[];
 }
 
 const defaultState: AppState = {
@@ -133,7 +134,9 @@ const defaultState: AppState = {
     { id: 'penghimpunan', name: 'Bagian Penghimpunan', type: 'admin_masjid', permissions: ['donasi', 'ziswaf'] },
     { id: 'penyaluran', name: 'Bagian Penyaluran', type: 'admin_masjid', permissions: ['program', 'agenda'] }
   ],
-  unreadDonationsCount: 0
+  unreadDonationsCount: 0,
+  feedbacks: [],
+  calendarNotes: []
 };
 
 export function getStoredState(): AppState {
@@ -177,8 +180,11 @@ export function getStoredState(): AppState {
         boardMembers: parsed.boardMembers?.length ? parsed.boardMembers : INITIAL_BOARD_MEMBERS,
         reportSignatories: (parsed.reportSignatories && parsed.reportSignatories.length > 0) ? parsed.reportSignatories : INITIAL_REPORT_SIGNATORIES,
         gedungBookings: parsed.gedungBookings || [],
-        agendas: parsed.agendas?.length ? parsed.agendas : INITIAL_AGENDAS,
-        appRoles: parsed.appRoles?.length ? parsed.appRoles : defaultState.appRoles
+        agendas: parsed.agendas || INITIAL_AGENDAS,
+        appRoles: parsed.appRoles || defaultState.appRoles,
+        unreadDonationsCount: parsed.unreadDonationsCount || 0,
+        feedbacks: parsed.feedbacks || [],
+        calendarNotes: parsed.calendarNotes || []
       };
     }
   } catch (e) {
@@ -1288,6 +1294,49 @@ export function useMasjidStore() {
     setState(prev => ({ ...prev, appRoles: roles }));
   };
 
+  // Jamaah Feedback & Notes
+  const addFeedback = (feedback: Omit<JamaahFeedback, 'id' | 'createdAt' | 'status'>) => {
+    setState(prev => ({
+      ...prev,
+      feedbacks: [
+        {
+          ...feedback,
+          id: `FDB-${Math.floor(Date.now() / 1000)}`,
+          status: 'unread',
+          createdAt: new Date().toISOString()
+        },
+        ...(prev.feedbacks || [])
+      ]
+    }));
+  };
+
+  const updateFeedback = (id: string, updates: Partial<JamaahFeedback>) => {
+    setState(prev => ({
+      ...prev,
+      feedbacks: (prev.feedbacks || []).map(f => f.id === id ? { ...f, ...updates } : f)
+    }));
+  };
+
+  const addCalendarNote = (note: Omit<JamaahCalendarNote, 'id'>) => {
+    setState(prev => ({
+      ...prev,
+      calendarNotes: [
+        {
+          ...note,
+          id: `NOT-${Math.floor(Date.now() / 1000)}`
+        },
+        ...(prev.calendarNotes || [])
+      ]
+    }));
+  };
+
+  const removeCalendarNote = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      calendarNotes: (prev.calendarNotes || []).filter(n => n.id !== id)
+    }));
+  };
+
   return {
     state,
     setAppRoles,
@@ -1360,7 +1409,11 @@ export function useMasjidStore() {
     addAgenda,
     updateAgenda,
     deleteAgenda,
-    resetToDefault
+    resetToDefault,
+    addFeedback,
+    updateFeedback,
+    addCalendarNote,
+    removeCalendarNote
   };
 }
 
