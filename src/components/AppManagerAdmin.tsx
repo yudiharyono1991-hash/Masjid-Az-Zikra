@@ -59,18 +59,17 @@ export const AppManagerAdmin: React.FC = () => {
 
   const fetchHeroImages = async () => {
     let supabaseImages: any[] = [];
+    let deletedList: string[] = [];
+    try {
+      const savedDeleted = localStorage.getItem('tazkia_hero_deleted');
+      if (savedDeleted) deletedList = JSON.parse(savedDeleted);
+    } catch(e) {}
+
     try {
       const supabase = getSupabaseClient();
       if (supabase) {
         const { data, error } = await supabase.storage.from('tazkia-media').list('hero');
         if (!error && data && data.length > 0) {
-          // Check local deleted list
-          let deletedList: string[] = [];
-          try {
-            const savedDeleted = localStorage.getItem('tazkia_hero_deleted');
-            if (savedDeleted) deletedList = JSON.parse(savedDeleted);
-          } catch(e) {}
-
           const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|webp|avif)$/i) && !deletedList.includes(file.name));
           
           supabaseImages = imageFiles.map(file => {
@@ -89,8 +88,9 @@ export const AppManagerAdmin: React.FC = () => {
       : (state.adminSettings.masjidHeroPhotoUrl ? [state.adminSettings.masjidHeroPhotoUrl] : []);
 
     configuredUrls.forEach((url, i) => {
-      if (!supabaseImages.find(img => img.url === url)) {
-        supabaseImages.push({ name: `system-config-${i+1}`, url });
+      const expectedName = `system-config-${i+1}`;
+      if (!supabaseImages.find(img => img.url === url) && !deletedList.includes(expectedName)) {
+        supabaseImages.push({ name: expectedName, url });
       }
     });
 
