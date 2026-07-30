@@ -787,12 +787,15 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl sm:text-2xl font-serif font-bold text-white">
-                  Portal Admin & Pengurus DKM Tazkia Sentul
-                </h2>
-                <span className="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
-                  Role: {store.state.appRoles.find(r => r.id === store.state.session?.role)?.name || 'Pengurus / Administrator'}
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white mb-2">
+                Portal Admin & Pengurus DKM Tazkia Sentul
+              </h2>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="bg-amber-500/20 text-amber-300 text-xs sm:text-sm font-bold px-3 py-1 rounded-lg border border-amber-500/30 shadow-sm flex items-center gap-1.5">
+                  👤 {store.state.session?.name}
+                </span>
+                <span className="bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-bold px-3 py-1 rounded-lg border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
+                  🛡️ Role: {store.state.appRoles.find(r => r.id === store.state.session?.role)?.name || 'Pengurus / Administrator'}
                 </span>
                 {openTvMode && (
                   <button
