@@ -1,4 +1,15 @@
-export interface AlMatsuratItem {\n  id: string;\n  arabic: string;\n  latin: string;\n  translation: string;\n  count: number;\n  type: \'pagi\' | \'petang\' | \'keduanya\';\n  title?: string;\n  reference?: string;\n}\n\nexport const AL_MATSURAT_DATA: AlMatsuratItem[] = [
+export interface AlMatsuratItem {
+  id: string;
+  arabic: string;
+  latin: string;
+  translation: string;
+  count: number;
+  type: 'pagi' | 'petang' | 'keduanya';
+  title?: string;
+  reference?: string;
+}
+
+export const AL_MATSURAT_DATA: AlMatsuratItem[] = [
   {
     "id": "m1",
     "title": "Ta'awudz",
