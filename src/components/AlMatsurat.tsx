@@ -123,9 +123,14 @@ export const AlMatsurat: React.FC = () => {
                   <span className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm">
                     {index + 1}
                   </span>
-                  {item.title && (
-                    <h3 className="font-bold text-gray-800 text-sm">{item.title}</h3>
-                  )}
+                  <div className="flex flex-col">
+                    {item.title && (
+                      <h3 className="font-bold text-gray-800 text-sm">{item.title}</h3>
+                    )}
+                    {item.reference && (
+                      <span className="text-[10px] text-gray-500 font-mono mt-0.5">{item.reference}</span>
+                    )}
+                  </div>
                 </div>
                 {isDone && (
                   <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
