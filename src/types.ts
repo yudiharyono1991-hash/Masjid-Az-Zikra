@@ -345,6 +345,7 @@ export interface ERPDisbursementRequest {
   verificationDate?: string;
   approvedBy?: string; // User Name or Role of Director
   approvalDate?: string;
+  approvalNote?: string;
   rejectionReason?: string;
 }
 

@@ -792,7 +792,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                   Portal Admin & Pengurus DKM Tazkia Sentul
                 </h2>
                 <span className="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
-                  Role: Pengurus / Administrator
+                  Role: {store.state.appRoles.find(r => r.id === store.state.session?.role)?.name || 'Pengurus / Administrator'}
                 </span>
                 {openTvMode && (
                   <button

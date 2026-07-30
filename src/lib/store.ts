@@ -920,22 +920,38 @@ export function useMasjidStore() {
     }));
   };
 
+  const updateErpDisbursementRequest = (id: string, updates: Partial<Omit<ERPDisbursementRequest, 'id'>>) => {
+    setState(prev => ({
+      ...prev,
+      erpDisbursements: prev.erpDisbursements.map(d => 
+        d.id === id ? { ...d, ...updates } : d
+      )
+    }));
+  };
+
+  const deleteErpDisbursementRequest = (id: string) => {
+    setState(prev => ({
+      ...prev,
+      erpDisbursements: prev.erpDisbursements.filter(d => d.id !== id)
+    }));
+  };
+
   const updateErpDisbursementStatus = (
     id: string, 
     status: 'Verified' | 'Approved' | 'Rejected', 
     processedBy: string, 
-    rejectionReason?: string
+    note?: string
   ) => {
     setState(prev => ({
       ...prev,
       erpDisbursements: prev.erpDisbursements.map(d => {
         if (d.id !== id) return d;
         if (status === 'Verified') {
-          return { ...d, status, verifiedBy: processedBy, verificationDate: new Date().toISOString() };
+          return { ...d, status, verifiedBy: processedBy, verificationDate: new Date().toISOString(), approvalNote: note };
         } else if (status === 'Approved') {
-          return { ...d, status, approvedBy: processedBy, approvalDate: new Date().toISOString() };
+          return { ...d, status, approvedBy: processedBy, approvalDate: new Date().toISOString(), approvalNote: note };
         } else {
-          return { ...d, status, rejectionReason };
+          return { ...d, status, rejectionReason: note };
         }
       })
     }));
@@ -1379,6 +1395,8 @@ export function useMasjidStore() {
     updateErpBudget,
     deleteErpBudget,
     addErpDisbursement,
+    updateErpDisbursementRequest,
+    deleteErpDisbursementRequest,
     updateErpDisbursementStatus,
     setErpSignatures,
     updateErpSignature,

@@ -4,7 +4,7 @@ import { CheckCircle, XCircle, FileText, Send, AlertCircle, Clock } from 'lucide
 import { ERPDisbursementRequest } from '../../types';
 
 export function PencairanAnggaran() {
-  const { state, addErpDisbursement, updateErpDisbursementStatus } = useMasjidStore();
+  const { state, addErpDisbursement, updateErpDisbursementStatus, updateErpDisbursementRequest, deleteErpDisbursementRequest } = useMasjidStore();
   const [activeTab, setActiveTab] = useState<'ajukan' | 'approval'>('ajukan');
 
   // Date utils
@@ -23,6 +23,7 @@ export function PencairanAnggaran() {
   const [selectedBudgetId, setSelectedBudgetId] = useState('');
   const [amount, setAmount] = useState<number | ''>('');
   const [purpose, setPurpose] = useState('');
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Director Approval State
   const [rejectionReason, setRejectionReason] = useState('');
@@ -55,20 +56,53 @@ export function PencairanAnggaran() {
       return;
     }
 
-    addErpDisbursement({
-      id: `REQ-${Date.now()}`,
-      budgetId: selectedBudgetId,
-      amount: Number(amount),
-      purpose,
-      requestDate: new Date().toISOString(),
-      requestedBy: state.session?.name || 'Staf / Admin',
-      status: 'Pending'
-    });
+    if (editingId) {
+      updateErpDisbursementRequest(editingId, {
+        budgetId: selectedBudgetId,
+        amount: Number(amount),
+        purpose,
+        status: 'Pending'
+      });
+      alert('Pengajuan berhasil diperbarui dan status kembali menjadi Pending untuk diverifikasi ulang.');
+      setEditingId(null);
+    } else {
+      addErpDisbursement({
+        id: `REQ-${Date.now()}`,
+        budgetId: selectedBudgetId,
+        amount: Number(amount),
+        purpose,
+        requestDate: new Date().toISOString(),
+        requestedBy: state.session?.name || 'Staf / Admin',
+        status: 'Pending'
+      });
+      alert('Pengajuan pencairan berhasil dikirim dan menunggu persetujuan.');
+    }
 
-    alert('Pengajuan pencairan berhasil dikirim dan menunggu persetujuan.');
     setSelectedBudgetId('');
     setAmount('');
     setPurpose('');
+  };
+
+  const handleEditClick = (d: ERPDisbursementRequest) => {
+    setEditingId(d.id);
+    setSelectedBudgetId(d.budgetId);
+    setAmount(d.amount);
+    setPurpose(d.purpose);
+    setActiveTab('ajukan');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setSelectedBudgetId('');
+    setAmount('');
+    setPurpose('');
+  };
+
+  const handleDeleteClick = (id: string) => {
+    if (window.confirm('Yakin ingin menghapus pengajuan ini secara permanen?')) {
+      deleteErpDisbursementRequest(id);
+    }
   };
 
   const handleApprove = (id: string, currentStatus: string) => {
@@ -81,9 +115,16 @@ export function PencairanAnggaran() {
       return;
     }
     const actionLabel = (canApproveBendahara && !canApproveDirektur) ? 'verifikasi' : 'setujui';
+    const note = window.prompt(`Masukkan catatan/keterangan untuk ${actionLabel} (Wajib):`);
+    if (note === null) return;
+    if (note.trim() === '') {
+      alert('Catatan/Keterangan wajib diisi!');
+      return;
+    }
+    
     if (window.confirm(`Yakin ingin ${actionLabel} pengajuan ini?`)) {
       const nextStatus = (canApproveBendahara && !canApproveDirektur) ? 'Verified' : 'Approved';
-      updateErpDisbursementStatus(id, nextStatus, state.session?.name || 'Approver');
+      updateErpDisbursementStatus(id, nextStatus, state.session?.name || 'Approver', note);
     }
   };
 
@@ -141,8 +182,13 @@ export function PencairanAnggaran() {
           <div className="lg:col-span-1 bg-white p-6 rounded-2xl border border-blue-100 shadow-sm">
             <h3 className="font-bold text-lg text-blue-900 mb-4 flex items-center gap-2">
               <FileText className="w-5 h-5 text-blue-600" />
-              Buat Pengajuan Baru
+              {editingId ? 'Edit Pengajuan (Koreksi)' : 'Buat Pengajuan Baru'}
             </h3>
+            {editingId && (
+              <div className="mb-4 bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-lg text-xs">
+                <strong>Mode Edit:</strong> Menyimpan perubahan akan mereset status pengajuan kembali menjadi <b>Pending</b> untuk diverifikasi ulang oleh Bendahara.
+              </div>
+            )}
             <form onSubmit={handleAjukan} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase">Pilih Pos Anggaran</label>
@@ -186,12 +232,23 @@ export function PencairanAnggaran() {
                 ></textarea>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-md shadow-blue-500/20"
-              >
-                <Send className="w-4 h-4" /> Kirim Pengajuan
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-md shadow-blue-500/20"
+                >
+                  <Send className="w-4 h-4" /> {editingId ? 'Simpan Perubahan' : 'Kirim Pengajuan'}
+                </button>
+                {editingId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEdit}
+                    className="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-bold transition-colors"
+                  >
+                    Batal
+                  </button>
+                )}
+              </div>
             </form>
           </div>
 
@@ -206,8 +263,9 @@ export function PencairanAnggaran() {
                     <th className="p-4 font-bold">Tgl Pengajuan</th>
                     <th className="p-4 font-bold">Pos Anggaran</th>
                     <th className="p-4 font-bold text-right">Nominal (Rp)</th>
-                    <th className="p-4 font-bold">Tujuan</th>
+                    <th className="p-4 font-bold">Tujuan & Catatan</th>
                     <th className="p-4 font-bold text-center">Status</th>
+                    <th className="p-4 font-bold text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -220,12 +278,42 @@ export function PencairanAnggaran() {
                           <td className="p-4 text-gray-600">{new Date(d.requestDate).toLocaleDateString('id-ID')}</td>
                           <td className="p-4 font-medium text-gray-800">{coa?.accountName || 'Anggaran Dihapus'}</td>
                           <td className="p-4 text-right font-mono font-bold text-gray-900">{d.amount.toLocaleString('id-ID')}</td>
-                          <td className="p-4 text-gray-600 max-w-[200px] truncate" title={d.purpose}>{d.purpose}</td>
+                          <td className="p-4 text-gray-600 max-w-[200px]">
+                            <div className="truncate font-medium" title={d.purpose}>{d.purpose}</div>
+                            {d.approvalNote && (
+                              <div className="mt-1 text-[10px] bg-blue-50 text-blue-700 p-1.5 rounded border border-blue-100">
+                                <strong>Catatan:</strong> {d.approvalNote}
+                              </div>
+                            )}
+                            {d.rejectionReason && (
+                              <div className="mt-1 text-[10px] bg-red-50 text-red-700 p-1.5 rounded border border-red-100">
+                                <strong>Alasan Tolak:</strong> {d.rejectionReason}
+                              </div>
+                            )}
+                          </td>
                           <td className="p-4 text-center">
                             {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Pending Review Bendahara</span>}
                             {d.status === 'Verified' && <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold"><CheckCircle className="w-3 h-3" /> Menunggu Direktur</span>}
                             {d.status === 'Approved' && <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full text-xs font-bold"><CheckCircle className="w-3 h-3" /> Disetujui</span>}
-                            {d.status === 'Rejected' && <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-bold" title={d.rejectionReason}><XCircle className="w-3 h-3" /> Ditolak</span>}
+                            {d.status === 'Rejected' && <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-bold"><XCircle className="w-3 h-3" /> Ditolak</span>}
+                          </td>
+                          <td className="p-4 text-center">
+                            {d.status !== 'Approved' && (
+                              <div className="flex items-center justify-center gap-2">
+                                <button
+                                  onClick={() => handleEditClick(d)}
+                                  className="text-[10px] bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded font-bold transition-colors"
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteClick(d.id)}
+                                  className="text-[10px] bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded font-bold transition-colors"
+                                >
+                                  Hapus
+                                </button>
+                              </div>
+                            )}
                           </td>
                         </tr>
                       );
@@ -259,7 +347,7 @@ export function PencairanAnggaran() {
                   <th className="p-4 font-bold">Pemohon & Tgl</th>
                   <th className="p-4 font-bold">Pos Anggaran</th>
                   <th className="p-4 font-bold text-right">Nominal (Rp)</th>
-                  <th className="p-4 font-bold">Tujuan Penggunaan</th>
+                  <th className="p-4 font-bold">Tujuan & Catatan Sebelumnya</th>
                   <th className="p-4 font-bold text-center">Status</th>
                   <th className="p-4 font-bold text-center">Aksi</th>
                 </tr>
@@ -288,7 +376,12 @@ export function PencairanAnggaran() {
                           Rp {d.amount.toLocaleString('id-ID')}
                         </td>
                         <td className="p-4 text-gray-700">
-                          {d.purpose}
+                          <div className="font-medium">{d.purpose}</div>
+                          {d.approvalNote && (
+                            <div className="mt-1 text-[10px] bg-blue-50 text-blue-700 p-1.5 rounded border border-blue-100">
+                              <strong>Catatan (Tahap 1):</strong> {d.approvalNote}
+                            </div>
+                          )}
                         </td>
                         <td className="p-4 text-center">
                           {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Menunggu Bendahara</span>}
