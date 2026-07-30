@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Wallet, ArrowDownRight, ArrowUpRight, Calendar, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
-import { formatRupiahFull } from '../utils/format';
+import { formatRupiahFull } from '../lib/islamicUtils';
 
 interface Transaction {
   id: string;
