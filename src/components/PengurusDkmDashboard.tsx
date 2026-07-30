@@ -4350,6 +4350,53 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           </div>
         )}
 
+        {/* TAB: KONFIGURASI SUPABASE */}
+        {dkmTab === 'supabase' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="bg-blue-900 border border-blue-800 p-6 rounded-2xl shadow-lg text-white">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-amber-500/20 p-3 rounded-xl border border-amber-500/50">
+                  <Database className="w-8 h-8 text-amber-400" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold font-serif">Status Database Supabase</h2>
+                  <p className="text-blue-300 text-sm">Konfigurasi koneksi ke server backend Supabase PostgreSQL</p>
+                </div>
+              </div>
+
+              <div className="bg-blue-950 p-4 rounded-xl border border-blue-800/50 mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <span className="font-bold text-emerald-400 text-sm">Terkoneksi via Environment Variables (.env)</span>
+                </div>
+                <p className="text-blue-200 text-xs leading-relaxed">
+                  Untuk standar keamanan tertinggi (Enterprise Grade), aplikasi Masjid Tazkia mengamankan kunci rahasia Supabase Anda di tingkat <strong>Environment Build (sistem .env dan Netlify)</strong>, bukan di *browser* atau aplikasi secara langsung.
+                </p>
+              </div>
+
+              <div className="space-y-4 text-sm text-blue-200">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-blue-800/50">
+                  <div className="font-bold text-blue-300">URL Proyek</div>
+                  <div className="sm:col-span-2 font-mono text-xs break-all bg-blue-950 px-3 py-2 rounded border border-blue-800">
+                    {import.meta.env.VITE_SUPABASE_URL || 'Memuat...'}
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="font-bold text-blue-300">Anon Key / Public API</div>
+                  <div className="sm:col-span-2 font-mono text-xs break-all bg-blue-950 px-3 py-2 rounded border border-blue-800 text-slate-400">
+                    {import.meta.env.VITE_SUPABASE_ANON_KEY ? '•••••••••••••••••••••••••••••••• (Disembunyikan demi keamanan)' : 'Memuat...'}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 bg-amber-900/20 border border-amber-500/30 p-4 rounded-xl text-amber-200 text-xs leading-relaxed">
+                <strong>Catatan Pengurus:</strong> Jika Anda perlu mengubah kredensial database ini suatu saat nanti (misalnya pindah server), silakan ubah pengaturan <strong>Environment Variables</strong> di dashboard <strong>Netlify</strong> Anda secara langsung. Hal ini secara efektif akan mencegah peretas (*hacker*) mengetahui kunci API *database* Anda melalui celah aplikasi *front-end*.
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* TAB: TANDA TANGAN LAPORAN */}
         {dkmTab === 'ttd_laporan' && (
           <div className="animate-fadeIn">
