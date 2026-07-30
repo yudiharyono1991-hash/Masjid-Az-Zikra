@@ -17,17 +17,38 @@ export const LaporanKeuanganPribadi: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const totalPages = Math.ceil(DUMMY_TRANSACTIONS.length / itemsPerPage);
-  const currentTransactions = DUMMY_TRANSACTIONS.slice(
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  // Filter transaksi hanya untuk bulan berjalan (mulai tanggal 1)
+  const monthlyTransactions = DUMMY_TRANSACTIONS.filter(t => {
+    const tDate = new Date(t.date);
+    return tDate.getMonth() === currentMonth && tDate.getFullYear() === currentYear;
+  });
+
+  const totalPages = Math.ceil(monthlyTransactions.length / itemsPerPage);
+  const currentTransactions = monthlyTransactions.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const saldoAkhirBulan = DUMMY_TRANSACTIONS.length > 0 ? DUMMY_TRANSACTIONS[0].balance : 0;
+  const saldoAkhirBulan = monthlyTransactions.length > 0 ? monthlyTransactions[0].balance : 0;
   const saldoTanggalBerjalan = saldoAkhirBulan;
 
-  const totalPemasukan = DUMMY_TRANSACTIONS.filter(t => t.type === 'kredit').reduce((acc, curr) => acc + curr.amount, 0);
-  const totalPengeluaran = DUMMY_TRANSACTIONS.filter(t => t.type === 'debit').reduce((acc, curr) => acc + curr.amount, 0);
+  const totalPemasukan = monthlyTransactions.filter(t => t.type === 'kredit').reduce((acc, curr) => acc + curr.amount, 0);
+  const totalPengeluaran = monthlyTransactions.filter(t => t.type === 'debit').reduce((acc, curr) => acc + curr.amount, 0);
+
+  let aiAnalysisText = "";
+  if (monthlyTransactions.length === 0) {
+    aiAnalysisText = "Belum ada data transaksi untuk bulan ini. Mulailah mencatat pemasukan dan pengeluaran Anda untuk mendapatkan analisis cerdas terkait kondisi keuangan dan saran ibadah maliyah Anda.";
+  } else if (totalPengeluaran > totalPemasukan) {
+    aiAnalysisText = "Peringatan: Total pengeluaran Anda bulan ini melebihi pemasukan. Pertimbangkan untuk mengevaluasi kembali pos pengeluaran Anda agar kondisi keuangan tetap stabil, namun jangan lupa untuk tetap menyisihkan sedikit harta untuk sedekah penolak bala.";
+  } else if (totalPemasukan > totalPengeluaran * 1.5) {
+    aiAnalysisText = "Alhamdulillah, kondisi keuangan Anda bulan ini sangat sehat dengan surplus yang baik. Ini adalah waktu yang tepat untuk mempertimbangkan peningkatan partisipasi ZISWAF atau mulai merencanakan tabungan qurban tahun depan.";
+  } else {
+    aiAnalysisText = "Berdasarkan riwayat transaksi Anda, pengeluaran bulan ini masih dalam batas aman. Pertimbangkan untuk menyisihkan sebagian saldo untuk tabungan masa depan dan target ZISWAF Anda. Anda bisa mulai dengan menambah infaq pekan ini.";
+  }
 
   const getPreviousMonthName = () => {
     const now = new Date();
@@ -112,7 +133,7 @@ export const LaporanKeuanganPribadi: React.FC = () => {
         <div>
           <h4 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">Analisis Otomatis AI</h4>
           <p className="text-xs text-indigo-800 leading-relaxed">
-            Berdasarkan riwayat transaksi Anda, pengeluaran bulan ini masih dalam batas aman. Pertimbangkan untuk menyisihkan sebagian saldo untuk tabungan masa depan dan target ZISWAF Anda. Anda bisa mulai dengan menambah infaq pekan ini.
+            {aiAnalysisText}
           </p>
         </div>
       </div>
