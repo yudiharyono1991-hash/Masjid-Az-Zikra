@@ -159,7 +159,7 @@ export const BoardMemberAdmin: React.FC = () => {
                 className="w-full bg-blue-950 border border-blue-800 text-white text-xs rounded-xl px-3 py-2 outline-none"
               >
                 <option value="">-- Pilih Tipe Role --</option>
-                {store.appRoles.map(role => (
+                {store.state.appRoles.map(role => (
                   <option key={role.id} value={role.id}>{role.name}</option>
                 ))}
               </select>

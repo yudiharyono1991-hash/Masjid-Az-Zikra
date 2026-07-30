@@ -2718,6 +2718,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               </div>
             </div>
           </div>
+        </div>
         )}
 
         {/* TAB 3: INVENTARIS MASJID */}

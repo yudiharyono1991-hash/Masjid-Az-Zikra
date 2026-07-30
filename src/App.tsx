@@ -337,6 +337,7 @@ export default function App() {
             onDeleteJamaahProfile={deleteJamaahProfile}
             openTvMode={() => setTvModeOpen(true)}
           />
+          );
         })()}
 
         {activeTab === 'jamaah_portal' && state.session.role === 'jamaah' && (

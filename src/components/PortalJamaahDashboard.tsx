@@ -61,7 +61,23 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
     }, 1000);
   };
 
-  const userDonations = donations.filter(d => d.donorName.toLowerCase() === session.name.toLowerCase());
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
+  };
+  const getToday = () => {
+    return new Date().toISOString().split('T')[0];
+  };
+
+  const [filterStartDate, setFilterStartDate] = useState(getFirstDayOfMonth());
+  const [filterEndDate, setFilterEndDate] = useState(getToday());
+
+  const allUserDonations = donations.filter(d => d.donorName.toLowerCase() === session.name.toLowerCase());
+  
+  const filteredDonations = allUserDonations.filter(d => {
+    const dDate = d.createdAt.split('T')[0];
+    return dDate >= filterStartDate && dDate <= filterEndDate;
+  });
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -276,14 +292,30 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
           {activeTab === 'histori' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <h3 className="text-xl font-bold font-serif text-blue-950 flex items-center gap-2">
                   <History className="w-6 h-6 text-blue-600" />
                   Histori Transaksi ZISWAF
                 </h3>
+                
+                <div className="flex items-center gap-2 text-sm bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
+                  <input 
+                    type="date" 
+                    value={filterStartDate}
+                    onChange={(e) => setFilterStartDate(e.target.value)}
+                    className="outline-none text-gray-700 bg-transparent font-medium"
+                  />
+                  <span className="text-gray-400 font-bold">s/d</span>
+                  <input 
+                    type="date" 
+                    value={filterEndDate}
+                    onChange={(e) => setFilterEndDate(e.target.value)}
+                    className="outline-none text-gray-700 bg-transparent font-medium"
+                  />
+                </div>
               </div>
               
-              {userDonations.length === 0 ? (
+              {filteredDonations.length === 0 ? (
                 <div className="bg-gray-50 rounded-2xl border border-gray-100 p-8 text-center text-gray-500">
                   <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                   <p className="font-semibold text-gray-700">Belum ada riwayat transaksi</p>
@@ -302,7 +334,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100">
-                        {userDonations.slice(0, visibleHistoryCount).map(d => (
+                        {filteredDonations.slice(0, visibleHistoryCount).map(d => (
                           <tr key={d.id} className="hover:bg-gray-50 transition-colors">
                             <td className="p-4">
                               <p className="text-sm font-bold text-gray-800">{new Date(d.createdAt).toLocaleDateString('id-ID')}</p>
@@ -332,7 +364,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                       </tbody>
                     </table>
                   </div>
-                  {visibleHistoryCount < userDonations.length && (
+                  {visibleHistoryCount < filteredDonations.length && (
                     <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-center">
                       <button
                         onClick={() => setVisibleHistoryCount(prev => prev + 10)}
