@@ -209,6 +209,11 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const [auditPage, setAuditPage] = useState(1);
   const auditPerPage = 10;
 
+  // Jamaah Master Data State
+  const [jamaahPage, setJamaahPage] = useState(1);
+  const jamaahPerPage = 20;
+  const [expandedJamaahId, setExpandedJamaahId] = useState<string | null>(null);
+
   // Zustand Store
   const store = useMasjidStore();
 
@@ -3927,74 +3932,172 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-blue-800/50">
-                    {jamaahProfiles.length === 0 ? (
-                      <tr>
-                        <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada data pengguna.</td>
-                      </tr>
-                    ) : (
-                      jamaahProfiles.map((j) => (
-                        <tr key={j.id} className="hover:bg-blue-900/50 transition-colors">
-                          <td className="px-4 py-3">
-                            <div className="font-bold text-white text-xs">{j.name}</div>
-                            {j.dkmPosition && (
-                              <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase">
-                                {j.dkmPosition}
-                              </span>
-                            )}
-                          </td>
-                          <td className="px-4 py-3 text-blue-300 text-xs">
-                            <div>{j.email}</div>
-                            <div className="text-[10px] opacity-70">{j.phone || '-'}</div>
-                          </td>
-                          <td className="px-4 py-3">
-                            <select 
-                              value={j.role} 
-                              onChange={(e) => {
-                                const newRole = e.target.value as any;
-                                if (onUpdateJamaahProfile) {
-                                  onUpdateJamaahProfile(j.id, { 
-                                    role: newRole,
-                                    dkmPosition: newRole === 'jamaah' ? 'Jamaah' : j.dkmPosition 
-                                  });
-                                }
-                              }}
-                              className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none cursor-pointer"
-                            >
-                              <option value="jamaah">Jamaah Biasa</option>
-                              {store.state.appRoles.map(r => (
-                                <option key={r.id} value={r.id}>{r.name}</option>
-                              ))}
-                            </select>
-                          </td>
-                          <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.joinDate || j.createdAt || new Date()).toLocaleDateString('id-ID')}</td>
-                          <td className="px-4 py-3 text-center">
-                            <div className="flex justify-center items-center gap-1.5">
-                              <button 
-                                onClick={() => handleEditUser(j)}
-                                className="text-xs text-blue-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                    {(() => {
+                      const totalJamaahPages = Math.ceil(jamaahProfiles.length / jamaahPerPage);
+                      const paginatedJamaah = jamaahProfiles.slice((jamaahPage - 1) * jamaahPerPage, jamaahPage * jamaahPerPage);
+                      
+                      if (paginatedJamaah.length === 0) {
+                        return (
+                          <tr>
+                            <td colSpan={5} className="px-4 py-8 text-center text-blue-500 font-medium">Belum ada data pengguna.</td>
+                          </tr>
+                        );
+                      }
+
+                      return paginatedJamaah.map((j) => (
+                        <React.Fragment key={j.id}>
+                          <tr className="hover:bg-blue-900/50 transition-colors">
+                            <td className="px-4 py-3">
+                              <div className="font-bold text-white text-xs">{j.name}</div>
+                              {j.dkmPosition && (
+                                <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold inline-block mt-0.5 uppercase">
+                                  {j.dkmPosition}
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-4 py-3 text-blue-300 text-xs">
+                              <div>{j.email}</div>
+                              <div className="text-[10px] opacity-70">{j.phone || '-'}</div>
+                            </td>
+                            <td className="px-4 py-3">
+                              <select 
+                                value={j.role} 
+                                onChange={(e) => {
+                                  const newRole = e.target.value as any;
+                                  if (onUpdateJamaahProfile) {
+                                    onUpdateJamaahProfile(j.id, { 
+                                      role: newRole,
+                                      dkmPosition: newRole === 'jamaah' ? 'Jamaah' : j.dkmPosition 
+                                    });
+                                  }
+                                }}
+                                className="bg-blue-950 border border-blue-800 text-amber-300 text-[10px] font-bold rounded-lg px-2 py-1 outline-none cursor-pointer"
                               >
-                                Edit
-                              </button>
-                              <button 
-                                onClick={() => setChangingPasswordUserId(j.id)}
-                                className="text-xs text-amber-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
-                              >
-                                Sandi
-                              </button>
-                              <button 
-                                onClick={() => handleDeleteUser(j.id, j.name)}
-                                className="text-xs text-rose-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
-                              >
-                                Hapus
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
+                                <option value="jamaah">Jamaah Biasa</option>
+                                {store.state.appRoles.map(r => (
+                                  <option key={r.id} value={r.id}>{r.name}</option>
+                                ))}
+                              </select>
+                            </td>
+                            <td className="px-4 py-3 text-blue-400 font-mono text-[10px]">{new Date(j.joinDate || j.createdAt || new Date()).toLocaleDateString('id-ID')}</td>
+                            <td className="px-4 py-3 text-center">
+                              <div className="flex justify-center items-center gap-1.5 flex-wrap">
+                                <button 
+                                  onClick={() => setExpandedJamaahId(expandedJamaahId === j.id ? null : j.id)}
+                                  className="text-xs text-emerald-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                                >
+                                  {expandedJamaahId === j.id ? 'Tutup Histori' : 'Histori ZISWAF'}
+                                </button>
+                                <button 
+                                  onClick={() => handleEditUser(j)}
+                                  className="text-xs text-blue-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                                >
+                                  Edit
+                                </button>
+                                <button 
+                                  onClick={() => setChangingPasswordUserId(j.id)}
+                                  className="text-xs text-amber-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                                >
+                                  Sandi
+                                </button>
+                                <button 
+                                  onClick={() => handleDeleteUser(j.id, j.name)}
+                                  className="text-xs text-rose-400 hover:text-white font-bold px-2 py-1 rounded bg-blue-950 border border-blue-800 transition"
+                                >
+                                  Hapus
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                          {/* Expanded Row for Donation History */}
+                          {expandedJamaahId === j.id && (
+                            <tr>
+                              <td colSpan={5} className="bg-blue-950 p-4 border-t border-blue-800">
+                                <div className="bg-blue-900 border border-blue-800 rounded-xl p-4">
+                                  <h4 className="text-sm font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                                    <History className="w-4 h-4" />
+                                    Rekap Histori ZISWAF & Donasi: {j.name}
+                                  </h4>
+                                  
+                                  {(() => {
+                                    const userDonations = donations.filter(d => 
+                                      (d.donorName.toLowerCase() === j.name.toLowerCase()) || 
+                                      (d.donorEmail && d.donorEmail.toLowerCase() === j.email.toLowerCase()) ||
+                                      (d.donorPhone && d.donorPhone === j.phone)
+                                    );
+                                    
+                                    if (userDonations.length === 0) {
+                                      return <p className="text-xs text-blue-400">Belum ada histori transaksi untuk jamaah ini.</p>;
+                                    }
+                                    
+                                    return (
+                                      <div className="overflow-x-auto">
+                                        <table className="w-full text-xs text-left">
+                                          <thead className="text-blue-300 border-b border-blue-800">
+                                            <tr>
+                                              <th className="py-2">Tanggal</th>
+                                              <th className="py-2">Kategori</th>
+                                              <th className="py-2">Keterangan / Program</th>
+                                              <th className="py-2 text-right">Nominal</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody className="divide-y divide-blue-800/30">
+                                            {userDonations.map(d => (
+                                              <tr key={d.id}>
+                                                <td className="py-2 text-white">{new Date(d.createdAt).toLocaleDateString('id-ID')}</td>
+                                                <td className="py-2">
+                                                  <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px] uppercase font-bold border border-emerald-500/30">
+                                                    {d.category}
+                                                  </span>
+                                                </td>
+                                                <td className="py-2 text-blue-200">
+                                                  <div>{d.programTitle}</div>
+                                                  {d.notes && <div className="text-[10px] text-blue-400 opacity-80 mt-0.5 italic">"{d.notes}"</div>}
+                                                </td>
+                                                <td className="py-2 text-right font-mono font-bold text-amber-300">{formatRupiahFull(d.totalAmount)}</td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    );
+                                  })()}
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </React.Fragment>
+                      ));
+                    })()}
                   </tbody>
                 </table>
               </div>
+              
+              {/* Pagination */}
+              {Math.ceil(jamaahProfiles.length / jamaahPerPage) > 1 && (
+                <div className="bg-blue-950 p-3 border-t border-blue-800 flex justify-between items-center text-xs">
+                  <span className="text-blue-400 font-mono">
+                    Halaman {jamaahPage} dari {Math.ceil(jamaahProfiles.length / jamaahPerPage)}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setJamaahPage(prev => Math.max(1, prev - 1))}
+                      disabled={jamaahPage === 1}
+                      className="px-3 py-1 bg-blue-900 text-blue-300 rounded hover:bg-blue-800 disabled:opacity-50"
+                    >
+                      Sebelumnya
+                    </button>
+                    <button
+                      onClick={() => setJamaahPage(prev => Math.min(Math.ceil(jamaahProfiles.length / jamaahPerPage), prev + 1))}
+                      disabled={jamaahPage === Math.ceil(jamaahProfiles.length / jamaahPerPage)}
+                      className="px-3 py-1 bg-blue-900 text-blue-300 rounded hover:bg-blue-800 disabled:opacity-50"
+                    >
+                      Selanjutnya
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

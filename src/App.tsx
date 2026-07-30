@@ -337,13 +337,14 @@ export default function App() {
             onDeleteJamaahProfile={deleteJamaahProfile}
             openTvMode={() => setTvModeOpen(true)}
           />
-        )()}
+        })()}
 
         {activeTab === 'jamaah_portal' && state.session.role === 'jamaah' && (
           <PortalJamaahDashboard 
             session={state.session}
             jamaahProfiles={state.jamaahProfiles || []}
-            onUpdateProfile={() => {}} 
+            donations={state.donations}
+            onUpdateProfile={updateJamaahProfile} 
           />
         )}
       </main>

@@ -21,7 +21,7 @@ interface PortalJamaahDashboardProps {
   session: UserSession;
   jamaahProfiles: JamaahProfile[];
   donations?: DonationRecord[];
-  onUpdateProfile?: (updatedProfile: Partial<JamaahProfile>) => void;
+  onUpdateProfile?: (id: string, updatedProfile: Partial<JamaahProfile>) => void;
 }
 
 export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
@@ -49,6 +49,8 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
   const [monthlyTarget, setMonthlyTarget] = useState(profile.monthlyDonationTarget || 0);
   const [targetDate, setTargetDate] = useState(profile.targetDate || 1);
+  const [editName, setEditName] = useState(profile.name);
+  const [editPhone, setEditPhone] = useState(profile.phone);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -63,8 +65,20 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    if (onUpdateProfile) {
+
+    // Validasi 1 Nomor WhatsApp 1 Akun
+    if (editPhone && editPhone !== profile.phone) {
+      const isPhoneUsed = jamaahProfiles.some(p => p.id !== profile.id && p.phone === editPhone);
+      if (isPhoneUsed) {
+        alert("Nomor WhatsApp ini sudah terdaftar di akun lain. Pastikan 1 Nomor WhatsApp 1 Akun.");
+        return;
+      }
+    }
+
+    if (onUpdateProfile && profile.id !== 'unknown') {
       onUpdateProfile(profile.id, {
+        name: editName,
+        phone: editPhone,
         monthlyDonationTarget: monthlyTarget,
         targetDate: targetDate
       });
@@ -345,14 +359,15 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nama Lengkap</label>
                   <input 
                     type="text" 
-                    defaultValue={profile.name}
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-white transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Email Saat Ini</label>
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Email / User Name Saat Ini</label>
                   <input 
-                    type="email" 
+                    type="text" 
                     value={profile.email}
                     disabled
                     className="w-full bg-gray-100 border border-gray-200 text-gray-500 rounded-xl px-4 py-2.5 outline-none cursor-not-allowed"
@@ -362,7 +377,8 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Nomor WhatsApp</label>
                   <input 
                     type="text" 
-                    defaultValue={profile.phone}
+                    value={editPhone}
+                    onChange={(e) => setEditPhone(e.target.value)}
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-white transition-colors"
                   />
                 </div>
