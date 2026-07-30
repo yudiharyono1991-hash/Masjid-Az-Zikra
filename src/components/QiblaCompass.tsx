@@ -156,7 +156,7 @@ export const QiblaCompass: React.FC = () => {
           <div className="relative flex flex-col items-center">
             
             <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full border-4 border-emerald-100 shadow-inner flex items-center justify-center bg-gray-50"
-                 style={{ transform: \`rotate(\${getCompassRotation()}deg)\`, transition: 'transform 0.1s ease-out' }}>
+                 style={{ transform: `rotate(${getCompassRotation()}deg)`, transition: 'transform 0.1s ease-out' }}>
               
               {/* Compass markings */}
               <div className="absolute top-2 text-rose-500 font-bold text-sm">U</div>
@@ -171,7 +171,7 @@ export const QiblaCompass: React.FC = () => {
               {qiblaAngle !== null && (
                 <div 
                   className="absolute inset-0 flex items-start justify-center z-20 pointer-events-none"
-                  style={{ transform: \`rotate(\${qiblaAngle}deg)\` }}
+                  style={{ transform: `rotate(${qiblaAngle}deg)` }}
                 >
                   <div className="-mt-3 flex flex-col items-center">
                     <div className="w-6 h-6 bg-black border border-yellow-500 shadow-lg transform rotate-45 flex items-center justify-center">

@@ -26,6 +26,7 @@ import { JamaahCalendar } from './JamaahCalendar';
 import { QiblaCompass } from './QiblaCompass';
 import { AdhanPlayer } from './AdhanPlayer';
 import { ChatDkm } from './ChatDkm';
+import { AlMatsurat } from './AlMatsurat';
 
 interface PortalJamaahDashboardProps {
   session: UserSession;
@@ -54,7 +55,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
   onAddNote,
   onRemoveNote
 }) => {
-  const [activeTab, setActiveTab] = useState<'ringkasan' | 'kalender' | 'kompas' | 'chat' | 'histori' | 'pengaturan'>('ringkasan');
+  const [activeTab, setActiveTab] = useState<'ringkasan' | 'kalender' | 'kompas' | 'almatsurat' | 'chat' | 'histori' | 'pengaturan'>('ringkasan');
   const [visibleHistoryCount, setVisibleHistoryCount] = useState(10);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -208,6 +209,7 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
             { id: 'ringkasan', label: 'Ringkasan ZISWAF', icon: TrendingUp },
             { id: 'kalender', label: 'Kalender Pintar', icon: CalendarDays },
             { id: 'kompas', label: 'Arah Kiblat', icon: Compass },
+            { id: 'almatsurat', label: 'Al-Ma\'tsurat', icon: BookOpen },
             { id: 'chat', label: 'Layanan DKM', icon: MessageCircle },
             { id: 'histori', label: 'Histori Transaksi', icon: History },
             { id: 'pengaturan', label: 'Pengaturan Profil', icon: Settings },
@@ -390,6 +392,12 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
           {activeTab === 'kompas' && (
             <div className="animate-fade-in max-w-md mx-auto">
               <QiblaCompass />
+            </div>
+          )}
+
+          {activeTab === 'almatsurat' && (
+            <div className="animate-fade-in max-w-3xl mx-auto">
+              <AlMatsurat />
             </div>
           )}
 
@@ -623,7 +631,8 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                 </div>
               </form>
             </div>
-          )}
+          </div>
+        )}
 
         </div>
       </div>
