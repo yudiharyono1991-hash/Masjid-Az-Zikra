@@ -9,22 +9,11 @@ interface JamaahCalendarProps {
   jamaahId: string;
 }
 
-// Data statis libur nasional Indonesia 2026 (sebagian contoh)
-const HOLIDAYS_2026: Record<string, string> = {
+// Data statis sebagai fallback awal
+const FALLBACK_HOLIDAYS: Record<string, string> = {
   '2026-01-01': 'Tahun Baru Masehi',
-  '2026-02-14': 'Tahun Baru Imlek',
-  '2026-03-03': 'Hari Raya Idul Fitri 1447 H (Estimasi)',
-  '2026-03-04': 'Cuti Bersama Idul Fitri',
-  '2026-03-20': 'Hari Raya Nyepi',
-  '2026-04-03': 'Wafat Isa Al Masih',
-  '2026-05-01': 'Hari Buruh Internasional',
-  '2026-05-14': 'Kenaikan Isa Al Masih',
-  '2026-05-24': 'Hari Raya Waisak',
-  '2026-05-26': 'Hari Raya Idul Adha 1447 H (Estimasi)',
-  '2026-06-16': 'Tahun Baru Islam 1448 H',
-  '2026-08-17': 'Hari Kemerdekaan RI',
-  '2026-08-25': 'Maulid Nabi Muhammad SAW',
-  '2026-12-25': 'Hari Raya Natal'
+  '2026-03-20': 'Hari Raya Idul Fitri',
+  '2026-08-17': 'Hari Kemerdekaan RI'
 };
 
 const DAYS = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
@@ -36,6 +25,26 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
   const [showNoteForm, setShowNoteForm] = useState(false);
   const [newNoteTitle, setNewNoteTitle] = useState('');
   const [newNoteType, setNewNoteType] = useState<'puasa' | 'kajian' | 'pribadi' | 'lainnya'>('pribadi');
+  const [holidays, setHolidays] = useState<Record<string, string>>(FALLBACK_HOLIDAYS);
+
+  React.useEffect(() => {
+    const fetchHolidays = async () => {
+      try {
+        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${currentDate.getFullYear()}/ID`);
+        if (response.ok) {
+          const data = await response.json();
+          const holidayMap: Record<string, string> = {};
+          data.forEach((h: any) => {
+            holidayMap[h.date] = h.localName;
+          });
+          setHolidays(holidayMap);
+        }
+      } catch (error) {
+        console.error("Failed to fetch holidays:", error);
+      }
+    };
+    fetchHolidays();
+  }, [currentDate.getFullYear()]);
 
   const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year: number, month: number) => {
@@ -116,7 +125,7 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
             const dateStr = toISODate(date);
             const isToday = dateStr === toISODate(new Date());
             const isSelected = selectedDate && dateStr === toISODate(selectedDate);
-            const holiday = HOLIDAYS_2026[dateStr];
+            const holiday = holidays[dateStr];
             const isSunday = date.getDay() === 0;
             const dayNotes = notes.filter(n => n.date === dateStr && n.jamaahId === jamaahId);
             
@@ -134,7 +143,10 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
                   <span className={`text-sm sm:text-base font-bold ${holiday || isSunday ? 'text-rose-600' : isToday ? 'text-amber-600' : 'text-slate-700'}`}>
                     {date.getDate()}
                   </span>
-                  <span className="text-[8px] sm:text-[9px] text-emerald-600 font-mono mt-1 hidden sm:block">
+                  <span className="text-[9px] text-emerald-600 font-mono mt-0.5 leading-tight text-right w-full block sm:hidden">
+                    {getHijriDate(date).split(' ')[0]}<br/>{getHijriDate(date).split(' ')[1]}
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-emerald-600 font-mono mt-1 hidden sm:block text-right">
                     {getHijriDate(date)}
                   </span>
                 </div>
@@ -165,10 +177,10 @@ export const JamaahCalendar: React.FC<JamaahCalendarProps> = ({ notes, onAddNote
                   <CalendarIcon className="w-5 h-5 text-blue-500" />
                   {selectedDate.getDate()} {MONTHS[selectedDate.getMonth()]} {selectedDate.getFullYear()}
                 </h4>
-                <p className="text-sm text-emerald-600 font-mono mt-1">{getHijriDate(selectedDate)}</p>
-                {HOLIDAYS_2026[toISODate(selectedDate)] && (
+                <p className="text-sm text-emerald-600 font-bold mt-1">{getHijriDate(selectedDate)} Hijriah</p>
+                {holidays[toISODate(selectedDate)] && (
                   <p className="text-sm text-rose-600 font-bold mt-1 flex items-center gap-1">
-                    <Info className="w-4 h-4" /> Libur: {HOLIDAYS_2026[toISODate(selectedDate)]}
+                    <Info className="w-4 h-4" /> Libur: {holidays[toISODate(selectedDate)]}
                   </p>
                 )}
               </div>
