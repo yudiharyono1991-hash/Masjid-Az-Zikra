@@ -192,14 +192,6 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                   <p className="font-bold text-white text-xs sm:text-sm mt-0.5">{new Date(profile.joinDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                 </div>
                 <button
-                  onClick={() => alert('Fitur Kartu Jamaah Digital sedang dalam pengembangan.')}
-                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-blue-100 flex flex-col items-center justify-center px-3 py-1.5 rounded-lg transition-colors"
-                  title="Kartu Jamaah"
-                >
-                  <QrCode className="w-4 h-4 mb-0.5" />
-                  <span className="text-[8px] font-mono font-bold uppercase">Kartu ID</span>
-                </button>
-                <button
                   onClick={() => {
                     alert('Alhamdulillah, sistem berhasil direfresh.');
                     window.location.reload();
@@ -293,10 +285,10 @@ export const PortalJamaahDashboard: React.FC<PortalJamaahDashboardProps> = ({
                         { name: 'Isya', time: '19:08', minutes: 19 * 60 + 8 },
                       ];
                       
-                      let activeIdx = 4; // Default Isya
+                      let activeIdx = 0; // Default to Subuh (next day) if all passed
                       for (let i = 0; i < prayerTimes.length; i++) {
                         if (currentMinutes < prayerTimes[i].minutes) {
-                          activeIdx = i === 0 ? 4 : i - 1;
+                          activeIdx = i;
                           break;
                         }
                       }

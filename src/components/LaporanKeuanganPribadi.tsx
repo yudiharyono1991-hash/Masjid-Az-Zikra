@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wallet, ArrowDownRight, ArrowUpRight, Calendar, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import { Wallet, ArrowDownRight, ArrowUpRight, Calendar, ChevronLeft, ChevronRight, FileText, Download, Edit2, Trash2 } from 'lucide-react';
 import { formatRupiahFull } from '../lib/islamicUtils';
 
 interface Transaction {
@@ -11,20 +11,7 @@ interface Transaction {
   balance: number;
 }
 
-const DUMMY_TRANSACTIONS: Transaction[] = [
-  { id: '1', date: '2026-07-01', description: 'Gaji Bulanan', type: 'kredit', amount: 8000000, balance: 8000000 },
-  { id: '2', date: '2026-07-03', description: 'Belanja Bulanan', type: 'debit', amount: 2500000, balance: 5500000 },
-  { id: '3', date: '2026-07-05', description: 'Donasi ZISWAF', type: 'debit', amount: 500000, balance: 5000000 },
-  { id: '4', date: '2026-07-10', description: 'Bonus Proyek', type: 'kredit', amount: 1500000, balance: 6500000 },
-  { id: '5', date: '2026-07-12', description: 'Bayar Listrik & Air', type: 'debit', amount: 750000, balance: 5750000 },
-  { id: '6', date: '2026-07-15', description: 'Sedekah Jumat', type: 'debit', amount: 100000, balance: 5650000 },
-  { id: '7', date: '2026-07-18', description: 'Beli Bensin', type: 'debit', amount: 300000, balance: 5350000 },
-  { id: '8', date: '2026-07-22', description: 'Makan Keluarga', type: 'debit', amount: 450000, balance: 4900000 },
-  { id: '9', date: '2026-07-25', description: 'Honor Konsultasi', type: 'kredit', amount: 2000000, balance: 6900000 },
-  { id: '10', date: '2026-07-28', description: 'Infaq Masjid', type: 'debit', amount: 200000, balance: 6700000 },
-  { id: '11', date: '2026-07-29', description: 'Beli Pulsa & Paket Data', type: 'debit', amount: 150000, balance: 6550000 },
-  { id: '12', date: '2026-07-30', description: 'Jajan Anak', type: 'debit', amount: 100000, balance: 6450000 },
-].reverse(); // Terbalik agar yang terbaru di atas
+const DUMMY_TRANSACTIONS: Transaction[] = [];
 
 export const LaporanKeuanganPribadi: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +23,7 @@ export const LaporanKeuanganPribadi: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  const saldoAkhirBulan = DUMMY_TRANSACTIONS[0].balance; // Transaksi terbaru ada di index 0 karena di reverse
+  const saldoAkhirBulan = DUMMY_TRANSACTIONS.length > 0 ? DUMMY_TRANSACTIONS[0].balance : 0;
   const saldoTanggalBerjalan = saldoAkhirBulan;
 
   const totalPemasukan = DUMMY_TRANSACTIONS.filter(t => t.type === 'kredit').reduce((acc, curr) => acc + curr.amount, 0);
@@ -48,6 +35,20 @@ export const LaporanKeuanganPribadi: React.FC = () => {
       month: 'short',
       year: 'numeric'
     });
+  };
+
+  const getMonthDateRange = () => {
+    const now = new Date();
+    const month = now.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    return `1 - ${now.getDate()} ${month}`;
+  };
+
+  const [downloadDate, setDownloadDate] = useState<string | null>(null);
+  
+  const handleDownloadExcel = () => {
+    const now = new Date();
+    setDownloadDate(now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }));
+    alert('Simulasi: Berkas Excel sedang diunduh...');
   };
 
   return (
@@ -99,13 +100,24 @@ export const LaporanKeuanganPribadi: React.FC = () => {
 
       {/* Transaction History Table */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
-            <FileText className="w-4 h-4 text-blue-600" />
-            Riwayat Transaksi Bulan Ini
-          </h3>
-          <div className="text-[10px] text-gray-500 font-bold bg-white px-2 py-1 rounded-md border border-gray-200 uppercase tracking-wider">
-            Juli 2026
+        <div className="p-4 sm:p-5 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-gray-50/50">
+          <div>
+            <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
+              <FileText className="w-4 h-4 text-blue-600" />
+              Riwayat Transaksi
+            </h3>
+            <div className="text-[10px] text-gray-500 font-bold bg-white px-2 py-1 rounded-md border border-gray-200 uppercase tracking-wider inline-block mt-2">
+              {getMonthDateRange()}
+            </div>
+          </div>
+          
+          <div className="flex flex-col items-end gap-1 w-full sm:w-auto">
+            <button onClick={handleDownloadExcel} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors w-full sm:w-auto justify-center">
+              <Download className="w-3.5 h-3.5" /> Unduh Excel
+            </button>
+            {downloadDate && (
+              <span className="text-[9px] text-gray-400 font-mono">Diunduh: {downloadDate}</span>
+            )}
           </div>
         </div>
         
@@ -119,6 +131,7 @@ export const LaporanKeuanganPribadi: React.FC = () => {
                 <th className="px-4 py-3 text-right text-emerald-600">Kredit (In)</th>
                 <th className="px-4 py-3 text-right text-rose-600">Debit (Out)</th>
                 <th className="px-4 py-3 text-right">Saldo</th>
+                <th className="px-4 py-3 text-center">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 text-[11px]">
@@ -142,8 +155,26 @@ export const LaporanKeuanganPribadi: React.FC = () => {
                   <td className="px-4 py-3 text-right font-mono font-bold text-gray-800 bg-gray-50/30">
                     {formatRupiahFull(trx.balance)}
                   </td>
+                  <td className="px-4 py-3 text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <button className="p-1.5 text-blue-500 hover:bg-blue-50 rounded-md transition" title="Edit">
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-md transition" title="Hapus">
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
+              
+              {currentTransactions.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-4 py-12 text-center text-gray-400">
+                    Belum ada riwayat transaksi pada rentang tanggal ini.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
