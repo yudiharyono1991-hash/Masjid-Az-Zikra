@@ -17,14 +17,20 @@ export const LaporanKeuanganPribadi: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
+  const getToday = () => new Date().toISOString().split('T')[0];
+  const getFirstDayOfMonth = () => {
+    const d = new Date();
+    d.setDate(1);
+    return d.toISOString().split('T')[0];
+  };
 
-  // Filter transaksi hanya untuk bulan berjalan (mulai tanggal 1)
+  const [filterStartDate, setFilterStartDate] = useState(getFirstDayOfMonth());
+  const [filterEndDate, setFilterEndDate] = useState(getToday());
+
+  // Filter transaksi berdasarkan range tanggal (default: awal bulan hingga hari ini)
   const monthlyTransactions = DUMMY_TRANSACTIONS.filter(t => {
-    const tDate = new Date(t.date);
-    return tDate.getMonth() === currentMonth && tDate.getFullYear() === currentYear;
+    const tDate = t.date.split('T')[0];
+    return tDate >= filterStartDate && tDate <= filterEndDate;
   });
 
   const totalPages = Math.ceil(monthlyTransactions.length / itemsPerPage);
@@ -64,11 +70,7 @@ export const LaporanKeuanganPribadi: React.FC = () => {
     });
   };
 
-  const getMonthDateRange = () => {
-    const now = new Date();
-    const month = now.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
-    return `1 - ${now.getDate()} ${month}`;
-  };
+
 
   const [downloadDate, setDownloadDate] = useState<string | null>(null);
   
@@ -146,8 +148,20 @@ export const LaporanKeuanganPribadi: React.FC = () => {
               <FileText className="w-4 h-4 text-blue-600" />
               Riwayat Transaksi
             </h3>
-            <div className="text-[10px] text-gray-500 font-bold bg-white px-2 py-1 rounded-md border border-gray-200 uppercase tracking-wider inline-block mt-2">
-              {getMonthDateRange()}
+            <div className="flex items-center gap-2 text-xs bg-white p-1.5 rounded-lg border border-gray-200 shadow-sm mt-2 sm:mt-0">
+              <input 
+                type="date" 
+                value={filterStartDate}
+                onChange={(e) => setFilterStartDate(e.target.value)}
+                className="outline-none text-gray-700 bg-transparent font-medium w-[110px] sm:w-auto"
+              />
+              <span className="text-gray-400 font-bold">s/d</span>
+              <input 
+                type="date" 
+                value={filterEndDate}
+                onChange={(e) => setFilterEndDate(e.target.value)}
+                className="outline-none text-gray-700 bg-transparent font-medium w-[110px] sm:w-auto"
+              />
             </div>
           </div>
           
