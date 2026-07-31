@@ -30,7 +30,9 @@ import {
   BoardMember,
   GedungBooking,
   MasjidAgenda,
-  AppRole
+  AppRole,
+  JamaahFeedback,
+  JamaahCalendarNote
 } from '../types';
 
 import {
@@ -89,6 +91,7 @@ export interface AppState {
   unreadDonationsCount: number;
   feedbacks: JamaahFeedback[];
   calendarNotes: JamaahCalendarNote[];
+  appRoles: AppRole[];
 }
 
 const defaultState: AppState = {
@@ -400,7 +403,7 @@ export function useMasjidStore() {
           phone: created.donorPhone || '',
           totalDonation: created.status === 'berhasil' ? created.amount : 0,
           joinDate: new Date().toISOString(),
-          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
           role: 'jamaah'
         };
         newJamaahProfiles = [...newJamaahProfiles, newProfile];
@@ -533,7 +536,7 @@ export function useMasjidStore() {
             phone: donation.donorPhone || '',
             totalDonation: donation.amount,
             joinDate: new Date().toISOString(),
-            createdAt: new Date().toISOString(),
+            lastLogin: new Date().toISOString(),
             role: 'jamaah'
           };
           newJamaahProfiles = [...newJamaahProfiles, newProfile];
@@ -938,7 +941,7 @@ export function useMasjidStore() {
 
   const updateErpDisbursementStatus = (
     id: string, 
-    status: 'Verified' | 'Approved' | 'Rejected', 
+    status: 'Verified' | 'ApprovedKetua' | 'Approved' | 'Rejected', 
     processedBy: string, 
     note?: string
   ) => {

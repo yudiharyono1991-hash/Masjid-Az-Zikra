@@ -81,7 +81,7 @@ export const QiblaCompass: React.FC = () => {
     if ('ondeviceorientationabsolute' in window) {
       window.addEventListener('deviceorientationabsolute', handleOrientation as any);
     } else if ('ondeviceorientation' in window) {
-      window.addEventListener('deviceorientation', handleOrientation);
+      (window as any).addEventListener('deviceorientation', handleOrientation as any);
     } else {
       setIsSupported(false);
       setError('Sensor kompas tidak didukung di perangkat ini.');
@@ -89,7 +89,7 @@ export const QiblaCompass: React.FC = () => {
 
     return () => {
       window.removeEventListener('deviceorientationabsolute', handleOrientation as any);
-      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener('deviceorientation', handleOrientation as any);
     };
   };
 

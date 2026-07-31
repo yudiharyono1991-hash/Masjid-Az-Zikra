@@ -66,7 +66,8 @@ import {
   ChevronLeft,
   ChevronRight,
   MessageCircle,
-  LayoutDashboard
+  LayoutDashboard,
+  Clock
 } from 'lucide-react';
 
 import { useMasjidStore } from '../lib/store';

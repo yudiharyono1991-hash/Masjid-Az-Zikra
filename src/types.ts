@@ -46,6 +46,7 @@ export interface DonationRecord {
   totalAmount: number;
   donorName: string;
   donorPhone: string;
+  donorEmail?: string;
   paymentMethod: string;
   isAnonymous: boolean;
   recurringPeriod?: 'none' | 'daily' | 'weekly' | 'monthly';
