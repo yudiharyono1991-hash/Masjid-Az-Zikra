@@ -17,10 +17,11 @@ import {
   DonationRecord,
   JamaahFeedback
 } from '../types';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { AccountCombobox } from './AccountCombobox';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement);
 import { formatRupiahFull } from '../lib/islamicUtils';
 import {
   Plus,
@@ -832,6 +833,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             {[
               { id: 'dashboard_utama', label: 'Ringkasan Utama' },
               { id: 'akuntansi', label: 'Akuntansi (PSAK 409)' },
+              { id: 'panduan', label: 'Buku Panduan' },
               { id: 'keuangan', label: 'Kas Sederhana (Lama)' },
               { id: 'galeri', label: 'Galeri & Artikel Kajian' },
               { id: 'qurban', label: 'Patungan Qurban' },
@@ -848,7 +850,16 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
               { id: 'broadcast', label: 'Broadcast WhatsApp' },
               { id: 'verifikasi', label: 'Verifikasi ZISWAF' },
               { id: 'audit_log', label: 'Audit Log System' }
-            ].map(tab => (
+            ].filter(tab => {
+              const r = store.state.session?.role;
+              const isTopManagement = ['direktur', 'ketua_dkm', 'ketua_dewan_pembina'].includes(r || '');
+              const isConfidential = ['aplikasi', 'pengaturan', 'jamaah_manage', 'supabase', 'audit_log', 'ttd_laporan', 'pengurus'].includes(tab.id);
+              if (isConfidential && !isTopManagement) return false;
+              if (tabSearchQuery) {
+                return tab.label.toLowerCase().includes(tabSearchQuery.toLowerCase());
+              }
+              return true;
+            }).map(tab => (
               <option key={tab.id} value={tab.id}>{tab.label}</option>
             ))}
           </select>
@@ -881,6 +892,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
             {[
               { id: 'dashboard_utama', label: 'Ringkasan Utama', icon: LayoutDashboard },
               { id: 'akuntansi', label: 'Akuntansi (PSAK 409)', icon: BookOpen },
+              { id: 'panduan', label: 'Buku Panduan', icon: BookOpen },
               { id: 'keuangan', label: 'Kas Sederhana (Lama)', icon: DollarSign },
               { id: 'galeri', label: 'Galeri & Artikel Kajian', icon: Video },
               { id: 'qurban', label: 'Patungan Qurban', icon: Heart },
@@ -1408,13 +1420,45 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
           </div>
         )}
 
-        {dkmTab === 'dashboard_utama' && (
+        {dkmTab === 'panduan' && <UserManual />}
+
+        {dkmTab === 'dashboard_utama' && (() => {
+          // Calculate chart data
+          const kasAccounts = store.state.erpCoa.filter(c => c.type === 'KAS');
+          const kasChartData = {
+            labels: kasAccounts.map(c => c.accountName),
+            datasets: [{
+              data: kasAccounts.map(c => c.saldo || 0),
+              backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#14b8a6'],
+              borderWidth: 0,
+            }]
+          };
+
+          const topPrograms = programs.slice(0, 5);
+          const programChartData = {
+            labels: topPrograms.map(p => p.title.substring(0, 15) + '...'),
+            datasets: [
+              {
+                label: 'Terkumpul',
+                data: topPrograms.map(p => p.collected),
+                backgroundColor: '#10b981',
+              },
+              {
+                label: 'Target',
+                data: topPrograms.map(p => p.target),
+                backgroundColor: '#e2e8f0',
+              }
+            ]
+          };
+
+          return (
           <div className="space-y-6 animate-fade-in">
             <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/40 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3" />
               <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                   <h3 className="text-3xl font-serif font-bold text-gray-900 mb-2">Ahlan wa Sahlan, {store.state.session?.name}</h3>
+                  <p className="text-gray-500">Ringkasan operasional dan keuangan Masjid Tazkia saat ini.</p>
                 </div>
               </div>
             </div>
@@ -1438,7 +1482,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
                   <Calendar className="w-6 h-6" />
                 </div>
-                <h4 className="text-gray-500 text-sm font-bold mb-1">Jadwal Petugas</h4>
+                <h4 className="text-gray-500 text-sm font-bold mb-1">Jadwal Petugas Aktif</h4>
                 <p className="text-2xl font-black text-gray-900">{petugasList.length}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow">
@@ -1449,8 +1493,33 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 <p className="text-2xl font-black text-gray-900">{inventories.length}</p>
               </div>
             </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 font-serif">Saldo Kas Utama (COA)</h4>
+                <div className="h-64 flex items-center justify-center">
+                  {kasAccounts.length > 0 ? (
+                    <Doughnut data={kasChartData} options={{ maintainAspectRatio: false, cutout: '70%' }} />
+                  ) : (
+                    <p className="text-gray-400 text-sm">Belum ada data kas.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 font-serif">Progres Program Donasi</h4>
+                <div className="h-64 flex items-center justify-center">
+                  {programs.length > 0 ? (
+                    <Bar data={programChartData} options={{ maintainAspectRatio: false, indexAxis: 'y' }} />
+                  ) : (
+                    <p className="text-gray-400 text-sm">Belum ada data program.</p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+          );
+        })()}
 
         {dkmTab === 'keuangan' && (
           <div className="space-y-6">
