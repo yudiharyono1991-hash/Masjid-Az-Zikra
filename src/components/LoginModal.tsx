@@ -183,11 +183,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      setRole('admin_masjid');
-                      setName('Petugas Masjid Tazkia');
+                      setRole(appRoles[0].id as UserRole);
+                      setName(appRoles[0].name);
                     }}
                     className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      role === 'admin_masjid'
+                      role !== 'jamaah'
                         ? 'bg-blue-600 text-white border-blue-700'
                         : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-700'
                     }`}

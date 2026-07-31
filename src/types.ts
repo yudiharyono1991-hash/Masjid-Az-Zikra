@@ -340,7 +340,7 @@ export interface ERPDisbursementRequest {
   purpose: string;
   requestDate: string;
   requestedBy: string; // User Name or Role
-  status: 'Pending' | 'Verified' | 'Approved' | 'Rejected';
+  status: 'Pending' | 'Verified' | 'ApprovedKetua' | 'Approved' | 'Rejected';
   verifiedBy?: string; // User Name or Role of Finance/Admin
   verificationDate?: string;
   approvedBy?: string; // User Name or Role of Director

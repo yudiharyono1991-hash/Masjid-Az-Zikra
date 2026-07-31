@@ -27,9 +27,10 @@ export function PencairanAnggaran() {
   const currentRole = state.appRoles.find(r => r.id === state.session?.role);
   const permissions = currentRole?.permissions || [];
   
-  const canApproveBendahara = permissions.includes('approval_bendahara') || permissions.includes('semua');
-  const canApproveDirektur = permissions.includes('approval_direktur') || permissions.includes('semua');
-  const canApprove = canApproveBendahara || canApproveDirektur;
+  const canApproveBendahara = permissions.includes('approval_bendahara');
+  const canApproveKetuaDKM = permissions.includes('approval_ketua');
+  const canApproveDirektur = permissions.includes('approval_direktur');
+  const canApprove = canApproveBendahara || canApproveKetuaDKM || canApproveDirektur;
 
   // Calculate budget utilization
   const getBudgetBalance = (budgetId: string) => {
@@ -101,15 +102,19 @@ export function PencairanAnggaran() {
   };
 
   const handleApprove = (id: string, currentStatus: string) => {
-    if (canApproveBendahara && !canApproveDirektur && currentStatus !== 'Pending') {
+    if (canApproveBendahara && !canApproveKetuaDKM && !canApproveDirektur && currentStatus !== 'Pending') {
       alert('Sebagai Bendahara, Anda hanya dapat memverifikasi pengajuan yang berstatus Pending.');
       return;
     }
-    if (canApproveDirektur && !canApproveBendahara && currentStatus !== 'Verified') {
+    if (canApproveKetuaDKM && !canApproveDirektur && currentStatus !== 'Verified') {
+      alert('Sebagai Ketua DKM, Anda hanya dapat menyetujui pengajuan yang sudah diverifikasi Bendahara.');
+      return;
+    }
+    if (canApproveDirektur && currentStatus !== 'ApprovedKetua') {
       alert('Sebagai Direktur, Anda hanya dapat menyetujui pengajuan yang sudah diverifikasi Bendahara (status: Menunggu Direktur).');
       return;
     }
-    const actionLabel = (canApproveBendahara && !canApproveDirektur) ? 'verifikasi' : 'setujui';
+    const actionLabel = (canApproveBendahara && !canApproveKetuaDKM && !canApproveDirektur) ? 'verifikasi' : 'setujui';
     const note = window.prompt(`Masukkan catatan/keterangan untuk ${actionLabel} (Wajib):`);
     if (note === null) return;
     if (note.trim() === '') {
@@ -118,7 +123,10 @@ export function PencairanAnggaran() {
     }
     
     if (window.confirm(`Yakin ingin ${actionLabel} pengajuan ini?`)) {
-      const nextStatus = (canApproveBendahara && !canApproveDirektur) ? 'Verified' : 'Approved';
+      let nextStatus: 'Pending' | 'Verified' | 'ApprovedKetua' | 'Approved' | 'Rejected' = 'Approved';
+      if (canApproveBendahara && !canApproveKetuaDKM && !canApproveDirektur) nextStatus = 'Verified';
+      else if (canApproveKetuaDKM && !canApproveDirektur) nextStatus = 'ApprovedKetua';
+      else nextStatus = 'Approved';
       updateErpDisbursementStatus(id, nextStatus, state.session?.name || 'Approver', note);
     }
   };
@@ -156,9 +164,9 @@ export function PencairanAnggaran() {
             className={`px-6 py-3 transition-colors flex items-center gap-2 ${activeTab === 'approval' ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             Persetujuan (Approval)
-            {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 && (
+            {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || (d.status === 'Verified' && canApproveKetuaDKM) || (d.status === 'ApprovedKetua' && canApproveDirektur)).length > 0 && (
               <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-                {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length}
+                {state.erpDisbursements.filter(d => (d.status === 'Pending' && canApproveBendahara) || (d.status === 'Verified' && canApproveKetuaDKM) || (d.status === 'ApprovedKetua' && canApproveDirektur)).length}
               </span>
             )}
           </button>
@@ -348,14 +356,15 @@ export function PencairanAnggaran() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).length > 0 ? (
-                  state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || ((d.status === 'Verified' || d.status === 'Pending') && canApproveDirektur)).map(d => {
+                {state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || (d.status === 'Verified' && canApproveKetuaDKM) || (d.status === 'ApprovedKetua' && canApproveDirektur)).length > 0 ? (
+                  state.erpDisbursements.filter(d => d.requestDate.split('T')[0] >= startDate && d.requestDate.split('T')[0] <= endDate).filter(d => (d.status === 'Pending' && canApproveBendahara) || (d.status === 'Verified' && canApproveKetuaDKM) || (d.status === 'ApprovedKetua' && canApproveDirektur)).map(d => {
                     const budget = state.erpBudgets.find(b => b.id === d.budgetId);
                     const coa = state.erpCoa.find(c => c.id === budget?.accountId);
                     const canActOnThis =
-                      (canApproveBendahara && !canApproveDirektur && d.status === 'Pending') ||
-                      (canApproveDirektur && d.status === 'Verified') ||
-                      (canApproveDirektur && canApproveBendahara && (d.status === 'Pending' || d.status === 'Verified'));
+                      (canApproveBendahara && !canApproveKetuaDKM && !canApproveDirektur && d.status === 'Pending') ||
+                      (canApproveKetuaDKM && !canApproveDirektur && d.status === 'Verified') ||
+                      (canApproveDirektur && d.status === 'ApprovedKetua') ||
+                      (canApproveDirektur && canApproveKetuaDKM && canApproveBendahara && (d.status === 'Pending' || d.status === 'Verified' || d.status === 'ApprovedKetua'));
 
                     return (
                       <tr key={d.id} className="hover:bg-blue-50/50">
@@ -380,7 +389,8 @@ export function PencairanAnggaran() {
                         </td>
                         <td className="p-4 text-center">
                           {d.status === 'Pending' && <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full text-xs font-bold"><Clock className="w-3 h-3" /> Menunggu Bendahara</span>}
-                          {d.status === 'Verified' && <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold"><AlertCircle className="w-3 h-3" /> Menunggu Direktur</span>}
+                          {d.status === 'Verified' && <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold"><AlertCircle className="w-3 h-3" /> Menunggu Ketua DKM</span>}
+                          {d.status === 'ApprovedKetua' && <span className="inline-flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full text-xs font-bold"><AlertCircle className="w-3 h-3" /> Menunggu Direktur</span>}
                         </td>
                         <td className="p-4">
                           {rejectingId === d.id ? (
