@@ -184,12 +184,31 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
 }) => {
   const store = useMasjidStore();
   const [dkmTab, setDkmTab] = useState<'dashboard_utama' | 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan' | 'panduan'>(() => {
+    // 1. Try URL first
+    try {
+      const urlHash = window.location.hash;
+      if (urlHash.includes('?')) {
+        const queryParams = new URLSearchParams(urlHash.split('?')[1]);
+        const tab = queryParams.get('tab');
+        if (tab) return tab as any;
+      }
+    } catch (e) {
+      console.error('Error parsing URL for tab', e);
+    }
+
+    // 2. Fallback to localStorage
     const saved = localStorage.getItem(`masjidTazkiaDkmTab_${store.state.session?.role}`);
     return (saved as any) || initialTab || 'dashboard_utama';
   });
 
   useEffect(() => {
     localStorage.setItem(`masjidTazkiaDkmTab_${store.state.session?.role}`, dkmTab);
+    
+    // Update URL Hash automatically without triggering full app reload
+    const currentHashBase = window.location.hash.split('?')[0];
+    if (currentHashBase) {
+      window.history.replaceState(null, '', `${currentHashBase}?tab=${dkmTab}`);
+    }
   }, [dkmTab, store.state.session?.role]);
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');

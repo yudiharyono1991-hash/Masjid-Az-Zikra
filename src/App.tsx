@@ -74,19 +74,19 @@ export default function App() {
 
   // Tab State
   const [activeTab, setActiveTabState] = useState<string>(() => {
-    return window.location.hash.replace('#', '') || 'beranda';
+    return window.location.hash.replace('#', '').split('?')[0] || 'beranda';
   });
 
   React.useEffect(() => {
     const handleHashChange = () => {
-      setActiveTabState(window.location.hash.replace('#', '') || 'beranda');
+      setActiveTabState(window.location.hash.replace('#', '').split('?')[0] || 'beranda');
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const setActiveTab = (tab: string) => {
-    window.location.hash = tab;
+    window.location.hash = tab.includes('?') ? tab : tab.split('?')[0];
   };
 
   // Modal Overlays State
