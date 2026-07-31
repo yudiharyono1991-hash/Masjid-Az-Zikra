@@ -20,6 +20,7 @@ import {
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { AccountCombobox } from './AccountCombobox';
+import { UserManual } from './admin/UserManual';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement);
 import { formatRupiahFull } from '../lib/islamicUtils';
@@ -180,7 +181,14 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
-  const [dkmTab, setDkmTab] = useState<'dashboard_utama' | 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan'>(initialTab || 'dashboard_utama');
+  const [dkmTab, setDkmTab] = useState<'dashboard_utama' | 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan' | 'panduan'>(() => {
+    const saved = localStorage.getItem(`masjidTazkiaDkmTab_${store.state.session?.role}`);
+    return (saved as any) || initialTab || 'dashboard_utama';
+  });
+
+  useEffect(() => {
+    localStorage.setItem(`masjidTazkiaDkmTab_${store.state.session?.role}`, dkmTab);
+  }, [dkmTab, store.state.session?.role]);
   const [finSubTab, setFinSubTab] = useState<'mutasi' | 'jurnal' | 'bukubesar' | 'kaskecil' | 'psak109'>('mutasi');
   const [erpSubTab, setErpSubTab] = useState<'coa' | 'jurnal_umum' | 'buku_besar' | 'anggaran' | 'pencairan' | 'laporan'>('coa');
   const [tabSearchQuery, setTabSearchQuery] = useState('');
