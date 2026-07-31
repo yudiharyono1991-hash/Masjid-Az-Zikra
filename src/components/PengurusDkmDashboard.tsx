@@ -181,6 +181,7 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   onDeleteJamaahProfile,
   openTvMode
 }) => {
+  const store = useMasjidStore();
   const [dkmTab, setDkmTab] = useState<'dashboard_utama' | 'keuangan' | 'akuntansi' | 'inventaris' | 'petugas' | 'broadcast' | 'program' | 'pengumuman' | 'galeri' | 'qurban' | 'sewa' | 'pengaturan' | 'supabase' | 'aplikasi' | 'jamaah_manage' | 'audit_log' | 'verifikasi' | 'pengurus' | 'ttd_laporan' | 'kalender' | 'layanan_aduan' | 'panduan'>(() => {
     const saved = localStorage.getItem(`masjidTazkiaDkmTab_${store.state.session?.role}`);
     return (saved as any) || initialTab || 'dashboard_utama';
@@ -225,8 +226,8 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
   const jamaahPerPage = 20;
   const [expandedJamaahId, setExpandedJamaahId] = useState<string | null>(null);
 
-  // Zustand Store
-  const store = useMasjidStore();
+  // Zustand Store (Moved to top to prevent ReferenceError)
+  // const store = useMasjidStore();
 
   // Toast notification state
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
