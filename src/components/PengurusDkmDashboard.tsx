@@ -825,7 +825,28 @@ export const PengurusDkmDashboard: React.FC<PengurusDkmDashboardProps> = ({
                 </button>
               </div>
               <p className="text-xs text-blue-400 mt-0.5">
-                Manajemen Keuangan Akuntansi PSAK 409, Jurnal Umum, Buku Besar, Kas Kecil, & Pengaturan Visibilitas Modul
+                {dkmTab === 'dashboard_utama' ? 'Ringkasan aktivitas, statistik, dan status operasional harian Masjid Tazkia' : 
+                 dkmTab === 'akuntansi' ? 'Manajemen Keuangan Akuntansi PSAK 409, Jurnal Umum, Buku Besar, Kas Kecil, & Laporan' :
+                 dkmTab === 'keuangan' ? 'Pencatatan pemasukan, pengeluaran, mutasi kas bank, dan rekap sederhana' :
+                 dkmTab === 'inventaris' ? 'Pencatatan aset, barang masuk/keluar, dan kondisi inventaris masjid' :
+                 dkmTab === 'qurban' ? 'Sistem patungan Qurban, pembagian porsi, dan laporan penyembelihan' :
+                 dkmTab === 'sewa' ? 'Manajemen booking ruangan, penyewaan gedung, dan jadwal pemakaian' :
+                 dkmTab === 'galeri' ? 'Manajemen foto, video dokumentasi, dan artikel kajian masjid' :
+                 dkmTab === 'program' ? 'Manajemen program ZISWAF, Kampanye Donasi, dan target pengumpulan' :
+                 dkmTab === 'pengumuman' ? 'Pengaturan papan informasi, agenda, dan pengumuman jamaah' :
+                 dkmTab === 'petugas' ? 'Jadwal Muadzin, Imam, Khotib, dan petugas operasional masjid' :
+                 dkmTab === 'broadcast' ? 'Kirim pesan siaran (WhatsApp/Email) massal ke Jamaah' :
+                 dkmTab === 'pengaturan' ? 'Pengaturan sistem, hak akses, dan preferensi modul aplikasi' :
+                 dkmTab === 'aplikasi' ? 'Pengaturan profil masjid, estetika UI, dan tema aplikasi' :
+                 dkmTab === 'jamaah_manage' ? 'Data induk jamaah, histori donasi, dan manajemen profil' :
+                 dkmTab === 'audit_log' ? 'Catatan aktivitas sistem dan riwayat aksi pengurus (Log Audit)' :
+                 dkmTab === 'verifikasi' ? 'Pusat verifikasi transaksi donasi manual dan transfer bank' :
+                 dkmTab === 'pengurus' ? 'Manajemen data pengurus, DKM, dewan pembina, dan peran sistem' :
+                 dkmTab === 'ttd_laporan' ? 'Persetujuan dan tanda tangan digital dokumen & laporan keuangan' :
+                 dkmTab === 'kalender' ? 'Kalender hijriah, jadwal waktu sholat, dan agenda tahunan' :
+                 dkmTab === 'layanan_aduan' ? 'Pusat bantuan, umpan balik, kritik & saran dari jamaah' :
+                 dkmTab === 'panduan' ? 'Buku panduan penggunaan sistem ERP Masjid Tazkia untuk setiap peran' :
+                 'Sistem ERP Manajemen Terpadu Masjid Tazkia Sentul'}
               </p>
             </div>
           </div>
